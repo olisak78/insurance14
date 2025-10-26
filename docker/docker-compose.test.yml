@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  postgres-test:
+    image: postgres:15-alpine
+    container_name: developer-portal-test-db
+    environment:
+      POSTGRES_USER: testuser
+      POSTGRES_PASSWORD: testpass
+      POSTGRES_DB: testdb
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
+    ports:
+      - "5433:5432"  # Use different port to avoid conflicts
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d/
+    networks:
+      - test-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U testuser -d testdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    command: >
+      postgres 
+      -c shared_preload_libraries=pg_stat_statements
+      -c pg_stat_statements.max=10000
+      -c pg_stat_statements.track=all
+      -c max_connections=200
+      -c shared_buffers=256MB
+      -c effective_cache_size=1GB
+      -c work_mem=4MB
+      -c maintenance_work_mem=64MB
+
+  # Test runner service (optional - for CI/CD)
+  test-runner:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: developer-portal-test-runner
+    environment:
+      - DATABASE_URL=postgres://testuser:testpass@postgres-test:5432/testdb?sslmode=disable
+      - TEST_DATABASE_URL=postgres://testuser:testpass@postgres-test:5432/testdb?sslmode=disable
+      - GIN_MODE=test
+      - LOG_LEVEL=debug
+      - ENVIRONMENT=test
+    depends_on:
+      postgres-test:
+        condition: service_healthy
+    networks:
+      - test-network
+    volumes:
+      - ../:/app
+    working_dir: /app
+    command: |
+      sh -c "
+        echo 'Waiting for database to be ready...' &&
+        sleep 5 &&
+        echo 'Running tests...' &&
+        go test -v ./... -race -coverprofile=coverage.out -covermode=atomic &&
+        echo 'Generating coverage report...' &&
+        go tool cover -html=coverage.out -o coverage.html
+      "
+
+volumes:
+  postgres_test_data:
+    driver: local
+
+networks:
+  test-network:
+    driver: bridge

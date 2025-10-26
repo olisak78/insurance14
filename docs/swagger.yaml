@@ -1,0 +1,4784 @@
+basePath: /api/v1
+definitions:
+  auth.AuthClaims:
+    properties:
+      aud:
+        example: developer-portal
+        type: string
+      email:
+        example: john.doe@example.com
+        type: string
+      environment:
+        example: development
+        type: string
+      exp:
+        example: 1672531200
+        type: integer
+      iat:
+        example: 1672527600
+        type: integer
+      iss:
+        description: Standard JWT fields
+        example: developer-portal-backend
+        type: string
+      provider:
+        example: githubtools
+        type: string
+      sub:
+        example: "12345"
+        type: string
+      user_id:
+        example: 12345
+        type: integer
+      username:
+        example: johndoe
+        type: string
+    type: object
+  auth.AuthLogoutResponse:
+    properties:
+      message:
+        example: Logged out successfully
+        type: string
+    type: object
+  auth.AuthRefreshResponse:
+    properties:
+      accessToken:
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        type: string
+      expiresInSeconds:
+        example: 3600
+        type: integer
+      profile:
+        $ref: '#/definitions/auth.UserProfile'
+      scope:
+        example: user:email read:user
+        type: string
+      tokenType:
+        example: bearer
+        type: string
+      valid:
+        example: true
+        type: boolean
+    type: object
+  auth.AuthValidateResponse:
+    properties:
+      claims:
+        $ref: '#/definitions/auth.AuthClaims'
+      valid:
+        example: true
+        type: boolean
+    type: object
+  auth.UserProfile:
+    properties:
+      avatarUrl:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      memberId:
+        description: ID of member with matching email
+        type: string
+      name:
+        type: string
+      username:
+        type: string
+    type: object
+  handlers.ErrorResponse:
+    properties:
+      error:
+        example: error message
+        type: string
+    type: object
+  handlers.HealthResponse:
+    properties:
+      services:
+        additionalProperties:
+          type: string
+        type: object
+      status:
+        type: string
+      timestamp:
+        type: string
+      version:
+        type: string
+    type: object
+  handlers.JenkinsDefaultParameterValue:
+    properties:
+      _class:
+        example: hudson.model.StringParameterValue
+        type: string
+      value:
+        example: main
+        type: string
+    type: object
+  handlers.JenkinsParameterDefinition:
+    properties:
+      _class:
+        example: hudson.model.StringParameterDefinition
+        type: string
+      choices:
+        example:
+        - dev
+        - staging
+        - production
+        items:
+          type: string
+        type: array
+      defaultParameterValue:
+        $ref: '#/definitions/handlers.JenkinsDefaultParameterValue'
+      description:
+        example: Branch to deploy
+        type: string
+      name:
+        example: BRANCH
+        type: string
+      type:
+        example: StringParameterDefinition
+        type: string
+    type: object
+  handlers.JenkinsParametersResponse:
+    properties:
+      parameterDefinitions:
+        items:
+          $ref: '#/definitions/handlers.JenkinsParameterDefinition'
+        type: array
+    type: object
+  handlers.JenkinsTriggerResponse:
+    properties:
+      message:
+        example: job triggered successfully
+        type: string
+    type: object
+  models.ComponentStatus:
+    enum:
+    - active
+    - inactive
+    - deprecated
+    - maintenance
+    type: string
+    x-enum-varnames:
+    - ComponentStatusActive
+    - ComponentStatusInactive
+    - ComponentStatusDeprecated
+    - ComponentStatusMaintenance
+  models.ComponentType:
+    enum:
+    - service
+    - library
+    - application
+    - database
+    - api
+    type: string
+    x-enum-varnames:
+    - ComponentTypeService
+    - ComponentTypeLibrary
+    - ComponentTypeApplication
+    - ComponentTypeDatabase
+    - ComponentTypeAPI
+  models.DeploymentStatus:
+    enum:
+    - healthy
+    - degraded
+    - unhealthy
+    - unknown
+    type: string
+    x-enum-varnames:
+    - DeploymentStatusHealthy
+    - DeploymentStatusDegraded
+    - DeploymentStatusUnhealthy
+    - DeploymentStatusUnknown
+  models.LandscapeStatus:
+    enum:
+    - active
+    - inactive
+    - maintenance
+    - retired
+    type: string
+    x-enum-varnames:
+    - LandscapeStatusActive
+    - LandscapeStatusInactive
+    - LandscapeStatusMaintenance
+    - LandscapeStatusRetired
+  models.LandscapeType:
+    enum:
+    - development
+    - staging
+    - production
+    - testing
+    - preview
+    type: string
+    x-enum-varnames:
+    - LandscapeTypeDevelopment
+    - LandscapeTypeStaging
+    - LandscapeTypeProduction
+    - LandscapeTypeTesting
+    - LandscapeTypePreview
+  models.ProjectStatus:
+    enum:
+    - active
+    - inactive
+    - archived
+    type: string
+    x-enum-varnames:
+    - ProjectStatusActive
+    - ProjectStatusInactive
+    - ProjectStatusArchived
+  models.ProjectType:
+    enum:
+    - application
+    - service
+    - library
+    - platform
+    type: string
+    x-enum-varnames:
+    - ProjectTypeApplication
+    - ProjectTypeService
+    - ProjectTypeLibrary
+    - ProjectTypePlatform
+  models.TeamStatus:
+    enum:
+    - active
+    - inactive
+    - archived
+    type: string
+    x-enum-varnames:
+    - TeamStatusActive
+    - TeamStatusInactive
+    - TeamStatusArchived
+  service.AICoreConfigurationRequest:
+    properties:
+      executableId:
+        type: string
+      inputArtifactBindings:
+        items:
+          additionalProperties:
+            type: string
+          type: object
+        type: array
+      name:
+        type: string
+      parameterBindings:
+        items:
+          additionalProperties:
+            type: string
+          type: object
+        type: array
+      scenarioId:
+        type: string
+    required:
+    - executableId
+    - name
+    - scenarioId
+    type: object
+  service.AICoreConfigurationResponse:
+    properties:
+      id:
+        type: string
+      message:
+        type: string
+    type: object
+  service.AICoreConfiguration:
+    properties:
+      createdAt:
+        type: string
+      executableId:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      scenarioId:
+        type: string
+    type: object
+  service.AICoreConfigurationsResponse:
+    properties:
+      count:
+        type: integer
+      resources:
+        items:
+          $ref: '#/definitions/service.AICoreConfiguration'
+        type: array
+    type: object
+  service.AICoreDeployment:
+    properties:
+      configurationId:
+        type: string
+      createdAt:
+        type: string
+      deploymentUrl:
+        type: string
+      details:
+        additionalProperties: true
+        type: object
+      id:
+        type: string
+      modifiedAt:
+        type: string
+      status:
+        type: string
+      statusMessage:
+        type: string
+    type: object
+  service.AICoreDeploymentDeletionResponse:
+    properties:
+      id:
+        type: string
+      message:
+        type: string
+    type: object
+  service.AICoreDeploymentDetailsResponse:
+    properties:
+      completionTime:
+        type: string
+      configurationId:
+        type: string
+      configurationName:
+        type: string
+      createdAt:
+        type: string
+      deploymentUrl:
+        type: string
+      details:
+        additionalProperties: true
+        type: object
+      executableId:
+        type: string
+      id:
+        type: string
+      lastOperation:
+        type: string
+      latestRunningConfigurationId:
+        type: string
+      modifiedAt:
+        type: string
+      scenarioId:
+        type: string
+      startTime:
+        type: string
+      status:
+        type: string
+      statusDetails:
+        additionalProperties: true
+        type: object
+      statusMessage:
+        type: string
+      submissionTime:
+        type: string
+      targetStatus:
+        type: string
+      ttl:
+        type: string
+    type: object
+  service.AICoreDeploymentModificationRequest:
+    properties:
+      configurationId:
+        type: string
+      targetStatus:
+        type: string
+    type: object
+  service.AICoreDeploymentModificationResponse:
+    properties:
+      deploymentUrl:
+        type: string
+      id:
+        type: string
+      message:
+        type: string
+      status:
+        type: string
+      targetStatus:
+        type: string
+    type: object
+  service.AICoreDeploymentRequest:
+    properties:
+      configurationId:
+        type: string
+      ttl:
+        type: string
+    required:
+    - configurationId
+    type: object
+  service.AICoreDeploymentResponse:
+    properties:
+      deploymentUrl:
+        type: string
+      id:
+        type: string
+      message:
+        type: string
+      status:
+        type: string
+      ttl:
+        type: string
+    type: object
+  service.AICoreDeploymentsResponse:
+    properties:
+      count:
+        type: integer
+      deployments:
+        items:
+          $ref: '#/definitions/service.AICoreTeamDeployments'
+        type: array
+    type: object
+  service.AICoreModel:
+    properties:
+      accessType:
+        type: string
+      allowedScenarios:
+        items:
+          additionalProperties: true
+          type: object
+        type: array
+      description:
+        type: string
+      displayName:
+        type: string
+      executableId:
+        type: string
+      model:
+        type: string
+      provider:
+        type: string
+      versions:
+        items:
+          $ref: '#/definitions/service.AICoreModelVersion'
+        type: array
+    type: object
+  service.AICoreModelVersion:
+    properties:
+      capabilities:
+        items:
+          type: string
+        type: array
+      contextLength:
+        type: integer
+      cost:
+        items:
+          additionalProperties: true
+          type: object
+        type: array
+      deprecated:
+        type: boolean
+      inputTypes:
+        items:
+          type: string
+        type: array
+      isLatest:
+        type: boolean
+      metadata:
+        items:
+          additionalProperties: true
+          type: object
+        type: array
+      name:
+        type: string
+      orchestrationCapabilities:
+        items:
+          type: string
+        type: array
+      retirementDate:
+        type: string
+      streamingSupported:
+        type: boolean
+      suggestedReplacements:
+        items:
+          type: string
+        type: array
+    type: object
+  service.AICoreModelsResponse:
+    properties:
+      count:
+        type: integer
+      resources:
+        items:
+          $ref: '#/definitions/service.AICoreModel'
+        type: array
+    type: object
+  service.AICoreTeamDeployments:
+    properties:
+      deployments:
+        items:
+          $ref: '#/definitions/service.AICoreDeployment'
+        type: array
+      team:
+        type: string
+    type: object
+  service.AddLinkRequest:
+    properties:
+      category:
+        type: string
+      icon:
+        type: string
+      title:
+        type: string
+      url:
+        type: string
+    required:
+    - title
+    - url
+    type: object
+  service.AddQuickLinkRequest:
+    properties:
+      category:
+        type: string
+      icon:
+        type: string
+      title:
+        type: string
+      url:
+        type: string
+    required:
+    - title
+    - url
+    type: object
+  service.ComponentDeploymentListResponse:
+    properties:
+      deployments:
+        items:
+          $ref: '#/definitions/service.ComponentDeploymentResponse'
+        type: array
+      page:
+        type: integer
+      page_size:
+        type: integer
+      total:
+        type: integer
+    type: object
+  service.ComponentDeploymentResponse:
+    properties:
+      build_properties:
+        type: object
+      build_time:
+        type: string
+      component_id:
+        type: string
+      created_at:
+        type: string
+      deployed_at:
+        type: string
+      git_commit_id:
+        type: string
+      git_commit_time:
+        type: string
+      git_properties:
+        type: object
+      id:
+        type: string
+      is_active:
+        type: boolean
+      landscape_id:
+        type: string
+      updated_at:
+        type: string
+      version:
+        type: string
+    type: object
+  service.ComponentListResponse:
+    properties:
+      components:
+        items:
+          $ref: '#/definitions/service.ComponentResponse'
+        type: array
+      page:
+        type: integer
+      page_size:
+        type: integer
+      total:
+        type: integer
+    type: object
+  service.ComponentResponse:
+    properties:
+      artifact_name:
+        type: string
+      component_type:
+        $ref: '#/definitions/models.ComponentType'
+      created_at:
+        type: string
+      description:
+        type: string
+      display_name:
+        type: string
+      documentation_url:
+        type: string
+      git_repository_url:
+        type: string
+      group_name:
+        type: string
+      id:
+        type: string
+      links:
+        type: object
+      metadata:
+        type: object
+      name:
+        type: string
+      organization_id:
+        type: string
+      status:
+        $ref: '#/definitions/models.ComponentStatus'
+      updated_at:
+        type: string
+    type: object
+  service.CreateComponentDeploymentRequest:
+    properties:
+      build_properties:
+        type: object
+      build_time:
+        type: string
+      component_id:
+        type: string
+      deployed_at:
+        type: string
+      git_commit_id:
+        type: string
+      git_commit_time:
+        type: string
+      git_properties:
+        type: object
+      is_active:
+        type: boolean
+      landscape_id:
+        type: string
+      version:
+        type: string
+    required:
+    - component_id
+    - landscape_id
+    type: object
+  service.CreateComponentRequest:
+    properties:
+      artifact_name:
+        type: string
+      component_type:
+        $ref: '#/definitions/models.ComponentType'
+      description:
+        type: string
+      display_name:
+        maxLength: 250
+        type: string
+      documentation_url:
+        type: string
+      git_repository_url:
+        type: string
+      group_name:
+        type: string
+      links:
+        type: object
+      metadata:
+        type: object
+      name:
+        maxLength: 200
+        minLength: 1
+        type: string
+      organization_id:
+        type: string
+      status:
+        $ref: '#/definitions/models.ComponentStatus'
+    required:
+    - display_name
+    - name
+    - organization_id
+    type: object
+  service.CreateGroupRequest:
+    properties:
+      description:
+        type: string
+      display_name:
+        maxLength: 200
+        type: string
+      metadata:
+        type: object
+      name:
+        maxLength: 100
+        minLength: 1
+        type: string
+      organization_id:
+        type: string
+    required:
+    - display_name
+    - name
+    - organization_id
+    type: object
+  service.CreateLandscapeRequest:
+    properties:
+      aws_account_id:
+        type: string
+      cam_profile_url:
+        type: string
+      deployment_status:
+        $ref: '#/definitions/models.DeploymentStatus'
+      description:
+        type: string
+      display_name:
+        maxLength: 250
+        type: string
+      environment_group:
+        type: string
+      github_config_url:
+        type: string
+      landscape_type:
+        $ref: '#/definitions/models.LandscapeType'
+      metadata:
+        type: object
+      name:
+        maxLength: 200
+        minLength: 1
+        type: string
+      organization_id:
+        type: string
+      sort_order:
+        type: integer
+      status:
+        $ref: '#/definitions/models.LandscapeStatus'
+    required:
+    - display_name
+    - name
+    - organization_id
+    type: object
+  service.CreateMemberRequest:
+    properties:
+      email:
+        maxLength: 255
+        type: string
+      external_type:
+        default: internal
+        description: 'Optional: defaults to "internal" if not provided'
+        example: internal
+        type: string
+      first_name:
+        maxLength: 100
+        type: string
+      full_name:
+        maxLength: 200
+        type: string
+      is_active:
+        default: true
+        description: 'Optional: defaults to true if not provided'
+        example: true
+        type: boolean
+      iuser:
+        maxLength: 50
+        type: string
+      last_name:
+        maxLength: 100
+        type: string
+      metadata:
+        type: object
+      organization_id:
+        type: string
+      phone_number:
+        maxLength: 20
+        type: string
+      role:
+        default: developer
+        description: 'Optional: defaults to "developer" if not provided. Valid values:
+          admin, developer, manager, viewer'
+        example: developer
+        type: string
+      team_id:
+        type: string
+      team_role:
+        default: member
+        description: 'Optional: defaults to "member" if not provided. Valid values:
+          member, team_lead'
+        example: member
+        type: string
+    required:
+    - email
+    - first_name
+    - full_name
+    - iuser
+    - last_name
+    - organization_id
+    type: object
+  service.CreateOrganizationRequest:
+    properties:
+      description:
+        type: string
+      display_name:
+        maxLength: 200
+        type: string
+      domain:
+        maxLength: 100
+        type: string
+      name:
+        maxLength: 100
+        minLength: 1
+        type: string
+    required:
+    - display_name
+    - domain
+    - name
+    type: object
+  service.CreateProjectRequest:
+    properties:
+      description:
+        type: string
+      display_name:
+        maxLength: 250
+        type: string
+      metadata:
+        type: object
+      name:
+        maxLength: 200
+        minLength: 1
+        type: string
+      organization_id:
+        type: string
+      project_type:
+        $ref: '#/definitions/models.ProjectType'
+      sort_order:
+        type: integer
+      status:
+        $ref: '#/definitions/models.ProjectStatus'
+    required:
+    - display_name
+    - name
+    - organization_id
+    type: object
+  service.CreateTeamRequest:
+    properties:
+      description:
+        type: string
+      display_name:
+        maxLength: 200
+        type: string
+      group_id:
+        type: string
+      links:
+        items:
+          $ref: '#/definitions/service.Link'
+        type: array
+      metadata:
+        type: object
+      name:
+        maxLength: 100
+        minLength: 1
+        type: string
+      status:
+        allOf:
+        - $ref: '#/definitions/models.TeamStatus'
+        enum:
+        - active
+        - inactive
+        - archived
+      team_lead_id:
+        type: string
+    required:
+    - display_name
+    - group_id
+    - name
+    - status
+    type: object
+  service.GitHubUser:
+    properties:
+      avatar_url:
+        example: https://avatars.githubusercontent.com/u/12345
+        type: string
+      id:
+        example: 12345
+        type: integer
+      login:
+        example: johndoe
+        type: string
+    type: object
+  service.GroupListResponse:
+    properties:
+      groups:
+        items:
+          $ref: '#/definitions/service.GroupResponse'
+        type: array
+      page:
+        type: integer
+      page_size:
+        type: integer
+      total:
+        type: integer
+    type: object
+  service.GroupResponse:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      display_name:
+        type: string
+      id:
+        type: string
+      metadata:
+        type: object
+      name:
+        type: string
+      organization_id:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  service.JiraComponent:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  service.JiraIssue:
+    properties:
+      fields:
+        $ref: '#/definitions/service.JiraIssueFields'
+      id:
+        type: string
+      key:
+        type: string
+      link:
+        type: string
+      project:
+        type: string
+    type: object
+  service.JiraIssueFields:
+    properties:
+      assignee:
+        $ref: '#/definitions/service.JiraUser'
+      components:
+        items:
+          $ref: '#/definitions/service.JiraComponent'
+        type: array
+      created:
+        type: string
+      description:
+        type: string
+      issuetype:
+        $ref: '#/definitions/service.JiraIssueType'
+      labels:
+        items:
+          type: string
+        type: array
+      priority:
+        $ref: '#/definitions/service.JiraPriority'
+      reporter:
+        $ref: '#/definitions/service.JiraUser'
+      status:
+        $ref: '#/definitions/service.JiraStatus'
+      summary:
+        type: string
+      updated:
+        type: string
+    type: object
+  service.JiraIssueType:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  service.JiraIssuesResponse:
+    properties:
+      issues:
+        items:
+          $ref: '#/definitions/service.JiraIssue'
+        type: array
+      limit:
+        type: integer
+      page:
+        type: integer
+      total:
+        type: integer
+    type: object
+  service.JiraPriority:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  service.JiraStatus:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  service.JiraUser:
+    properties:
+      accountId:
+        type: string
+      displayName:
+        type: string
+      emailAddress:
+        type: string
+    type: object
+  service.LandscapeListResponse:
+    properties:
+      landscapes:
+        items:
+          $ref: '#/definitions/service.LandscapeResponse'
+        type: array
+      page:
+        type: integer
+      page_size:
+        type: integer
+      total:
+        type: integer
+    type: object
+  service.LandscapeResponse:
+    properties:
+      aws_account_id:
+        type: string
+      cam_profile_url:
+        type: string
+      created_at:
+        type: string
+      deployment_status:
+        $ref: '#/definitions/models.DeploymentStatus'
+      description:
+        type: string
+      display_name:
+        type: string
+      environment_group:
+        type: string
+      github_config_url:
+        type: string
+      id:
+        type: string
+      landscape_type:
+        $ref: '#/definitions/models.LandscapeType'
+      metadata:
+        type: object
+      name:
+        type: string
+      organization_id:
+        type: string
+      sort_order:
+        type: integer
+      status:
+        $ref: '#/definitions/models.LandscapeStatus'
+      updated_at:
+        type: string
+    type: object
+  service.Link:
+    properties:
+      category:
+        type: string
+      icon:
+        type: string
+      title:
+        type: string
+      url:
+        type: string
+    required:
+    - title
+    - url
+    type: object
+  service.MemberResponse:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      external_type:
+        type: string
+      first_name:
+        type: string
+      full_name:
+        type: string
+      id:
+        type: string
+      is_active:
+        type: boolean
+      iuser:
+        type: string
+      last_name:
+        type: string
+      metadata:
+        type: object
+      organization_id:
+        type: string
+      phone_number:
+        type: string
+      role:
+        type: string
+      team_id:
+        type: string
+      team_role:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  service.OrganizationListResponse:
+    properties:
+      organizations:
+        items:
+          $ref: '#/definitions/service.OrganizationResponse'
+        type: array
+      page:
+        type: integer
+      page_size:
+        type: integer
+      total:
+        type: integer
+    type: object
+  service.OrganizationResponse:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      display_name:
+        type: string
+      domain:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  service.ProjectResponse:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      display_name:
+        type: string
+      id:
+        type: string
+      metadata:
+        type: object
+      name:
+        type: string
+      organization_id:
+        type: string
+      project_type:
+        $ref: '#/definitions/models.ProjectType'
+      sort_order:
+        type: integer
+      status:
+        $ref: '#/definitions/models.ProjectStatus'
+      updated_at:
+        type: string
+    type: object
+  service.PullRequest:
+    properties:
+      created_at:
+        example: "2025-01-01T12:00:00Z"
+        type: string
+      draft:
+        example: false
+        type: boolean
+      html_url:
+        example: https://github.com/owner/repo/pull/42
+        type: string
+      id:
+        example: 1234567890
+        type: integer
+      number:
+        example: 42
+        type: integer
+      repository:
+        $ref: '#/definitions/service.Repository'
+      state:
+        example: open
+        type: string
+      title:
+        example: Add new feature
+        type: string
+      updated_at:
+        example: "2025-01-02T12:00:00Z"
+        type: string
+      user:
+        $ref: '#/definitions/service.GitHubUser'
+    type: object
+  service.PullRequestsResponse:
+    properties:
+      pull_requests:
+        items:
+          $ref: '#/definitions/service.PullRequest'
+        type: array
+      total:
+        type: integer
+    type: object
+  service.QuickLink:
+    properties:
+      category:
+        type: string
+      icon:
+        type: string
+      title:
+        type: string
+      url:
+        type: string
+    type: object
+  service.QuickLinksResponse:
+    properties:
+      quick_links:
+        items:
+          $ref: '#/definitions/service.QuickLink'
+        type: array
+    type: object
+  service.Repository:
+    properties:
+      full_name:
+        example: owner/my-repo
+        type: string
+      name:
+        example: my-repo
+        type: string
+      owner:
+        example: owner
+        type: string
+      private:
+        example: false
+        type: boolean
+    type: object
+  service.SonarCombinedResponse:
+    properties:
+      measures:
+        items:
+          $ref: '#/definitions/service.SonarMeasure'
+        type: array
+      status:
+        type: string
+    type: object
+  service.SonarMeasure:
+    properties:
+      bestValue:
+        type: boolean
+      metric:
+        type: string
+      value:
+        type: string
+    type: object
+  service.TeamListResponse:
+    properties:
+      page:
+        type: integer
+      page_size:
+        type: integer
+      teams:
+        items:
+          $ref: '#/definitions/service.TeamResponse'
+        type: array
+      total:
+        type: integer
+    type: object
+  service.TeamResponse:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      display_name:
+        type: string
+      group_id:
+        type: string
+      id:
+        type: string
+      links:
+        items:
+          $ref: '#/definitions/service.Link'
+        type: array
+      metadata:
+        type: object
+      name:
+        type: string
+      organization_id:
+        description: Include org ID for backwards compatibility
+        type: string
+      status:
+        $ref: '#/definitions/models.TeamStatus'
+      team_lead_id:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  service.TotalContributionsResponse:
+    properties:
+      from:
+        example: "2024-10-16T00:00:00Z"
+        type: string
+      period:
+        example: 365d
+        type: string
+      to:
+        example: "2025-10-16T23:59:59Z"
+        type: string
+      total_contributions:
+        example: 1234
+        type: integer
+    type: object
+  service.UpdateComponentDeploymentRequest:
+    properties:
+      build_properties:
+        type: object
+      build_time:
+        type: string
+      deployed_at:
+        type: string
+      git_commit_id:
+        type: string
+      git_commit_time:
+        type: string
+      git_properties:
+        type: object
+      is_active:
+        type: boolean
+      version:
+        type: string
+    type: object
+  service.UpdateComponentRequest:
+    properties:
+      artifact_name:
+        type: string
+      component_type:
+        $ref: '#/definitions/models.ComponentType'
+      description:
+        type: string
+      display_name:
+        maxLength: 250
+        type: string
+      documentation_url:
+        type: string
+      git_repository_url:
+        type: string
+      group_name:
+        type: string
+      links:
+        type: object
+      metadata:
+        type: object
+      status:
+        $ref: '#/definitions/models.ComponentStatus'
+    required:
+    - display_name
+    type: object
+  service.UpdateGroupRequest:
+    properties:
+      description:
+        type: string
+      display_name:
+        maxLength: 200
+        type: string
+      metadata:
+        type: object
+      name:
+        maxLength: 100
+        minLength: 1
+        type: string
+    required:
+    - display_name
+    - name
+    type: object
+  service.UpdateLandscapeRequest:
+    properties:
+      aws_account_id:
+        type: string
+      cam_profile_url:
+        type: string
+      deployment_status:
+        $ref: '#/definitions/models.DeploymentStatus'
+      description:
+        type: string
+      display_name:
+        maxLength: 250
+        type: string
+      environment_group:
+        type: string
+      github_config_url:
+        type: string
+      landscape_type:
+        $ref: '#/definitions/models.LandscapeType'
+      metadata:
+        type: object
+      sort_order:
+        type: integer
+      status:
+        $ref: '#/definitions/models.LandscapeStatus'
+    required:
+    - display_name
+    type: object
+  service.UpdateLinksRequest:
+    properties:
+      links:
+        items:
+          $ref: '#/definitions/service.Link'
+        type: array
+    required:
+    - links
+    type: object
+  service.UpdateMemberRequest:
+    properties:
+      email:
+        maxLength: 255
+        type: string
+      external_type:
+        type: string
+      first_name:
+        maxLength: 100
+        type: string
+      full_name:
+        maxLength: 200
+        type: string
+      is_active:
+        type: boolean
+      iuser:
+        maxLength: 50
+        type: string
+      last_name:
+        maxLength: 100
+        type: string
+      metadata:
+        type: object
+      phone_number:
+        maxLength: 20
+        type: string
+      role:
+        type: string
+      team_id:
+        type: string
+      team_role:
+        type: string
+    type: object
+  service.UpdateOrganizationRequest:
+    properties:
+      description:
+        type: string
+      display_name:
+        maxLength: 200
+        type: string
+    required:
+    - display_name
+    type: object
+  service.UpdateProjectRequest:
+    properties:
+      description:
+        type: string
+      display_name:
+        maxLength: 250
+        type: string
+      metadata:
+        type: object
+      project_type:
+        $ref: '#/definitions/models.ProjectType'
+      sort_order:
+        type: integer
+      status:
+        $ref: '#/definitions/models.ProjectStatus'
+    required:
+    - display_name
+    type: object
+  service.UpdateTeamRequest:
+    properties:
+      description:
+        type: string
+      display_name:
+        maxLength: 200
+        type: string
+      links:
+        items:
+          $ref: '#/definitions/service.Link'
+        type: array
+      metadata:
+        type: object
+      status:
+        $ref: '#/definitions/models.TeamStatus'
+      team_lead_id:
+        type: string
+    required:
+    - display_name
+    type: object
+host: localhost:7008
+info:
+  contact:
+    email: support@example.com
+    name: API Support
+    url: http://www.example.com/support
+  description: This is the backend API for the Developer Portal, providing endpoints
+    for managing organizations, teams, projects, components, and deployments.
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  title: Developer Portal Backend API
+  version: "1.0"
+paths:
+  /ai-core/configurations:
+    get:
+      consumes:
+      - application/json
+      description: Get all configurations from AI Core for the authenticated user's team
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved configurations
+          schema:
+            $ref: '#/definitions/service.AICoreConfigurationsResponse'
+        "400":
+          description: Bad request
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+        "403":
+          description: User not assigned to team or team credentials not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get AI Core configurations
+      tags:
+      - ai-core
+    post:
+      consumes:
+      - application/json
+      description: Create a new configuration in AI Core for the authenticated user's
+        team
+      parameters:
+      - description: Configuration data
+        in: body
+        name: configuration
+        required: true
+        schema:
+          $ref: '#/definitions/service.AICoreConfigurationRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Successfully created configuration
+          schema:
+            $ref: '#/definitions/service.AICoreConfigurationResponse'
+        "400":
+          description: Invalid request body
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+        "403":
+          description: User not assigned to team or team credentials not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create AI Core configuration
+      tags:
+      - ai-core
+  /ai-core/deployments:
+    get:
+      consumes:
+      - application/json
+      description: Get all deployments from AI Core for the authenticated user's team
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved deployments
+          schema:
+            $ref: '#/definitions/service.AICoreDeploymentsResponse'
+        "400":
+          description: Bad request
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+        "403":
+          description: User not assigned to team or team credentials not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get AI Core deployments
+      tags:
+      - ai-core
+    post:
+      consumes:
+      - application/json
+      description: Create a new deployment in AI Core using a configuration
+      parameters:
+      - description: Deployment data
+        in: body
+        name: deployment
+        required: true
+        schema:
+          $ref: '#/definitions/service.AICoreDeploymentRequest'
+      produces:
+      - application/json
+      responses:
+        "202":
+          description: Successfully scheduled deployment
+          schema:
+            $ref: '#/definitions/service.AICoreDeploymentResponse'
+        "400":
+          description: Invalid request body
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+        "403":
+          description: User not assigned to team or team credentials not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create AI Core deployment
+      tags:
+      - ai-core
+  /ai-core/deployments/{deploymentId}:
+    delete:
+      consumes:
+      - application/json
+      description: Mark deployment as deleted in AI Core
+      parameters:
+      - description: Deployment ID
+        in: path
+        name: deploymentId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "202":
+          description: Successfully scheduled deployment deletion
+          schema:
+            $ref: '#/definitions/service.AICoreDeploymentDeletionResponse'
+        "400":
+          description: Bad request
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+        "403":
+          description: User not assigned to team or team credentials not found
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Deployment not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Delete AI Core deployment
+      tags:
+      - ai-core
+    get:
+      consumes:
+      - application/json
+      description: Get detailed information about a specific deployment from AI Core
+      parameters:
+      - description: Deployment ID
+        in: path
+        name: deploymentId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved deployment details
+          schema:
+            $ref: '#/definitions/service.AICoreDeploymentDetailsResponse'
+        "400":
+          description: Bad request
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+        "403":
+          description: User not assigned to team or team credentials not found
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Deployment not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get AI Core deployment details
+      tags:
+      - ai-core
+    patch:
+      consumes:
+      - application/json
+      description: Update target status or configuration of a deployment in AI Core
+      parameters:
+      - description: Deployment ID
+        in: path
+        name: deploymentId
+        required: true
+        type: string
+      - description: Deployment modification data
+        in: body
+        name: modification
+        required: true
+        schema:
+          $ref: '#/definitions/service.AICoreDeploymentModificationRequest'
+      produces:
+      - application/json
+      responses:
+        "202":
+          description: Successfully scheduled deployment modification
+          schema:
+            $ref: '#/definitions/service.AICoreDeploymentModificationResponse'
+        "400":
+          description: Invalid request body
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+        "403":
+          description: User not assigned to team or team credentials not found
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Deployment not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update AI Core deployment
+      tags:
+      - ai-core
+  /ai-core/models:
+    get:
+      consumes:
+      - application/json
+      description: Get all available models from AI Core for a specific scenario
+      parameters:
+      - description: Scenario ID to get models for
+        in: query
+        name: scenarioId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved models
+          schema:
+            $ref: '#/definitions/service.AICoreModelsResponse'
+        "400":
+          description: Bad request - missing scenarioId parameter
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+        "403":
+          description: User not assigned to team or team credentials not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get AI Core models
+      tags:
+      - ai-core
+  /api/auth/{provider}/handler/frame:
+    get:
+      consumes:
+      - application/json
+      description: Handle OAuth callback from provider and return authentication result
+        in HTML frame
+      parameters:
+      - description: OAuth provider (githubtools or githubwdf)
+        in: path
+        name: provider
+        required: true
+        type: string
+      - description: OAuth authorization code from provider
+        in: query
+        name: code
+        required: true
+        type: string
+      - description: OAuth state parameter for security
+        in: query
+        name: state
+        required: true
+        type: string
+      - description: Environment (development, staging, production)
+        in: query
+        name: env
+        type: string
+      - description: OAuth error parameter from provider
+        in: query
+        name: error
+        type: string
+      - description: OAuth error description from provider
+        in: query
+        name: error_description
+        type: string
+      produces:
+      - text/html
+      responses:
+        "200":
+          description: HTML page that posts authentication result to opener window
+          schema:
+            type: string
+        "400":
+          description: Invalid request parameters
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Handle OAuth callback
+      tags:
+      - authentication
+  /api/auth/{provider}/logout:
+    post:
+      consumes:
+      - application/json
+      description: Logout user and invalidate authentication session
+      parameters:
+      - description: OAuth provider (githubtools or githubwdf)
+        in: path
+        name: provider
+        required: true
+        type: string
+      - description: Environment (development, staging, production)
+        in: query
+        name: env
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully logged out
+          schema:
+            $ref: '#/definitions/auth.AuthLogoutResponse'
+        "400":
+          description: Invalid provider
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Logout failed
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Logout user
+      tags:
+      - authentication
+  /api/auth/{provider}/refresh:
+    get:
+      consumes:
+      - application/json
+      description: Refresh or validate authentication token using refresh token, Authorization
+        header, or session cookies
+      parameters:
+      - description: OAuth provider (githubtools or githubwdf)
+        in: path
+        name: provider
+        required: true
+        type: string
+      - description: Environment (development, staging, production)
+        in: query
+        name: env
+        type: string
+      - description: Refresh token to use for getting new access token
+        in: query
+        name: refresh_token
+        type: string
+      - description: Bearer token for validation
+        example: '"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."'
+        in: header
+        name: Authorization
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully refreshed token
+          schema:
+            $ref: '#/definitions/auth.AuthRefreshResponse'
+        "400":
+          description: Invalid provider
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Authentication required or token invalid
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Token refresh failed
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Refresh authentication token
+      tags:
+      - authentication
+  /api/auth/{provider}/start:
+    get:
+      consumes:
+      - application/json
+      description: Initiate OAuth authentication flow with the specified provider
+      parameters:
+      - description: OAuth provider (githubtools or githubwdf)
+        in: path
+        name: provider
+        required: true
+        type: string
+      - description: Environment (development, staging, production)
+        in: query
+        name: env
+        type: string
+      produces:
+      - application/json
+      responses:
+        "302":
+          description: Redirect to OAuth provider authorization URL
+          schema:
+            type: string
+        "400":
+          description: Invalid provider or request parameters
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Failed to generate authorization URL
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Start OAuth authentication
+      tags:
+      - authentication
+  /api/auth/validate:
+    post:
+      consumes:
+      - application/json
+      description: Validate JWT token and return token claims
+      parameters:
+      - description: Bearer token to validate
+        example: '"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Token is valid with claims
+          schema:
+            $ref: '#/definitions/auth.AuthValidateResponse'
+        "401":
+          description: Authorization header required or token invalid
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Validate JWT token
+      tags:
+      - authentication
+  /component-deployments:
+    get:
+      consumes:
+      - application/json
+      description: Get component deployments filtered by component or landscape with
+        pagination
+      parameters:
+      - description: Component ID (UUID) to filter deployments
+        in: query
+        name: component_id
+        type: string
+      - description: Landscape ID (UUID) to filter deployments
+        in: query
+        name: landscape_id
+        type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Number of items per page
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved component deployments
+          schema:
+            $ref: '#/definitions/service.ComponentDeploymentListResponse'
+        "400":
+          description: Invalid parameters - component_id or landscape_id required
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: List component deployments
+      tags:
+      - component-deployments
+    post:
+      consumes:
+      - application/json
+      description: Deploy a component to a specific landscape
+      parameters:
+      - description: Component deployment data
+        in: body
+        name: deployment
+        required: true
+        schema:
+          $ref: '#/definitions/service.CreateComponentDeploymentRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Successfully created component deployment
+          schema:
+            $ref: '#/definitions/service.ComponentDeploymentResponse'
+        "400":
+          description: Invalid request body
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Component or landscape not found
+          schema:
+            additionalProperties: true
+            type: object
+        "409":
+          description: Component deployment already exists
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create a new component deployment
+      tags:
+      - component-deployments
+  /component-deployments/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a component deployment by ID
+      parameters:
+      - description: Component deployment ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Successfully deleted component deployment
+        "400":
+          description: Invalid component deployment ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Component deployment not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Delete component deployment
+      tags:
+      - component-deployments
+    get:
+      consumes:
+      - application/json
+      description: Get a specific component deployment by its UUID
+      parameters:
+      - description: Component deployment ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved component deployment
+          schema:
+            $ref: '#/definitions/service.ComponentDeploymentResponse'
+        "400":
+          description: Invalid component deployment ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Component deployment not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get component deployment by ID
+      tags:
+      - component-deployments
+    put:
+      consumes:
+      - application/json
+      description: Update an existing component deployment by ID
+      parameters:
+      - description: Component deployment ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Updated component deployment data
+        in: body
+        name: deployment
+        required: true
+        schema:
+          $ref: '#/definitions/service.UpdateComponentDeploymentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully updated component deployment
+          schema:
+            $ref: '#/definitions/service.ComponentDeploymentResponse'
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Component deployment not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update component deployment
+      tags:
+      - component-deployments
+  /component-deployments/{id}/details:
+    get:
+      consumes:
+      - application/json
+      description: Get a component deployment with all its related data
+      parameters:
+      - description: Component deployment ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved component deployment with details
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Invalid component deployment ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Component deployment not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get component deployment with full details
+      tags:
+      - component-deployments
+  /components:
+    get:
+      consumes:
+      - application/json
+      description: Get all components in an organization with optional search and
+        pagination
+      parameters:
+      - description: Organization ID (UUID)
+        in: query
+        name: organization_id
+        required: true
+        type: string
+      - description: Search term for component name or description
+        in: query
+        name: search
+        type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Number of items per page
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved components
+          schema:
+            $ref: '#/definitions/service.ComponentListResponse'
+        "400":
+          description: Invalid parameters
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Organization not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: List components
+      tags:
+      - components
+    post:
+      consumes:
+      - application/json
+      description: Create a new component within an organization
+      parameters:
+      - description: Component data
+        in: body
+        name: component
+        required: true
+        schema:
+          $ref: '#/definitions/service.CreateComponentRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Successfully created component
+          schema:
+            $ref: '#/definitions/service.ComponentResponse'
+        "400":
+          description: Invalid request body
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Organization not found
+          schema:
+            additionalProperties: true
+            type: object
+        "409":
+          description: Component already exists
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create a new component
+      tags:
+      - components
+  /components/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a component by ID
+      parameters:
+      - description: Component ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Successfully deleted component
+        "400":
+          description: Invalid component ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Component not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Delete component
+      tags:
+      - components
+    get:
+      consumes:
+      - application/json
+      description: Get a specific component by its UUID
+      parameters:
+      - description: Component ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved component
+          schema:
+            $ref: '#/definitions/service.ComponentResponse'
+        "400":
+          description: Invalid component ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Component not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get component by ID
+      tags:
+      - components
+    put:
+      consumes:
+      - application/json
+      description: Update an existing component by ID
+      parameters:
+      - description: Component ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Updated component data
+        in: body
+        name: component
+        required: true
+        schema:
+          $ref: '#/definitions/service.UpdateComponentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully updated component
+          schema:
+            $ref: '#/definitions/service.ComponentResponse'
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Component not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update component
+      tags:
+      - components
+  /components/by-name/{name}:
+    get:
+      consumes:
+      - application/json
+      description: Get a component by its name within a specific organization
+      parameters:
+      - description: Component name
+        in: path
+        name: name
+        required: true
+        type: string
+      - description: Organization ID (UUID)
+        in: query
+        name: organization_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved component
+          schema:
+            $ref: '#/definitions/service.ComponentResponse'
+        "400":
+          description: Invalid parameters
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Component not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get component by name
+      tags:
+      - components
+  /components/by-team/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get all components owned by a team identified by ID. This is a
+        cleaner endpoint that uses team ID instead of name
+      parameters:
+      - description: Team ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Number of items per page
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved components
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Invalid parameters
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Team not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get components by team ID
+      tags:
+      - components
+  /github/contributions:
+    get:
+      description: Returns the total number of contributions made by the authenticated
+        user. If no period specified, uses GitHub's default (last year based on user's
+        timezone). Uses GitHub GraphQL API to fetch contribution data.
+      parameters:
+      - description: 'Time period in days (e.g., ''30d'', ''90d'', ''365d''). If omitted,
+          uses GitHub''s default period. Maximum: 365 days'
+        in: query
+        name: period
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.TotalContributionsResponse'
+        "400":
+          description: Invalid period parameter
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+        "429":
+          description: Rate limit exceeded
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+        "502":
+          description: GitHub API error
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get user total contributions
+      tags:
+      - github
+  /github/pull-requests:
+    get:
+      description: Returns all pull requests created by the authenticated user across
+        all repositories they have access to
+      parameters:
+      - default: open
+        description: 'Filter by state: open, closed, all'
+        in: query
+        name: state
+        type: string
+      - default: created
+        description: 'Sort by: created, updated, popularity, long-running'
+        in: query
+        name: sort
+        type: string
+      - default: desc
+        description: 'Sort direction: asc, desc'
+        in: query
+        name: direction
+        type: string
+      - default: 30
+        description: Results per page (1-100)
+        in: query
+        name: per_page
+        type: integer
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.PullRequestsResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+        "502":
+          description: GitHub API error
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get my pull requests
+      tags:
+      - github
+  /groups:
+    get:
+      consumes:
+      - application/json
+      description: Get all groups belonging to an organization with pagination
+      parameters:
+      - description: Organization ID (UUID)
+        in: query
+        name: organization_id
+        required: true
+        type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Number of items per page
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved groups
+          schema:
+            $ref: '#/definitions/service.GroupListResponse'
+        "400":
+          description: Invalid organization ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Organization not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: List groups by organization
+      tags:
+      - groups
+    post:
+      consumes:
+      - application/json
+      description: Create a new group within an organization
+      parameters:
+      - description: Group data
+        in: body
+        name: group
+        required: true
+        schema:
+          $ref: '#/definitions/service.CreateGroupRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Successfully created group
+          schema:
+            $ref: '#/definitions/service.GroupResponse'
+        "400":
+          description: Invalid request body
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create a new group
+      tags:
+      - groups
+  /groups/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a group by ID
+      parameters:
+      - description: Group ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Successfully deleted group
+        "400":
+          description: Invalid group ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Group not found
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Delete group
+      tags:
+      - groups
+    get:
+      consumes:
+      - application/json
+      description: Get a specific group by its UUID
+      parameters:
+      - description: Group ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved group
+          schema:
+            $ref: '#/definitions/service.GroupResponse'
+        "400":
+          description: Invalid group ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Group not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get group by ID
+      tags:
+      - groups
+    put:
+      consumes:
+      - application/json
+      description: Update an existing group by ID
+      parameters:
+      - description: Group ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Updated group data
+        in: body
+        name: group
+        required: true
+        schema:
+          $ref: '#/definitions/service.UpdateGroupRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully updated group
+          schema:
+            $ref: '#/definitions/service.GroupResponse'
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Group not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update group
+      tags:
+      - groups
+  /health:
+    get:
+      consumes:
+      - application/json
+      description: Get the overall health status of the application including database
+        connectivity
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Application is healthy
+          schema:
+            $ref: '#/definitions/handlers.HealthResponse'
+        "503":
+          description: Application is unhealthy
+          schema:
+            $ref: '#/definitions/handlers.HealthResponse'
+      summary: Health check
+      tags:
+      - health
+  /health/live:
+    get:
+      consumes:
+      - application/json
+      description: Check if the application is alive and responding
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Application is alive
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Liveness check
+      tags:
+      - health
+  /health/ready:
+    get:
+      consumes:
+      - application/json
+      description: Check if the application is ready to serve requests
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Application is ready
+          schema:
+            additionalProperties: true
+            type: object
+        "503":
+          description: Application is not ready
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Readiness check
+      tags:
+      - health
+  /jira/issues:
+    get:
+      description: Returns Jira issues filtered by project, status, team, assignee,
+        type, summary, and key using real Jira values with pagination
+      parameters:
+      - description: Jira project key (e.g., SAPBTPCFS)
+        in: query
+        name: project
+        type: string
+      - description: Jira status values (e.g., 'Open,In Progress,Re Opened')
+        in: query
+        name: status
+        type: string
+      - description: Team name for filtering
+        in: query
+        name: team
+        type: string
+      - description: Assignee username for filtering
+        in: query
+        name: assignee
+        type: string
+      - description: Issue type (e.g., 'Bug,Task,Story')
+        in: query
+        name: type
+        type: string
+      - description: Free text search in summary
+        in: query
+        name: summary
+        type: string
+      - description: Specific issue key (e.g., 'BUG-1234')
+        in: query
+        name: key
+        type: string
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of items per page (default: 50, max: 100)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Issues
+          schema:
+            $ref: '#/definitions/service.JiraIssuesResponse'
+        "400":
+          description: Invalid pagination parameters
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "502":
+          description: Jira request failed
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get Jira issues for teams/projects
+      tags:
+      - jira
+  /jira/issues/me:
+    get:
+      description: Returns Jira issues for the current authenticated user with optional
+        filtering and pagination
+      parameters:
+      - description: Jira status values (e.g., 'Open,In Progress')
+        in: query
+        name: status
+        type: string
+      - description: Jira project key (e.g., SAPBTPCFS)
+        in: query
+        name: project
+        type: string
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of items per page (default: 50, max: 100)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Issues
+          schema:
+            $ref: '#/definitions/service.JiraIssuesResponse'
+        "400":
+          description: Invalid pagination parameters
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Authentication required
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "502":
+          description: Jira request failed
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get my Jira issues
+      tags:
+      - jira
+  /jira/issues/me/count:
+    get:
+      description: Returns the count of Jira issues for the current authenticated
+        user filtered by status
+      parameters:
+      - description: Jira status value (e.g., 'Resolved')
+        in: query
+        name: status
+        required: true
+        type: string
+      - description: Jira project key (e.g., SAPBTPCFS)
+        in: query
+        name: project
+        type: string
+      - description: 'Date in yyyy-MM-dd format for date filtering (default: one year
+          ago for resolved issues)'
+        in: query
+        name: date
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Count
+          schema:
+            additionalProperties:
+              type: integer
+            type: object
+        "400":
+          description: Missing or invalid query parameter
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Authentication required
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "502":
+          description: Jira request failed
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get count of my Jira issues by status
+      tags:
+      - jira
+  /landscapes:
+    get:
+      consumes:
+      - application/json
+      description: Get all landscapes in an organization with optional search and
+        pagination
+      parameters:
+      - description: Organization ID (UUID)
+        in: query
+        name: organization_id
+        required: true
+        type: string
+      - description: Search term for landscape name or description
+        in: query
+        name: search
+        type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Number of items per page
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved landscapes
+          schema:
+            $ref: '#/definitions/service.LandscapeListResponse'
+        "400":
+          description: Invalid parameters
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Organization not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: List landscapes
+      tags:
+      - landscapes
+    post:
+      consumes:
+      - application/json
+      description: Create a new landscape within an organization
+      parameters:
+      - description: Landscape data
+        in: body
+        name: landscape
+        required: true
+        schema:
+          $ref: '#/definitions/service.CreateLandscapeRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Successfully created landscape
+          schema:
+            $ref: '#/definitions/service.LandscapeResponse'
+        "400":
+          description: Invalid request body
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Organization not found
+          schema:
+            additionalProperties: true
+            type: object
+        "409":
+          description: Landscape already exists
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create a new landscape
+      tags:
+      - landscapes
+  /landscapes/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a landscape by ID
+      parameters:
+      - description: Landscape ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Successfully deleted landscape
+        "400":
+          description: Invalid landscape ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Landscape not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Delete landscape
+      tags:
+      - landscapes
+    get:
+      consumes:
+      - application/json
+      description: Get a specific landscape by its UUID
+      parameters:
+      - description: Landscape ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved landscape
+          schema:
+            $ref: '#/definitions/service.LandscapeResponse'
+        "400":
+          description: Invalid landscape ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Landscape not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get landscape by ID
+      tags:
+      - landscapes
+    put:
+      consumes:
+      - application/json
+      description: Update an existing landscape by ID
+      parameters:
+      - description: Landscape ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Updated landscape data
+        in: body
+        name: landscape
+        required: true
+        schema:
+          $ref: '#/definitions/service.UpdateLandscapeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully updated landscape
+          schema:
+            $ref: '#/definitions/service.LandscapeResponse'
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Landscape not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update landscape
+      tags:
+      - landscapes
+  /landscapes/{id}/deployments:
+    get:
+      consumes:
+      - application/json
+      description: Get a landscape including all its component deployments
+      parameters:
+      - description: Landscape ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved landscape with deployments
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Invalid landscape ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Landscape not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get landscape with its component deployments
+      tags:
+      - landscapes
+  /landscapes/{id}/details:
+    get:
+      consumes:
+      - application/json
+      description: Get a landscape with all its related data (projects, deployments,
+        etc.)
+      parameters:
+      - description: Landscape ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved landscape with full details
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Invalid landscape ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Landscape not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get landscape with full details
+      tags:
+      - landscapes
+  /landscapes/{id}/projects:
+    get:
+      consumes:
+      - application/json
+      description: Get a landscape including all its associated projects
+      parameters:
+      - description: Landscape ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved landscape with projects
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Invalid landscape ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Landscape not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get landscape with its projects
+      tags:
+      - landscapes
+  /landscapes/environment/{environment}:
+    get:
+      consumes:
+      - application/json
+      description: Get landscapes filtered by environment type (development, staging,
+        production, testing, preview)
+      parameters:
+      - description: Environment type
+        enum:
+        - development
+        - staging
+        - production
+        - testing
+        - preview
+        in: path
+        name: environment
+        required: true
+        type: string
+      - description: Organization ID (UUID)
+        in: query
+        name: organization_id
+        required: true
+        type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Number of items per page
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved landscapes
+          schema:
+            $ref: '#/definitions/service.LandscapeListResponse'
+        "400":
+          description: Invalid parameters or environment type
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Organization not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get landscapes by environment type
+      tags:
+      - landscapes
+  /ldap/users/search:
+    get:
+      description: Searches LDAP directory for users where cn starts with given prefix
+      parameters:
+      - description: Common name prefix
+        in: query
+        name: cn
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Search results
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Missing or invalid query parameter
+          schema:
+            additionalProperties: true
+            type: object
+        "502":
+          description: LDAP connection or search failed
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Search LDAP users by CN prefix
+      tags:
+      - ldap
+  /members:
+    get:
+      consumes:
+      - application/json
+      description: Get all members belonging to an organization with pagination. Can
+        be accessed via /members?organization_id=xxx or /organizations/:id/members
+      parameters:
+      - description: Organization ID (UUID) - used when accessing via /members endpoint
+        in: query
+        name: organization_id
+        type: string
+      - description: Organization ID (UUID) - used when accessing via /organizations/:id/members
+          endpoint
+        in: path
+        name: id
+        type: string
+      - default: 20
+        description: Number of items to return
+        in: query
+        name: limit
+        type: integer
+      - default: 0
+        description: Number of items to skip
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved members list
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Invalid organization ID or parameters
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: List members by organization
+      tags:
+      - members
+    post:
+      consumes:
+      - application/json
+      description: |-
+        Create a new member in the system with optional default values.
+
+        Optional Fields with Defaults:
+        - role: Defaults to 'developer' (valid values: admin, developer, manager, viewer)
+        - team_role: Defaults to 'member' (valid values: member, team_lead)
+        - external_type: Defaults to 'internal'
+        - is_active: Defaults to true
+      parameters:
+      - description: Member data
+        in: body
+        name: member
+        required: true
+        schema:
+          $ref: '#/definitions/service.CreateMemberRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Successfully created member
+          schema:
+            $ref: '#/definitions/service.MemberResponse'
+        "400":
+          description: Invalid request body
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create a new member
+      tags:
+      - members
+  /members/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a member by ID
+      parameters:
+      - description: Member ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Successfully deleted member
+        "400":
+          description: Invalid member ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Member not found
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Delete member
+      tags:
+      - members
+    get:
+      consumes:
+      - application/json
+      description: Get a specific member by their UUID
+      parameters:
+      - description: Member ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved member
+          schema:
+            $ref: '#/definitions/service.MemberResponse'
+        "400":
+          description: Invalid member ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Member not found
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get member by ID
+      tags:
+      - members
+    put:
+      consumes:
+      - application/json
+      description: Update an existing member by ID
+      parameters:
+      - description: Member ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Updated member data
+        in: body
+        name: member
+        required: true
+        schema:
+          $ref: '#/definitions/service.UpdateMemberRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully updated member
+          schema:
+            $ref: '#/definitions/service.MemberResponse'
+        "400":
+          description: Invalid request body or member ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Member not found
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update member
+      tags:
+      - members
+  /members/{id}/quick-links:
+    delete:
+      consumes:
+      - application/json
+      description: Remove a quick link from a member's metadata.quick_links array
+        by URL
+      parameters:
+      - description: Member ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Link URL to remove
+        in: query
+        name: url
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully removed quick link
+          schema:
+            $ref: '#/definitions/service.MemberResponse'
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Member or link not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Remove a quick link from a member
+      tags:
+      - members
+    get:
+      consumes:
+      - application/json
+      description: Retrieve all quick links from a member's metadata.quick_links array
+      parameters:
+      - description: Member ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved quick links
+          schema:
+            $ref: '#/definitions/service.QuickLinksResponse'
+        "400":
+          description: Invalid member ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Member not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get quick links for a member
+      tags:
+      - members
+    post:
+      consumes:
+      - application/json
+      description: Add a new quick link to a member's metadata.quick_links array.
+        Links support url, title, icon, and category fields.
+      parameters:
+      - description: Member ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Quick link data
+        in: body
+        name: link
+        required: true
+        schema:
+          $ref: '#/definitions/service.AddQuickLinkRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully added quick link
+          schema:
+            $ref: '#/definitions/service.MemberResponse'
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Member not found
+          schema:
+            additionalProperties: true
+            type: object
+        "409":
+          description: Link with URL already exists
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Add a quick link to a member
+      tags:
+      - members
+  /organizations:
+    get:
+      consumes:
+      - application/json
+      description: Get all organizations with pagination support
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Number of items per page
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved organizations
+          schema:
+            $ref: '#/definitions/service.OrganizationListResponse'
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: List all organizations
+      tags:
+      - organizations
+    post:
+      consumes:
+      - application/json
+      description: Create a new organization with the provided details
+      parameters:
+      - description: Organization data
+        in: body
+        name: organization
+        required: true
+        schema:
+          $ref: '#/definitions/service.CreateOrganizationRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Successfully created organization
+          schema:
+            $ref: '#/definitions/service.OrganizationResponse'
+        "400":
+          description: Invalid request body
+          schema:
+            additionalProperties: true
+            type: object
+        "409":
+          description: Organization already exists
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create a new organization
+      tags:
+      - organizations
+  /organizations/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete an organization by ID
+      parameters:
+      - description: Organization ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Successfully deleted organization
+        "400":
+          description: Invalid organization ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Organization not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Delete organization
+      tags:
+      - organizations
+    get:
+      consumes:
+      - application/json
+      description: Get a specific organization by its UUID
+      parameters:
+      - description: Organization ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved organization
+          schema:
+            $ref: '#/definitions/service.OrganizationResponse'
+        "400":
+          description: Invalid organization ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Organization not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get organization by ID
+      tags:
+      - organizations
+    put:
+      consumes:
+      - application/json
+      description: Update an existing organization by ID
+      parameters:
+      - description: Organization ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Updated organization data
+        in: body
+        name: organization
+        required: true
+        schema:
+          $ref: '#/definitions/service.UpdateOrganizationRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully updated organization
+          schema:
+            $ref: '#/definitions/service.OrganizationResponse'
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Organization not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update organization
+      tags:
+      - organizations
+  /organizations/by-name/{name}:
+    get:
+      consumes:
+      - application/json
+      description: Get a specific organization by its name
+      parameters:
+      - description: Organization name
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved organization
+          schema:
+            $ref: '#/definitions/service.OrganizationResponse'
+        "400":
+          description: Invalid organization name
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Organization not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get organization by name
+      tags:
+      - organizations
+  /projects:
+    post:
+      consumes:
+      - application/json
+      description: Create a new project within an organization
+      parameters:
+      - description: Project data
+        in: body
+        name: project
+        required: true
+        schema:
+          $ref: '#/definitions/service.CreateProjectRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Successfully created project
+          schema:
+            $ref: '#/definitions/service.ProjectResponse'
+        "400":
+          description: Invalid request body
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Organization or team not found
+          schema:
+            additionalProperties: true
+            type: object
+        "409":
+          description: Project already exists
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create a new project
+      tags:
+      - projects
+  /projects/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a project by ID
+      parameters:
+      - description: Project ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Successfully deleted project
+        "400":
+          description: Invalid project ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Project not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Delete project
+      tags:
+      - projects
+    get:
+      consumes:
+      - application/json
+      description: Get a specific project by its UUID
+      parameters:
+      - description: Project ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved project
+          schema:
+            $ref: '#/definitions/service.ProjectResponse'
+        "400":
+          description: Invalid project ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Project not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get project by ID
+      tags:
+      - projects
+    put:
+      consumes:
+      - application/json
+      description: Update an existing project by ID
+      parameters:
+      - description: Project ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Updated project data
+        in: body
+        name: project
+        required: true
+        schema:
+          $ref: '#/definitions/service.UpdateProjectRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully updated project
+          schema:
+            $ref: '#/definitions/service.ProjectResponse'
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Project or team not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update project
+      tags:
+      - projects
+  /self-service/jenkins/{jaasName}/{jobName}/parameters:
+    get:
+      description: Retrieves available parameters for a Jenkins job from the specified
+        JAAS instance. Returns only parameters from hudson.model.ParametersDefinitionProperty.
+      parameters:
+      - description: JAAS instance name (e.g., 'cfsmc')
+        in: path
+        name: jaasName
+        required: true
+        type: string
+      - description: Jenkins job name
+        in: path
+        name: jobName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Filtered parameter definitions containing parameterDefinitions
+            array with name, type, defaultParameterValue, choices, and description
+          schema:
+            $ref: '#/definitions/handlers.JenkinsParametersResponse'
+        "400":
+          description: Missing path parameter
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "502":
+          description: Jenkins request failed
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get Jenkins job parameters
+      tags:
+      - jenkins
+  /self-service/jenkins/{jaasName}/{jobName}/trigger:
+    post:
+      consumes:
+      - application/json
+      description: Triggers a Jenkins job on the specified JAAS instance with optional
+        parameters. If no parameters are provided or body is empty, Jenkins will use
+        the default values defined in the job configuration. You can override specific
+        parameters while letting others use their defaults.
+      parameters:
+      - description: JAAS instance name (e.g., 'cfsmc')
+        in: path
+        name: jaasName
+        required: true
+        type: string
+      - description: Jenkins job name
+        in: path
+        name: jobName
+        required: true
+        type: string
+      - description: Optional job parameters as key-value pairs. Omitted parameters
+          will use their default values from the job configuration.
+        in: body
+        name: parameters
+        schema:
+          additionalProperties:
+            type: string
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Job triggered successfully
+          schema:
+            $ref: '#/definitions/handlers.JenkinsTriggerResponse'
+        "400":
+          description: Missing path parameter or invalid request body
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "502":
+          description: Jenkins trigger failed
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Trigger Jenkins job
+      tags:
+      - jenkins
+  /sonar/measures:
+    get:
+      description: Calls Sonar APIs to retrieve measures (coverage, vulnerabilities,
+        code_smells) and quality gate status for the given component key, merges them
+        and returns as JSON.
+      parameters:
+      - description: Sonar project key
+        in: query
+        name: component
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.SonarCombinedResponse'
+        "400":
+          description: Missing or invalid query parameter
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "502":
+          description: Sonar request failed
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get Sonar measures and quality gate status
+      tags:
+      - sonar
+  /teams:
+    get:
+      consumes:
+      - application/json
+      description: Get all teams with optional organization filtering and pagination
+      parameters:
+      - description: Organization ID (UUID) to filter teams
+        in: query
+        name: organization_id
+        type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Number of items per page
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved teams
+          schema:
+            $ref: '#/definitions/service.TeamListResponse'
+        "400":
+          description: Invalid parameters
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Organization not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: List all teams
+      tags:
+      - teams
+    post:
+      consumes:
+      - application/json
+      description: Create a new team with the provided details
+      parameters:
+      - description: Team data
+        in: body
+        name: team
+        required: true
+        schema:
+          $ref: '#/definitions/service.CreateTeamRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Successfully created team
+          schema:
+            $ref: '#/definitions/service.TeamResponse'
+        "400":
+          description: Invalid request body
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Organization or leader not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create a new team
+      tags:
+      - teams
+  /teams/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a team by ID
+      parameters:
+      - description: Team ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Successfully deleted team
+        "400":
+          description: Invalid team ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Team not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Delete team
+      tags:
+      - teams
+    get:
+      consumes:
+      - application/json
+      description: Get a specific team by its UUID
+      parameters:
+      - description: Team ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved team
+          schema:
+            $ref: '#/definitions/service.TeamResponse'
+        "400":
+          description: Invalid team ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Team not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get team by ID
+      tags:
+      - teams
+    put:
+      consumes:
+      - application/json
+      description: Update an existing team by ID
+      parameters:
+      - description: Team ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Updated team data
+        in: body
+        name: team
+        required: true
+        schema:
+          $ref: '#/definitions/service.UpdateTeamRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully updated team
+          schema:
+            $ref: '#/definitions/service.TeamResponse'
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Team or leader not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update team
+      tags:
+      - teams
+  /teams/{id}/components:
+    get:
+      consumes:
+      - application/json
+      description: Get all components owned by a team identified by ID. This is a
+        cleaner endpoint that uses team ID instead of name
+      parameters:
+      - description: Team ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Number of items per page
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved team components
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Invalid parameters
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Team not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get components owned by team
+      tags:
+      - teams
+  /teams/{id}/links:
+    delete:
+      consumes:
+      - application/json
+      description: Remove a link from a team's links array by URL
+      parameters:
+      - description: Team ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Link URL to remove
+        in: query
+        name: url
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully removed link
+          schema:
+            $ref: '#/definitions/service.TeamResponse'
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Team or link not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Remove a link from a team
+      tags:
+      - teams
+    post:
+      consumes:
+      - application/json
+      description: Add a new link to a team's links array. Links support url, title,
+        icon, and category fields.
+      parameters:
+      - description: Team ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Link data
+        in: body
+        name: link
+        required: true
+        schema:
+          $ref: '#/definitions/service.AddLinkRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully added link
+          schema:
+            $ref: '#/definitions/service.TeamResponse'
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Team not found
+          schema:
+            additionalProperties: true
+            type: object
+        "409":
+          description: Link with URL already exists
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Add a link to a team
+      tags:
+      - teams
+    put:
+      consumes:
+      - application/json
+      description: Replace all links for a team with the provided list
+      parameters:
+      - description: Team ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Links data
+        in: body
+        name: links
+        required: true
+        schema:
+          $ref: '#/definitions/service.UpdateLinksRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully updated links
+          schema:
+            $ref: '#/definitions/service.TeamResponse'
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Team not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update all links for a team
+      tags:
+      - teams
+  /teams/{id}/members:
+    get:
+      consumes:
+      - application/json
+      description: Get all members of a specific team by team ID
+      parameters:
+      - description: Team ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved team members
+          schema:
+            items:
+              $ref: '#/definitions/service.MemberResponse'
+            type: array
+        "400":
+          description: Invalid team ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Team not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get team members
+      tags:
+      - teams
+securityDefinitions:
+  BearerAuth:
+    description: Type "Bearer" followed by a space and JWT token.
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

@@ -1,0 +1,31 @@
+projects:
+    - name: atom
+      organization_name: sap-cfs
+      display_name: ATOM
+      description: CFS ATOM Project
+      project_type: service
+      status: active
+      sort_order: 20
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/atom-cfs
+            cfs-feature-toggle/project: atom
+            cfs-landscapes/project: atom
+            feature-toggles/source-path: atom-cfs/feature-toggle-extension/main/docs/featureToggleMetaData.json
+            prometheus-alerts-dictionary/source-name: Atom
+        owner: department-cfs
+        source_location: https://github.tools.sap/atom-cfs
+        tags:
+            - kubernetes
+            - unified-services
+    - name: btp
+      organization_name: sap-cfs
+      display_name: BTP
+      description: Business Technology Platform
+      project_type: platform
+      status: active
+      sort_order: 10
+      metadata:
+        owner: department-cfs
+        tags:
+            - cloud-foundry

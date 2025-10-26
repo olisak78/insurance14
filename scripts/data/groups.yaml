@@ -1,0 +1,242 @@
+groups:
+- name: group-ofra
+  organization_name: sap-cfs
+  display_name: Group Ofra
+  description: Group Ofra
+  metadata:
+    type: sub-department
+    parent: department-cfs
+    children:
+    - team-naomi
+    - team-yael
+    owner: user:default/I022037
+    email: DL_5950FDE75F99B7C30F00013A@global.corp.sap
+    picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Fluffy&backgroundColor=ffdfbf
+    annotations:
+      grafana/overview-dashboard: ''
+      backstage.io/techdocs-ref: ''
+      backstage.io/source-location: ''
+      jira/team: ''
+      jira/project-key: ''
+      jira/component: ''
+      jira/board-id: ''
+      splunk.com/on-call-team: ''
+      splunk.com/on-call-routing-key: ''
+      jenkins.io/job-full-name: ''
+- name: sap-labs-il
+  organization_name: sap-cfs
+  display_name: SAP Labs Israel
+  description: SAP Labs Israel
+  metadata:
+    type: department
+    parent: sap-org
+    children:
+    - department-cfs
+    owner: user:default/I032278
+    email: DL_SAP_LABS_ISRAEL_-_RAANANA@global.corp.sap
+    picture_url: https://partneredge.sap.com/content/dam/public/Logos/SAP_R_grad_scrn.png
+    annotations:
+      grafana/overview-dashboard: ''
+      backstage.io/techdocs-ref: ''
+      backstage.io/source-location: ''
+      jira/team: ''
+      jira/project-key: ''
+      jira/component: ''
+      jira/board-id: ''
+      splunk.com/on-call-team: ''
+      splunk.com/on-call-routing-key: ''
+      jenkins.io/job-full-name: ''
+- name: group-gitit
+  organization_name: sap-cfs
+  display_name: Group Gitit
+  description: Group Gitit
+  metadata:
+    type: sub-department
+    parent: department-cfs
+    children:
+    - team-project-managers
+    owner: user:default/I056930
+    email: DL_5A9E5BF37BCF84BA430000B6@global.corp.sap
+    picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Fluffy&backgroundColor=ffdfbf
+    annotations:
+      grafana/overview-dashboard: ''
+      backstage.io/techdocs-ref: ''
+      backstage.io/source-location: ''
+      jira/team: GroupGitit
+      jira/project-key: ''
+      jira/component: ''
+      jira/board-id: ''
+      splunk.com/on-call-team: ''
+      splunk.com/on-call-routing-key: ''
+      jenkins.io/job-full-name: ''
+- name: department-cfs
+  organization_name: sap-cfs
+  display_name: CFS Department
+  description: CFS Department
+  metadata:
+    type: department
+    parent: sap-labs-il
+    children:
+    - group-adi
+    - team-architects
+    - group-eran
+    - group-gitit
+    - group-ofra
+    - group-product
+    - group-ronny
+    - group-yuval
+    owner: user:default/I033872
+    email: DL_5950E3B35F99B7D21A00028A@global.corp.sap
+    picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Fluffy&backgroundColor=ffdfbf
+    annotations:
+      grafana/overview-dashboard: ''
+      backstage.io/techdocs-ref: ''
+      backstage.io/source-location: ''
+      jira/team: ''
+      jira/project-key: ''
+      jira/component: ''
+      jira/board-id: ''
+      splunk.com/on-call-team: ''
+      splunk.com/on-call-routing-key: ''
+      jenkins.io/job-full-name: ''
+- name: group-eran
+  organization_name: sap-cfs
+  display_name: Group Eran
+  description: Group Eran
+  metadata:
+    type: sub-department
+    parent: department-cfs
+    children:
+    - team-zohar
+    - team-lior
+    owner: user:default/I031462
+    email: DL_5950E9505F99B7C6DF000065@global.corp.sap
+    picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Fluffy&backgroundColor=ffdfbf
+    annotations:
+      grafana/overview-dashboard: ''
+      backstage.io/techdocs-ref: ''
+      backstage.io/source-location: ''
+      jira/team: ''
+      jira/project-key: ''
+      jira/component: ''
+      jira/board-id: ''
+      splunk.com/on-call-team: ''
+      splunk.com/on-call-routing-key: ''
+      jenkins.io/job-full-name: ''
+- name: team-architects
+  organization_name: sap-cfs
+  display_name: Architects Group
+  description: Architects Group
+  metadata:
+    type: sub-department
+    parent: department-cfs
+    children: []
+    owner: user:default/I022021
+    email: DL_5951E2A77BCF8422D00001EB@global.corp.sap
+    picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Abby&backgroundType=solid,gradientLinear&backgroundColor=ffd5dc,b6e3f4
+    annotations:
+      grafana/overview-dashboard: ''
+      backstage.io/techdocs-ref: ''
+      backstage.io/source-location: ''
+      jira/team: ''
+      jira/project-key: ''
+      jira/component: ''
+      jira/board-id: ''
+      splunk.com/on-call-team: ''
+      splunk.com/on-call-routing-key: ''
+      jenkins.io/job-full-name: ''
+- name: group-adi
+  organization_name: sap-cfs
+  display_name: Group Adi
+  description: Group Adi
+  metadata:
+    type: sub-department
+    parent: department-cfs
+    children:
+    - team-naomi
+    - team-yael
+    owner: user:default/I308042
+    email: DL_5C0772CED3C696004EFE9F21@global.corp.sap
+    picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Fluffy&backgroundColor=ffdfbf
+    annotations:
+      grafana/overview-dashboard: ''
+      backstage.io/techdocs-ref: ''
+      backstage.io/source-location: ''
+      jira/team: ''
+      jira/project-key: ''
+      jira/component: ''
+      jira/board-id: ''
+      splunk.com/on-call-team: ''
+      splunk.com/on-call-routing-key: ''
+      jenkins.io/job-full-name: ''
+- name: group-product
+  organization_name: sap-cfs
+  display_name: Product Owners Group
+  description: Product Owners Group
+  metadata:
+    type: sub-department
+    parent: department-cfs
+    children:
+    - team-product
+    owner: user:default/I038893
+    email: DL_5326A171FD84A029970006DF@global.corp.sap
+    picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Fluffy&backgroundColor=ffdfbf
+    annotations:
+      grafana/overview-dashboard: ''
+      backstage.io/techdocs-ref: ''
+      backstage.io/source-location: ''
+      jira/team: ''
+      jira/project-key: ''
+      jira/component: ''
+      jira/board-id: ''
+      splunk.com/on-call-team: ''
+      splunk.com/on-call-routing-key: ''
+      jenkins.io/job-full-name: ''
+- name: group-yuval
+  organization_name: sap-cfs
+  display_name: Group Yuval
+  description: Group Yuval
+  metadata:
+    type: sub-department
+    parent: department-cfs
+    children:
+    - team-coe
+    - team-eyal
+    owner: user:default/I501817
+    email: DL_64B7CCA975D5D6028D67CA24@global.corp.sap
+    picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Fluffy&backgroundColor=ffdfbf
+    annotations:
+      grafana/overview-dashboard: ''
+      backstage.io/techdocs-ref: ''
+      backstage.io/source-location: ''
+      jira/team: ''
+      jira/project-key: ''
+      jira/component: ''
+      jira/board-id: ''
+      splunk.com/on-call-team: ''
+      splunk.com/on-call-routing-key: ''
+      jenkins.io/job-full-name: ''
+- name: group-ronny
+  organization_name: sap-cfs
+  display_name: Group Ronny
+  description: Group Ronny
+  metadata:
+    type: sub-department
+    parent: department-cfs
+    children:
+    - team-alex
+    - team-avihai
+    owner: user:default/I032692
+    email: DL_58BD80765F99B78F57000014@global.corp.sap
+    picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Fluffy&backgroundColor=ffdfbf
+    annotations:
+      grafana/overview-dashboard: ''
+      backstage.io/techdocs-ref: ''
+      backstage.io/source-location: ''
+      jira/team: ''
+      jira/project-key: ''
+      jira/component: ''
+      jira/board-id: ''
+      splunk.com/on-call-team: ''
+      splunk.com/on-call-routing-key: ''
+      jenkins.io/job-full-name: ''

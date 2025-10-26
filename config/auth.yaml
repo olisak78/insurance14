@@ -1,0 +1,25 @@
+default_environment: "production"
+redirect_url: "http://localhost:7008"
+# jwt_secret: Set via environment variable or auto-generated in development
+
+providers:
+  githubtools:
+    environments:
+      development:
+        client_id: "${GITHUB_TOOLS_APP_CLIENT_ID_LOCAL}"
+        client_secret: "${GITHUB_TOOLS_APP_CLIENT_SECRET_LOCAL}"
+        enterprise_base_url: "https://github.tools.sap"
+      production:
+        client_id: "${GITHUB_TOOLS_APP_CLIENT_ID}"
+        client_secret: "${GITHUB_TOOLS_APP_CLIENT_SECRET}"
+        enterprise_base_url: "https://github.tools.sap"
+  githubwdf:
+    environments:
+      development:
+        client_id: "${GITHUB_WDF_APP_CLIENT_ID_LOCAL}"
+        client_secret: "${GITHUB_WDF_APP_CLIENT_SECRET_LOCAL}"
+        enterprise_base_url: "https://github.wdf.sap.corp"
+      production:
+        client_id: "${GITHUB_WDF_APP_CLIENT_ID}"
+        client_secret: "${GITHUB_WDF_APP_CLIENT_SECRET}"
+        enterprise_base_url: "https://github.wdf.sap.corp"

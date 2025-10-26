@@ -1,0 +1,6 @@
+organizations:
+- name: sap-cfs
+  display_name: SAP Cloud Foundry Services
+  domain: sap.com
+  description: SAP Cloud Foundry Services organization containing development teams
+  metadata: {}

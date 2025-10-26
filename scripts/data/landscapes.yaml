@@ -1,0 +1,3786 @@
+landscapes:
+    - name: canary
+      organization_name: sap-cfs
+      display_name: Canary
+      description: Canary
+      landscape_type: preview
+      environment_group: atom
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/atom-cfs/landscape-canary
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20Atom%20MoD%2FDoD%20(CANARY)#
+      sort_order: 40
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/atom-cfs/landscape-canary
+            feature-toggles/system-refs: unified-services
+            landscape/domain: canary.urm-eu10c.shoot.live.k8s-hana.ondemand.com
+            landscape/state: active
+        links:
+            - url: https://jira.tools.sap/issues/?jql=project%20%3D%20SAPBTPCFSBUG%20AND%20Landscape%20%3D%20K8S-Canary%20%20AND%20statusCategory%20in%20(%22To%20Do%22,%22In%20Progress%22)
+              title: Jira
+              icon: jira
+            - url: https://atom-cfs-canary.auditlog-viewer.cfapps.eu10.hana.ondemand.com/index.html
+              title: Auditlog
+              icon: auditlog
+            - url: https://atomrelease.jaas-gcp.cloud.sap.corp/job/generate-kyverno-reports/Kyverno_20Policy_20Report_20_28canary_29/
+              title: Kyverno
+              icon: kyverno
+            - url: https://p-urm-eu10c--canary.ingress.eu5.aws.seed.live.k8s.ondemand.com/
+              title: Prometheus
+              icon: prometheus
+            - url: https://opscurity-dev.accounts.ondemand.com/saml2/idp/sso?sp=sap-aws-atom-cfs-canary
+              title: AWS
+              icon: aws
+            - url: https://dashboard.garden.live.k8s.ondemand.com/namespace/garden-urm-eu10c/shoots/canary/
+              title: Gardener
+              icon: gardener
+            - url: https://atomrelease.jaas-gcp.cloud.sap.corp/job/e2e-component-tests-canary
+              title: E2E
+              icon: e2e
+            - url: https://pages.github.tools.sap/atom-cfs/feature-toggle-extension/dashboard.html
+              title: Feature Toggle
+              icon: featuretoggle
+            - url: https://graf.ingress.canary.urm-eu10c.shoot.live.k8s-hana.ondemand.com
+              title: Grafana
+              icon: grafana
+            - url: https://kibana-sf-da016a0c-111f-4230-9b5f-e0e3a00e085d.cls-02.cloud.logs.services.eu10.hana.ondemand.com/app/dashboards#/view/maintained-by-perfx_k8s-content-package_K8s-Overview
+              title: Kibana
+              icon: kibana
+            - url: https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/63e13250-4585-42be-90c7-29516e33fbe0/subaccount/2525c8c7-9dc6-461a-bc3b-19d52b715a36
+              title: CF Subaccount
+              icon: cfsubaccount
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20Atom%20MoD%2FDoD%20(CANARY)#
+              title: AWS Account (CAM)
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20Atom%20Viewer%20(CANARY)#
+              title: SCP Atom Viewer (CANARY) (CAM)
+              icon: cam
+        namespace: atom
+        system: unified-services
+        tags:
+            - k8s
+    - name: dev
+      organization_name: sap-cfs
+      display_name: Dev Cluster
+      description: Dev Cluster
+      landscape_type: development
+      environment_group: atom
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/atom-cfs/landscape-dev
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/atom-cfs/landscape-dev
+            feature-toggles/system-refs: unified-services
+            landscape/domain: '{clusterName}.atom.ondemand.com'
+            landscape/state: active
+        links:
+            - url: https://github.tools.sap/atom-cfs/landscape-dev/tree/{clusterName}
+              title: Github
+              icon: github
+            - url: https://dashboard.garden.canary.k8s.ondemand.com/namespace/garden-atom-dev/shoots/{clusterName}/
+              title: Gardener
+              icon: gardener
+            - url: https://common.repositories.cloud.sap/artifactory/atom-cfs-docker/helm/dev-{clusterName}/
+              title: Artifactory
+              icon: jfrog
+            - url: https://graf.ingress.staging.staging.shoot.live.k8s-hana.ondemand.com/d/N0EeeWYna/atom-operator-controller-namespace?orgId=1&refresh=5s&var-datasource=default&var-namespace=dev
+              title: Jenkins
+              icon: grafana
+            - url: https://raw.github.tools.sap/atom-cfs/landscape-dev/{clusterName}/kubeconfig/{clusterName}.kubeconfig
+              title: kubeconfig
+              icon: kubernetes
+            - url: https://raw.github.tools.sap/atom-cfs/landscape-dev/{clusterName}/kubeconfig/{clusterName}_RM.secret
+              title: atom config
+            - url: https://atomrelease.jaas-gcp.cloud.sap.corp/job/DevWakeUpCluster/
+              title: Wakeup cluster from hibernation
+              icon: jenkins
+        namespace: atom
+        system: unified-services
+        tags:
+            - k8s
+    - name: hotfix
+      organization_name: sap-cfs
+      display_name: Hotfix
+      description: Hotfix
+      landscape_type: testing
+      environment_group: atom
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cp-core-k8s/ls-urm-eu10-pre-live
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20CFS%20Admin%20Global%20(Dev)#
+      sort_order: 20
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cp-core-k8s/ls-urm-eu10-pre-live
+            feature-toggles/system-refs: unified-services
+            landscape/domain: hotfix.urm-eu10p.shoot.live.k8s-hana.ondemand.com
+            landscape/state: active
+        links:
+            - url: https://jira.tools.sap/issues/?jql=project%20%3D%20SAPBTPCFSBUG%20AND%20Landscape%20%3D%20K8S-Hotfix%20%20AND%20statusCategory%20in%20(%22To%20Do%22,%22In%20Progress%22)
+              title: Jira
+              icon: jira
+            - url: https://staging-fc56n2zk.auditlog-viewer.cfapps.eu10.hana.ondemand.com/index.html
+              title: Auditlog
+              icon: auditlog
+            - url: https://p-urm-eu10p--hotfix.ingress.eu4.aws.seed.live.k8s.ondemand.com/
+              title: Prometheus
+              icon: prometheus
+            - url: https://opscurity-dev.accounts.ondemand.com/saml2/idp/sso?sp=cis-dev-aws
+              title: AWS
+              icon: aws
+            - url: https://dashboard.garden.live.k8s.ondemand.com/namespace/garden-urm-eu10p/shoots/
+              title: Gardener
+              icon: gardener
+            - url: https://atomrelease.jaas-gcp.cloud.sap.corp/job/e2e-component-tests-hotfix
+              title: E2E
+              icon: e2e
+            - url: https://pages.github.tools.sap/atom-cfs/feature-toggle-extension/dashboard.html
+              title: Feature Toggle
+              icon: featuretoggle
+            - url: https://gu-urm-eu10p--hotfix.ingress.eu4.aws.seed.live.k8s.ondemand.com/
+              title: Grafana
+              icon: grafana
+            - url: https://kibana-sf-38a0332d-350e-44d1-931f-2bdf2d77c7a5.cls-01.cloud.logs.services.eu10.hana.ondemand.com/app/dashboards#/view/maintained-by-perfx_k8s-content-package_K8s-Overview
+              title: Kibana
+              icon: kibana
+            - url: https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/10d4c411-20cc-47e4-b094-544a55730a84/subaccount/2374ee43-70ca-4c08-a035-0c720a340174
+              title: CF Subaccount
+              icon: cfsubaccount
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20CFS%20Admin%20Global%20(Dev)#
+              title: AWS Account (CAM)
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20Atom%20Gardener%20Admin%20(PROD)#
+              title: SCP Atom Gardener Admin (PROD) (CAM)
+              icon: cam
+        namespace: atom
+        system: unified-services
+        tags:
+            - k8s
+    - name: int
+      organization_name: sap-cfs
+      display_name: Integrate
+      description: Integrate
+      landscape_type: testing
+      environment_group: atom
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/atom-cfs/landscape-int
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20CFS%20Admin%20Global%20(Dev)#
+      sort_order: 20
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/atom-cfs/landscape-int
+            feature-toggles/system-refs: unified-services
+            landscape/domain: Unknown
+            landscape/state: active
+        links:
+            - url: https://jira.tools.sap/issues/?jql=project%20%3D%20SAPBTPCFSBUG%20AND%20Landscape%20%3D%20K8S-Integrate%20%20AND%20statusCategory%20in%20(%22To%20Do%22,%22In%20Progress%22)
+              title: Jira
+              icon: jira
+            - url: https://staging-fc56n2zk.auditlog-viewer.cfapps.eu10.hana.ondemand.com/index.html
+              title: Auditlog
+              icon: auditlog
+            - url: https://atomrelease.jaas-gcp.cloud.sap.corp/job/generate-kyverno-reports/Kyverno_20Policy_20Report_20_28int_29/
+              title: Kyverno
+              icon: kyverno
+            - url: https://p-btp--int.ingress.eu3.aws.seed.canary.k8s.ondemand.com/
+              title: Prometheus
+              icon: prometheus
+            - url: https://opscurity-dev.accounts.ondemand.com/saml2/idp/sso?sp=cis-dev-aws
+              title: AWS
+              icon: aws
+            - url: https://dashboard.garden.canary.k8s.ondemand.com/namespace/garden-btp/shoots/int/
+              title: Gardener
+              icon: gardener
+            - url: https://atomrelease.jaas-gcp.cloud.sap.corp/job/e2e-component-tests-integrate
+              title: E2E
+              icon: e2e
+            - url: https://pages.github.tools.sap/atom-cfs/feature-toggle-extension/dashboard.html
+              title: Feature Toggle
+              icon: featuretoggle
+            - url: https://gu-btp--int.ingress.eu3.aws.seed.canary.k8s.ondemand.com
+              title: Grafana
+              icon: grafana
+            - url: https://kibana-sf-8a453bf5-66d7-4682-91b9-64efd27d19dd.cls-01.cloud.logs.services.eu10.hana.ondemand.com/app/dashboards#/view/maintained-by-perfx_k8s-content-package_K8s-Overview
+              title: Kibana
+              icon: kibana
+            - url: https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/10d4c411-20cc-47e4-b094-544a55730a84/subaccount/2374ee43-70ca-4c08-a035-0c720a340174
+              title: CF Subaccount
+              icon: cfsubaccount
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20CFS%20Admin%20Global%20(Dev)#
+              title: AWS Account (CAM)
+              icon: cam
+        namespace: atom
+        system: unified-services
+        tags:
+            - k8s
+    - name: live
+      organization_name: sap-cfs
+      display_name: Live
+      description: Live
+      landscape_type: production
+      environment_group: atom
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cp-core-k8s/ls-urm-eu10-live
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20Atom%20MoD%2FDoD%20(PROD)#
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cp-core-k8s/ls-urm-eu10-live
+            feature-toggles/system-refs: unified-services
+            landscape/domain: live.urm-eu10l.shoot.live.k8s-hana.ondemand.com
+            landscape/state: active
+        links:
+            - url: https://jira.tools.sap/issues/?jql=project%20%3D%20SAPBTPCFSBUG%20AND%20Landscape%20%3D%20K8S-EU10-Live%20%20AND%20statusCategory%20in%20(%22To%20Do%22,%22In%20Progress%22)
+              title: Jira
+              icon: jira
+            - url: https://urm-prod-eu-central.auditlog-viewer.cfapps.eu10.hana.ondemand.com/index.html
+              title: Auditlog
+              icon: auditlog
+            - url: https://p-urm-eu10l--live.ingress.eu2.aws.seed.live.k8s.ondemand.com/
+              title: Prometheus
+              icon: prometheus
+            - url: https://opscurity-dev.accounts.ondemand.com/saml2/idp/sso?sp=sap-aws-atom-cfs-live
+              title: AWS
+              icon: aws
+            - url: https://dashboard.garden.live.k8s.ondemand.com/namespace/garden-urm-eu10l/shoots/live/
+              title: Gardener
+              icon: gardener
+            - url: https://atomrelease.jaas-gcp.cloud.sap.corp/job/e2e-tests-live
+              title: E2E
+              icon: e2e
+            - url: https://pages.github.tools.sap/atom-cfs/feature-toggle-extension/dashboard.html
+              title: Feature Toggle
+              icon: featuretoggle
+            - url: https://gu-urm-eu10l--live.ingress.eu2.aws.seed.live.k8s.ondemand.com
+              title: Grafana
+              icon: grafana
+            - url: https://kibana-sf-c8717cfb-4d3a-4587-b16b-ff73482d5362.cls-03.cloud.logs.services.eu10.hana.ondemand.com/app/dashboards#/view/maintained-by-perfx_k8s-content-package_K8s-Overview
+              title: Kibana
+              icon: kibana
+            - url: https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/b5227b88-67d8-4f6b-82f5-fdc9851d7dbc/subaccount/1d2e79a4-25db-4a04-817b-db063e6b15a1
+              title: CF Subaccount
+              icon: cfsubaccount
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20Atom%20MoD%2FDoD%20(PROD)#
+              title: AWS Account (CAM)
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20Atom%20Viewer%20(PROD)#
+              title: SCP Atom Viewer (PROD) (CAM)
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20Atom%20MoD%2FDoD%20(PROD)#
+              title: SCP Atom MoD/DoD (PROD) (CAM)
+              icon: cam
+        namespace: atom
+        system: unified-services
+        tags:
+            - k8s
+    - name: perf
+      organization_name: sap-cfs
+      display_name: Performance
+      description: Performance
+      landscape_type: testing
+      environment_group: atom
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/atom-cfs/landscape-perf
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20atom-cfs%20Admin%20Global%20(STAGING)%20142682391806#
+      sort_order: 20
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/atom-cfs/landscape-perf
+            feature-toggles/system-refs: unified-services
+            landscape/domain: Unknown
+            landscape/state: active
+        links:
+            - url: https://jira.tools.sap/issues/?jql=project%20%3D%20SAPBTPCFSBUG%20AND%20Landscape%20%3D%20K8S-Perf%20%20AND%20statusCategory%20in%20(%22To%20Do%22,%22In%20Progress%22)
+              title: Jira
+              icon: jira
+            - url: https://atom-staging-nhhljdp4.auditlog-viewer.cfapps.eu10.hana.ondemand.com/index.html
+              title: Auditlog
+              icon: auditlog
+            - url: https://atomrelease.jaas-gcp.cloud.sap.corp/job/generate-kyverno-reports/Kyverno_20Policy_20Report_20_28perf_29/
+              title: Kyverno
+              icon: kyverno
+            - url: https://p-perf--perf.ingress.eu5.aws.seed.canary.k8s.ondemand.com
+              title: Prometheus
+              icon: prometheus
+            - url: https://opscurity-dev.accounts.ondemand.com/saml2/idp/sso?sp=sap-aws-atom-cfs-perf
+              title: AWS
+              icon: aws
+            - url: https://dashboard.garden.canary.k8s.ondemand.com/namespace/garden-perf/shoots/perf/
+              title: Gardener
+              icon: gardener
+            - url: https://pages.github.tools.sap/atom-cfs/feature-toggle-extension/dashboard.html
+              title: Feature Toggle
+              icon: featuretoggle
+            - url: https://gu-perf--perf.ingress.eu5.aws.seed.canary.k8s.ondemand.com
+              title: Grafana
+              icon: grafana
+            - url: https://kibana-sf-03a0777d-4f4d-4dec-8d8f-42b1d6513ef1.cls-02.cloud.logs.services.eu10.hana.ondemand.com/app/dashboards#/view/maintained-by-perfx_k8s-content-package_K8s-Overview
+              title: Kibana
+              icon: kibana
+            - url: https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/10d4c411-20cc-47e4-b094-544a55730a84/subaccount/2374ee43-70ca-4c08-a035-0c720a340174
+              title: CF Subaccount
+              icon: cfsubaccount
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20atom-cfs%20Admin%20Global%20(STAGING)%20142682391806#
+              title: AWS Account (CAM)
+              icon: cam
+        namespace: atom
+        system: unified-services
+        tags:
+            - k8s
+    - name: staging
+      organization_name: sap-cfs
+      display_name: Staging
+      description: Staging
+      landscape_type: staging
+      environment_group: atom
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/atom-cfs/landscape-staging
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20atom-cfs%20Admin%20Global%20(STAGING)%20768575953313#
+      sort_order: 30
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/atom-cfs/landscape-staging
+            feature-toggles/system-refs: unified-services
+            landscape/domain: staging.staging.shoot.live.k8s-hana.ondemand.com
+            landscape/state: active
+        links:
+            - url: https://jira.tools.sap/issues/?jql=project%20%3D%20SAPBTPCFSBUG%20AND%20Landscape%20%3D%20K8S-Staging%20%20AND%20statusCategory%20in%20(%22To%20Do%22,%22In%20Progress%22)
+              title: Jira
+              icon: jira
+            - url: https://atom-staging-nhhljdp4.auditlog-viewer.cfapps.eu10.hana.ondemand.com/index.html
+              title: Auditlog
+              icon: auditlog
+            - url: https://atomrelease.jaas-gcp.cloud.sap.corp/job/generate-kyverno-reports/Kyverno_20Policy_20Report_20_28staging_29/
+              title: Kyverno
+              icon: kyverno
+            - url: https://p-staging--staging.ingress.eu5.aws.seed.live.k8s.ondemand.com
+              title: Prometheus
+              icon: prometheus
+            - url: https://opscurity-dev.accounts.ondemand.com/saml2/idp/sso?sp=sap-aws-atom-cfs-staging
+              title: AWS
+              icon: aws
+            - url: https://dashboard.garden.live.k8s.ondemand.com/namespace/garden-staging/shoots/staging/
+              title: Gardener
+              icon: gardener
+            - url: https://atomrelease.jaas-gcp.cloud.sap.corp/job/e2e-component-tests-staging
+              title: E2E
+              icon: e2e
+            - url: https://pages.github.tools.sap/atom-cfs/feature-toggle-extension/dashboard.html
+              title: Feature Toggle
+              icon: featuretoggle
+            - url: https://graf.ingress.staging.staging.shoot.live.k8s-hana.ondemand.com
+              title: Grafana
+              icon: grafana
+            - url: https://kibana-sf-b7e064ae-87ca-4234-80ab-f5837692f28d.cls-01.cloud.logs.services.eu10.hana.ondemand.com/app/dashboards#/view/maintained-by-perfx_k8s-content-package_K8s-Overview
+              title: Kibana
+              icon: kibana
+            - url: https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/10d4c411-20cc-47e4-b094-544a55730a84/subaccount/0eacc353-531a-42cd-9105-4002d832f9de
+              title: CF Subaccount
+              icon: cfsubaccount
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20atom-cfs%20Admin%20Global%20(STAGING)%20768575953313#
+              title: AWS Account (CAM)
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20Atom%20MoD%2FDoD%20(STAGING)#
+              title: SCP Atom MoD/DoD (STAGING) (CAM)
+              icon: cam
+        namespace: atom
+        system: unified-services
+        tags:
+            - k8s
+    - name: CCEE_MENA_SRE_DEV
+      organization_name: sap-cfs
+      display_name: MENA SRE development landscape for CCEE
+      description: MENA SRE development landscape for CCEE
+      landscape_type: development
+      environment_group: btp
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/landscape-menasre
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/landscape-menasre
+            landscape/domain: menasre.ccee.sapcloud.io
+            landscape/owner: DL_601901430E5E66027E881E8C@global.corp.sap
+        links:
+            - url: https://dashboard.eu-de-2.cloud.sap/btp_fp/mena_sre_dev/home
+              title: Infrastructure Console
+              icon: ccee
+            - url: n/a
+              title: Cockpit
+              icon: sap
+        namespace: btp
+        system: cloud-foundry
+        tags:
+            - ccee
+    - name: ac-bksrv-1
+      organization_name: sap-cfs
+      display_name: eu-central-1
+      description: eu-central-1
+      landscape_type: development
+      environment_group: btp
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/backingservices/landscape-ac-bksrv-1
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20PostgreSQL%20Admin%20Global%20%28DEV%29%20032851063771
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/backingservices/landscape-ac-bksrv-1
+            landscape/domain: bks.ali.sapcloud.io
+            landscape/owner: gauri.durge@sap.com
+        links:
+            - url: https://signin.aliyun.com/1035148812147007/login.htm
+              title: Infrastructure Console
+              icon: ali
+            - url: ""
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20PostgreSQL%20Admin%20Global%20%28DEV%29%20032851063771
+              title: 'CAM Profile: Devod'
+              icon: cam
+        namespace: btp
+        system: cloud-foundry
+        tags:
+            - ali
+    - name: ali-cfr-dev06
+      organization_name: sap-cfs
+      display_name: ali-cfr-dev06
+      description: ali-cfr-dev06
+      landscape_type: development
+      environment_group: btp
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cfr/landscape-ali-cfr-dev06/
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cfr/landscape-ali-cfr-dev06/
+            landscape/domain: dev06.cfr-ali.sapcloud.io
+            landscape/owner: DL_5E7B5C540E4364027E909AD8@global.corp.sap
+        links:
+            - url: ""
+              title: Cockpit
+              icon: sap
+        namespace: btp
+        system: cloud-foundry
+        tags:
+            - ali
+    - name: aws-bksrv-2
+      organization_name: sap-cfs
+      display_name: us-east-2
+      description: us-east-2
+      landscape_type: development
+      environment_group: btp
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/backingservices/landscape-aws-bksrv-2
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20PostgreSQL%20Admin%20Global%20%28DEV%29%20032851063771
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/backingservices/landscape-aws-bksrv-2
+            landscape/domain: awsbks.sapcloud.io
+            landscape/owner: gauri.durge@sap.com
+        links:
+            - url: https://opscurity-dev.accounts.ondemand.com/saml2/idp/sso?sp=sap-aws-bksrv-dev02
+              title: Infrastructure Console
+              icon: aws
+            - url: ""
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20PostgreSQL%20Admin%20Global%20%28DEV%29%20032851063771
+              title: 'CAM Profile: Devod'
+              icon: cam
+        namespace: btp
+        system: cloud-foundry
+        tags:
+            - aws
+    - name: aws-cfcore-dev
+      organization_name: sap-cfs
+      display_name: aws-cfcore-dev
+      description: aws-cfcore-dev
+      landscape_type: development
+      environment_group: btp
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/landscape-aws-cfcore-dev
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/landscape-aws-cfcore-dev
+            landscape/domain: aws-cfcore-dev.cfsre.sapcloud.io
+            landscape/owner: DL_5BC5A38E5F99B7E26E000012@global.corp.sap
+            landscape/region: us-east-1
+        links:
+            - url: https://opscurity-dev.accounts.ondemand.com/saml2/idp/sso?sp=cfse-dev
+              title: Infrastructure Console
+              icon: aws
+            - url: ""
+              title: Cockpit
+              icon: sap
+        namespace: btp
+        system: cloud-foundry
+        tags:
+            - aws
+    - name: aws-cfn04
+      organization_name: sap-cfs
+      display_name: US East 1
+      description: US East 1
+      landscape_type: development
+      environment_group: btp
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/landscape-aws-cfn04
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/landscape-aws-cfn04
+            landscape/domain: aws-cfn04.aws.cfn.sapcloud.io
+            landscape/owner: DL_5F1557803FB832027E7BA25A@global.corp.sap
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cfi-dev
+              title: Infrastructure Console
+              icon: aws
+            - url: n/a
+              title: Cockpit
+              icon: sap
+        namespace: btp
+        system: cloud-foundry
+        tags:
+            - aws
+    - name: aws-cfn07
+      organization_name: sap-cfs
+      display_name: US East 1
+      description: US East 1
+      landscape_type: development
+      environment_group: btp
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/landscape-aws-cfn07
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/landscape-aws-cfn07
+            landscape/domain: aws-cfn07.aws.cfn.sapcloud.io
+            landscape/owner: DL_5F1557803FB832027E7BA25A@global.corp.sap
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cfi-dev
+              title: Infrastructure Console
+              icon: aws
+            - url: n/a
+              title: Cockpit
+              icon: sap
+        namespace: btp
+        system: cloud-foundry
+        tags:
+            - aws
+    - name: aws-crypto01
+      organization_name: sap-cfs
+      display_name: AWS Crypto Dev01
+      description: AWS Crypto Dev01
+      landscape_type: development
+      environment_group: btp
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/landscape-aws-crypto01
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/landscape-aws-crypto01
+            landscape/domain: crypto01.aws.crypto.sapcloud.io
+            landscape/owner: DL_5CA0C09B1C0C750283163CD5@global.corp.sap
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=crypto01
+              title: Infrastructure Console
+              icon: aws
+            - url: tbd
+              title: Cockpit
+              icon: sap
+        namespace: btp
+        system: cloud-foundry
+        tags:
+            - aws
+    - name: aws-dev10
+      organization_name: sap-cfs
+      display_name: dev 10
+      description: dev 10
+      landscape_type: development
+      environment_group: btp
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/landscape-aws-dev10
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/landscape-aws-dev10
+            landscape/domain: dev10-bosh.aws.sapcloud.io
+            landscape/owner: DL_5ED0CA884687A4027D3F8880@global.corp.sap
+            landscape/region: eu-central-1
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=bosh-dev1
+              title: Infrastructure Console
+              icon: aws
+            - url: tbd
+              title: Cockpit
+              icon: sap
+        namespace: btp
+        system: cloud-foundry
+        tags:
+            - aws
+    - name: az-bksrv-1
+      organization_name: sap-cfs
+      display_name: East US
+      description: East US
+      landscape_type: development
+      environment_group: btp
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/backingservices/landscape-az-bksrv-1
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20PostgreSQL%20Admin%20Global%20%28DEV%29%20032851063771
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/backingservices/landscape-az-bksrv-1
+            landscape/domain: az-bksrv-1.sf-azure.sapcloud.io
+            landscape/owner: gauri.durge@sap.com
+        links:
+            - url: https://portal.azure.com/#@sapsharedtenant.onmicrosoft.com/resource/subscriptions/4d2099ab-17b9-4519-9bee-590102de684f/overview
+              title: Infrastructure Console
+              icon: azure
+            - url: ""
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20PostgreSQL%20Admin%20Global%20%28DEV%29%20032851063771
+              title: 'CAM Profile: Devod'
+              icon: cam
+        namespace: btp
+        system: cloud-foundry
+        tags:
+            - azure
+    - name: azure-cfn06
+      organization_name: sap-cfs
+      display_name: US East
+      description: US East
+      landscape_type: development
+      environment_group: btp
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/landscape-azure-cfn06
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/landscape-azure-cfn06
+            landscape/domain: azure-cfn06.cfn-azure.sapcloud.io
+            landscape/owner: DL_5F1557803FB832027E7BA25A@global.corp.sap
+        links:
+            - url: https://portal.azure.com/#@sapsharedtenant.onmicrosoft.com/resource/subscriptions/017b5ae2-db1b-4a42-9d78-d9356651f3eb/overview
+              title: Infrastructure Console
+              icon: azure
+            - url: n/a
+              title: Cockpit
+              icon: sap
+        namespace: btp
+        system: cloud-foundry
+        tags:
+            - azure
+    - name: azure-cfr02
+      organization_name: sap-cfs
+      display_name: East US
+      description: East US
+      landscape_type: development
+      environment_group: btp
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cfr/landscape-azure-cfr02
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cfr/landscape-azure-cfr02
+            landscape/domain: azure-cfr02.cfc42-azure.sapcloud.io
+            landscape/owner: DL_5E7B5C540E4364027E909AD8@global.corp.sap
+        links:
+            - url: ""
+              title: Cockpit
+              icon: sap
+        namespace: btp
+        system: cloud-foundry
+        tags:
+            - azure
+    - name: ccee-cfn08
+      organization_name: sap-cfs
+      display_name: EU-DE-2
+      description: EU-DE-2
+      landscape_type: development
+      environment_group: btp
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/landscape-ccee-cfn08
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/landscape-ccee-cfn08
+            landscape/domain: ccee-cfn08.ccee.sapcloud.io
+            landscape/owner: DL_5F1557803FB832027E7BA25A@global.corp.sap
+        links:
+            - url: https://dashboard.eu-de-2.cloud.sap/btp_fp/cfn/home
+              title: Infrastructure Console
+              icon: ccee
+            - url: n/a
+              title: Cockpit
+              icon: sap
+        namespace: btp
+        system: cloud-foundry
+        tags:
+            - ccee
+    - name: ccee-fasttrack
+      organization_name: sap-cfs
+      display_name: CF Core Fast Track development landscape
+      description: CF Core Fast Track development landscape
+      landscape_type: development
+      environment_group: btp
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/landscape-ccee-fasttrack
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/landscape-ccee-fasttrack
+            landscape/domain: ccee-fasttrack.ccee.sapcloud.io
+            landscape/owner: dl_65c47243f504a101331099aa@global.corp.sap
+        links:
+            - url: https://dashboard.eu-de-2.cloud.sap/neo/cf_poc/home
+              title: Infrastructure Console
+              icon: ccee
+            - url: n/a
+              title: Cockpit
+              icon: sap
+        namespace: btp
+        system: cloud-foundry
+        tags:
+            - ccee
+    - name: cf-ap10
+      organization_name: sap-cfs
+      display_name: Asia Pacific (Sydney)
+      description: Asia Pacific (Sydney)
+      landscape_type: production
+      environment_group: btp
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-ap10-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-ap10-landscape
+            landscape/domain: ap10.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: ap-southeast-2
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-ap10
+              title: Infrastructure Console
+              icon: aws
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        namespace: btp
+        system: cloud-foundry
+        tags:
+            - aws
+            - live
+    - name: cf-ap11
+      organization_name: sap-cfs
+      display_name: Asia Pacific (Singapore)
+      description: Asia Pacific (Singapore)
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-ap11-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-ap11-landscape
+            landscape/domain: ap11.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: ap-southeast-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-ap11
+              title: Infrastructure Console
+              icon: aws
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - live
+    - name: cf-ap12
+      organization_name: sap-cfs
+      display_name: Asia Pacific (Seoul)
+      description: Asia Pacific (Seoul)
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-ap12-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-ap12-landscape
+            landscape/domain: ap12.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: ap-northeast-2
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-ap12
+              title: Infrastructure Console
+              icon: aws
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - live
+    - name: cf-ap20
+      organization_name: sap-cfs
+      display_name: Sydney
+      description: Sydney
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-ap20-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-ap20-landscape
+            landscape/domain: ap20.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: australiaeast
+            landscape/state: active
+        links:
+            - url: https://portal.azure.com/#@sap.onmicrosoft.com/resource/subscriptions/0161df46-390a-4bb9-9f66-b6ed8ff160f5/resourceGroups/rg-cf-ap20/overview
+              title: Infrastructure Console
+              icon: azure
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - azure
+            - live
+    - name: cf-ap21
+      organization_name: sap-cfs
+      display_name: Singapore
+      description: Singapore
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-ap21-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-ap21-landscape
+            landscape/domain: ap21.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: southeastasia
+            landscape/state: active
+        links:
+            - url: https://portal.azure.com/#@sap.onmicrosoft.com/resource/subscriptions/4be62b0f-987f-4883-b188-15f8f935adb6/resourceGroups/rg-cf-ap21/overview
+              title: Infrastructure Console
+              icon: azure
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - azure
+            - live
+    - name: cf-ap30
+      organization_name: sap-cfs
+      display_name: Cf Ap30
+      description: Cf Ap30
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-ap30-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-ap30-landscape
+            landscape/domain: ap30.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: australia-southeast1
+            landscape/state: active
+        links:
+            - url: https://console.cloud.google.com/home/dashboard?project=cp-cf-ap30-live
+              title: Infrastructure Console
+              icon: gcp
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - gcp
+            - live
+    - name: cf-ap31
+      organization_name: sap-cfs
+      display_name: Cf Ap31
+      description: Cf Ap31
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-ap31-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-ap31-landscape
+            landscape/domain: ap31.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: asia-southeast1
+            landscape/state: active
+        links:
+            - url: https://console.cloud.google.com/home/dashboard?project=cp-cf-ap31-live
+              title: Infrastructure Console
+              icon: gcp
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - gcp
+            - live
+    - name: cf-br10
+      organization_name: sap-cfs
+      display_name: Brazil (São Paulo)
+      description: Brazil (São Paulo)
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-br10-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-br10-landscape
+            landscape/domain: br10.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: sa-east-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-br10
+              title: Infrastructure Console
+              icon: aws
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - live
+    - name: cf-br20
+      organization_name: sap-cfs
+      display_name: Cf Br20
+      description: Cf Br20
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-br20-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-br20-landscape
+            landscape/domain: br20.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: brazilsouth
+            landscape/state: active
+        links:
+            - url: https://portal.azure.com/#@sapsharedtenant.onmicrosoft.com/resource/subscriptions/a3c932a3-fecc-4286-985b-53d782a2b0d7/overview
+              title: Infrastructure Console
+              icon: azure
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - azure
+            - live
+    - name: cf-br30
+      organization_name: sap-cfs
+      display_name: Cf Br30
+      description: Cf Br30
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-br30-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-br30-landscape
+            landscape/domain: br30.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: southamerica-east1
+            landscape/state: active
+        links:
+            - url: https://console.cloud.google.com/home/dashboard?project=cp-cf-br30-live
+              title: Infrastructure Console
+              icon: gcp
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - gcp
+            - live
+    - name: cf-ca10
+      organization_name: sap-cfs
+      display_name: Canada (Montreal)
+      description: Canada (Montreal)
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-ca10-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-ca10-landscape
+            landscape/domain: ca10.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: ca-central-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-ca10
+              title: Infrastructure Console
+              icon: aws
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - live
+    - name: cf-ca20
+      organization_name: sap-cfs
+      display_name: Cf Ca20
+      description: Cf Ca20
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-ca20-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-ca20-landscape
+            landscape/domain: ca20.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: canadacentral
+            landscape/state: active
+        links:
+            - url: https://portal.azure.com/#@sapsharedtenant.onmicrosoft.com/resource/subscriptions/49092aaa-e918-4991-8fc4-dd552bec1c9f/overview
+              title: Infrastructure Console
+              icon: azure
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - azure
+            - live
+    - name: cf-ch20
+      organization_name: sap-cfs
+      display_name: Switzerland (Zurich)
+      description: Switzerland (Zurich)
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-ch20-landscape
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-ch20-landscape
+            landscape/domain: ch20.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: switzerlandnorth
+            landscape/state: active
+        links:
+            - url: https://portal.azure.com/#@sapsharedtenant.onmicrosoft.com/resource/subscriptions/7c0e9c99-804f-4438-8347-4d2b3c4f3f06/resourceGroups/rg-cf-ch20/overview
+              title: Infrastructure Console
+              icon: azure
+            - url: https://eu-access.cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://cam.int.sap/cam/ui/admin?item=request&profile_uuid=00163E23DBB31ED78C99F9C0AE8F5569
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://cam.int.sap/cam/ui/admin?item=request&profile_uuid=00163EB4A6991EEB9FFC4FA0198A4A4B
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - azure
+            - live
+    - name: cf-cn20-canary
+      organization_name: sap-cfs
+      display_name: azure china canary
+      description: azure china canary
+      landscape_type: preview
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cpops/landscape-cn20-canary
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Canary%29
+      sort_order: 40
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cpops/landscape-cn20-canary
+            landscape/domain: canaryaz.vlab-sapcloudplatformdev.cn
+            landscape/owner: DL_6768D3D89D790F013642113E@global.corp.sap
+            landscape/region: ChinaNorth3
+            landscape/state: active
+        links:
+            - url: https://portal.azure.cn/#@sapchn.partner.onmschina.cn/resource/subscriptions/4df8baee-ab00-485c-85ba-5cc43532d70a/resourceGroups/rg-cn20-canary/overview
+              title: Infrastructure Console
+              icon: azure
+            - url: https://cockpit.canaryac.vlab-sapcloudplatformdev.cn
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Canary%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Canary%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - azure
+            - China canary
+    - name: cf-cn20-staging
+      organization_name: sap-cfs
+      display_name: azure china staging
+      description: azure china staging
+      landscape_type: staging
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/cf-cn20-staging-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+      sort_order: 30
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/cf-cn20-staging-landscape
+            landscape/domain: stagingaz.vlab-sapcloudplatformdev.cn
+            landscape/owner: DL_6768D3D89D790F013642113E@global.corp.sap
+            landscape/region: ChinaNorth3
+            landscape/state: active
+        links:
+            - url: https://portal.azure.cn/#@sapchn.partner.onmschina.cn/resource/subscriptions/531b6237-69cb-4044-8c6f-7f87219c0047/resourceGroups/rg-cn20-staging/overview
+              title: Infrastructure Console
+              icon: azure
+            - url: https://cockpit.stagingac.vlab-sapcloudplatformdev.cn
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Staging%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - azure
+            - China staging
+    - name: cf-cn20
+      organization_name: sap-cfs
+      display_name: azure china live
+      description: azure china live
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cpops/landscape-cn20-live
+      cam_profile_url: https://spc.ondemand.com/cam/ui/admin?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20%28CN%20Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cpops/landscape-cn20-live
+            landscape/domain: cn20.platform.sapcloud.cn
+            landscape/owner: DL_6768D3D89D790F013642113E@global.corp.sap
+            landscape/region: ChinaNorth3
+            landscape/state: active
+        links:
+            - url: https://portal.azure.cn/#@cdcprod.partner.onmschina.cn/resource/subscriptions/2bb3f049-9304-4276-9bf7-0dd5edf501d6/resourceGroups/rg-cn20-live/overview
+              title: Infrastructure Console
+              icon: azure
+            - url: https://cockpit.cn40.platform.sapcloud.cn
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/cam/ui/admin?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20%28CN%20Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/cam/ui/admin?item=request&profile=CP%20CF%20ExtendedChangeMgmt%28CN%20Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - azure
+            - China Live
+    - name: cf-cn40-canary
+      organization_name: sap-cfs
+      display_name: alicloud canary
+      description: alicloud canary
+      landscape_type: preview
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cpops/landscape-ac-canary
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Canary%29
+      sort_order: 40
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cpops/landscape-ac-canary
+            landscape/domain: canaryac.vlab-sapcloudplatformdev.cn
+            landscape/owner: DL_6768D3D89D790F013642113E@global.corp.sap
+            landscape/region: Shanghai
+            landscape/state: active
+        links:
+            - url: https://cn40-ops.accounts.sapcloud.cn/saml2/idp/sso?sp=urn:alibaba:cloudcomputing
+              title: Infrastructure Console
+              icon: ali
+            - url: https://cockpit.canaryac.vlab-sapcloudplatformdev.cn
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Canary%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Canary%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - ali
+            - China canary
+    - name: cf-cn40-hotfix
+      organization_name: sap-cfs
+      display_name: alicloud hotfix
+      description: alicloud hotfix
+      landscape_type: testing
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cpops/landscape-ac-hotfix
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
+      sort_order: 20
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cpops/landscape-ac-hotfix
+            landscape/domain: hotfixac.vlab-sapcloudplatformdev.cn
+            landscape/owner: DL_6768D3D89D790F013642113E@global.corp.sap
+            landscape/region: Shanghai
+            landscape/state: active
+        links:
+            - url: https://cn40-ops.accounts.sapcloud.cn/saml2/idp/sso?sp=urn:alibaba:cloudcomputing
+              title: Infrastructure Console
+              icon: ali
+            - url: https://cockpit.hotfixac.vlab-sapcloudplatformdev.cn
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Hotfix%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - ali
+            - China hotfix
+    - name: cf-cn40
+      organization_name: sap-cfs
+      display_name: alicloud live/factory operated by CDC
+      description: alicloud live/factory operated by CDC
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://git.sp-int.cndatacom.com/sapcloudops/landscape-ac-live-cn40-cf.git
+      cam_profile_url: https://spc.ondemand.com/cam/ui/admin?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20%28CN%20Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://git.sp-int.cndatacom.com/sapcloudops/landscape-ac-live-cn40-cf.git
+            landscape/domain: cn40.platform.sapcloud.cn
+            landscape/owner: DL_6768D3D89D790F013642113E@global.corp.sap
+            landscape/region: Shanghai
+            landscape/state: active
+        links:
+            - url: https://cn40-ops.accounts.sapcloud.cn/saml2/idp/sso?sp=urn:alibaba:cloudcomputing
+              title: Infrastructure Console
+              icon: ali
+            - url: https://cockpit.cn40.platform.sapcloud.cn
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/cam/ui/admin?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20%28CN%20Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - ali
+            - China live
+    - name: cf-eu01-canary
+      organization_name: sap-cfs
+      display_name: Cf Eu01 Canary
+      description: Cf Eu01 Canary
+      landscape_type: preview
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-eu01-canary-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Canary%29
+      sort_order: 40
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-eu01-canary-landscape
+            landscape/domain: eu01-canary.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: eu-de-2
+            landscape/state: active
+        links:
+            - url: https://dashboard.eu-de-2.cloud.sap/btp_fp/cp-cf-eu01-canary/home
+              title: Infrastructure Console
+              icon: ccee
+            - url: https://canary.cockpit.btp.int.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Canary%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Canary%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - ccee
+            - canary
+    - name: cf-eu01-staging
+      organization_name: sap-cfs
+      display_name: Staging landscape for CCEE
+      description: Staging landscape for CCEE
+      landscape_type: staging
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/cf-eu01-staging-landscape
+      sort_order: 30
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/cf-eu01-staging-landscape
+            landscape/domain: stagingccee.hanavlab.ondemand.com
+            landscape/owner: DL_5FFC5FE32BF0A1027EAF17A4@global.corp.sap
+            landscape/state: active
+        links:
+            - url: https://dashboard.eu-de-2.cloud.sap/btp_fp/cf-eu00-staging/home
+              title: Infrastructure Console
+              icon: ccee
+            - url: https://staging.cockpit.btp.int.sap/cockpit/
+              title: Cockpit
+              icon: sap
+        system: cloud-foundry
+        tags:
+            - ccee
+            - staging
+    - name: cf-eu10-002
+      organization_name: sap-cfs
+      display_name: Europe (Frankfurt)
+      description: Europe (Frankfurt)
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-eu10-002-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-eu10-002-landscape
+            landscape/domain: eu10-002.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: eu-central-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-eu10-002
+              title: Infrastructure Console
+              icon: aws
+            - url: ""
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - live
+    - name: cf-eu10-003
+      organization_name: sap-cfs
+      display_name: Europe (Frankfurt)
+      description: Europe (Frankfurt)
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-eu10-003-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-eu10-003-landscape
+            landscape/domain: eu10-003.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: eu-central-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-eu10-003
+              title: Infrastructure Console
+              icon: aws
+            - url: ""
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - live
+    - name: cf-eu10-004
+      organization_name: sap-cfs
+      display_name: Europe (Frankfurt)
+      description: Europe (Frankfurt)
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-eu10-004-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-eu10-004-landscape
+            landscape/domain: eu10-004.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: eu-central-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-eu10-004
+              title: Infrastructure Console
+              icon: aws
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - live
+    - name: cf-eu10-005
+      organization_name: sap-cfs
+      display_name: Cf Eu10 005
+      description: Cf Eu10 005
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-eu10-005-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-eu10-005-landscape
+            landscape/domain: eu10-005.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: eu-central-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-eu10-005
+              title: Infrastructure Console
+              icon: aws
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - live
+    - name: cf-eu10-canary
+      organization_name: sap-cfs
+      display_name: Europe (Frankfurt) - Canary
+      description: Europe (Frankfurt) - Canary
+      landscape_type: preview
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-eu10-canary-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Canary%29
+      sort_order: 40
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-eu10-canary-landscape
+            landscape/domain: sap.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: eu-central-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-eu10-canary
+              title: Infrastructure Console
+              icon: aws
+            - url: https://canary.cockpit.btp.int.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Canary%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Canary%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - canary
+    - name: cf-eu10
+      organization_name: sap-cfs
+      display_name: Europe (Frankfurt)
+      description: Europe (Frankfurt)
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-eu10-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-eu10-landscape
+            landscape/domain: eu10.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: eu-central-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-eu10
+              title: Infrastructure Console
+              icon: aws
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - live
+    - name: cf-eu11
+      organization_name: sap-cfs
+      display_name: Europe (Frankfurt)
+      description: Europe (Frankfurt)
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-eu11-landscape
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-eu11-landscape
+            landscape/domain: eu11.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: eu-central-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-eu11
+              title: Infrastructure Console
+              icon: aws
+            - url: https://eu-access.cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://cam.int.sap/cam/ui/admin?item=request&profile_uuid=00163E23DBB31ED78C99F9C0AE8F5569
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://cam.int.sap/cam/ui/admin?item=request&profile_uuid=00163EB4A6991EEB9FFC4FA0198A4A4B
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - live
+    - name: cf-eu12-001
+      organization_name: sap-cfs
+      display_name: Europe (Frankfurt)
+      description: Europe (Frankfurt)
+      landscape_type: preview
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-eu12-001-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Canary%29
+      sort_order: 40
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-eu12-001-landscape
+            landscape/domain: eu12-001.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: eu-central-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-eu12-001
+              title: Infrastructure Console
+              icon: aws
+            - url: ""
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Canary%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Canary%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - canary
+    - name: cf-eu12-002
+      organization_name: sap-cfs
+      display_name: Cf Eu12 002
+      description: Cf Eu12 002
+      landscape_type: preview
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-eu12-002-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Canary%29
+      sort_order: 40
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-eu12-002-landscape
+            landscape/domain: eu12-002.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: eu-central-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-eu12-002
+              title: Infrastructure Console
+              icon: aws
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Canary%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Canary%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - canary
+    - name: cf-eu12
+      organization_name: sap-cfs
+      display_name: Europe (Frankfurt)
+      description: Europe (Frankfurt)
+      landscape_type: preview
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-eu12-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Canary%29
+      sort_order: 40
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-eu12-landscape
+            landscape/domain: eu12.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: eu-central-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-eu12
+              title: Infrastructure Console
+              icon: aws
+            - url: https://canary.cockpit.btp.int.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Canary%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Canary%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - canary
+    - name: cf-eu20-001
+      organization_name: sap-cfs
+      display_name: Europe West
+      description: Europe West
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-eu20-001-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-eu20-001-landscape
+            landscape/domain: eu20-001.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: westeurope
+            landscape/state: active
+        links:
+            - url: https://portal.azure.com/#@sap.onmicrosoft.com/resource/subscriptions/ccbc118b-ae57-477d-9ab2-3e4ca5f5b7bb/resourceGroups/rg-cf-eu20-001/overview
+              title: Infrastructure Console
+              icon: azure
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - azure
+            - live
+    - name: cf-eu20-integrate
+      organization_name: sap-cfs
+      display_name: Europe West - Integrate
+      description: Europe West - Integrate
+      landscape_type: testing
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-eu20-integrate-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
+      sort_order: 20
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-eu20-integrate-landscape
+            landscape/domain: eu20-integrate.hanavlab.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: westeurope
+            landscape/state: active
+        links:
+            - url: https://portal.azure.com/#@sapsharedtenant.onmicrosoft.com/resource/subscriptions/a0525d78-9914-4342-af91-b149e469c423/resourceGroups/rg-cf-eu20-integrate/overview
+              title: Infrastructure Console
+              icon: azure
+            - url: https://cockpit.us10-integrate.hanavlab.ondemand.com/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Hotfix%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - azure
+            - integrate
+    - name: cf-eu20-staging
+      organization_name: sap-cfs
+      display_name: Europe West - Staging
+      description: Europe West - Staging
+      landscape_type: staging
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/landscape-azure-staging
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+      sort_order: 30
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/landscape-azure-staging
+            landscape/domain: stagingazure.hanavlab.ondemand.com
+            landscape/owner: DL_5FFC5FE32BF0A1027EAF17A4@global.corp.sap
+            landscape/region: westeurope
+            landscape/state: active
+        links:
+            - url: https://portal.azure.com/#@sap.onmicrosoft.com/resource/subscriptions/41506888-24fb-4fdc-84cf-c0084fca150e/resourceGroups/rg-azure-staging/overview
+              title: Infrastructure Console
+              icon: azure
+            - url: https://staging.cockpit.btp.int.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Staging%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - azure
+            - staging
+    - name: cf-eu20
+      organization_name: sap-cfs
+      display_name: Europe West
+      description: Europe West
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-eu20-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-eu20-landscape
+            landscape/domain: eu20.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: westeurope
+            landscape/state: active
+        links:
+            - url: https://portal.azure.com/#@sap.onmicrosoft.com/resource/subscriptions/9d5aa33d-a58c-40ce-82e6-9374b9b6c216/resourceGroups/rg-azure-live-eu20/overview
+              title: Infrastructure Console
+              icon: azure
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - azure
+            - live
+    - name: cf-eu21
+      organization_name: sap-cfs
+      display_name: Europe West - Multi AZ Test
+      description: Europe West - Multi AZ Test
+      landscape_type: preview
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-eu21-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Canary%29
+      sort_order: 40
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-eu21-landscape
+            landscape/domain: eu21.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: westeurope
+            landscape/state: active
+        links:
+            - url: https://portal.azure.com/#@sapsharedtenant.onmicrosoft.com/resource/subscriptions/a01ac046-bfe1-4a0a-89aa-746fe220f28a/resourceGroups/rg-cf-eu21/overview
+              title: Infrastructure Console
+              icon: azure
+            - url: https://canary.cockpit.btp.int.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Canary%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Canary%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - azure
+            - canary
+    - name: cf-eu30
+      organization_name: sap-cfs
+      display_name: Europe (Frankfurt)
+      description: Europe (Frankfurt)
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-eu30-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-eu30-landscape
+            landscape/domain: eu30.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: europe-west3
+            landscape/state: active
+        links:
+            - url: https://console.cloud.google.com/home/dashboard?project=sap-cp-cf-eu30-live
+              title: Infrastructure Console
+              icon: gcp
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - gcp
+            - live
+    - name: cf-eu31
+      organization_name: sap-cfs
+      display_name: Cf Eu31
+      description: Cf Eu31
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-eu31-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-eu31-landscape
+            landscape/domain: eu31.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: europe-west4
+            landscape/state: active
+        links:
+            - url: https://console.cloud.google.com/home/dashboard?project=cp-cf-eu31-live
+              title: Infrastructure Console
+              icon: gcp
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - gcp
+            - live
+    - name: cf-eu40-staging
+      organization_name: sap-cfs
+      display_name: Alicloud Staging - Frankfurt Region
+      description: Alicloud Staging - Frankfurt Region
+      landscape_type: staging
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/landscape-ac-staging2
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+      sort_order: 30
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/landscape-ac-staging2
+            landscape/domain: stagingac.hanavlab.ondemand.com
+            landscape/owner: DL_5FFC5FE32BF0A1027EAF17A4@global.corp.sap
+            landscape/region: eu-central-1
+            landscape/state: active
+        links:
+            - url: https://cn40-ops.accounts.sapcloud.cn/saml2/idp/sso?sp=urn:alibaba:cloudcomputing
+              title: Infrastructure Console
+              icon: ali
+            - url: https://cockpit.stagingac.hanavlab.ondemand.com
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Staging%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - ali
+            - China staging
+    - name: cf-il30
+      organization_name: sap-cfs
+      display_name: Cf Il30
+      description: Cf Il30
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-il30-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-il30-landscape
+            landscape/domain: il30.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: me-west1
+            landscape/state: active
+        links:
+            - url: https://console.cloud.google.com/home/dashboard?project=sap-cp-cf-il30-live
+              title: Infrastructure Console
+              icon: gcp
+            - url: https://cockpit.btp.cloud.sap/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - gcp
+            - live
+    - name: cf-in30
+      organization_name: sap-cfs
+      display_name: India (Mumbai)
+      description: India (Mumbai)
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-in30-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-in30-landscape
+            landscape/domain: in30.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: asia-south1
+            landscape/state: active
+        links:
+            - url: https://console.cloud.google.com/home/dashboard?project=sap-cp-cf-in30-live
+              title: Infrastructure Console
+              icon: gcp
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - gcp
+            - live
+    - name: cf-jp10
+      organization_name: sap-cfs
+      display_name: Japan (Tokyo)
+      description: Japan (Tokyo)
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-jp10-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-jp10-landscape
+            landscape/domain: jp10.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: ap-northeast-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-jp10
+              title: Infrastructure Console
+              icon: aws
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - live
+    - name: cf-jp20
+      organization_name: sap-cfs
+      display_name: Japan East
+      description: Japan East
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-jp20-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-jp20-landscape
+            landscape/domain: jp20.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: japaneast
+            landscape/state: active
+        links:
+            - url: https://portal.azure.com/#@sap.onmicrosoft.com/resource/subscriptions/a8e7b685-3883-4d8a-bf3b-c87a5ac52e13/resourceGroups/rg-cf-jp20/overview
+              title: Infrastructure Console
+              icon: azure
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - azure
+            - live
+    - name: cf-jp30
+      organization_name: sap-cfs
+      display_name: Cf Jp30
+      description: Cf Jp30
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-jp30-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-jp30-landscape
+            landscape/domain: jp30.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: asia-northeast2
+            landscape/state: active
+        links:
+            - url: https://console.cloud.google.com/home/dashboard?project=sap-cp-cf-jp30-live
+              title: Infrastructure Console
+              icon: gcp
+            - url: https://cockpit.btp.cloud.sap/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - gcp
+            - live
+    - name: cf-jp31
+      organization_name: sap-cfs
+      display_name: Cf Jp31
+      description: Cf Jp31
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-jp31-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-jp31-landscape
+            landscape/domain: jp31.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: asia-northeast1
+            landscape/state: active
+        links:
+            - url: https://console.cloud.google.com/home/dashboard?project=cp-cf-jp31-live
+              title: Infrastructure Console
+              icon: gcp
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - gcp
+            - live
+    - name: cf-lmaa-dev
+      organization_name: sap-cfs
+      display_name: EU West 3 (Paris)
+      description: EU West 3 (Paris)
+      landscape_type: development
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-lmaa-dev-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-lmaa-dev-landscape
+            landscape/domain: lmaa-dev.hanavlab.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: eu-west-3
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cp-cf-lmaa-dev
+              title: Infrastructure Console
+              icon: aws
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Hotfix%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+    - name: cf-sa30
+      organization_name: sap-cfs
+      display_name: Cf Sa30
+      description: Cf Sa30
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-sa30-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-sa30-landscape
+            landscape/domain: sa30.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: me-central2
+            landscape/state: active
+        links:
+            - url: https://console.cloud.google.com/home/dashboard?project=sap-cp-cf-sa30-live
+              title: Infrastructure Console
+              icon: gcp
+            - url: https://cockpit.btp.cloud.sap/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - gcp
+            - live
+    - name: cf-sa31
+      organization_name: sap-cfs
+      display_name: Cf Sa31
+      description: Cf Sa31
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-sa31-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-sa31-landscape
+            landscape/domain: sa31.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: me-central2
+            landscape/state: active
+        links:
+            - url: https://console.cloud.google.com/home/dashboard?project=cp-cf-sa31-live
+              title: Infrastructure Console
+              icon: gcp
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - gcp
+            - live
+    - name: cf-us10-001-integrate
+      organization_name: sap-cfs
+      display_name: US East (VA) - Integrate
+      description: US East (VA) - Integrate
+      landscape_type: testing
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-us10-001-integrate-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
+      sort_order: 20
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-us10-001-integrate-landscape
+            landscape/domain: us10-001-integrate.hanavlab.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: us-east-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-us10-001-integrate
+              title: Infrastructure Console
+              icon: aws
+            - url: ""
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Hotfix%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - integrate
+    - name: cf-us10-001
+      organization_name: sap-cfs
+      display_name: US East (VA)
+      description: US East (VA)
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-us10-001-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-us10-001-landscape
+            landscape/domain: us10-001.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: us-east-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-us10-001
+              title: Infrastructure Console
+              icon: aws
+            - url: ""
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - live
+    - name: cf-us10-002-hotfix
+      organization_name: sap-cfs
+      display_name: US East (VA) - Hotfix
+      description: US East (VA) - Hotfix
+      landscape_type: testing
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-us10-002-hotfix-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
+      sort_order: 20
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-us10-002-hotfix-landscape
+            landscape/domain: us10-002-hotfix.hanavlab.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: us-east-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-us10-002-hotfix
+              title: Infrastructure Console
+              icon: aws
+            - url: ""
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Hotfix%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - hotfix
+    - name: cf-us10-002-integrate
+      organization_name: sap-cfs
+      display_name: Cf Us10 002 Integrate
+      description: Cf Us10 002 Integrate
+      landscape_type: testing
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-us10-002-integrate-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
+      sort_order: 20
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-us10-002-integrate-landscape
+            landscape/domain: us10-002-integrate.hanavlab.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: us-east-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-us10-002-integrate
+              title: Infrastructure Console
+              icon: aws
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Hotfix%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - integrate
+    - name: cf-us10-002-staging
+      organization_name: sap-cfs
+      display_name: US East (VA) - Extended Scale-Out landscape
+      description: US East (VA) - Extended Scale-Out landscape
+      landscape_type: staging
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/landscape-aws-staging3
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+      sort_order: 30
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/landscape-aws-staging3
+            landscape/domain: stagingaws3.hanavlab.ondemand.com
+            landscape/owner: DL_5FFC5FE32BF0A1027EAF17A4@global.corp.sap
+            landscape/region: ""
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-us10-staging3
+              title: Infrastructure Console
+              icon: aws
+            - url: ""
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Staging%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - staging
+    - name: cf-us10-002
+      organization_name: sap-cfs
+      display_name: US East (VA)
+      description: US East (VA)
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-us10-002-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-us10-002-landscape
+            landscape/domain: us10-002.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: us-east-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-us10-002
+              title: Infrastructure Console
+              icon: aws
+            - url: ""
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - live
+    - name: cf-us10-hotfix
+      organization_name: sap-cfs
+      display_name: US East (VA) - Hotfix
+      description: US East (VA) - Hotfix
+      landscape_type: testing
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-us10-hotfix-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
+      sort_order: 20
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-us10-hotfix-landscape
+            landscape/domain: hotfixaws.hanavlab.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: us-east-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-us10-hotfix
+              title: Infrastructure Console
+              icon: aws
+            - url: https://cockpit.hotfixaws.hanavlab.ondemand.com
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Hotfix%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - hotfix
+    - name: cf-us10-integrate
+      organization_name: sap-cfs
+      display_name: US East (VA) - Integrate
+      description: US East (VA) - Integrate
+      landscape_type: testing
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-us10-integrate-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
+      sort_order: 20
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-us10-integrate-landscape
+            landscape/domain: us10-integrate.hanavlab.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: us-east-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-us10-integrate
+              title: Infrastructure Console
+              icon: aws
+            - url: https://cockpit.us10-integrate.hanavlab.ondemand.com/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Hotfix%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - integrate
+    - name: cf-us10-staging
+      organization_name: sap-cfs
+      display_name: US East (VA) - Staging
+      description: US East (VA) - Staging
+      landscape_type: staging
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/landscape-aws-staging
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+      sort_order: 30
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/landscape-aws-staging
+            landscape/domain: stagingaws.hanavlab.ondemand.com
+            landscape/owner: DL_5FFC5FE32BF0A1027EAF17A4@global.corp.sap
+            landscape/region: ""
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-us10-staging
+              title: Infrastructure Console
+              icon: aws
+            - url: https://staging.cockpit.btp.int.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Staging%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - staging
+    - name: cf-us10
+      organization_name: sap-cfs
+      display_name: US East (VA)
+      description: US East (VA)
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-us10-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-us10-landscape
+            landscape/domain: us10.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: us-east-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-us10
+              title: Infrastructure Console
+              icon: aws
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - live
+    - name: cf-us11
+      organization_name: sap-cfs
+      display_name: Cf Us11
+      description: Cf Us11
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-us11-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-us11-landscape
+            landscape/domain: us11.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: us-west-2
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-us11
+              title: Infrastructure Console
+              icon: aws
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - live
+    - name: cf-us20
+      organization_name: sap-cfs
+      display_name: West US 2
+      description: West US 2
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-us20-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-us20-landscape
+            landscape/domain: us20.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: westus2
+            landscape/state: active
+        links:
+            - url: https://portal.azure.com/#@sap.onmicrosoft.com/resource/subscriptions/d05c1a3e-dcd9-4624-af01-a610cf0352d8/resourceGroups/rg-cf-us20/overview
+              title: Infrastructure Console
+              icon: azure
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - azure
+            - live
+    - name: cf-us21
+      organization_name: sap-cfs
+      display_name: Virginia
+      description: Virginia
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-us21-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-us21-landscape
+            landscape/domain: us21.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: eastus
+            landscape/state: active
+        links:
+            - url: https://portal.azure.com/#@sap.onmicrosoft.com/resource/subscriptions/947dd26e-9a13-4c3a-9c8e-70aa18f8b868/resourceGroups/rg-cf-us21/overview
+              title: Infrastructure Console
+              icon: azure
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - azure
+            - live
+    - name: cf-us30-integrate
+      organization_name: sap-cfs
+      display_name: Iowa - Integrate
+      description: Iowa - Integrate
+      landscape_type: testing
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-us30-integrate-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
+      sort_order: 20
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-us30-integrate-landscape
+            landscape/domain: us30-integrate.hanavlab.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: us-central1
+            landscape/state: active
+        links:
+            - url: https://console.cloud.google.com/home/dashboard?project=sap-cp-cf-us30-integrate
+              title: Infrastructure Console
+              icon: gcp
+            - url: https://cockpit.us10-integrate.hanavlab.ondemand.com/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Hotfix%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - gcp
+            - integrate
+    - name: cf-us30-staging
+      organization_name: sap-cfs
+      display_name: gcp staging
+      description: gcp staging
+      landscape_type: staging
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/landscape-gcp-staging
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+      sort_order: 30
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/landscape-gcp-staging
+            landscape/domain: staginggcp.hanavlab.ondemand.com
+            landscape/owner: DL_5FFC5FE32BF0A1027EAF17A4@global.corp.sap
+            landscape/region: europe-west1
+            landscape/state: active
+        links:
+            - url: https://console.cloud.google.com/home/dashboard?project=sap-gcp-hcp-cf-staging
+              title: Infrastructure Console
+              icon: gcp
+            - url: https://staging.cockpit.btp.int.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Staging%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - gcp
+            - staging
+    - name: cf-us30
+      organization_name: sap-cfs
+      display_name: Iowa
+      description: Iowa
+      landscape_type: production
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-us30-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-us30-landscape
+            landscape/domain: us30.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: us-central1
+            landscape/state: active
+        links:
+            - url: https://console.cloud.google.com/home/dashboard?project=sap-gcp-hcp-cf-live-us30
+              title: Infrastructure Console
+              icon: gcp
+            - url: https://cockpit.btp.cloud.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Live%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - gcp
+            - live
+    - name: cf-us31
+      organization_name: sap-cfs
+      display_name: US (Iowa)
+      description: US (Iowa)
+      landscape_type: preview
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-us31-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Canary%29
+      sort_order: 40
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-us31-landscape
+            landscape/domain: us31.hana.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: us-central1
+            landscape/state: active
+        links:
+            - url: https://console.cloud.google.com/home/dashboard?project=sap-cp-cf-us31
+              title: Infrastructure Console
+              icon: gcp
+            - url: https://canary.cockpit.btp.int.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Canary%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Canary%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - gcp
+            - canary
+    - name: cf-us50-canary
+      organization_name: sap-cfs
+      display_name: US Gov West - Canary
+      description: US Gov West - Canary
+      landscape_type: preview
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://scp-dev.nonprod.scs.sap/scp-canary/landscape-awsgc-canary
+      sort_order: 40
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://scp-dev.nonprod.scs.sap/scp-canary/landscape-awsgc-canary
+            landscape/domain: canary.scp.sapns2.us
+            landscape/owner: jc.obermeier@sap.com; anthony.abramski@sap.com
+            landscape/region: us-gov-west-1
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-us50-canary
+              title: Infrastructure Console
+              icon: aws
+            - url: https://cockpit.canary.scp.sapns2.us
+              title: Cockpit
+              icon: sap
+            - url: https://cam.int.sap/cam/ui/admin?item=request&profile_uuid=00163E1DB7A11ED99E95BC0C36DF4E229
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://cam.int.sap/cam/ui/admin?item=request&profile_uuid=00163E9066F61EDAA4A38C6156EB44C0
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - gov-cloud canary
+    - name: cf-us50-integrate
+      organization_name: sap-cfs
+      display_name: US Gov West Integrate
+      description: US Gov West Integrate
+      landscape_type: testing
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cf-live-realm/cf-us50-integrate-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
+      sort_order: 20
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cf-live-realm/cf-us50-integrate-landscape
+            landscape/domain: us50-integrate.hanavlab.ondemand.com
+            landscape/owner: sic@sap.com
+            landscape/region: us-gov-west-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-us50-integrate
+              title: Infrastructure Console
+              icon: aws
+            - url: https://cockpit.us50-integrate.hanavlab.ondemand.com
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Hotfix%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - gov-cloud integrate
+    - name: cf-us50-staging
+      organization_name: sap-cfs
+      display_name: US Gov West - Staging
+      description: US Gov West - Staging
+      landscape_type: staging
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/cf-us50-staging-landscape
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+      sort_order: 30
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/cf-us50-staging-landscape
+            landscape/domain: stagingawsgc.hanavlab.ondemand.com
+            landscape/owner: DL_5FFC5FE32BF0A1027EAF17A4@global.corp.sap
+            landscape/region: us-gov-west-1
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-us50-staging
+              title: Infrastructure Console
+              icon: aws
+            - url: https://cockpit.stagingawsgc.hanavlab.ondemand.com
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Staging%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - gov-cloud staging
+    - name: cf-us60-staging1
+      organization_name: sap-cfs
+      display_name: GDCH staging Landscape on Multi AZ setup on SOW org
+      description: GDCH staging Landscape on Multi AZ setup on SOW org
+      landscape_type: staging
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/landscape-gdch-staging1
+      cam_profile_url: https://spc.ondemand.com/cam/ui/admin?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+      sort_order: 30
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/landscape-gdch-staging1
+            landscape/domain: staging1gdch.hanavlab.ondemand.com
+            landscape/owner: DL_5FFC5FE32BF0A1027EAF17A4@global.corp.sap
+            landscape/state: active
+        links:
+            - url: https://console.sow.us-west16-b.s.gpcdemolabs.com
+              title: Infrastructure Console
+              icon: gdch
+            - url: n/a
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/cam/ui/admin?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - gdch
+    - name: cfc42-dev05
+      organization_name: sap-cfs
+      display_name: cfc42-dev05
+      description: cfc42-dev05
+      landscape_type: development
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cfr/landscape-cfc42-dev05/
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cfr/landscape-cfc42-dev05/
+            landscape/domain: cfc42-dev05.ccee.sapcloud.io
+            landscape/owner: DL_5E7B5C540E4364027E909AD8@global.corp.sap
+        links:
+            - url: ""
+              title: Cockpit
+              icon: sap
+        system: cloud-foundry
+        tags:
+            - aws
+    - name: cfc42-dev11
+      organization_name: sap-cfs
+      display_name: cfc42-dev11
+      description: cfc42-dev11
+      landscape_type: development
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cfr/landscape-cfc42-dev11/
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cfr/landscape-cfc42-dev11/
+            landscape/domain: cfc42-dev11.aws.sapcloud.io
+            landscape/owner: DL_5E7B5C540E4364027E909AD8@global.corp.sap
+        links:
+            - url: ""
+              title: Cockpit
+              icon: sap
+        system: cloud-foundry
+        tags:
+            - aws
+    - name: cfc42-dev31
+      organization_name: sap-cfs
+      display_name: cfc42-dev31
+      description: cfc42-dev31
+      landscape_type: development
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cfr/landscape-cfc42-dev31
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cfr/landscape-cfc42-dev31
+            landscape/domain: cfc42-dev31.gcp.sapcloud.io
+            landscape/owner: DL_5E7B5C540E4364027E909AD8@global.corp.sap
+        links:
+            - url: ""
+              title: Cockpit
+              icon: sap
+        system: cloud-foundry
+        tags:
+            - gcp
+    - name: cfi-gcp-lod-tc
+      organization_name: sap-cfs
+      display_name: CFI GCP Test Cases Execution
+      description: CFI GCP Test Cases Execution
+      landscape_type: development
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/landscape-testcycle-automation-gcp
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/landscape-testcycle-automation-gcp
+            landscape/domain: cfi-gcp-lod-tc.gcp.sapcloud.io
+            landscape/owner: cfi-gcp-bg@groups.sap.com
+        system: cloud-foundry
+        tags:
+            - gcp
+    - name: cfr-dev01
+      organization_name: sap-cfs
+      display_name: cfr-dev01
+      description: cfr-dev01
+      landscape_type: development
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cfr/landscape-cfr-dev01/
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cfr/landscape-cfr-dev01/
+            landscape/domain: cfr-dev01.cfr-aws.sapcloud.io
+            landscape/owner: DL_5E7B5C540E4364027E909AD8@global.corp.sap
+        links:
+            - url: ""
+              title: Cockpit
+              icon: sap
+        system: cloud-foundry
+        tags:
+            - aws
+    - name: cfscaleaws
+      organization_name: sap-cfs
+      display_name: CF scale
+      description: CF scale
+      landscape_type: development
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/engsrvperformance/landscape-ccperfaws
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/engsrvperformance/landscape-ccperfaws
+            landscape/domain: scale.perfteam.sapcloud.io
+            landscape/owner: yogesh.purantharan@sap.com
+        links:
+            - url: tbd
+              title: Cockpit
+              icon: sap
+        system: cloud-foundry
+        tags:
+            - aws
+    - name: concourse-dev
+      organization_name: sap-cfs
+      display_name: East US
+      description: East US
+      landscape_type: development
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/concourse/landscape-concourse-dev
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/concourse/landscape-concourse-dev
+            landscape/domain: concourse-dev.concourse-azure.sapcloud.io
+            landscape/owner: DL_5D8207F790C82441EB426F6D@global.corp.sap
+            landscape/state: active
+        links:
+            - url: https://portal.azure.com/#@sapsharedtenant.onmicrosoft.com/resource/subscriptions/0596caca-7845-43e7-a049-c302c6211f78/overview
+              title: Infrastructure Console
+              icon: azure
+            - url: tbd
+              title: Cockpit
+              icon: sap
+        system: cloud-foundry
+        tags:
+            - azure
+    - name: gcp-bksrv-1
+      organization_name: sap-cfs
+      display_name: europe-west1
+      description: europe-west1
+      landscape_type: development
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/backingservices/landscape-gcp-bksrv-1
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20PostgreSQL%20Admin%20Global%20%28DEV%29%20032851063771
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/backingservices/landscape-gcp-bksrv-1
+            landscape/domain: gcpbks.sapcloud.io
+            landscape/owner: gauri.durge@sap.com
+        links:
+            - url: https://console.cloud.google.com/home?project=sap-btp-bs-gcp-dev
+              title: Infrastructure Console
+              icon: gcp
+            - url: ""
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=SCP%20PostgreSQL%20Admin%20Global%20%28DEV%29%20032851063771
+              title: 'CAM Profile: Devod'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - gcp
+    - name: gcp-cfn03
+      organization_name: sap-cfs
+      display_name: EU West 1
+      description: EU West 1
+      landscape_type: development
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/landscape-gcp-cfn03
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/landscape-gcp-cfn03
+            landscape/domain: gcp-cfn03.gcp.sapcloud.io
+            landscape/owner: DL_5F1557803FB832027E7BA25A@global.corp.sap
+        links:
+            - url: https://console.cloud.google.com/home/dashboard?project=sap-gcp-cfi-dev
+              title: Infrastructure Console
+              icon: gcp
+            - url: n/a
+              title: Cockpit
+              icon: sap
+        system: cloud-foundry
+        tags:
+            - gcp
+    - name: gdch-fasttrack
+      organization_name: sap-cfs
+      display_name: GDCH fasttrack Landscape
+      description: GDCH fasttrack Landscape
+      landscape_type: development
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/landscape-gdch-fasttrack
+      cam_profile_url: https://spc.ondemand.com/cam/ui/admin?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/landscape-gdch-fasttrack
+            landscape/domain: ft.sap-deva.us-west12-a.sap.gpcdemolabs.com
+            landscape/owner: CFI-GOOGL
+        links:
+            - url: https://console.sap-deva.us-west12-a.sap.gpcdemolabs.com
+              title: Infrastructure Console
+              icon: gdch
+            - url: n/a
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/cam/ui/admin?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - gdch
+    - name: gdch-lancer-dev-maz
+      organization_name: sap-cfs
+      display_name: GDCH lancer dev Landscape in Multi AZ
+      description: GDCH lancer dev Landscape in Multi AZ
+      landscape_type: development
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/landscape-gdch-lancer-maz
+      cam_profile_url: https://spc.ondemand.com/cam/ui/admin?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/landscape-gdch-lancer-maz
+            landscape/domain: lancer-maz.dog.s.gpcdemolabs.com
+            landscape/owner: gowrisankar.marichetty@sap.com
+        links:
+            - url: https://console.dog.us-west16-b.sap.gpcdemolabs.com
+              title: Infrastructure Console
+              icon: gdch
+            - url: n/a
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/cam/ui/admin?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - gdch
+    - name: gdch-lancer-dev
+      organization_name: sap-cfs
+      display_name: GDCH lancer dev Landscape in Single az
+      description: GDCH lancer dev Landscape in Single az
+      landscape_type: development
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/landscape-gdch-lancer
+      cam_profile_url: https://spc.ondemand.com/cam/ui/admin?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/landscape-gdch-lancer
+            landscape/domain: lancer.dog.s.gpcdemolabs.com
+            landscape/owner: gowrisankar.marichetty@sap.com
+        links:
+            - url: https://console.dog.us-west16-b.sap.gpcdemolabs.com
+              title: Infrastructure Console
+              icon: gdch
+            - url: n/a
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/cam/ui/admin?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - gdch
+    - name: gdch-staging2
+      organization_name: sap-cfs
+      display_name: GDCH staging Landscape
+      description: GDCH staging Landscape
+      landscape_type: staging
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/landscape-gdch-staging2
+      cam_profile_url: https://spc.ondemand.com/cam/ui/admin?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+      sort_order: 30
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/landscape-gdch-staging2
+            landscape/domain: staginggdch2.sapc.us-west12-a.sap.gpcdemolabs.com
+            landscape/owner: DL_5FFC5FE32BF0A1027EAF17A4@global.corp.sap
+            landscape/state: active
+        links:
+            - url: https://console.sapc.us-west12-a.sap.gpcdemolabs.com
+              title: Infrastructure Console
+              icon: gdch
+            - url: n/a
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/cam/ui/admin?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - gdch
+    - name: multi
+      organization_name: sap-cfs
+      display_name: Multi CIS
+      description: Multi CIS
+      landscape_type: staging
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cloudfoundry/landscape-aws-staging
+      cam_profile_url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+      sort_order: 30
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/landscape-aws-staging
+            landscape/domain: stagingaws.hanavlab.ondemand.com
+            landscape/owner: ""
+            landscape/region: ""
+            landscape/state: active
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-us10-staging
+              title: Infrastructure Console
+              icon: aws
+            - url: https://staging.cockpit.btp.int.sap/cockpit/
+              title: Cockpit
+              icon: sap
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
+              title: 'CAM Profile: Devod'
+              icon: cam
+            - url: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20ExtendedChangeMgmt%20%28Staging%29
+              title: 'CAM Profile: Exchmgt'
+              icon: cam
+        system: cloud-foundry
+        tags:
+            - aws
+            - staging
+    - name: perfx-log02
+      organization_name: sap-cfs
+      display_name: Logging dev eu-central-1 (1)
+      description: Logging dev eu-central-1 (1)
+      landscape_type: testing
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/perfx/landscape-aws-log02
+      sort_order: 20
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/perfx/landscape-aws-log02
+            landscape/domain: log02.aws.logging.sapcloud.io
+            landscape/owner: DL_552F7D6B5F99B74DF8000003@global.corp.sap
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=logging-dev
+              title: Infrastructure Console
+              icon: aws
+            - url: n/a
+              title: Cockpit
+              icon: sap
+        system: cloud-foundry
+        tags:
+            - aws
+    - name: perfx-log03
+      organization_name: sap-cfs
+      display_name: Logging dev eu-central-1 (2)
+      description: Logging dev eu-central-1 (2)
+      landscape_type: testing
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/perfx/landscape-aws-log03
+      sort_order: 20
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/perfx/landscape-aws-log03
+            landscape/domain: log03.aws.logging.sapcloud.io
+            landscape/owner: DL_552F7D6B5F99B74DF8000003@global.corp.sap
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=logging-dev
+              title: Infrastructure Console
+              icon: aws
+            - url: n/a
+              title: Cockpit
+              icon: sap
+        system: cloud-foundry
+        tags:
+            - aws
+    - name: vasst-aws-dev
+      organization_name: sap-cfs
+      display_name: VaSST team playground
+      description: VaSST team playground
+      landscape_type: development
+      environment_group: cloud-foundry
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/vasts/landscape-vasst-aws-dev
+      sort_order: 10
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/vasts/landscape-vasst-aws-dev
+            landscape/domain: vasst-aws-dev.vasst.sapcloud.io
+            landscape/owner: DL_5FFC5FE32BF0A1027EAF17A4@global.corp.sap
+        links:
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=cf-us10-staging2
+              title: Infrastructure Console
+              icon: aws
+            - url: n/a
+              title: Cockpit
+              icon: sap
+        system: cloud-foundry
+        tags:
+            - aws
+    - name: ls-cla-eu10-canary
+      organization_name: sap-cfs
+      display_name: Canary
+      description: Canary
+      landscape_type: preview
+      environment_group: cloud-automation
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cp-core-k8s/ls-cla-eu10-canary
+      sort_order: 40
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cp-core-k8s/ls-cla-eu10-canary
+            landscape/domain: canary.hana.ondemand.com
+            landscape/state: active
+        links:
+            - url: https://operations-console.operationsconsole.cfapps.sap.hana.ondemand.com/index.html#/Formations/AutomationRequests
+              title: Automation Requests
+              icon: sap
+            - url: https://logs.cf.sap.hana.ondemand.com/goto/8601146467f84c242ae2d1bff2562089/
+              title: Kibana CF
+              icon: kibana
+            - url: https://kibana-sf-06a49606-fe9f-49af-88c9-be8acd2f8617.cls-02.cloud.logs.services.sap.hana.ondemand.com/app/dashboards#/view/maintained-by-perfx_k8s-content-package_K8s-Overview
+              title: Kibana k8s
+              icon: kibana
+            - url: https://canary.eu10.apm.services.cloud.sap/e/3c24485f-e6cd-4212-8020-290cde919b36/ui/entity/SERVICE-659398A5BFFA54A2?gtf=-2h&gf=all&sessionId=7gsY8NcssjuGHBhF
+              title: Dynatrace
+              icon: dynatrace
+            - url: https://gu-cla-eu10c--cl-auto-cn.ingress.eu9.aws.seed.live.k8s.ondemand.com/
+              title: Grafana
+              icon: grafana
+            - url: https://dashboard.garden.live.k8s.ondemand.com/namespace/garden-cla-eu10c/shoots/
+              title: Gardener
+              icon: gardener
+            - url: https://concourse.cf.eu12.hana.ondemand.com/teams/cp_core_k8s/pipelines/ls-cla-eu10-canary/jobs/gardner-credentials-rotation
+              title: Gardener Robot
+              icon: gardener_robot
+            - url: https://opscurity-dev.accounts.ondemand.com/saml2/idp/sso?sp=k8s-core-cla-eu10c
+              title: AWS
+              icon: aws
+            - url: https://concourse.cf.eu12.hana.ondemand.com/teams/cp_core_k8s/pipelines/ls-cla-eu10-canary/
+              title: Concourse
+              icon: concourse
+            - url: https://github.tools.sap/cfs-cloud-automation/cloud-automation-protected/blob/master/secrets/canary/credentials.yaml#L4
+              title: Grafana Credentials
+              icon: grafana_creds
+            - url: https://github.tools.sap/cfs-cloud-automation/cloud-automation-protected/blob/master/secrets/canary/credentials.yaml#L1
+              title: Kibana k8s Credentials
+              icon: kibana_k8s_creds
+        namespace: cloud-automation
+        system: cloud-automation
+        tags:
+            - k8s
+    - name: ls-cla-eu10-int
+      organization_name: sap-cfs
+      display_name: Integrate
+      description: Integrate
+      landscape_type: testing
+      environment_group: cloud-automation
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cfs-cloud-automation/landscape-cloud-automation-int
+      sort_order: 20
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cfs-cloud-automation/landscape-cloud-automation-int
+            landscape/domain: us10-integrate.hanavlab.ondemand.com
+            landscape/state: active
+        links:
+            - url: https://operator.operationsconsole.cfapps.us10-integrate.hanavlab.ondemand.com/index.html#/Formations/AutomationRequests
+              title: Automation Requests
+              icon: sap
+            - url: https://logs.cf.us10-integrate.hanavlab.ondemand.com/goto/8601146467f84c242ae2d1bff2562089
+              title: Kibana CF
+              icon: kibana
+            - url: https://kibana-sf-95f820b7-66ad-4d2b-9c45-5396a1f605b9.cls-01.cloud.logs.services.sap.hana.ondemand.com/app/dashboards#/view/maintained-by-perfx_k8s-content-package_K8s-Overview
+              title: Kibana k8s
+              icon: kibana
+            - url: https://apm.cf.hotfixaws.hanavlab.ondemand.com/e/57a5446f-2a00-40f8-952c-a3ec1aeb81f7/ui/kubernetes/KUBERNETES_CLUSTER-E44E6941E3ADEFB6?gtf=-2h&gf=all
+              title: Dynatrace
+              icon: dynatrace
+            - url: https://gu-cfs-dev--cloud-auto-int.ingress.eu2.aws.seed.canary.k8s.ondemand.com/
+              title: Grafana
+              icon: grafana
+            - url: https://dashboard.garden.canary.k8s.ondemand.com/namespace/garden-cfs-dev/shoots/cloud-auto-int/
+              title: Gardener
+              icon: gardener
+            - url: https://cfsautomation.jaas-gcp.cloud.sap.corp/view/credentials-rotation/job/gardner-credentials-rotation-integrate
+              title: Gardener Robot
+              icon: gardener_robot
+            - url: https://opscurity-dev.accounts.ondemand.com/saml2/idp/sso?sp=cis-dev-aws
+              title: AWS
+              icon: aws
+            - url: https://github.tools.sap/cfs-cloud-automation/cloud-automation-protected/blob/master/secrets/integrate/credentials.yaml#L4
+              title: Grafana Credentials
+              icon: grafana_creds
+            - url: https://github.tools.sap/cfs-cloud-automation/cloud-automation-protected/blob/master/secrets/integrate/credentials.yaml#L1
+              title: Kibana k8s Credentials
+              icon: kibana_k8s_creds
+        namespace: cloud-automation
+        system: cloud-automation
+        tags:
+            - k8s
+    - name: ls-cla-eu10-live
+      organization_name: sap-cfs
+      display_name: Live
+      description: Live
+      landscape_type: production
+      environment_group: cloud-automation
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cp-core-k8s/ls-cla-eu10-live
+      sort_order: 50
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cp-core-k8s/ls-cla-eu10-live
+            landscape/domain: eu10.hana.ondemand.com
+            landscape/state: active
+        links:
+            - url: https://operations-console.operationsconsole.cfapps.eu10.hana.ondemand.com/index.html#/Formations/AutomationRequests
+              title: Automation Requests
+              icon: sap
+            - url: https://logs.cf.eu10.hana.ondemand.com/goto/8601146467f84c242ae2d1bff2562089
+              title: Kibana CF
+              icon: kibana
+            - url: https://kibana-sf-49495e75-65eb-41cc-b467-6efbec2d0bc3.cls-11.cloud.logs.services.eu10.hana.ondemand.com/app/dashboards#/view/maintained-by-perfx_k8s-content-package_K8s-Overview
+              title: Kibana k8s
+              icon: kibana
+            - url: https://apm.cf.eu10.hana.ondemand.com/e/c7c03030-12e3-474e-bb26-2805ea06a604/ui/kubernetes/KUBERNETES_CLUSTER-CC89D2F023062861?gtf=c_1678182929948_1678193864326&gf=all
+              title: Dynatrace
+              icon: dynatrace
+            - url: https://gu-cla-eu10l--cl-auto-lv.ingress.eu4.aws.seed.live.k8s.ondemand.com/
+              title: Grafana
+              icon: grafana
+            - url: https://dashboard.garden.live.k8s.ondemand.com/namespace/garden-cla-eu10l/shoots/
+              title: Gardener
+              icon: gardener
+            - url: https://concourse.cf.eu12.hana.ondemand.com/teams/cp_core_k8s/pipelines/ls-cla-eu10-live/jobs/gardner-credentials-rotation
+              title: Gardener Robot
+              icon: gardener_robot
+            - url: https://opscurity.accounts.ondemand.com/saml2/idp/sso?sp=k8s-core-cla-eu10l
+              title: AWS
+              icon: aws
+            - url: https://concourse.cf.eu12.hana.ondemand.com/teams/cp_core_k8s/pipelines/ls-cla-eu10-live/
+              title: Concourse
+              icon: concourse
+            - url: https://github.tools.sap/cfs-cloud-automation/cloud-automation-protected/blob/master/secrets/live/credentials.yaml#L4
+              title: Grafana Credentials
+              icon: grafana_creds
+            - url: https://github.tools.sap/cfs-cloud-automation/cloud-automation-protected/blob/master/secrets/live/credentials.yaml#L1
+              title: Kibana k8s Credentials
+              icon: kibana_k8s_creds
+        namespace: cloud-automation
+        system: cloud-automation
+        tags:
+            - k8s
+    - name: ls-cla-eu10-staging
+      organization_name: sap-cfs
+      display_name: Staging
+      description: Staging
+      landscape_type: staging
+      environment_group: cloud-automation
+      status: active
+      deployment_status: unknown
+      github_config_url: https://github.tools.sap/cfs-cloud-automation/landscape-cloud-automation-staging
+      sort_order: 30
+      metadata:
+        annotations:
+            backstage.io/source-location: url:https://github.tools.sap/cfs-cloud-automation/landscape-cloud-automation-staging
+            landscape/domain: stagingaws.hanavlab.ondemand.com
+            landscape/state: active
+        links:
+            - url: https://operation-console.operationsconsole.cfapps.stagingaws.hanavlab.ondemand.com/index.html#/Formations/AutomationRequests
+              title: Automation Requests
+              icon: sap
+            - url: https://logs.cf.stagingaws.hanavlab.ondemand.com/goto/d3bd40d42e8016588c2ce409624d5678
+              title: Kibana CF
+              icon: kibana
+            - url: https://kibana-sf-802f962c-22ea-45d6-be51-4dec7de64b64.cls-03.cloud.logs.services.sap.hana.ondemand.com/app/dashboards#/view/maintained-by-perfx_k8s-content-package_K8s-Overview
+              title: Kibana k8s
+              icon: kibana
+            - url: https://staging.us10.apm.services.cloud.sap/e/121ba5cc-bee6-4007-9103-80b0f498503e/#services/serviceOverview;gtf=-12h%20to%20now;gf=705430376232399121;id=SERVICE-6D9592F7D4F61276;appswitched=true
+              title: Dynatrace
+              icon: dynatrace
+            - url: https://plutono-shoot--cfs-dev--cloud-auto-stg.ingress.eu5.aws-ha.seed.canary.k8s.ondemand.com/d/node-worker-pool-overview/node-worker-pool-overview?orgId=1&refresh=1m
+              title: Grafana
+              icon: grafana
+            - url: https://dashboard.garden.canary.k8s.ondemand.com/namespace/garden-cfs-dev/shoots/cloud-auto-stg/
+              title: Gardener
+              icon: gardener
+            - url: https://cfsautomation.jaas-gcp.cloud.sap.corp/view/credentials-rotation/job/gardner-credentials-rotation-staging
+              title: Gardener Robot
+              icon: gardener_robot
+            - url: https://opscurity-dev.accounts.ondemand.com/saml2/idp/sso?sp=cis-dev-aws
+              title: AWS
+              icon: aws
+            - url: https://github.tools.sap/cfs-cloud-automation/cloud-automation-protected/blob/master/secrets/staging/credentials.yaml#L4
+              title: Grafana Credentials
+              icon: grafana_creds
+            - url: https://github.tools.sap/cfs-cloud-automation/cloud-automation-protected/blob/master/secrets/staging/credentials.yaml#L1
+              title: Kibana k8s Credentials
+              icon: kibana_k8s_creds
+        namespace: cloud-automation
+        system: cloud-automation
+        tags:
+            - k8s
