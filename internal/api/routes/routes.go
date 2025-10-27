@@ -67,6 +67,7 @@ func SetupRoutes(db *gorm.DB, cfg *config.Config) *gin.Engine {
 	jenkinsService := service.NewJenkinsService()
 	sonarService := service.NewSonarService(cfg)
 	aicoreService := service.NewAICoreService(memberRepo, teamRepo, groupRepo)
+	linkService := service.NewLinkService()
 
 	// Initialize auth configuration and services
 	authConfig, err := auth.LoadAuthConfig("config/auth.yaml")
@@ -107,6 +108,7 @@ func SetupRoutes(db *gorm.DB, cfg *config.Config) *gin.Engine {
 	githubService := service.NewGitHubService(authService)
 	githubHandler := handlers.NewGitHubHandler(githubService)
 	aicoreHandler := handlers.NewAICoreHandler(aicoreService, validator)
+	linkHandler := handlers.NewLinkHandler(linkService)
 
 	// Health check routes
 	router.GET("/health", healthHandler.Health)
@@ -310,6 +312,12 @@ func SetupRoutes(db *gorm.DB, cfg *config.Config) *gin.Engine {
 			aicore.POST("/deployments", aicoreHandler.CreateDeployment)
 			aicore.PATCH("/deployments/:deploymentId", aicoreHandler.UpdateDeployment)
 			aicore.DELETE("/deployments/:deploymentId", aicoreHandler.DeleteDeployment)
+		}
+
+		// Link routes
+		links := v1.Group("/links")
+		{
+			links.GET("/:id", linkHandler.GetLinksByMemberID) // Get links by member ID
 		}
 
 		// Nested resource routes moved to respective groups to avoid conflicts
