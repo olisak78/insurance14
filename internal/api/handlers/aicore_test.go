@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"mime/multipart"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -84,6 +85,35 @@ func (m *MockAICoreService) DeleteDeployment(c *gin.Context, deploymentID string
 		return nil, args.Error(1)
 	}
 	return args.Get(0).(*service.AICoreDeploymentDeletionResponse), args.Error(1)
+}
+
+func (m *MockAICoreService) GetMe(c *gin.Context) (*service.AICoreMeResponse, error) {
+	args := m.Called(c)
+	if args.Get(0) == nil {
+		return nil, args.Error(1)
+	}
+	return args.Get(0).(*service.AICoreMeResponse), args.Error(1)
+}
+
+func (m *MockAICoreService) ChatInference(c *gin.Context, req *service.AICoreInferenceRequest) (*service.AICoreInferenceResponse, error) {
+	args := m.Called(c, req)
+	if args.Get(0) == nil {
+		return nil, args.Error(1)
+	}
+	return args.Get(0).(*service.AICoreInferenceResponse), args.Error(1)
+}
+
+func (m *MockAICoreService) ChatInferenceStream(c *gin.Context, req *service.AICoreInferenceRequest, writer gin.ResponseWriter) error {
+	args := m.Called(c, req, writer)
+	return args.Error(0)
+}
+
+func (m *MockAICoreService) UploadAttachment(c *gin.Context, file multipart.File, header *multipart.FileHeader) (map[string]interface{}, error) {
+	args := m.Called(c, file, header)
+	if args.Get(0) == nil {
+		return nil, args.Error(1)
+	}
+	return args.Get(0).(map[string]interface{}), args.Error(1)
 }
 
 type AICoreHandlerTestSuite struct {
@@ -445,10 +475,11 @@ func (suite *AICoreHandlerTestSuite) TestCreateConfiguration_ValidationError() {
 	suite.Contains(response["error"].(string), "required")
 }
 
-func (suite *AICoreHandlerTestSuite) TestCreateDeployment_Success() {
-	// Setup
+func (suite *AICoreHandlerTestSuite) TestCreateDeployment_WithConfigurationID_Success() {
+	// Setup - Test scenario 1: Direct deployment with configurationId
+	configID := "config-1"
 	requestBody := service.AICoreDeploymentRequest{
-		ConfigurationID: "config-1",
+		ConfigurationID: &configID,
 		TTL:             "1h",
 	}
 
@@ -460,7 +491,9 @@ func (suite *AICoreHandlerTestSuite) TestCreateDeployment_Success() {
 		TTL:           "1h",
 	}
 
-	suite.aicoreService.On("CreateDeployment", mock.AnythingOfType("*gin.Context"), &requestBody).Return(expectedResponse, nil)
+	suite.aicoreService.On("CreateDeployment", mock.AnythingOfType("*gin.Context"), mock.MatchedBy(func(req *service.AICoreDeploymentRequest) bool {
+		return req.ConfigurationID != nil && *req.ConfigurationID == "config-1" && req.ConfigurationRequest == nil
+	})).Return(expectedResponse, nil)
 
 	// Execute
 	body, _ := json.Marshal(requestBody)
@@ -477,6 +510,130 @@ func (suite *AICoreHandlerTestSuite) TestCreateDeployment_Success() {
 	suite.NoError(err)
 	suite.Equal("deployment-1", response.ID)
 	suite.Equal("Deployment created successfully", response.Message)
+}
+
+func (suite *AICoreHandlerTestSuite) TestCreateDeployment_WithConfigurationRequest_Success() {
+	// Setup - Test scenario 2: Deployment with configuration creation
+	requestBody := service.AICoreDeploymentRequest{
+		ConfigurationRequest: &service.AICoreConfigurationRequest{
+			Name:         "my-llm-config",
+			ExecutableID: "aicore-llm",
+			ScenarioID:   "foundation-models",
+			ParameterBindings: []map[string]string{
+				{"key": "modelName", "value": "gpt-4"},
+				{"key": "modelVersion", "value": "latest"},
+			},
+		},
+		TTL: "2h",
+	}
+
+	expectedResponse := &service.AICoreDeploymentResponse{
+		ID:            "deployment-2",
+		Message:       "Deployment created successfully",
+		DeploymentURL: "https://api.example.com/v1/deployments/deployment-2",
+		Status:        "PENDING",
+		TTL:           "2h",
+	}
+
+	suite.aicoreService.On("CreateDeployment", mock.AnythingOfType("*gin.Context"), mock.MatchedBy(func(req *service.AICoreDeploymentRequest) bool {
+		return req.ConfigurationID == nil && req.ConfigurationRequest != nil &&
+			req.ConfigurationRequest.Name == "my-llm-config" &&
+			req.ConfigurationRequest.ExecutableID == "aicore-llm" &&
+			req.ConfigurationRequest.ScenarioID == "foundation-models"
+	})).Return(expectedResponse, nil)
+
+	// Execute
+	body, _ := json.Marshal(requestBody)
+	req := httptest.NewRequest("POST", "/ai-core/deployments", bytes.NewBuffer(body))
+	req.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	// Assert
+	suite.Equal(http.StatusAccepted, w.Code)
+
+	var response service.AICoreDeploymentResponse
+	err := json.Unmarshal(w.Body.Bytes(), &response)
+	suite.NoError(err)
+	suite.Equal("deployment-2", response.ID)
+	suite.Equal("Deployment created successfully", response.Message)
+}
+
+func (suite *AICoreHandlerTestSuite) TestCreateDeployment_BothFieldsProvided_Error() {
+	// Setup - Test invalid scenario: both configurationId and configurationRequest provided
+	configID := "config-1"
+	requestBody := service.AICoreDeploymentRequest{
+		ConfigurationID: &configID,
+		ConfigurationRequest: &service.AICoreConfigurationRequest{
+			Name:         "my-llm-config",
+			ExecutableID: "aicore-llm",
+			ScenarioID:   "foundation-models",
+		},
+		TTL: "1h",
+	}
+
+	// Execute
+	body, _ := json.Marshal(requestBody)
+	req := httptest.NewRequest("POST", "/ai-core/deployments", bytes.NewBuffer(body))
+	req.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	// Assert
+	suite.Equal(http.StatusBadRequest, w.Code)
+
+	var response map[string]interface{}
+	err := json.Unmarshal(w.Body.Bytes(), &response)
+	suite.NoError(err)
+	suite.Equal("ConfigurationId and configurationRequest cannot both be provided", response["error"])
+}
+
+func (suite *AICoreHandlerTestSuite) TestCreateDeployment_NeitherFieldProvided_Error() {
+	// Setup - Test invalid scenario: neither configurationId nor configurationRequest provided
+	requestBody := service.AICoreDeploymentRequest{
+		TTL: "1h",
+	}
+
+	// Execute
+	body, _ := json.Marshal(requestBody)
+	req := httptest.NewRequest("POST", "/ai-core/deployments", bytes.NewBuffer(body))
+	req.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	// Assert
+	suite.Equal(http.StatusBadRequest, w.Code)
+
+	var response map[string]interface{}
+	err := json.Unmarshal(w.Body.Bytes(), &response)
+	suite.NoError(err)
+	suite.Equal("Either configurationId or configurationRequest must be provided", response["error"])
+}
+
+func (suite *AICoreHandlerTestSuite) TestCreateDeployment_InvalidConfigurationRequest_Error() {
+	// Setup - Test invalid scenario: configurationRequest with missing required fields
+	requestBody := service.AICoreDeploymentRequest{
+		ConfigurationRequest: &service.AICoreConfigurationRequest{
+			Name: "my-llm-config",
+			// Missing ExecutableID and ScenarioID
+		},
+		TTL: "1h",
+	}
+
+	// Execute
+	body, _ := json.Marshal(requestBody)
+	req := httptest.NewRequest("POST", "/ai-core/deployments", bytes.NewBuffer(body))
+	req.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	// Assert
+	suite.Equal(http.StatusBadRequest, w.Code)
+
+	var response map[string]interface{}
+	err := json.Unmarshal(w.Body.Bytes(), &response)
+	suite.NoError(err)
+	suite.Contains(response["error"].(string), "required")
 }
 
 func (suite *AICoreHandlerTestSuite) TestUpdateDeployment_Success() {

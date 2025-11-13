@@ -1,0 +1,452 @@
+package service_test
+
+import (
+	"encoding/json"
+	"errors"
+	"testing"
+
+	"developer-portal-backend/internal/database/models"
+	"developer-portal-backend/internal/mocks"
+	"developer-portal-backend/internal/service"
+
+	"github.com/go-playground/validator/v10"
+	"github.com/google/uuid"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/suite"
+	"go.uber.org/mock/gomock"
+)
+
+// teamRepoStub is a lightweight stub that satisfies TeamRepositoryInterface.
+// We only implement the methods actually used by LinkService in these tests (GetByID, GetByNameGlobal).
+// The rest return default values to satisfy the interface.
+type teamRepoStub struct {
+	GetByIDFunc        func(id uuid.UUID) (*models.Team, error)
+	GetByNameGlobalFunc func(name string) (*models.Team, error)
+}
+
+func (s *teamRepoStub) Create(team *models.Team) error { return errors.New("not implemented") }
+func (s *teamRepoStub) GetByID(id uuid.UUID) (*models.Team, error) {
+	if s.GetByIDFunc != nil {
+		return s.GetByIDFunc(id)
+	}
+	return nil, errors.New("not implemented")
+}
+func (s *teamRepoStub) GetByName(groupID uuid.UUID, name string) (*models.Team, error) {
+	return nil, errors.New("not implemented")
+}
+func (s *teamRepoStub) GetByOrganizationID(orgID uuid.UUID, limit, offset int) ([]models.Team, int64, error) {
+	return nil, 0, errors.New("not implemented")
+}
+func (s *teamRepoStub) GetByGroupID(groupID uuid.UUID, limit, offset int) ([]models.Team, int64, error) {
+	return nil, 0, errors.New("not implemented")
+}
+func (s *teamRepoStub) GetAll() ([]models.Team, error) { return nil, errors.New("not implemented") }
+func (s *teamRepoStub) GetByNameGlobal(name string) (*models.Team, error) {
+	if s.GetByNameGlobalFunc != nil {
+		return s.GetByNameGlobalFunc(name)
+	}
+	return nil, errors.New("not implemented")
+}
+func (s *teamRepoStub) GetWithMembers(id uuid.UUID) (*models.Team, error) { return nil, errors.New("not implemented") }
+func (s *teamRepoStub) Update(team *models.Team) error { return errors.New("not implemented") }
+func (s *teamRepoStub) Delete(id uuid.UUID) error { return errors.New("not implemented") }
+
+type LinkServiceTestSuite struct {
+	suite.Suite
+	ctrl             *gomock.Controller
+	mockLinkRepo     *mocks.MockLinkRepositoryInterface
+	mockUserRepo     *mocks.MockUserRepositoryInterface
+	mockCategoryRepo *mocks.MockCategoryRepositoryInterface
+	teamRepo         *teamRepoStub
+	linkService      *service.LinkService
+	validator        *validator.Validate
+}
+
+func (suite *LinkServiceTestSuite) SetupTest() {
+	suite.ctrl = gomock.NewController(suite.T())
+	suite.mockLinkRepo = mocks.NewMockLinkRepositoryInterface(suite.ctrl)
+	suite.mockUserRepo = mocks.NewMockUserRepositoryInterface(suite.ctrl)
+	suite.mockCategoryRepo = mocks.NewMockCategoryRepositoryInterface(suite.ctrl)
+	suite.teamRepo = &teamRepoStub{}
+	suite.validator = validator.New()
+
+	suite.linkService = service.NewLinkService(
+		suite.mockLinkRepo,
+		suite.mockUserRepo,
+		suite.teamRepo, // use stub instead of gomock for team repo to satisfy full interface
+		suite.mockCategoryRepo,
+		suite.validator,
+	)
+}
+
+func (suite *LinkServiceTestSuite) TearDownTest() {
+	suite.ctrl.Finish()
+}
+
+func (suite *LinkServiceTestSuite) TestCreateLink_Success_UserOwner() {
+	ownerID := uuid.New()
+	categoryID := uuid.New()
+	createdBy := "user.created"
+	req := &service.CreateLinkRequest{
+		Name:        "my-link",
+		Description: "some desc",
+		Owner:       ownerID.String(),
+		URL:         "https://example.com",
+		CategoryID:  categoryID.String(),
+		Tags:        "tag1, tag2",
+		CreatedBy:   createdBy,
+	}
+
+	// created_by validation: found as user
+	suite.mockUserRepo.EXPECT().GetByUserID(createdBy).Return(&models.User{UserID: createdBy}, nil)
+	// owner validation: found as user by ID
+	suite.mockUserRepo.EXPECT().GetByID(ownerID).Return(&models.User{BaseModel: models.BaseModel{ID: ownerID}}, nil)
+	// category validation: found
+	suite.mockCategoryRepo.EXPECT().GetByID(categoryID).Return(&models.Category{BaseModel: models.BaseModel{ID: categoryID}}, nil)
+	// create: set ID on the entity
+	suite.mockLinkRepo.EXPECT().Create(gomock.Any()).DoAndReturn(func(l *models.Link) error {
+		l.ID = uuid.New()
+		return nil
+	})
+
+	resp, err := suite.linkService.CreateLink(req)
+
+	assert.NoError(suite.T(), err)
+	assert.NotNil(suite.T(), resp)
+	assert.Equal(suite.T(), "my-link", resp.Name)
+	assert.Equal(suite.T(), "my-link", resp.Title)
+	assert.Equal(suite.T(), "some desc", resp.Description)
+	assert.Equal(suite.T(), "https://example.com", resp.URL)
+	assert.Equal(suite.T(), categoryID.String(), resp.CategoryID)
+	assert.Equal(suite.T(), []string{"tag1", "tag2"}, resp.Tags)
+}
+
+func (suite *LinkServiceTestSuite) TestCreateLink_ValidationError() {
+	req := &service.CreateLinkRequest{
+		Name:       "",                  // required
+		Owner:      uuid.New().String(), // valid
+		URL:        "not-a-url",         // invalid
+		CategoryID: uuid.New().String(),
+		CreatedBy:  "someone",
+	}
+	resp, err := suite.linkService.CreateLink(req)
+
+	assert.Error(suite.T(), err)
+	assert.Nil(suite.T(), resp)
+	assert.Contains(suite.T(), err.Error(), "validation failed")
+}
+
+func (suite *LinkServiceTestSuite) TestCreateLink_CreatedByMissing() {
+	req := &service.CreateLinkRequest{
+		Name:       "ok",
+		Owner:      uuid.New().String(),
+		URL:        "https://example.com",
+		CategoryID: uuid.New().String(),
+		CreatedBy:  "", // missing
+	}
+	resp, err := suite.linkService.CreateLink(req)
+
+	assert.Error(suite.T(), err)
+	assert.Nil(suite.T(), resp)
+	assert.Contains(suite.T(), err.Error(), "created_by is required")
+}
+
+func (suite *LinkServiceTestSuite) TestCreateLink_CreatedByNotFound() {
+	req := &service.CreateLinkRequest{
+		Name:       "ok",
+		Owner:      uuid.New().String(),
+		URL:        "https://example.com",
+		CategoryID: uuid.New().String(),
+		CreatedBy:  "unknown_user_or_team",
+	}
+	// created_by: neither user nor team found
+	suite.mockUserRepo.EXPECT().GetByUserID("unknown_user_or_team").Return(nil, errors.New("not found"))
+	suite.teamRepo.GetByNameGlobalFunc = func(name string) (*models.Team, error) {
+		return nil, errors.New("not found")
+	}
+
+	resp, err := suite.linkService.CreateLink(req)
+	assert.Error(suite.T(), err)
+	assert.Nil(suite.T(), resp)
+	assert.Contains(suite.T(), err.Error(), "created_by user or team not found")
+}
+
+func (suite *LinkServiceTestSuite) TestCreateLink_InvalidOwnerUUID() {
+	req := &service.CreateLinkRequest{
+		Name:       "ok",
+		Owner:      "bad-uuid",
+		URL:        "https://example.com",
+		CategoryID: uuid.New().String(),
+		CreatedBy:  "creator",
+	}
+
+	resp, err := suite.linkService.CreateLink(req)
+	assert.Error(suite.T(), err)
+	assert.Nil(suite.T(), resp)
+	assert.Contains(suite.T(), err.Error(), "validation failed")
+}
+
+func (suite *LinkServiceTestSuite) TestCreateLink_OwnerNotFound() {
+	ownerID := uuid.New()
+	req := &service.CreateLinkRequest{
+		Name:       "ok",
+		Owner:      ownerID.String(),
+		URL:        "https://example.com",
+		CategoryID: uuid.New().String(),
+		CreatedBy:  "creator",
+	}
+	suite.mockUserRepo.EXPECT().GetByUserID("creator").Return(&models.User{UserID: "creator"}, nil)
+	// owner not found as user nor team
+	suite.mockUserRepo.EXPECT().GetByID(ownerID).Return(nil, errors.New("not found"))
+	suite.teamRepo.GetByIDFunc = func(id uuid.UUID) (*models.Team, error) {
+		return nil, errors.New("not found")
+	}
+
+	resp, err := suite.linkService.CreateLink(req)
+	assert.Error(suite.T(), err)
+	assert.Nil(suite.T(), resp)
+	assert.Contains(suite.T(), err.Error(), "owner not found as user or team")
+}
+
+func (suite *LinkServiceTestSuite) TestCreateLink_CategoryNotFound() {
+	ownerID := uuid.New()
+	categoryID := uuid.New()
+	req := &service.CreateLinkRequest{
+		Name:       "ok",
+		Owner:      ownerID.String(),
+		URL:        "https://example.com",
+		CategoryID: categoryID.String(),
+		CreatedBy:  "creator",
+	}
+	suite.mockUserRepo.EXPECT().GetByUserID("creator").Return(&models.User{UserID: "creator"}, nil)
+	suite.mockUserRepo.EXPECT().GetByID(ownerID).Return(&models.User{BaseModel: models.BaseModel{ID: ownerID}}, nil)
+	// category not found
+	suite.mockCategoryRepo.EXPECT().GetByID(categoryID).Return(nil, errors.New("not found"))
+
+	resp, err := suite.linkService.CreateLink(req)
+	assert.Error(suite.T(), err)
+	assert.Nil(suite.T(), resp)
+	assert.Contains(suite.T(), err.Error(), "category not found")
+}
+
+func (suite *LinkServiceTestSuite) TestCreateLink_RepoError() {
+	ownerID := uuid.New()
+	categoryID := uuid.New()
+	req := &service.CreateLinkRequest{
+		Name:        "ok",
+		Description: "desc",
+		Owner:       ownerID.String(),
+		URL:         "https://example.com",
+		CategoryID:  categoryID.String(),
+		Tags:        "t1,t2",
+		CreatedBy:   "creator",
+	}
+	suite.mockUserRepo.EXPECT().GetByUserID("creator").Return(&models.User{UserID: "creator"}, nil)
+	suite.mockUserRepo.EXPECT().GetByID(ownerID).Return(&models.User{BaseModel: models.BaseModel{ID: ownerID}}, nil)
+	suite.mockCategoryRepo.EXPECT().GetByID(categoryID).Return(&models.Category{BaseModel: models.BaseModel{ID: categoryID}}, nil)
+	suite.mockLinkRepo.EXPECT().Create(gomock.Any()).Return(errors.New("db error"))
+
+	resp, err := suite.linkService.CreateLink(req)
+	assert.Error(suite.T(), err)
+	assert.Nil(suite.T(), resp)
+	assert.Contains(suite.T(), err.Error(), "failed to create link")
+}
+
+func (suite *LinkServiceTestSuite) TestGetByOwnerUserID_Success() {
+	ownerUserID := "u123"
+	ownerID := uuid.New()
+
+	suite.mockUserRepo.EXPECT().GetByUserID(ownerUserID).Return(&models.User{BaseModel: models.BaseModel{ID: ownerID}, UserID: ownerUserID}, nil)
+
+	catA := uuid.New()
+	catB := uuid.New()
+	link1 := models.Link{
+		BaseModel: models.BaseModel{
+			ID:          uuid.New(),
+			Name:        "link-a",
+			Title:       "link-a",
+			Description: "d1",
+		},
+		Owner:      ownerID,
+		URL:        "https://a.example.com",
+		CategoryID: catA,
+		Tags:       "a, b",
+	}
+	link2 := models.Link{
+		BaseModel: models.BaseModel{
+			ID:          uuid.New(),
+			Name:        "link-b",
+			Title:       "link-b",
+			Description: "d2",
+		},
+		Owner:      ownerID,
+		URL:        "https://b.example.com",
+		CategoryID: catB,
+		Tags:       "",
+	}
+	suite.mockLinkRepo.EXPECT().GetByOwner(ownerID).Return([]models.Link{link1, link2}, nil)
+
+	res, err := suite.linkService.GetByOwnerUserID(ownerUserID)
+	assert.NoError(suite.T(), err)
+	assert.Len(suite.T(), res, 2)
+
+	assert.Equal(suite.T(), "link-a", res[0].Name)
+	assert.Equal(suite.T(), "https://a.example.com", res[0].URL)
+	assert.Equal(suite.T(), catA.String(), res[0].CategoryID)
+	assert.Equal(suite.T(), []string{"a", "b"}, res[0].Tags)
+
+	assert.Equal(suite.T(), "link-b", res[1].Name)
+	assert.Equal(suite.T(), "https://b.example.com", res[1].URL)
+	assert.Equal(suite.T(), catB.String(), res[1].CategoryID)
+	assert.Empty(suite.T(), res[1].Tags)
+}
+
+func (suite *LinkServiceTestSuite) TestGetByOwnerUserID_EmptyOwner() {
+	res, err := suite.linkService.GetByOwnerUserID("")
+
+	assert.Error(suite.T(), err)
+	assert.Nil(suite.T(), res)
+	assert.Contains(suite.T(), err.Error(), "owner user_id is required")
+}
+
+func (suite *LinkServiceTestSuite) TestGetByOwnerUserID_UserNotFound() {
+	suite.mockUserRepo.EXPECT().GetByUserID("missing").Return(nil, errors.New("not found"))
+
+	res, err := suite.linkService.GetByOwnerUserID("missing")
+	assert.Error(suite.T(), err)
+	assert.Nil(suite.T(), res)
+	assert.Contains(suite.T(), err.Error(), "owner user with user_id \"missing\" not found")
+}
+
+func (suite *LinkServiceTestSuite) TestGetByOwnerUserID_RepoError() {
+	ownerID := uuid.New()
+	suite.mockUserRepo.EXPECT().GetByUserID("u1").Return(&models.User{BaseModel: models.BaseModel{ID: ownerID}, UserID: "u1"}, nil)
+	suite.mockLinkRepo.EXPECT().GetByOwner(ownerID).Return(nil, errors.New("db error"))
+
+	res, err := suite.linkService.GetByOwnerUserID("u1")
+	assert.Error(suite.T(), err)
+	assert.Nil(suite.T(), res)
+	assert.Contains(suite.T(), err.Error(), "failed to get links by owner")
+}
+
+func (suite *LinkServiceTestSuite) TestGetByOwnerUserIDWithViewer_FavoritesMarked() {
+	ownerUserID := "owner1"
+	viewerName := "viewer1"
+
+	ownerID := uuid.New()
+	viewerID := uuid.New()
+	linkFavID := uuid.New()
+	linkOtherID := uuid.New()
+
+	// owner found
+	suite.mockUserRepo.EXPECT().GetByUserID(ownerUserID).Return(&models.User{BaseModel: models.BaseModel{ID: ownerID}, UserID: ownerUserID}, nil)
+	// viewer found with favorites metadata
+	favs := map[string]interface{}{
+		"favorites": []string{linkFavID.String()},
+	}
+	favBytes, _ := json.Marshal(favs)
+	suite.mockUserRepo.EXPECT().GetByName(viewerName).Return(&models.User{
+		BaseModel: models.BaseModel{ID: viewerID, Name: viewerName},
+		Metadata:  favBytes,
+	}, nil)
+
+	links := []models.Link{
+		{
+			BaseModel: models.BaseModel{ID: linkFavID, Name: "fav", Title: "fav"},
+			Owner:     ownerID,
+			URL:       "https://fav.example.com",
+			CategoryID: uuid.New(),
+			Tags:      "",
+		},
+		{
+			BaseModel: models.BaseModel{ID: linkOtherID, Name: "other", Title: "other"},
+			Owner:     ownerID,
+			URL:       "https://o.example.com",
+			CategoryID: uuid.New(),
+			Tags:      "",
+		},
+	}
+	suite.mockLinkRepo.EXPECT().GetByOwner(ownerID).Return(links, nil)
+
+	res, err := suite.linkService.GetByOwnerUserIDWithViewer(ownerUserID, viewerName)
+	assert.NoError(suite.T(), err)
+	assert.Len(suite.T(), res, 2)
+
+	// Identify which is favorite
+	var favFound, otherFound bool
+	for _, r := range res {
+		if r.Name == "fav" {
+			assert.True(suite.T(), r.Favorite, "favorite flag should be true for favorite link")
+			favFound = true
+		}
+		if r.Name == "other" {
+			assert.False(suite.T(), r.Favorite, "favorite flag should be false for non-favorite link")
+			otherFound = true
+		}
+	}
+	assert.True(suite.T(), favFound)
+	assert.True(suite.T(), otherFound)
+}
+
+func (suite *LinkServiceTestSuite) TestGetByOwnerUserIDWithViewer_EmptyViewer_Fallback() {
+	ownerUserID := "owner1"
+	ownerID := uuid.New()
+
+	// Fallback to GetByOwnerUserID path
+	// This results in a call to GetByUserID and GetByOwner
+	suite.mockUserRepo.EXPECT().GetByUserID(ownerUserID).Return(&models.User{BaseModel: models.BaseModel{ID: ownerID}, UserID: ownerUserID}, nil)
+	suite.mockLinkRepo.EXPECT().GetByOwner(ownerID).Return([]models.Link{}, nil)
+
+	res, err := suite.linkService.GetByOwnerUserIDWithViewer(ownerUserID, "")
+	assert.NoError(suite.T(), err)
+	assert.NotNil(suite.T(), res)
+	assert.Len(suite.T(), res, 0)
+}
+
+func (suite *LinkServiceTestSuite) TestGetByOwnerUserIDWithViewer_OwnerNotFound() {
+	suite.mockUserRepo.EXPECT().GetByUserID("missing").Return(nil, errors.New("not found"))
+
+	res, err := suite.linkService.GetByOwnerUserIDWithViewer("missing", "viewer")
+	assert.Error(suite.T(), err)
+	assert.Nil(suite.T(), res)
+	assert.Contains(suite.T(), err.Error(), "owner user with user_id \"missing\" not found")
+}
+
+func (suite *LinkServiceTestSuite) TestGetByOwnerUserIDWithViewer_ViewerNotFound_Fallback() {
+	ownerUserID := "owner2"
+	ownerID := uuid.New()
+
+	// Owner ok
+	suite.mockUserRepo.EXPECT().GetByUserID(ownerUserID).Return(&models.User{BaseModel: models.BaseModel{ID: ownerID}, UserID: ownerUserID}, nil)
+	// Viewer not found -> fallback to GetByOwnerUserID(ownerUserID)
+	suite.mockUserRepo.EXPECT().GetByName("viewerX").Return(nil, errors.New("no viewer"))
+	// Fallback path expects a second GetByUserID + GetByOwner call
+	suite.mockUserRepo.EXPECT().GetByUserID(ownerUserID).Return(&models.User{BaseModel: models.BaseModel{ID: ownerID}, UserID: ownerUserID}, nil)
+	suite.mockLinkRepo.EXPECT().GetByOwner(ownerID).Return([]models.Link{}, nil)
+
+	res, err := suite.linkService.GetByOwnerUserIDWithViewer(ownerUserID, "viewerX")
+	assert.NoError(suite.T(), err)
+	assert.NotNil(suite.T(), res)
+	assert.Len(suite.T(), res, 0)
+}
+
+func (suite *LinkServiceTestSuite) TestDeleteLink_Success() {
+	id := uuid.New()
+	suite.mockLinkRepo.EXPECT().Delete(id).Return(nil)
+
+	err := suite.linkService.DeleteLink(id)
+	assert.NoError(suite.T(), err)
+}
+
+func (suite *LinkServiceTestSuite) TestDeleteLink_Error() {
+	id := uuid.New()
+	suite.mockLinkRepo.EXPECT().Delete(id).Return(errors.New("db error"))
+
+	err := suite.linkService.DeleteLink(id)
+	assert.Error(suite.T(), err)
+	assert.Contains(suite.T(), err.Error(), "failed to delete link")
+}
+
+func TestLinkServiceTestSuite(t *testing.T) {
+	suite.Run(t, new(LinkServiceTestSuite))
+}

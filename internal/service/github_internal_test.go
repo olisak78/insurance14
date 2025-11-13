@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
@@ -10,6 +11,7 @@ import (
 	"time"
 
 	"developer-portal-backend/internal/auth"
+	apperrors "developer-portal-backend/internal/errors"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -185,11 +187,10 @@ func TestGetUserTotalContributions_HTTPErrors(t *testing.T) {
 			githubService := NewGitHubServiceWithAdapter(mockAuthService)
 
 			claims := &auth.AuthClaims{
-				UserID:      12345,
-				Username:    "testuser",
-				Email:       "test@example.com",
-				Provider:    "githubtools",
-				Environment: "test",
+				UserID:   12345,
+				Username: "testuser",
+				Email:    "test@example.com",
+				Provider: "githubtools",
 			}
 
 			ctx := context.Background()
@@ -266,11 +267,10 @@ func TestGetUserTotalContributions_GraphQLErrors(t *testing.T) {
 			githubService := NewGitHubServiceWithAdapter(mockAuthService)
 
 			claims := &auth.AuthClaims{
-				UserID:      12345,
-				Username:    "testuser",
-				Email:       "test@example.com",
-				Provider:    "githubtools",
-				Environment: "test",
+				UserID:   12345,
+				Username: "testuser",
+				Email:    "test@example.com",
+				Provider: "githubtools",
 			}
 
 			ctx := context.Background()
@@ -325,11 +325,10 @@ func TestGetUserTotalContributions_MalformedJSON(t *testing.T) {
 			githubService := NewGitHubServiceWithAdapter(mockAuthService)
 
 			claims := &auth.AuthClaims{
-				UserID:      12345,
-				Username:    "testuser",
-				Email:       "test@example.com",
-				Provider:    "githubtools",
-				Environment: "test",
+				UserID:   12345,
+				Username: "testuser",
+				Email:    "test@example.com",
+				Provider: "githubtools",
 			}
 
 			ctx := context.Background()
@@ -443,11 +442,10 @@ func TestGetUserTotalContributions_SuccessfulResponses(t *testing.T) {
 			githubService := NewGitHubServiceWithAdapter(mockAuthService)
 
 			claims := &auth.AuthClaims{
-				UserID:      12345,
-				Username:    "testuser",
-				Email:       "test@example.com",
-				Provider:    "githubtools",
-				Environment: "test",
+				UserID:   12345,
+				Username: "testuser",
+				Email:    "test@example.com",
+				Provider: "githubtools",
 			}
 
 			ctx := context.Background()
@@ -481,11 +479,10 @@ func TestGetUserTotalContributions_ContextTimeout(t *testing.T) {
 	githubService := NewGitHubServiceWithAdapter(mockAuthService)
 
 	claims := &auth.AuthClaims{
-		UserID:      12345,
-		Username:    "testuser",
-		Email:       "test@example.com",
-		Provider:    "githubtools",
-		Environment: "test",
+		UserID:   12345,
+		Username: "testuser",
+		Email:    "test@example.com",
+		Provider: "githubtools",
 	}
 
 	// Create context with very short timeout
@@ -504,11 +501,10 @@ func TestGetUserTotalContributions_PeriodValidation(t *testing.T) {
 	githubService := NewGitHubService(nil)
 
 	claims := &auth.AuthClaims{
-		UserID:      12345,
-		Username:    "testuser",
-		Email:       "test@example.com",
-		Provider:    "githubtools",
-		Environment: "test",
+		UserID:   12345,
+		Username: "testuser",
+		Email:    "test@example.com",
+		Provider: "githubtools",
 	}
 
 	invalidPeriods := []string{
@@ -531,7 +527,7 @@ func TestGetUserTotalContributions_PeriodValidation(t *testing.T) {
 
 			require.Error(t, err)
 			assert.Nil(t, result)
-			assert.Contains(t, err.Error(), "invalid period format")
+			assert.True(t, errors.Is(err, apperrors.ErrInvalidPeriodFormat))
 		})
 	}
 }
@@ -566,11 +562,10 @@ func TestGetUserTotalContributions_LargeContributions(t *testing.T) {
 	githubService := NewGitHubServiceWithAdapter(mockAuthService)
 
 	claims := &auth.AuthClaims{
-		UserID:      12345,
-		Username:    "testuser",
-		Email:       "test@example.com",
-		Provider:    "githubtools",
-		Environment: "test",
+		UserID:   12345,
+		Username: "testuser",
+		Email:    "test@example.com",
+		Provider: "githubtools",
 	}
 
 	ctx := context.Background()
@@ -611,11 +606,10 @@ func TestGetUserTotalContributions_EmptyDates(t *testing.T) {
 	githubService := NewGitHubServiceWithAdapter(mockAuthService)
 
 	claims := &auth.AuthClaims{
-		UserID:      12345,
-		Username:    "testuser",
-		Email:       "test@example.com",
-		Provider:    "githubtools",
-		Environment: "test",
+		UserID:   12345,
+		Username: "testuser",
+		Email:    "test@example.com",
+		Provider: "githubtools",
 	}
 
 	ctx := context.Background()
@@ -652,11 +646,10 @@ func TestGetUserOpenPullRequests_EdgeCases(t *testing.T) {
 		githubService := NewGitHubServiceWithAdapter(mockAuthService)
 
 		claims := &auth.AuthClaims{
-			UserID:      12345,
-			Username:    "testuser",
-			Email:       "test@example.com",
-			Provider:    "githubtools",
-			Environment: "test",
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
 		}
 
 		ctx := context.Background()
@@ -672,11 +665,10 @@ func TestGetUserOpenPullRequests_EdgeCases(t *testing.T) {
 		githubService := NewGitHubService(nil)
 
 		claims := &auth.AuthClaims{
-			UserID:      12345,
-			Username:    "testuser",
-			Email:       "test@example.com",
-			Provider:    "githubtools",
-			Environment: "test",
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
 		}
 
 		ctx := context.Background()
@@ -696,11 +688,10 @@ func TestGetUserOpenPullRequests_EdgeCases(t *testing.T) {
 		githubService := NewGitHubServiceWithAdapter(mockAuthService)
 
 		claims := &auth.AuthClaims{
-			UserID:      12345,
-			Username:    "testuser",
-			Email:       "test@example.com",
-			Provider:    "githubtools",
-			Environment: "test",
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
 		}
 
 		ctx, cancel := context.WithCancel(context.Background())
@@ -741,7 +732,7 @@ func TestAuthServiceAdapter(t *testing.T) {
 	t.Run("GetGitHubClient_NilAuthService", func(t *testing.T) {
 		adapter := NewAuthServiceAdapter(nil)
 
-		client, err := adapter.GetGitHubClient("githubtools", "development")
+		client, err := adapter.GetGitHubClient("githubtools")
 
 		assert.Error(t, err)
 		assert.Nil(t, client)
@@ -762,7 +753,7 @@ func TestAuthServiceAdapter(t *testing.T) {
 		assert.Equal(t, "test-token", token)
 
 		// Test GetGitHubClient
-		client, err := mock.GetGitHubClient("githubtools", "development")
+		client, err := mock.GetGitHubClient("githubtools")
 		assert.NoError(t, err)
 		assert.NotNil(t, client)
 	})
@@ -781,12 +772,439 @@ func (m *mockAuthServiceForContributions) GetGitHubAccessTokenFromClaims(claims 
 	return m.accessToken, nil
 }
 
-func (m *mockAuthServiceForContributions) GetGitHubClient(provider, environment string) (*auth.GitHubClient, error) {
+func (m *mockAuthServiceForContributions) GetGitHubClient(provider string) (*auth.GitHubClient, error) {
 	// Create a test client with our test server's baseURL
-	config := &auth.EnvironmentConfig{
+	config := &auth.ProviderConfig{
 		ClientID:          "test-client-id",
 		ClientSecret:      "test-client-secret",
 		EnterpriseBaseURL: m.baseURL,
+	}
+	return auth.NewGitHubClient(config), nil
+}
+
+// TestGetContributionsHeatmap_Success tests successful heatmap retrieval
+func TestGetContributionsHeatmap_Success(t *testing.T) {
+	// Create a test GraphQL server
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Verify the request
+		assert.Equal(t, "POST", r.Method)
+		assert.Equal(t, "/api/graphql", r.URL.Path)
+		assert.Equal(t, "application/json", r.Header.Get("Content-Type"))
+		assert.Contains(t, r.Header.Get("Authorization"), "Bearer")
+
+		// Parse the request body to verify the query
+		var reqBody struct {
+			Query string `json:"query"`
+		}
+		err := json.NewDecoder(r.Body).Decode(&reqBody)
+		require.NoError(t, err)
+		assert.Contains(t, reqBody.Query, "contributionCalendar")
+
+		// Return mock response
+		response := map[string]interface{}{
+			"data": map[string]interface{}{
+				"viewer": map[string]interface{}{
+					"contributionsCollection": map[string]interface{}{
+						"startedAt": "2024-10-30T00:00:00Z",
+						"endedAt":   "2025-10-30T23:59:59Z",
+						"contributionCalendar": map[string]interface{}{
+							"totalContributions": 1234,
+							"weeks": []map[string]interface{}{
+								{
+									"firstDay": "2024-10-27",
+									"contributionDays": []map[string]interface{}{
+										{
+											"date":              "2024-10-27",
+											"contributionCount": 5,
+											"contributionLevel": "SECOND_QUARTILE",
+											"color":             "#40c463",
+										},
+										{
+											"date":              "2024-10-28",
+											"contributionCount": 10,
+											"contributionLevel": "THIRD_QUARTILE",
+											"color":             "#30a14e",
+										},
+									},
+								},
+								{
+									"firstDay": "2024-11-03",
+									"contributionDays": []map[string]interface{}{
+										{
+											"date":              "2024-11-03",
+											"contributionCount": 3,
+											"contributionLevel": "FIRST_QUARTILE",
+											"color":             "#9be9a8",
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(response)
+	}))
+	defer server.Close()
+
+	// Create mock auth service
+	mockAuth := &mockAuthServiceForContributions{
+		accessToken: "test-access-token",
+		baseURL:     server.URL,
+	}
+
+	// Create GitHub service
+	githubService := NewGitHubServiceWithAdapter(mockAuth)
+
+	// Create test claims
+	claims := &auth.AuthClaims{
+		UserID:   12345,
+		Username: "testuser",
+		Email:    "test@example.com",
+		Provider: "githubtools",
+	}
+
+	ctx := context.Background()
+
+	// Test without period (default)
+	result, err := githubService.GetContributionsHeatmap(ctx, claims, "")
+
+	require.NoError(t, err)
+	assert.NotNil(t, result)
+	assert.Equal(t, 1234, result.TotalContributions)
+	assert.Equal(t, "2024-10-30T00:00:00Z", result.From)
+	assert.Equal(t, "2025-10-30T23:59:59Z", result.To)
+	assert.Len(t, result.Weeks, 2)
+	
+	// Verify first week
+	assert.Equal(t, "2024-10-27", result.Weeks[0].FirstDay)
+	assert.Len(t, result.Weeks[0].ContributionDays, 2)
+	assert.Equal(t, "2024-10-27", result.Weeks[0].ContributionDays[0].Date)
+	assert.Equal(t, 5, result.Weeks[0].ContributionDays[0].ContributionCount)
+	assert.Equal(t, "SECOND_QUARTILE", result.Weeks[0].ContributionDays[0].ContributionLevel)
+	assert.Equal(t, "#40c463", result.Weeks[0].ContributionDays[0].Color)
+
+	// Verify second week
+	assert.Equal(t, "2024-11-03", result.Weeks[1].FirstDay)
+	assert.Len(t, result.Weeks[1].ContributionDays, 1)
+}
+
+// TestGetContributionsHeatmap_WithPeriod tests heatmap with custom period
+func TestGetContributionsHeatmap_WithPeriod(t *testing.T) {
+	// Create a test GraphQL server
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Parse the request to verify period parameters
+		var reqBody struct {
+			Query string `json:"query"`
+		}
+		err := json.NewDecoder(r.Body).Decode(&reqBody)
+		require.NoError(t, err)
+		
+		// Verify that from/to parameters are in the query
+		assert.Contains(t, reqBody.Query, "contributionsCollection(from:")
+		assert.Contains(t, reqBody.Query, "to:")
+
+		// Return mock response
+		response := map[string]interface{}{
+			"data": map[string]interface{}{
+				"viewer": map[string]interface{}{
+					"contributionsCollection": map[string]interface{}{
+						"startedAt": "2025-07-31T00:00:00Z",
+						"endedAt":   "2025-10-30T23:59:59Z",
+						"contributionCalendar": map[string]interface{}{
+							"totalContributions": 456,
+							"weeks": []map[string]interface{}{
+								{
+									"firstDay": "2025-07-27",
+									"contributionDays": []map[string]interface{}{
+										{
+											"date":              "2025-07-31",
+											"contributionCount": 2,
+											"contributionLevel": "FIRST_QUARTILE",
+											"color":             "#9be9a8",
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(response)
+	}))
+	defer server.Close()
+
+	mockAuth := &mockAuthServiceForContributions{
+		accessToken: "test-access-token",
+		baseURL:     server.URL,
+	}
+
+	githubService := NewGitHubServiceWithAdapter(mockAuth)
+
+	claims := &auth.AuthClaims{
+		UserID:   12345,
+		Username: "testuser",
+		Email:    "test@example.com",
+		Provider: "githubtools",
+	}
+
+	ctx := context.Background()
+
+	// Test with 90 day period
+	result, err := githubService.GetContributionsHeatmap(ctx, claims, "90d")
+
+	require.NoError(t, err)
+	assert.NotNil(t, result)
+	assert.Equal(t, 456, result.TotalContributions)
+	assert.Equal(t, "2025-07-31T00:00:00Z", result.From)
+	assert.Equal(t, "2025-10-30T23:59:59Z", result.To)
+}
+
+// TestGetContributionsHeatmap_NilClaims tests with nil claims
+func TestGetContributionsHeatmap_NilClaims(t *testing.T) {
+	mockAuth := &mockAuthServiceForContributions{
+		accessToken: "test-token",
+		baseURL:     "https://api.github.com",
+	}
+
+	githubService := NewGitHubServiceWithAdapter(mockAuth)
+	ctx := context.Background()
+
+	result, err := githubService.GetContributionsHeatmap(ctx, nil, "")
+
+	require.Error(t, err)
+	assert.Nil(t, result)
+	assert.Contains(t, err.Error(), "authentication required")
+}
+
+// TestGetContributionsHeatmap_InvalidPeriodFormat tests with invalid period format
+func TestGetContributionsHeatmap_InvalidPeriodFormat(t *testing.T) {
+	mockAuth := &mockAuthServiceForContributions{
+		accessToken: "test-token",
+		baseURL:     "https://api.github.com",
+	}
+
+	githubService := NewGitHubServiceWithAdapter(mockAuth)
+
+	claims := &auth.AuthClaims{
+		UserID:   12345,
+		Username: "testuser",
+		Email:    "test@example.com",
+		Provider: "githubtools",
+	}
+
+	ctx := context.Background()
+
+	testCases := []struct {
+		name   string
+		period string
+	}{
+		{"InvalidFormat", "30days"},
+		{"MissingNumber", "d"},
+		{"NoUnit", "30"},
+		{"NegativeNumber", "-30d"},
+		{"InvalidCharacters", "abc30d"},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			result, err := githubService.GetContributionsHeatmap(ctx, claims, tc.period)
+
+			require.Error(t, err)
+			assert.Nil(t, result)
+			assert.True(t, errors.Is(err, apperrors.ErrInvalidPeriodFormat))
+		})
+	}
+}
+
+// TestGetContributionsHeatmap_ProviderNotConfigured tests with unconfigured provider
+func TestGetContributionsHeatmap_ProviderNotConfigured(t *testing.T) {
+	// Create mock that returns error for GetGitHubClient
+	mockAuth := &mockAuthServiceFailure{
+		accessToken: "test-token",
+		clientError: fmt.Errorf("provider 'invalid' not found"),
+	}
+
+	githubService := NewGitHubServiceWithAdapter(mockAuth)
+
+	claims := &auth.AuthClaims{
+		UserID:   12345,
+		Username: "testuser",
+		Email:    "test@example.com",
+		Provider: "invalid",
+	}
+
+	ctx := context.Background()
+
+	result, err := githubService.GetContributionsHeatmap(ctx, claims, "")
+
+	require.Error(t, err)
+	assert.Nil(t, result)
+	assert.True(t, errors.Is(err, apperrors.ErrProviderNotConfigured))
+}
+
+// TestGetContributionsHeatmap_RateLimitExceeded tests rate limit handling
+func TestGetContributionsHeatmap_RateLimitExceeded(t *testing.T) {
+	// Create a test server that returns 403 (rate limit)
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusForbidden)
+		w.Write([]byte(`{"message": "API rate limit exceeded"}`))
+	}))
+	defer server.Close()
+
+	mockAuth := &mockAuthServiceForContributions{
+		accessToken: "test-access-token",
+		baseURL:     server.URL,
+	}
+
+	githubService := NewGitHubServiceWithAdapter(mockAuth)
+
+	claims := &auth.AuthClaims{
+		UserID:   12345,
+		Username: "testuser",
+		Email:    "test@example.com",
+		Provider: "githubtools",
+	}
+
+	ctx := context.Background()
+
+	result, err := githubService.GetContributionsHeatmap(ctx, claims, "")
+
+	require.Error(t, err)
+	assert.Nil(t, result)
+	// The error should be the specific rate limit error
+	assert.Contains(t, err.Error(), "rate limit")
+}
+
+// TestGetContributionsHeatmap_GraphQLError tests GraphQL error handling
+func TestGetContributionsHeatmap_GraphQLError(t *testing.T) {
+	// Create a test server that returns GraphQL errors
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		response := map[string]interface{}{
+			"errors": []map[string]interface{}{
+				{
+					"message": "Field 'contributionCalendar' doesn't exist on type 'ContributionsCollection'",
+					"path":    []string{"viewer", "contributionsCollection", "contributionCalendar"},
+				},
+			},
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(response)
+	}))
+	defer server.Close()
+
+	mockAuth := &mockAuthServiceForContributions{
+		accessToken: "test-access-token",
+		baseURL:     server.URL,
+	}
+
+	githubService := NewGitHubServiceWithAdapter(mockAuth)
+
+	claims := &auth.AuthClaims{
+		UserID:   12345,
+		Username: "testuser",
+		Email:    "test@example.com",
+		Provider: "githubtools",
+	}
+
+	ctx := context.Background()
+
+	result, err := githubService.GetContributionsHeatmap(ctx, claims, "")
+
+	require.Error(t, err)
+	assert.Nil(t, result)
+	assert.Contains(t, err.Error(), "GraphQL error")
+}
+
+// TestGetContributionsHeatmap_HTTPError tests HTTP error handling
+func TestGetContributionsHeatmap_HTTPError(t *testing.T) {
+	// Create a test server that returns 500
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(`{"message": "Internal server error"}`))
+	}))
+	defer server.Close()
+
+	mockAuth := &mockAuthServiceForContributions{
+		accessToken: "test-access-token",
+		baseURL:     server.URL,
+	}
+
+	githubService := NewGitHubServiceWithAdapter(mockAuth)
+
+	claims := &auth.AuthClaims{
+		UserID:   12345,
+		Username: "testuser",
+		Email:    "test@example.com",
+		Provider: "githubtools",
+	}
+
+	ctx := context.Background()
+
+	result, err := githubService.GetContributionsHeatmap(ctx, claims, "")
+
+	require.Error(t, err)
+	assert.Nil(t, result)
+	assert.Contains(t, err.Error(), "GraphQL query failed with status 500")
+}
+
+// TestGetContributionsHeatmap_AccessTokenError tests access token retrieval error
+func TestGetContributionsHeatmap_AccessTokenError(t *testing.T) {
+	// Create mock that returns error for access token
+	mockAuth := &mockAuthServiceFailure{
+		tokenError:  fmt.Errorf("failed to get access token"),
+		accessToken: "",
+	}
+
+	githubService := NewGitHubServiceWithAdapter(mockAuth)
+
+	claims := &auth.AuthClaims{
+		UserID:   12345,
+		Username: "testuser",
+		Email:    "test@example.com",
+		Provider: "githubtools",
+	}
+
+	ctx := context.Background()
+
+	result, err := githubService.GetContributionsHeatmap(ctx, claims, "")
+
+	require.Error(t, err)
+	assert.Nil(t, result)
+	assert.Contains(t, err.Error(), "failed to get GitHub access token")
+}
+
+// mockAuthServiceFailure is a mock that returns errors
+type mockAuthServiceFailure struct {
+	accessToken string
+	tokenError  error
+	clientError error
+}
+
+func (m *mockAuthServiceFailure) GetGitHubAccessTokenFromClaims(claims *auth.AuthClaims) (string, error) {
+	if m.tokenError != nil {
+		return "", m.tokenError
+	}
+	return m.accessToken, nil
+}
+
+func (m *mockAuthServiceFailure) GetGitHubClient(provider string) (*auth.GitHubClient, error) {
+	if m.clientError != nil {
+		return nil, m.clientError
+	}
+	config := &auth.ProviderConfig{
+		ClientID:     "test-client-id",
+		ClientSecret: "test-client-secret",
 	}
 	return auth.NewGitHubClient(config), nil
 }

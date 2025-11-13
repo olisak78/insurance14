@@ -1,0 +1,7016 @@
+users:
+  - name: cis.devops
+    first_name: CFS
+    last_name: DevOps
+    email: cis.devops@global.corp.sap
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5230878
+    team_name: team-ua
+    first_name: Sarah
+    last_name: Erdmann
+    email: sarah.erdmann@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5384872
+    team_name: team-naomi
+    first_name: Alexander
+    last_name: Matsievsky
+    email: alexander.matsievsky@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5384875
+    team_name: team-avihai
+    first_name: Aleksandr
+    last_name: Vysokov
+    email: aleksandr.vysokov@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5384878
+    team_name: team-naomi
+    first_name: Edward
+    last_name: Kats
+    email: edward.kats@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5386661
+    team_name: team-naomi
+    first_name: Amit
+    last_name: Lezmy Reif
+    email: a.lezmy.reif@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5386876
+    team_name: team-eyal
+    first_name: Adi
+    last_name: Bnaya
+    email: adi.bnaya@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5387015
+    team_name: team-yael
+    first_name: ILYA
+    last_name: MAKH
+    email: ilya.makh@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5387818
+    team_name: team-lior
+    first_name: Shimon
+    last_name: Katz
+    email: shimon.katz@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5388140
+    team_name: team-yael
+    first_name: Emil
+    last_name: Alayev
+    email: emil.alayev@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5401691
+    team_name: team-coe
+    first_name: Orr
+    last_name: Morad
+    email: orr.morad@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+    metadata:
+      portal_admin: true
+  - name: C5401815
+    team_name: team-sasha
+    first_name: Orel
+    last_name: Hale
+    email: orel.hale@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5402553
+    team_name: team-zohar
+    first_name: Ben Or
+    last_name: Radan
+    email: ben.or.radan@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5402555
+    team_name: team-sasha
+    first_name: Michael
+    last_name: Hoffman
+    email: michael.hoffman@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5406081
+    team_name: team-coe
+    first_name: Oleg
+    last_name: Lisak
+    email: oleg.lisak@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+    metadata:
+      portal_admin: true
+      ai_instances:
+        - ask-ai
+  - name: I016343
+    team_name: team-lior
+    first_name: Adi
+    last_name: Chibel
+    email: adi.chibel@sap.com
+    phone_number: '+972542277520'
+    team_domain: developer
+    team_role: member
+  - name: I016368
+    team_name: ''
+    first_name: Amir
+    last_name: Rosman
+    email: amir.rosman@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I021996
+    team_name: team-ua
+    first_name: Michael
+    last_name: Glaun
+    email: michael.glaun@sap.com
+    phone_number: '+972523416299'
+    team_domain: developer
+    team_role: member
+  - name: I022021
+    team_name: team-architects
+    first_name: Ariel
+    last_name: Bentolila
+    email: ariel.bentolila@sap.com
+    phone_number: '+972542277167'
+    team_domain: developer
+    team_role: manager
+  - name: I022037
+    team_name: team-yaron
+    first_name: Ofra
+    last_name: Efrati
+    email: ofra.efrati@sap.com
+    phone_number: '+972542277510'
+    team_domain: developer
+    team_role: manager
+  - name: I024035
+    team_name: team-eyal
+    first_name: Rafi
+    last_name: Bukra
+    email: rafi.bukra@sap.com
+    phone_number: '+972507335152'
+    team_domain: developer
+    team_role: member
+  - name: I024635
+    team_name: team-coe
+    first_name: Nissim
+    last_name: Tal
+    email: nissim.tal@sap.com
+    phone_number: '+972528389080'
+    team_domain: developer
+    team_role: member
+  - name: I025041
+    team_name: team-yaron
+    first_name: Valery
+    last_name: Matlin
+    email: valery.matlin@sap.com
+    phone_number: '+972507617031'
+    team_domain: developer
+    team_role: member
+  - name: I025080
+    team_name: team-yaron
+    first_name: Hadas
+    last_name: Tarbes
+    email: hadas.tarbes@sap.com
+    phone_number: '+972543388108'
+    team_domain: developer
+    team_role: member
+  - name: I025929
+    team_name: team-po
+    first_name: Avi
+    last_name: Lupu
+    email: avi.lupu@sap.com
+    phone_number: '+972542225775'
+    team_domain: developer
+    team_role: member
+  - name: I026067
+    team_name: team-coe
+    first_name: Gadi
+    last_name: Melamed
+    email: gadi.melamed@sap.com
+    phone_number: '+972522665453'
+    team_domain: developer
+    team_role: member
+    metadata:
+      portal_admin: true
+  - name: I028203
+    team_name: ''
+    first_name: Zohar
+    last_name: Yehezkely
+    email: zohar.yehezkely@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I028420
+    team_name: team-po
+    first_name: Keren
+    last_name: Rotenberg
+    email: keren.rotenberg@sap.com
+    phone_number: '+972522442186'
+    team_domain: developer
+    team_role: member
+  - name: I028516
+    team_name: team-zohar
+    first_name: Zohar
+    last_name: Sheinberg
+    email: zohar.sheinberg@sap.com
+    phone_number: '+972508641869'
+    team_domain: developer
+    team_role: scm
+  - name: I028712
+    team_name: team-lior
+    first_name: Carmit
+    last_name: Pinto
+    email: carmit.pinto@sap.com
+    phone_number: '+972547880301'
+    team_domain: developer
+    team_role: member
+  - name: I028778
+    team_name: team-po
+    first_name: Guy
+    last_name: Soffer
+    email: guy.soffer@sap.com
+    phone_number: '+972543013000'
+    team_domain: developer
+    team_role: member
+  - name: I028938
+    team_name: ''
+    first_name: Gabi
+    last_name: Koifman
+    email: gabi.koifman@sap.com
+    phone_number: '+972542277538'
+    team_domain: developer
+    team_role: member
+  - name: I029927
+    team_name: team-avihai
+    first_name: Avihai
+    last_name: Tamari
+    email: avihai.tamari@sap.com
+    phone_number: '+972547447000'
+    team_domain: developer
+    team_role: scm
+  - name: I030634
+    team_name: team-sasha
+    first_name: Isam
+    last_name: Awad
+    email: isam.awad@sap.com
+    phone_number: '+972542277179'
+    team_domain: developer
+    team_role: member
+  - name: I031462
+    team_name: ''
+    first_name: Eran
+    last_name: Simha
+    email: eran.simha@sap.com
+    phone_number: '+972543388044'
+    team_domain: developer
+    team_role: manager
+  - name: I031851
+    team_name: team-po
+    first_name: Yaron
+    last_name: Livneh
+    email: yaron.livneh@sap.com
+    phone_number: '+972523417706'
+    team_domain: developer
+    team_role: member
+  - name: I032202
+    team_name: team-eyal
+    first_name: Oleg
+    last_name: Gerber
+    email: oleg.gerber@sap.com
+    phone_number: '+972543323415'
+    team_domain: developer
+    team_role: member
+  - name: I032278
+    team_name: ''
+    first_name: Orna
+    last_name: Kleinmann
+    email: orna.kleinmann@sap.com
+    phone_number: '+972542277171'
+    team_domain: developer
+    team_role: member
+  - name: I032692
+    team_name: ''
+    first_name: Ronny
+    last_name: Amran
+    email: ronny.amran@sap.com
+    phone_number: '+972547464323'
+    team_domain: developer
+    team_role: manager
+  - name: I033163
+    team_name: team-architects
+    first_name: Genady
+    last_name: Podgaetsky
+    email: genady.podgaetsky@sap.com
+    phone_number: '+972542277113'
+    team_domain: developer
+    team_role: member
+  - name: I033723
+    team_name: team-architects
+    first_name: Ran
+    last_name: Gross
+    email: ran.gross@sap.com
+    phone_number: '+972542277560'
+    team_domain: developer
+    team_role: member
+  - name: I033872
+    team_name: ''
+    first_name: Eliel
+    last_name: Schurman
+    email: eliel.schurman@sap.com
+    phone_number: '+972543388075'
+    team_domain: developer
+    team_role: mmm
+  - name: I033873
+    team_name: ''
+    first_name: Netanel
+    last_name: Slomianski
+    email: netanel.slomianski@sap.com
+    phone_number: '+972532284869'
+    team_domain: developer
+    team_role: member
+  - name: I033933
+    team_name: team-architects
+    first_name: Pavel
+    last_name: Kravets
+    email: pavel.kravets@sap.com
+    phone_number: '+972542516172'
+    team_domain: developer
+    team_role: member
+  - name: I034426
+    team_name: ''
+    first_name: Vered
+    last_name: Sheinman
+    email: vered.sheinman@sap.com
+    phone_number: '+972508694690'
+    team_domain: developer
+    team_role: member
+  - name: I034982
+    team_name: team-zohar
+    first_name: Raanan
+    last_name: Jacoby
+    email: raanan.jacoby@sap.com
+    phone_number: '+972547484557'
+    team_domain: developer
+    team_role: member
+  - name: I034984
+    team_name: team-yaron
+    first_name: Yaron
+    last_name: Ganor
+    email: yaron.ganor@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: scm
+  - name: I036114
+    team_name: team-pm
+    first_name: Yifat
+    last_name: Zomer
+    email: yifat.zomer@sap.com
+    phone_number: '+972542277595'
+    team_domain: developer
+    team_role: member
+  - name: I038893
+    team_name: team-po
+    first_name: David
+    last_name: Kviti
+    email: david.kviti@sap.com
+    phone_number: '+972542277202'
+    team_domain: developer
+    team_role: manager
+  - name: I039260
+    team_name: team-alex
+    first_name: Arik
+    last_name: Shadmi
+    email: arik.shadmi@sap.com
+    phone_number: '+972507292388'
+    team_domain: developer
+    team_role: member
+  - name: I039440
+    team_name: ''
+    first_name: Noa
+    last_name: Akrabe
+    email: noa.akrabe@sap.com
+    phone_number: '+972542277550'
+    team_domain: developer
+    team_role: member
+  - name: I039602
+    team_name: ''
+    first_name: Yael
+    last_name: Mizrahil
+    email: yael.mizrahil@sap.com
+    phone_number: '+972522368186'
+    team_domain: developer
+    team_role: member
+  - name: I040002
+    team_name: team-eyal
+    first_name: Angela
+    last_name: Porter
+    email: angela.porter@sap.com
+    phone_number: '+972544649151'
+    team_domain: developer
+    team_role: member
+  - name: I040222
+    team_name: team-yael
+    first_name: Yael
+    last_name: Limon
+    email: yael.limon@sap.com
+    phone_number: '+972544651194'
+    team_domain: developer
+    team_role: scm
+  - name: I044160
+    team_name: ''
+    first_name: Elinor
+    last_name: Aharon
+    email: elinor.aharon@sap.com
+    phone_number: '+972544219000'
+    team_domain: developer
+    team_role: member
+  - name: I045198
+    team_name: team-coe
+    first_name: Ariel
+    last_name: Almog
+    email: ariel.almog@sap.com
+    phone_number: '+972543388101'
+    team_domain: developer
+    team_role: scm
+    metadata:
+      portal_admin: true
+  - name: I047768
+    team_name: ''
+    first_name: Aviad
+    last_name: Gilady
+    email: aviad.gilady@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I048374
+    team_name: team-po
+    first_name: Serhan
+    last_name: Shbeita
+    email: serhan.shbeita@sap.com
+    phone_number: '+972543388128'
+    team_domain: developer
+    team_role: member
+  - name: I048704
+    team_name: ''
+    first_name: Eli
+    last_name: Avital
+    email: eli.avital@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: manager
+  - name: I052901
+    team_name: team-eyal
+    first_name: Semion
+    last_name: Shvarts
+    email: semion.shvarts@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I053421
+    team_name: team-yaron
+    first_name: Olga
+    last_name: Segman
+    email: olga.segman@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I054294
+    team_name: team-sasha
+    first_name: Uriel
+    last_name: Even Sapir
+    email: uriel.even.sapir@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I055001
+    team_name: team-ua
+    first_name: Ronit
+    last_name: Izhar
+    email: ronit.izhar@sap.com
+    phone_number: '+972543388156'
+    team_domain: developer
+    team_role: member
+  - name: I055473
+    team_name: team-eyal
+    first_name: Roye
+    last_name: Cohen
+    email: roye.cohen@sap.com
+    phone_number: '+972542823401'
+    team_domain: developer
+    team_role: member
+  - name: I055970
+    team_name: ''
+    first_name: Moshe
+    last_name: Natan
+    email: moshe.natan@sap.com
+    phone_number: '+972544966356'
+    team_domain: developer
+    team_role: member
+  - name: I055972
+    team_name: team-po
+    first_name: Alex
+    last_name: Sudkovich
+    email: alex.sudkovich@sap.com
+    phone_number: '+972548133038'
+    team_domain: developer
+    team_role: member
+  - name: I056930
+    team_name: team-pm
+    first_name: Gitit
+    last_name: Sagiv
+    email: gitit.sagiv@sap.com
+    phone_number: '+972525288191'
+    team_domain: developer
+    team_role: manager
+  - name: I057466
+    team_name: team-ua
+    first_name: Raylene
+    last_name: Mehl
+    email: raylene.mehl@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I058125
+    team_name: team-alex
+    first_name: Zvi
+    last_name: Zeltser
+    email: zvi.zeltser@sap.com
+    phone_number: '+972547706820'
+    team_domain: developer
+    team_role: member
+  - name: I058168
+    team_name: team-pm
+    first_name: Anat
+    last_name: Segev
+    email: anat.segev@sap.com
+    phone_number: '+972542277197'
+    team_domain: developer
+    team_role: member
+  - name: I059066
+    team_name: team-coe
+    first_name: Nati
+    last_name: Gavriel
+    email: nati.gavriel@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I059286
+    team_name: team-yaron
+    first_name: Michal
+    last_name: Keidar
+    email: michal.keidar@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I065356
+    team_name: ''
+    first_name: Meital
+    last_name: Batsri
+    email: meital.batsri@sap.com
+    phone_number: '+972523646036'
+    team_domain: developer
+    team_role: member
+  - name: I065450
+    team_name: team-yael
+    first_name: Naama
+    last_name: Solomon
+    email: naama.solomon@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I066865
+    team_name: team-pm
+    first_name: Dafna
+    last_name: Sherez
+    email: dafna.sherez@sap.com
+    phone_number: '+972544666712'
+    team_domain: developer
+    team_role: member
+  - name: I067398
+    team_name: team-eyal
+    first_name: Eyal
+    last_name: Ben David
+    email: eyal.ben.david@sap.com
+    phone_number: '+972523985224'
+    team_domain: developer
+    team_role: scm
+  - name: I067841
+    team_name: ''
+    first_name: Andrea
+    last_name: Alkalay
+    email: andrea.alkalay@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I068165
+    team_name: team-alex
+    first_name: Dmitry
+    last_name: Bakaleinik
+    email: dmitry.bakaleinik@sap.com
+    phone_number: '+972547622611'
+    team_domain: developer
+    team_role: member
+  - name: I068898
+    team_name: team-avihai
+    first_name: Pavel
+    last_name: Maliy
+    email: pavel.maliy@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I070970
+    team_name: team-architects
+    first_name: Vadim
+    last_name: Tomnikov
+    email: vadim.tomnikov@sap.com
+    phone_number: '+972543388528'
+    team_domain: developer
+    team_role: member
+  - name: I071873
+    team_name: team-alex
+    first_name: Alex
+    last_name: Volchok
+    email: alex.volchok@sap.com
+    phone_number: '+972503881001'
+    team_domain: developer
+    team_role: scm
+  - name: I074932
+    team_name: team-sasha
+    first_name: Sasha
+    last_name: Weintraub
+    email: sasha.weintraub@sap.com
+    phone_number: '+972527588182'
+    team_domain: developer
+    team_role: scm
+  - name: I300941
+    team_name: team-po
+    first_name: Segev
+    last_name: Lev
+    email: segev.lev@sap.com
+    phone_number: '+972548300615'
+    team_domain: developer
+    team_role: member
+  - name: I305845
+    team_name: team-zohar
+    first_name: Gilad
+    last_name: Keinan
+    email: gilad.keinan@sap.com
+    phone_number: '+972525419368'
+    team_domain: developer
+    team_role: member
+  - name: I305848
+    team_name: team-sasha
+    first_name: Alexander
+    last_name: Pashkov
+    email: alexander.pashkov@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I308042
+    team_name: team-naomi
+    first_name: Adi
+    last_name: Swissa
+    email: adi.swissa@sap.com
+    phone_number: '+972584422889'
+    team_domain: developer
+    team_role: manager
+  - name: I308065
+    team_name: team-sasha
+    first_name: Oshrat
+    last_name: Behar
+    email: oshrat.behar@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I310688
+    team_name: team-architects
+    first_name: Lior
+    last_name: Okman
+    email: lior.okman@sap.com
+    phone_number: '+972543388481'
+    team_domain: developer
+    team_role: member
+  - name: I311821
+    team_name: team-avihai
+    first_name: Munir
+    last_name: Nasir
+    email: munir.nasir@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I312150
+    team_name: ''
+    first_name: Zahi
+    last_name: Meiry
+    email: zahi.meiry@sap.com
+    phone_number: '+972542015671'
+    team_domain: developer
+    team_role: member
+  - name: I316696
+    team_name: team-zohar
+    first_name: Nimrod
+    last_name: Oron
+    email: nimrod.oron@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I320494
+    team_name: team-yael
+    first_name: Nir
+    last_name: Ben Rei
+    email: nir.ben.rei@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I334513
+    team_name: team-yael
+    first_name: Wael
+    last_name: Mashal
+    email: wael.mashal@sap.com
+    phone_number: '+972524871170'
+    team_domain: developer
+    team_role: member
+  - name: I335836
+    team_name: team-po
+    first_name: Asher
+    last_name: Kirshenbaum
+    email: asher.kirshenbaum@sap.com
+    phone_number: '+972547709351'
+    team_domain: developer
+    team_role: member
+  - name: I337014
+    team_name: team-zohar
+    first_name: Alexander
+    last_name: Kapustyan
+    email: alexander.kapustyan@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I337116
+    team_name: ''
+    first_name: Noa
+    last_name: Goldman
+    email: noa.goldman@sap.com
+    phone_number: '+972523245353'
+    team_domain: developer
+    team_role: member
+  - name: I345292
+    team_name: team-naomi
+    first_name: Naomi
+    last_name: Tayeb
+    email: naomi.tayeb@sap.com
+    phone_number: '+972547711979'
+    team_domain: developer
+    team_role: scm
+  - name: I348231
+    team_name: team-yael
+    first_name: Tal
+    last_name: Yaakov
+    email: tal.yaakov@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I350101
+    team_name: team-naomi
+    first_name: Tom
+    last_name: Sawdayee
+    email: tom.sawdayee@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I351090
+    team_name: team-alex
+    first_name: Asaf
+    last_name: Mor
+    email: asaf.mor@sap.com
+    phone_number: '+972545992947'
+    team_domain: developer
+    team_role: member
+  - name: I353686
+    team_name: team-alex
+    first_name: Dror
+    last_name: Hayun
+    email: dror.hayun@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I354876
+    team_name: team-lior
+    first_name: Rachel
+    last_name: Dror
+    email: rachel.dror@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I355221
+    team_name: team-zohar
+    first_name: Nabeel
+    last_name: Hodroj
+    email: nabeel.hodroj@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I355314
+    team_name: team-yaron
+    first_name: Idan
+    last_name: Peretz
+    email: idan.peretz@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I355566
+    team_name: team-po
+    first_name: Marwan
+    last_name: Jaber
+    email: m.jaber@sap.com
+    phone_number: '+972532203407'
+    team_domain: developer
+    team_role: member
+  - name: I355615
+    team_name: team-naomi
+    first_name: Aviv
+    last_name: Guy
+    email: aviv.guy@sap.com
+    phone_number: '+972547781305'
+    team_domain: developer
+    team_role: member
+  - name: I355882
+    team_name: team-eyal
+    first_name: Hanel
+    last_name: Kadosh
+    email: hanel.kadosh@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I355895
+    team_name: team-naomi
+    first_name: Daniel
+    last_name: Nemeth
+    email: daniel.nemeth@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I356288
+    team_name: team-yaron
+    first_name: Yigal
+    last_name: Frid
+    email: yigal.frid@sap.com
+    phone_number: '+972508109984'
+    team_domain: developer
+    team_role: member
+  - name: I356363
+    team_name: team-naomi
+    first_name: Adva
+    last_name: Ephraim
+    email: adva.ephraim@sap.com
+    phone_number: '+972526764104'
+    team_domain: developer
+    team_role: member
+  - name: I356377
+    team_name: team-naomi
+    first_name: Daniel
+    last_name: Schreiber
+    email: daniel.schreiber@sap.com
+    phone_number: '+972507229508'
+    team_domain: developer
+    team_role: member
+  - name: I500204
+    team_name: team-zohar
+    first_name: Eran
+    last_name: Goren
+    email: eran.goren@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I500298
+    team_name: team-lior
+    first_name: Avihai
+    last_name: Amar
+    email: avihai.amar@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I500866
+    team_name: team-yael
+    first_name: Alevtina
+    last_name: Shifman
+    email: alevtina.shifman@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I501072
+    team_name: team-avihai
+    first_name: Evyatar
+    last_name: Yaffe
+    email: evyatar.yaffe@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I501080
+    team_name: team-yael
+    first_name: Keren
+    last_name: Lahav
+    email: keren.lahav@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I501817
+    team_name: team-coe
+    first_name: Yuval
+    last_name: Sosmanovich
+    email: yuval.sosmanovich@sap.com
+    phone_number: '+972505766141'
+    team_domain: developer
+    team_role: manager
+    metadata:
+      portal_admin: true
+  - name: I504903
+    team_name: team-po
+    first_name: Eva
+    last_name: Siarri
+    email: eva.siarri@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I522006
+    team_name: team-ua
+    first_name: Daniel
+    last_name: Korac
+    email: daniel.korac@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I530610
+    team_name: team-avihai
+    first_name: Lior
+    last_name: Kizer
+    email: lior.kizer@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I533094
+    team_name: team-zohar
+    first_name: Nitzan
+    last_name: Sabag
+    email: nitzan.sabag@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I538970
+    team_name: team-lior
+    first_name: Lior
+    last_name: Shilo
+    email: lior.shilo@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: scm
+  - name: I542211
+    team_name: team-pm
+    first_name: Eran
+    last_name: Katz
+    email: eran.katz@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I545662
+    team_name: team-alex
+    first_name: Guy
+    last_name: Dunsky
+    email: guy.dunsky@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I546771
+    team_name: team-alex
+    first_name: Daniel
+    last_name: Mantel
+    email: daniel.mantel@sap.com
+    phone_number: '+972527283344'
+    team_domain: developer
+    team_role: member
+  - name: I547298
+    team_name: team-lior
+    first_name: Yossi
+    last_name: Kunya
+    email: yossef.kunya@sap.com
+    phone_number: '+972543452615'
+    team_domain: developer
+    team_role: member
+  - name: I547928
+    team_name: team-avihai
+    first_name: Din
+    last_name: Yehoshua
+    email: din.yehoshua@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I549765
+    team_name: team-sasha
+    first_name: Shahar
+    last_name: Lazar
+    email: shahar.lazar@sap.com
+    phone_number: '+972523089896'
+    team_domain: developer
+    team_role: member
+  - name: I550235
+    team_name: team-avihai
+    first_name: Shachar
+    last_name: Malachi
+    email: shachar.malachi@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I551693
+    team_name: team-yaron
+    first_name: Efi
+    last_name: Leder
+    email: efi.leder@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I553232
+    team_name: team-yaron
+    first_name: Amalia
+    last_name: Ferester
+    email: amalia.ferester@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I560451
+    team_name: team-yael
+    first_name: Oleg
+    last_name: Yudovich
+    email: oleg.yudovich@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I567591
+    team_name: team-coe
+    first_name: Mai
+    last_name: Shani
+    email: mai.shani@sap.com
+    phone_number: '+972547909940'
+    team_domain: developer
+    team_role: member
+  - name: I568581
+    team_name: team-ua
+    first_name: Harel
+    last_name: MANDIL
+    email: harel.mandil@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I570212
+    team_name: ''
+    first_name: Marvin
+    last_name: Waldmann
+    email: marvin.waldmann@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I570394
+    team_name: team-lior
+    first_name: Harel
+    last_name: Zahari
+    email: harel.zahari@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I572719
+    team_name: team-coe
+    first_name: Amit
+    last_name: Inbar
+    email: amit.inbar@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+    metadata:
+      portal_admin: true
+      ai_instances:
+        - ask-ai
+  - name: I572966
+    team_name: team-eyal
+    first_name: Dor
+    last_name: Kaminsky
+    email: dor.kaminsky@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I575624
+    team_name: team-zohar
+    first_name: Tal
+    last_name: Beno
+    email: tal.beno@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I584167
+    team_name: team-eyal
+    first_name: Assaf
+    last_name: Ariely
+    email: assaf.ariely@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I747468
+    team_name: team-alex
+    first_name: Elan
+    last_name: Bash
+    email: elan.bash@sap.com
+    phone_number: '+972527220700'
+    team_domain: developer
+    team_role: member
+  - name: I751260
+    team_name: team-coe
+    first_name: Ori
+    last_name: Shvartz
+    email: ori.shvartz@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I751263
+    team_name: team-avihai
+    first_name: Elon
+    last_name: Hadad
+    email: elon.hadad@sap.com
+    phone_number: '+972502446408'
+    team_domain: developer
+    team_role: member
+  - name: I751531
+    team_name: team-coe
+    first_name: Daniel
+    last_name: Katz
+    email: daniel.katz01@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I757131
+    team_name: team-lior
+    first_name: Noam
+    last_name: Singer
+    email: noam.singer@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I758638
+    team_name: team-lior
+    first_name: Dor
+    last_name: Rubin
+    email: dor.rubin@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I761042
+    team_name: ''
+    first_name: Mor
+    last_name: Levenkopf
+    email: mor.levenkopf@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I761259
+    team_name: ''
+    first_name: Tarek
+    last_name: Higazi
+    email: tarek.higazi@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I761391
+    team_name: ''
+    first_name: Simon
+    last_name: Beddig
+    email: simon.beddig@sap.com
+    phone_number: '+491706229212'
+    team_domain: developer
+    team_role: member
+  - name: I762491
+    team_name: ''
+    first_name: Steven
+    last_name: Lindner
+    email: steven.lindner02@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I765805
+    team_name: team-eyal
+    first_name: Ilay
+    last_name: Adjiashvili
+    email: ilay.adjiashvili@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I769970
+    team_name: team-yael
+    first_name: Ori
+    last_name: Adika
+    email: ori.adika@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I770903
+    team_name: ''
+    first_name: Johannes
+    last_name: Hassler
+    email: johannes.hassler@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5061796
+    team_name: ''
+    first_name: Sivan
+    last_name: Zoaretz
+    email: sivan.zoaretz@sap.com
+    phone_number: '+972543221320'
+    team_domain: developer
+    team_role: member
+  - name: C5104429
+    team_name: ''
+    first_name: Ilan
+    last_name: Dahan
+    email: ilan.dahan@sap.com
+    phone_number: '+972544662185'
+    team_domain: developer
+    team_role: member
+  - name: C5113436
+    team_name: ''
+    first_name: Ruti
+    last_name: Salkinder
+    email: ruti.salkinder@sap.com
+    phone_number: '+972543221329'
+    team_domain: developer
+    team_role: member
+  - name: C5162139
+    team_name: ''
+    first_name: Shay
+    last_name: Cohen
+    email: shay.cohen@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5175454
+    team_name: ''
+    first_name: Inga-Valeriy
+    last_name: Solovey
+    email: inga-valeriy.solovey@sap.com
+    phone_number: '+972525852670'
+    team_domain: developer
+    team_role: member
+  - name: C5215347
+    team_name: ''
+    first_name: Royi
+    last_name: Cohen
+    email: royi.cohen@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5235869
+    team_name: ''
+    first_name: Marek
+    last_name: Tzivian
+    email: marek.tzivian@sap.com
+    phone_number: '+972548036009'
+    team_domain: developer
+    team_role: member
+  - name: C5254998
+    team_name: ''
+    first_name: Eyal
+    last_name: Adir
+    email: eyal.adir@sap.com
+    phone_number: '+972584002525'
+    team_domain: developer
+    team_role: member
+  - name: C5265149
+    team_name: ''
+    first_name: Brian
+    last_name: Israelstam
+    email: brian.israelstam@sap.com
+    phone_number: '+972544427423'
+    team_domain: developer
+    team_role: member
+  - name: C5265275
+    team_name: ''
+    first_name: Shiran
+    last_name: Hazan
+    email: shiran.hazan@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5283768
+    team_name: ''
+    first_name: Boris
+    last_name: Uchitel
+    email: boris.uchitel@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5290954
+    team_name: ''
+    first_name: Vladyslav
+    last_name: Royf
+    email: vladyslav.royf@sap.com
+    phone_number: '+972587864051'
+    team_domain: developer
+    team_role: member
+  - name: C5306546
+    team_name: ''
+    first_name: Tal
+    last_name: Sofer
+    email: tal.sofer@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5307215
+    team_name: ''
+    first_name: Hen
+    last_name: Vaizman
+    email: hen.vaizman@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5321213
+    team_name: ''
+    first_name: Or
+    last_name: Nokrean
+    email: or.nokrean@sap.com
+    phone_number: '+972502144898'
+    team_domain: developer
+    team_role: member
+  - name: C5323677
+    team_name: ''
+    first_name: Or
+    last_name: Daniel
+    email: or.daniel@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5331574
+    team_name: ''
+    first_name: Liz
+    last_name: Sror Zuberi
+    email: liz.sror.zuberi@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5333999
+    team_name: ''
+    first_name: Kfir
+    last_name: Cohen
+    email: kfir.cohen@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5334520
+    team_name: ''
+    first_name: Elena
+    last_name: Dlugach
+    email: elena.dlugach@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5351799
+    team_name: ''
+    first_name: Avi
+    last_name: Hikri
+    email: avi.hikri@sap.com
+    phone_number: '+972524695462'
+    team_domain: developer
+    team_role: member
+  - name: C5361247
+    team_name: ''
+    first_name: Shaul
+    last_name: Yaakovian
+    email: shaul.yaakovian@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5362182
+    team_name: ''
+    first_name: Naor
+    last_name: Alberdas
+    email: naor.alberdas@sap.com
+    phone_number: '+972542333573'
+    team_domain: developer
+    team_role: member
+  - name: C5370678
+    team_name: ''
+    first_name: Azamat
+    last_name: Vakhobov
+    email: azamat.vakhobov@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5381750
+    team_name: ''
+    first_name: RAVID
+    last_name: HAMAMI
+    email: ravid.hamami@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5382964
+    team_name: ''
+    first_name: Nataliya
+    last_name: Stalmakhova
+    email: nataliya.stalmakhova@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5388102
+    team_name: ''
+    first_name: Elad
+    last_name: Asis
+    email: elad.asis@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5388902
+    team_name: ''
+    first_name: Shay
+    last_name: Sabah
+    email: shay.sabah@sap.com
+    phone_number: '+972547670888'
+    team_domain: developer
+    team_role: member
+  - name: C5389442
+    team_name: ''
+    first_name: Daud
+    last_name: Diwani
+    email: daud.diwani@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5390639
+    team_name: ''
+    first_name: Ariel
+    last_name: Ein-Gal
+    email: ariel.ein-gal@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5397524
+    team_name: ''
+    first_name: Lior
+    last_name: Sasson
+    email: lior.sasson@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5398458
+    team_name: ''
+    first_name: Yarin
+    last_name: Aharon
+    email: yarin.aharon@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5401735
+    team_name: ''
+    first_name: Eve
+    last_name: Nahum
+    email: eve.nahum@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5401968
+    team_name: ''
+    first_name: Boris
+    last_name: Kolesnikov
+    email: boris.kolesnikov03@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5402236
+    team_name: ''
+    first_name: Mor
+    last_name: Simha
+    email: m.simha@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5402287
+    team_name: ''
+    first_name: Ophir
+    last_name: Gal
+    email: o.gal@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5402655
+    team_name: ''
+    first_name: Reef
+    last_name: Goldberg
+    email: reef.goldberg@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5402656
+    team_name: ''
+    first_name: Dekel
+    last_name: Mor
+    email: dekel.mor@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5404650
+    team_name: ''
+    first_name: ALEKSANDR
+    last_name: KOSENKO
+    email: aleksandr.kosenko@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5405083
+    team_name: ''
+    first_name: Shilo
+    last_name: Gilor
+    email: shilo.gilor@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5405255
+    team_name: ''
+    first_name: Yuval
+    last_name: Israeli
+    email: yuval.israeli@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5406331
+    team_name: ''
+    first_name: Saber
+    last_name: Wishahi
+    email: s.wishahi@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5406587
+    team_name: ''
+    first_name: Ayala
+    last_name: Halachmi
+    email: a.halachmi@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5407583
+    team_name: ''
+    first_name: Adi
+    last_name: Federovsky
+    email: adi.federovsky@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: C5408271
+    team_name: ''
+    first_name: Boris
+    last_name: Levin
+    email: boris.levin@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: D049997
+    team_name: ''
+    first_name: Raja
+    last_name: Nasrallah
+    email: raja.nasrallah@sap.com
+    phone_number: '+972544868531'
+    team_domain: developer
+    team_role: member
+  - name: I016350
+    team_name: ''
+    first_name: Eran
+    last_name: Goldenberg
+    email: eran.goldenberg@sap.com
+    phone_number: '+972545660839'
+    team_domain: developer
+    team_role: member
+  - name: I016854
+    team_name: ''
+    first_name: Zion
+    last_name: Butbika
+    email: zion.butbika@sap.com
+    phone_number: '+972542277565'
+    team_domain: developer
+    team_role: member
+  - name: I017090
+    team_name: ''
+    first_name: Gad
+    last_name: Ravid
+    email: gad.ravid@sap.com
+    phone_number: '+972545660840'
+    team_domain: developer
+    team_role: member
+  - name: I017303
+    team_name: ''
+    first_name: Asaf
+    last_name: Magen
+    email: asaf.magen@sap.com
+    phone_number: '+972544899277'
+    team_domain: developer
+    team_role: member
+  - name: I018093
+    team_name: ''
+    first_name: Alexander
+    last_name: Rosenbaum
+    email: alexander.rosenbaum@sap.com
+    phone_number: '+972522329639'
+    team_domain: developer
+    team_role: member
+  - name: I019379
+    team_name: ''
+    first_name: Alla
+    last_name: Volkov
+    email: alla.volkov@sap.com
+    phone_number: '+972523282921'
+    team_domain: developer
+    team_role: member
+  - name: I019509
+    team_name: ''
+    first_name: Avivit
+    last_name: Benyishay
+    email: avivit.benyishay@sap.com
+    phone_number: '+972542277551'
+    team_domain: developer
+    team_role: member
+  - name: I021983
+    team_name: ''
+    first_name: Yair
+    last_name: Avivi
+    email: yair.avivi@sap.com
+    phone_number: '+972545404491'
+    team_domain: developer
+    team_role: member
+  - name: I021987
+    team_name: ''
+    first_name: Edna
+    last_name: Tamir-Dahan
+    email: edna.tamir-dahan@sap.com
+    phone_number: '+972545660838'
+    team_domain: developer
+    team_role: member
+  - name: I021990
+    team_name: ''
+    first_name: Zacky
+    last_name: Azoulay
+    email: zacky.azoulay@sap.com
+    phone_number: '+972544642107'
+    team_domain: developer
+    team_role: member
+  - name: I022033
+    team_name: ''
+    first_name: Lea
+    last_name: Kritchker
+    email: lea.kritchker@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I022044
+    team_name: ''
+    first_name: Roman
+    last_name: Loshevsky
+    email: roman.loshevsky@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I022048
+    team_name: ''
+    first_name: Oren
+    last_name: Frishberg Barak
+    email: oren.frishberg.barak@sap.com
+    phone_number: '+972546882029'
+    team_domain: developer
+    team_role: member
+  - name: I022055
+    team_name: ''
+    first_name: Ofer
+    last_name: Wolff
+    email: ofer.wolff@sap.com
+    phone_number: '+972542277514'
+    team_domain: developer
+    team_role: member
+  - name: I022064
+    team_name: ''
+    first_name: Mark
+    last_name: Moshkovich
+    email: mark.moshkovich@sap.com
+    phone_number: '+972544579419'
+    team_domain: developer
+    team_role: member
+  - name: I022080
+    team_name: ''
+    first_name: Yair
+    last_name: Vidal
+    email: yair.vidal@sap.com
+    phone_number: '+972542277199'
+    team_domain: developer
+    team_role: member
+  - name: I022083
+    team_name: ''
+    first_name: Philippe
+    last_name: Kahn
+    email: philippe.kahn@sap.com
+    phone_number: '+972542277220'
+    team_domain: developer
+    team_role: member
+  - name: I022086
+    team_name: ''
+    first_name: Shlomi
+    last_name: Lachmish
+    email: shlomi.lachmish@sap.com
+    phone_number: '+972547399373'
+    team_domain: developer
+    team_role: member
+  - name: I022087
+    team_name: ''
+    first_name: Ephraim
+    last_name: Parto
+    email: ephraim.parto@sap.com
+    phone_number: '+972547399343'
+    team_domain: developer
+    team_role: member
+  - name: I022090
+    team_name: ''
+    first_name: Izzet
+    last_name: Bar
+    email: izzet.bar@sap.com
+    phone_number: '+972544902313'
+    team_domain: developer
+    team_role: member
+  - name: I022111
+    team_name: ''
+    first_name: Ilan
+    last_name: Schwartz
+    email: ilan.schwartz@sap.com
+    phone_number: '+972542277217'
+    team_domain: developer
+    team_role: member
+  - name: I022338
+    team_name: ''
+    first_name: Sergio
+    last_name: Rozenszajn
+    email: sergio.rozenszajn@sap.com
+    phone_number: '+972542277526'
+    team_domain: developer
+    team_role: member
+  - name: I022947
+    team_name: ''
+    first_name: Yuval
+    last_name: Morad
+    email: yuval.morad@sap.com
+    phone_number: '+972543388027'
+    team_domain: developer
+    team_role: member
+  - name: I022996
+    team_name: ''
+    first_name: Gil
+    last_name: Bickel
+    email: gil.bickel@sap.com
+    phone_number: '+972544929693'
+    team_domain: developer
+    team_role: member
+  - name: I023317
+    team_name: ''
+    first_name: Dan
+    last_name: Bar-Lev
+    email: dan.bar-lev@sap.com
+    phone_number: '+972545530311'
+    team_domain: developer
+    team_role: member
+  - name: I023623
+    team_name: ''
+    first_name: Elizabeth
+    last_name: Gutt
+    email: elizabeth.gutt@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I023811
+    team_name: ''
+    first_name: Jarrod
+    last_name: Williams
+    email: jarrod.williams@sap.com
+    phone_number: '+972543388088'
+    team_domain: developer
+    team_role: member
+  - name: I024019
+    team_name: ''
+    first_name: Shay
+    last_name: Barry
+    email: shay.barry@sap.com
+    phone_number: '+4915116810135'
+    team_domain: developer
+    team_role: member
+  - name: I024288
+    team_name: ''
+    first_name: Dror
+    last_name: Last
+    email: dror.last@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I024338
+    team_name: ''
+    first_name: Julia
+    last_name: Diskin
+    email: julia.diskin@sap.com
+    phone_number: '+972542277530'
+    team_domain: developer
+    team_role: member
+  - name: I025026
+    team_name: ''
+    first_name: Ofer
+    last_name: Yehuda
+    email: ofer.yehuda@sap.com
+    phone_number: '+972546263309'
+    team_domain: developer
+    team_role: member
+  - name: I025037
+    team_name: ''
+    first_name: Ari
+    last_name: Schapira
+    email: ari.schapira@sap.com
+    phone_number: '+972542277145'
+    team_domain: developer
+    team_role: member
+  - name: I025043
+    team_name: ''
+    first_name: Marina
+    last_name: Sklyar
+    email: marina.sklyar@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I025052
+    team_name: ''
+    first_name: Tidhar
+    last_name: Ziv
+    email: tidhar.ziv@sap.com
+    phone_number: '+972543388045'
+    team_domain: developer
+    team_role: member
+  - name: I025057
+    team_name: ''
+    first_name: Ofrit
+    last_name: Harpaz
+    email: ofrit.harpaz@sap.com
+    phone_number: '+972542277122'
+    team_domain: developer
+    team_role: member
+  - name: I025069
+    team_name: ''
+    first_name: Einat
+    last_name: Adler
+    email: einat.adler@sap.com
+    phone_number: '+972548343156'
+    team_domain: developer
+    team_role: member
+  - name: I025081
+    team_name: ''
+    first_name: Eli
+    last_name: Toledano
+    email: eli.toledano@sap.com
+    phone_number: '+972542277175'
+    team_domain: developer
+    team_role: member
+  - name: I025094
+    team_name: ''
+    first_name: Keren
+    last_name: Erez
+    email: keren.erez@sap.com
+    phone_number: '+972542277123'
+    team_domain: developer
+    team_role: member
+  - name: I025518
+    team_name: ''
+    first_name: Itsik
+    last_name: Onfus
+    email: itsik.onfus@sap.com
+    phone_number: '+972545403703'
+    team_domain: developer
+    team_role: member
+  - name: I025563
+    team_name: ''
+    first_name: Guy
+    last_name: Sujetzki
+    email: guy.sujetzki@sap.com
+    phone_number: '+972542277176'
+    team_domain: developer
+    team_role: member
+  - name: I025841
+    team_name: ''
+    first_name: Eran
+    last_name: Flax
+    email: eran.flax@sap.com
+    phone_number: '+972542277148'
+    team_domain: developer
+    team_role: member
+  - name: I025934
+    team_name: ''
+    first_name: Maya
+    last_name: Shiff
+    email: maya.shiff@sap.com
+    phone_number: '+972543388081'
+    team_domain: developer
+    team_role: member
+  - name: I025998
+    team_name: ''
+    first_name: Tomer
+    last_name: Epstein
+    email: tomer.epstein@sap.com
+    phone_number: '+972542277132'
+    team_domain: developer
+    team_role: member
+  - name: I026022
+    team_name: ''
+    first_name: Ran
+    last_name: Dinar
+    email: ran.dinar@sap.com
+    phone_number: '+972542277589'
+    team_domain: developer
+    team_role: member
+  - name: I026202
+    team_name: ''
+    first_name: Michal
+    last_name: Naim
+    email: michal.naim@sap.com
+    phone_number: '+972502595799'
+    team_domain: developer
+    team_role: member
+  - name: I026805
+    team_name: ''
+    first_name: Sigal
+    last_name: Sofer
+    email: sigal.sofer@sap.com
+    phone_number: '+972543388078'
+    team_domain: developer
+    team_role: member
+  - name: I026808
+    team_name: ''
+    first_name: Maya
+    last_name: Schnabel
+    email: maya.schnabel@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I026919
+    team_name: ''
+    first_name: Hezi
+    last_name: Daniel
+    email: hezi.daniel@sap.com
+    phone_number: '+972547332000'
+    team_domain: developer
+    team_role: member
+  - name: I027601
+    team_name: ''
+    first_name: Michal
+    last_name: Zilcha-Lang
+    email: michal.zilcha-lang@sap.com
+    phone_number: '+972542277168'
+    team_domain: developer
+    team_role: member
+  - name: I027771
+    team_name: ''
+    first_name: Aviad
+    last_name: Rivlin
+    email: aviad.rivlin@sap.com
+    phone_number: '+972542277528'
+    team_domain: developer
+    team_role: member
+  - name: I027779
+    team_name: ''
+    first_name: Boris
+    last_name: Tsirulnik
+    email: boris.tsirulnik@sap.com
+    phone_number: '+972543388215'
+    team_domain: developer
+    team_role: member
+  - name: I028060
+    team_name: ''
+    first_name: Yael
+    last_name: Malekan
+    email: yael.malekan@sap.com
+    phone_number: '+972542040285'
+    team_domain: developer
+    team_role: member
+  - name: I028116
+    team_name: ''
+    first_name: Rima
+    last_name: Sirich
+    email: rima.sirich@sap.com
+    phone_number: '+972547780844'
+    team_domain: developer
+    team_role: member
+  - name: I028498
+    team_name: ''
+    first_name: Meirav
+    last_name: Yitzhak
+    email: meirav.yitzhak@sap.com
+    phone_number: '+972547780993'
+    team_domain: developer
+    team_role: member
+  - name: I028499
+    team_name: ''
+    first_name: Dalit
+    last_name: Tzur
+    email: dalit.tzur@sap.com
+    phone_number: '+972543388139'
+    team_domain: developer
+    team_role: member
+  - name: I028979
+    team_name: ''
+    first_name: Avinoam
+    last_name: Fraenkel
+    email: avinoam.fraenkel@sap.com
+    phone_number: '+972542277147'
+    team_domain: developer
+    team_role: member
+  - name: I029195
+    team_name: ''
+    first_name: Yuval
+    last_name: Anafi
+    email: yuval.anafi@sap.com
+    phone_number: '+972543388053'
+    team_domain: developer
+    team_role: member
+  - name: I029209
+    team_name: ''
+    first_name: Avi
+    last_name: Rokach
+    email: avi.rokach@sap.com
+    phone_number: '+972544902309'
+    team_domain: developer
+    team_role: member
+  - name: I029214
+    team_name: ''
+    first_name: Nitzan
+    last_name: Levi
+    email: nitzan.levi@sap.com
+    phone_number: '+972544902306'
+    team_domain: developer
+    team_role: member
+  - name: I029732
+    team_name: ''
+    first_name: Lilach
+    last_name: Mahl
+    email: lilach.mahl@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I029758
+    team_name: ''
+    first_name: Robert
+    last_name: Ivanics
+    email: robert.ivanics@sap.com
+    phone_number: '+421905210126'
+    team_domain: developer
+    team_role: member
+  - name: I030637
+    team_name: ''
+    first_name: Haya
+    last_name: Rubinstein
+    email: haya.rubinstein@sap.com
+    phone_number: '+972542277215'
+    team_domain: developer
+    team_role: member
+  - name: I031070
+    team_name: ''
+    first_name: Daniel
+    last_name: Yurowitz
+    email: daniel.yurowitz@sap.com
+    phone_number: '+972547333362'
+    team_domain: developer
+    team_role: member
+  - name: I031229
+    team_name: ''
+    first_name: Yael
+    last_name: Gal
+    email: yael.gal@sap.com
+    phone_number: '+972544659908'
+    team_domain: developer
+    team_role: member
+  - name: I031617
+    team_name: ''
+    first_name: Daniel
+    last_name: Wroblewski
+    email: daniel.wroblewski@sap.com
+    phone_number: '+972544334133'
+    team_domain: developer
+    team_role: member
+  - name: I031776
+    team_name: ''
+    first_name: Roy
+    last_name: Fishman
+    email: roy.fishman@sap.com
+    phone_number: '+972543323530'
+    team_domain: developer
+    team_role: member
+  - name: I031822
+    team_name: ''
+    first_name: Ohad
+    last_name: Navon
+    email: ohad.navon@sap.com
+    phone_number: '+972543388165'
+    team_domain: developer
+    team_role: member
+  - name: I032258
+    team_name: ''
+    first_name: Itzhak
+    last_name: Shoshan
+    email: i.shoshan@sap.com
+    phone_number: '+972544902308'
+    team_domain: developer
+    team_role: member
+  - name: I032530
+    team_name: ''
+    first_name: Sharon
+    last_name: Dassa
+    email: sharon.dassa@sap.com
+    phone_number: '+972526469656'
+    team_domain: developer
+    team_role: member
+  - name: I032749
+    team_name: ''
+    first_name: Irena
+    last_name: Brodeski
+    email: irena.brodeski@sap.com
+    phone_number: '+972543388214'
+    team_domain: developer
+    team_role: member
+  - name: I033017
+    team_name: ''
+    first_name: Ilana
+    last_name: Alter
+    email: ilana.alter@sap.com
+    phone_number: '+972545224175'
+    team_domain: developer
+    team_role: member
+  - name: I033276
+    team_name: ''
+    first_name: Ofer
+    last_name: Oz
+    email: ofer.oz@sap.com
+    phone_number: '+972542277552'
+    team_domain: developer
+    team_role: member
+  - name: I033560
+    team_name: ''
+    first_name: Shraga
+    last_name: Itzkovich
+    email: shraga.itzkovich@sap.com
+    phone_number: '+972542277508'
+    team_domain: developer
+    team_role: member
+  - name: I033561
+    team_name: ''
+    first_name: Shiri
+    last_name: Openhaim
+    email: shiri.openhaim@sap.com
+    phone_number: '+972543388151'
+    team_domain: developer
+    team_role: member
+  - name: I033653
+    team_name: ''
+    first_name: David
+    last_name: Freidlin
+    email: david.freidlin@sap.com
+    phone_number: '+972542143060'
+    team_domain: developer
+    team_role: member
+  - name: I033669
+    team_name: ''
+    first_name: Orit
+    last_name: Bezalel
+    email: orit.bezalel@sap.com
+    phone_number: '+972543388010'
+    team_domain: developer
+    team_role: member
+  - name: I033737
+    team_name: ''
+    first_name: Esti
+    last_name: Vider
+    email: esti.vider@sap.com
+    phone_number: '+972542277561'
+    team_domain: developer
+    team_role: member
+  - name: I034326
+    team_name: ''
+    first_name: Tsafrir
+    last_name: Sklarski
+    email: tsafrir.sklarski@sap.com
+    phone_number: '+972547734448'
+    team_domain: developer
+    team_role: member
+  - name: I034480
+    team_name: ''
+    first_name: Michelle
+    last_name: Kemp-Nordell
+    email: michelle.kemp-nordell@sap.com
+    phone_number: '+972543388657'
+    team_domain: developer
+    team_role: member
+  - name: I034929
+    team_name: ''
+    first_name: Eyal
+    last_name: Barlev
+    email: eyal.barlev@sap.com
+    phone_number: '+972543388163'
+    team_domain: developer
+    team_role: member
+  - name: I035249
+    team_name: ''
+    first_name: Yoram
+    last_name: Yair
+    email: yoram.yair@sap.com
+    phone_number: '+972546445138'
+    team_domain: developer
+    team_role: member
+  - name: I035399
+    team_name: ''
+    first_name: Natalia
+    last_name: Katunin
+    email: natalia.katunin@sap.com
+    phone_number: '+972545498912'
+    team_domain: developer
+    team_role: member
+  - name: I035552
+    team_name: ''
+    first_name: Eman
+    last_name: Laham
+    email: eman.laham@sap.com
+    phone_number: '+972542277580'
+    team_domain: developer
+    team_role: member
+  - name: I036111
+    team_name: ''
+    first_name: Rachie
+    last_name: Rosen
+    email: rachie.rosen@sap.com
+    phone_number: '+972546506850'
+    team_domain: developer
+    team_role: member
+  - name: I036528
+    team_name: ''
+    first_name: Tal
+    last_name: Haviv
+    email: tal.haviv@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I036832
+    team_name: ''
+    first_name: Ariel
+    last_name: Tammam
+    email: ariel.tammam@sap.com
+    phone_number: '+972543388028'
+    team_domain: developer
+    team_role: member
+  - name: I036882
+    team_name: ''
+    first_name: Hani
+    last_name: Lachnish
+    email: hani.lachnish@sap.com
+    phone_number: '+972544805618'
+    team_domain: developer
+    team_role: member
+  - name: I036928
+    team_name: ''
+    first_name: Olga
+    last_name: Shteiman
+    email: olga.shteiman@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I038147
+    team_name: ''
+    first_name: Hofit
+    last_name: Koren
+    email: hofit.koren@sap.com
+    phone_number: '+972528742188'
+    team_domain: developer
+    team_role: member
+  - name: I038347
+    team_name: ''
+    first_name: Tal
+    last_name: Prilutsky
+    email: tal.prilutsky@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I038739
+    team_name: ''
+    first_name: Tamir
+    last_name: Menahem
+    email: tamir.menahem@sap.com
+    phone_number: '+972543388145'
+    team_domain: developer
+    team_role: member
+  - name: I038794
+    team_name: ''
+    first_name: Ran
+    last_name: Kahal
+    email: ran.kahal@sap.com
+    phone_number: '+972544931546'
+    team_domain: developer
+    team_role: member
+  - name: I039439
+    team_name: ''
+    first_name: Irit
+    last_name: Almagor
+    email: irit.almagor@sap.com
+    phone_number: '+972542277556'
+    team_domain: developer
+    team_role: member
+  - name: I039689
+    team_name: ''
+    first_name: Lindsay
+    last_name: Bert
+    email: lindsay.bert@sap.com
+    phone_number: '+972547527997'
+    team_domain: developer
+    team_role: member
+  - name: I040257
+    team_name: ''
+    first_name: Lior
+    last_name: Beker
+    email: lior.beker@sap.com
+    phone_number: '+972523685727'
+    team_domain: developer
+    team_role: member
+  - name: I040258
+    team_name: ''
+    first_name: Revital
+    last_name: Rabin
+    email: revital.rabin@sap.com
+    phone_number: +972 972522325455
+    team_domain: developer
+    team_role: member
+  - name: I040335
+    team_name: ''
+    first_name: Meni
+    last_name: Tito
+    email: meni.tito@sap.com
+    phone_number: '+972542277597'
+    team_domain: developer
+    team_role: member
+  - name: I040767
+    team_name: ''
+    first_name: Ido
+    last_name: Perez
+    email: ido.perez@sap.com
+    phone_number: '+972523906617'
+    team_domain: developer
+    team_role: member
+  - name: I040815
+    team_name: ''
+    first_name: Della
+    last_name: Brodsky
+    email: della.brodsky@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I041061
+    team_name: ''
+    first_name: Shani
+    last_name: Limor
+    email: shani.limor@sap.com
+    phone_number: '+972543323411'
+    team_domain: developer
+    team_role: member
+  - name: I041382
+    team_name: ''
+    first_name: Omer
+    last_name: Nahshon
+    email: omer.nahshon@sap.com
+    phone_number: '+972544340065'
+    team_domain: developer
+    team_role: member
+  - name: I041527
+    team_name: ''
+    first_name: Ori
+    last_name: Balak
+    email: ori.balak@sap.com
+    phone_number: '+972543388060'
+    team_domain: developer
+    team_role: member
+  - name: I041585
+    team_name: ''
+    first_name: Dana
+    last_name: Sarfati
+    email: dana.sarfati@sap.com
+    phone_number: '+972543388089'
+    team_domain: developer
+    team_role: member
+  - name: I042090
+    team_name: ''
+    first_name: Efrat
+    last_name: Vilozny
+    email: efrat.vilozny@sap.com
+    phone_number: '+972543388065'
+    team_domain: developer
+    team_role: member
+  - name: I042092
+    team_name: ''
+    first_name: Oren
+    last_name: Haze
+    email: oren.haze@sap.com
+    phone_number: '+972543388064'
+    team_domain: developer
+    team_role: member
+  - name: I042896
+    team_name: ''
+    first_name: Ilana
+    last_name: Vekselman
+    email: ilana.vekselman@sap.com
+    phone_number: '+972545238734'
+    team_domain: developer
+    team_role: member
+  - name: I043124
+    team_name: ''
+    first_name: Tsachi
+    last_name: Adato
+    email: tsachi.adato@sap.com
+    phone_number: '+972546263308'
+    team_domain: developer
+    team_role: member
+  - name: I043603
+    team_name: ''
+    first_name: Rakefet
+    last_name: Lieber
+    email: rakefet.lieber@sap.com
+    phone_number: '+972547720046'
+    team_domain: developer
+    team_role: member
+  - name: I043750
+    team_name: ''
+    first_name: David
+    last_name: Malachi
+    email: david.malachi@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I044184
+    team_name: ''
+    first_name: Matan
+    last_name: Elitzur
+    email: matan.elitzur@sap.com
+    phone_number: '+972543323410'
+    team_domain: developer
+    team_role: member
+  - name: I044553
+    team_name: ''
+    first_name: Aharon
+    last_name: Shifman
+    email: aharon.shifman@sap.com
+    phone_number: '+972544211568'
+    team_domain: developer
+    team_role: member
+  - name: I045419
+    team_name: ''
+    first_name: Nadav
+    last_name: Nuri
+    email: nadav.nuri@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I045596
+    team_name: ''
+    first_name: Pablo
+    last_name: Roisman
+    email: pablo.roisman@sap.com
+    phone_number: '+16503086859'
+    team_domain: developer
+    team_role: member
+  - name: I045839
+    team_name: ''
+    first_name: Liran
+    last_name: Dvir
+    email: liran.dvir@sap.com
+    phone_number: '+972542277193'
+    team_domain: developer
+    team_role: member
+  - name: I045882
+    team_name: ''
+    first_name: Ofer
+    last_name: Tenenboim
+    email: ofer.tenenboim@sap.com
+    phone_number: '+972542277562'
+    team_domain: developer
+    team_role: member
+  - name: I046753
+    team_name: ''
+    first_name: Orly
+    last_name: Mandelbaum
+    email: orly.mandelbaum@sap.com
+    phone_number: '+972546548889'
+    team_domain: developer
+    team_role: member
+  - name: I046774
+    team_name: ''
+    first_name: Jenya
+    last_name: Himmelreich
+    email: jenya.himmelreich@sap.com
+    phone_number: '+972544939815'
+    team_domain: developer
+    team_role: member
+  - name: I047130
+    team_name: ''
+    first_name: Michal
+    last_name: Tall
+    email: michal.tall@sap.com
+    phone_number: '+972528810999'
+    team_domain: developer
+    team_role: member
+  - name: I048182
+    team_name: ''
+    first_name: Itai
+    last_name: Fonio
+    email: itai.fonio@sap.com
+    phone_number: '+972547691811'
+    team_domain: developer
+    team_role: member
+  - name: I048185
+    team_name: ''
+    first_name: Shai
+    last_name: Berkenblit
+    email: shai.berkenblit@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I048202
+    team_name: ''
+    first_name: Yaki
+    last_name: Rubin
+    email: yaki.rubin@sap.com
+    phone_number: '+972546965002'
+    team_domain: developer
+    team_role: member
+  - name: I048260
+    team_name: ''
+    first_name: Lior
+    last_name: Dafadi
+    email: lior.dafadi@sap.com
+    phone_number: '+972544659909'
+    team_domain: developer
+    team_role: member
+  - name: I048312
+    team_name: ''
+    first_name: Alon
+    last_name: Barnes
+    email: alon.barnes@sap.com
+    phone_number: '+972543388134'
+    team_domain: developer
+    team_role: member
+  - name: I048367
+    team_name: ''
+    first_name: Inna
+    last_name: Pinsky
+    email: inna.pinsky@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I048369
+    team_name: ''
+    first_name: Ehud
+    last_name: Nir
+    email: ehud.nir@sap.com
+    phone_number: '+972524591511'
+    team_domain: developer
+    team_role: member
+  - name: I048384
+    team_name: ''
+    first_name: Shimon
+    last_name: Ben Yair
+    email: shimon.ben.yair@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I048449
+    team_name: ''
+    first_name: Meital
+    last_name: Kalaf
+    email: meital.kalaf@sap.com
+    phone_number: '+972524677350'
+    team_domain: developer
+    team_role: member
+  - name: I048690
+    team_name: ''
+    first_name: Run
+    last_name: Profesorsky
+    email: run.profesorsky@sap.com
+    phone_number: '+972542277116'
+    team_domain: developer
+    team_role: member
+  - name: I048692
+    team_name: ''
+    first_name: Sasha
+    last_name: Kravchik
+    email: alex.kravchik@sap.com
+    phone_number: '+972547613737'
+    team_domain: developer
+    team_role: member
+  - name: I048694
+    team_name: ''
+    first_name: Talia
+    last_name: Gurevich
+    email: talia.gurevich@sap.com
+    phone_number: '+972546873768'
+    team_domain: developer
+    team_role: member
+  - name: I048695
+    team_name: ''
+    first_name: Lev
+    last_name: Zak
+    email: lev.zak@sap.com
+    phone_number: '+972546307037'
+    team_domain: developer
+    team_role: member
+  - name: I048700
+    team_name: ''
+    first_name: Zhenia
+    last_name: Magarill
+    email: zhenia.magarill@sap.com
+    phone_number: '+972544963739'
+    team_domain: developer
+    team_role: member
+  - name: I048706
+    team_name: ''
+    first_name: Gilad
+    last_name: Bussi
+    email: gilad.bussi@sap.com
+    phone_number: '+972525259729'
+    team_domain: developer
+    team_role: member
+  - name: I048709
+    team_name: ''
+    first_name: Vitaly
+    last_name: Vainer
+    email: vitaly.vainer@sap.com
+    phone_number: '+972542277507'
+    team_domain: developer
+    team_role: member
+  - name: I049007
+    team_name: ''
+    first_name: Dganit
+    last_name: Sheffer
+    email: dganit.sheffer@sap.com
+    phone_number: '+972523283081'
+    team_domain: developer
+    team_role: member
+  - name: I049014
+    team_name: ''
+    first_name: Oleg
+    last_name: Tsentsiper
+    email: oleg.tsentsiper@sap.com
+    phone_number: '+972547448242'
+    team_domain: developer
+    team_role: member
+  - name: I050698
+    team_name: ''
+    first_name: Elisabeth
+    last_name: Attia
+    email: elisabeth.attia@sap.com
+    phone_number: '+972543388143'
+    team_domain: developer
+    team_role: member
+  - name: I051888
+    team_name: ''
+    first_name: Tuvia
+    last_name: Kahana
+    email: tuvia.kahana@sap.com
+    phone_number: '+972544989474'
+    team_domain: developer
+    team_role: member
+  - name: I051950
+    team_name: ''
+    first_name: Alexander
+    last_name: Gilin
+    email: alexander.gilin@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I053314
+    team_name: ''
+    first_name: Ido
+    last_name: Mosseri
+    email: ido.mosseri@sap.com
+    phone_number: '+972542277529'
+    team_domain: developer
+    team_role: member
+  - name: I053322
+    team_name: ''
+    first_name: Yossi
+    last_name: Balan
+    email: yossi.balan@sap.com
+    phone_number: '+972546053850'
+    team_domain: developer
+    team_role: member
+  - name: I053580
+    team_name: ''
+    first_name: Assaf
+    last_name: Klieger
+    email: assaf.klieger@sap.com
+    phone_number: '+972508918758'
+    team_domain: developer
+    team_role: member
+  - name: I054310
+    team_name: ''
+    first_name: Natalia
+    last_name: Vilinskaya
+    email: natalia.vilinskaya@sap.com
+    phone_number: '+79687673481'
+    team_domain: developer
+    team_role: member
+  - name: I054527
+    team_name: ''
+    first_name: Anat
+    last_name: Koren
+    email: anat.koren@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I055280
+    team_name: ''
+    first_name: Tamar
+    last_name: Kolner
+    email: tamar.kolner@sap.com
+    phone_number: '+972544599202'
+    team_domain: developer
+    team_role: member
+  - name: I055444
+    team_name: ''
+    first_name: Mirit
+    last_name: Yoged
+    email: mirit.yoged@sap.com
+    phone_number: '+972543388167'
+    team_domain: developer
+    team_role: member
+  - name: I055445
+    team_name: ''
+    first_name: Paola
+    last_name: Laufer
+    email: paola.laufer@sap.com
+    phone_number: '+972542277591'
+    team_domain: developer
+    team_role: member
+  - name: I055501
+    team_name: ''
+    first_name: Offer
+    last_name: Shostak
+    email: offer.shostak@sap.com
+    phone_number: '+972528504411'
+    team_domain: developer
+    team_role: member
+  - name: I055502
+    team_name: ''
+    first_name: Hadar
+    last_name: Kobi
+    email: hadar.kobi@sap.com
+    phone_number: '+972544534085'
+    team_domain: developer
+    team_role: member
+  - name: I055863
+    team_name: ''
+    first_name: Nili
+    last_name: Adoram
+    email: nili.adoram@sap.com
+    phone_number: '+972544693573'
+    team_domain: developer
+    team_role: member
+  - name: I055916
+    team_name: ''
+    first_name: Guy
+    last_name: Hasson
+    email: guy.hasson@sap.com
+    phone_number: '+972543388161'
+    team_domain: developer
+    team_role: member
+  - name: I055917
+    team_name: ''
+    first_name: Daniel
+    last_name: Friedman
+    email: daniel.friedman@sap.com
+    phone_number: '+972547910280'
+    team_domain: developer
+    team_role: member
+  - name: I055995
+    team_name: ''
+    first_name: Licam
+    last_name: Oved
+    email: licam.oved@sap.com
+    phone_number: '+972523411521'
+    team_domain: developer
+    team_role: member
+  - name: I056080
+    team_name: ''
+    first_name: Revital
+    last_name: David
+    email: revital.david@sap.com
+    phone_number: '+972547780988'
+    team_domain: developer
+    team_role: member
+  - name: I056536
+    team_name: ''
+    first_name: Leon
+    last_name: Rapoport
+    email: leon.rapoport@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I056771
+    team_name: ''
+    first_name: Matan
+    last_name: Taranto
+    email: matan.taranto@sap.com
+    phone_number: '+972547917293'
+    team_domain: developer
+    team_role: member
+  - name: I056805
+    team_name: ''
+    first_name: Alon
+    last_name: Shachar
+    email: alon.shachar@sap.com
+    phone_number: '+972525697043'
+    team_domain: developer
+    team_role: member
+  - name: I056926
+    team_name: ''
+    first_name: Shimon
+    last_name: Tal
+    email: shimon.tal@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I057064
+    team_name: ''
+    first_name: Nachshon
+    last_name: Vagmayster
+    email: nachshon.vagmayster@sap.com
+    phone_number: '+972545268819'
+    team_domain: developer
+    team_role: member
+  - name: I057113
+    team_name: ''
+    first_name: Goni
+    last_name: Shevakh
+    email: goni.shevakh@sap.com
+    phone_number: '+972508775612'
+    team_domain: developer
+    team_role: member
+  - name: I057287
+    team_name: ''
+    first_name: Dalit
+    last_name: Mantel
+    email: dalit.mantel@sap.com
+    phone_number: '+972544459080'
+    team_domain: developer
+    team_role: member
+  - name: I057366
+    team_name: ''
+    first_name: Or
+    last_name: Bar-Lev
+    email: or.bar-lev@sap.com
+    phone_number: '+972543388100'
+    team_domain: developer
+    team_role: member
+  - name: I057444
+    team_name: ''
+    first_name: Maria
+    last_name: Ivnik
+    email: maria.ivnik@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I057452
+    team_name: ''
+    first_name: Ravid
+    last_name: Ellenbogen
+    email: ravid.ellenbogen@sap.com
+    phone_number: '+972543388719'
+    team_domain: developer
+    team_role: member
+  - name: I057457
+    team_name: ''
+    first_name: Naomi
+    last_name: Weisz
+    email: naomi.weisz@sap.com
+    phone_number: '+972543388050'
+    team_domain: developer
+    team_role: member
+  - name: I057517
+    team_name: ''
+    first_name: Alex
+    last_name: Avizov
+    email: alex.avizov@sap.com
+    phone_number: '+972523844746'
+    team_domain: developer
+    team_role: member
+  - name: I058126
+    team_name: ''
+    first_name: Max
+    last_name: Feldman
+    email: max.feldman@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I058167
+    team_name: ''
+    first_name: Micha
+    last_name: Azulay
+    email: micha.azulay@sap.com
+    phone_number: '+972543388072'
+    team_domain: developer
+    team_role: member
+  - name: I058684
+    team_name: ''
+    first_name: Tal
+    last_name: Sapan
+    email: tal.sapan@sap.com
+    phone_number: '+972507774845'
+    team_domain: developer
+    team_role: member
+  - name: I058756
+    team_name: ''
+    first_name: Idan
+    last_name: Treivish
+    email: idan.treivish@sap.com
+    phone_number: '+972548314316'
+    team_domain: developer
+    team_role: member
+  - name: I059075
+    team_name: ''
+    first_name: Liat
+    last_name: Borenshtein
+    email: liat.borenshtein@sap.com
+    phone_number: '+972524733689'
+    team_domain: developer
+    team_role: member
+  - name: I059304
+    team_name: ''
+    first_name: Ido
+    last_name: Goren
+    email: ido.goren@sap.com
+    phone_number: '+972504466331'
+    team_domain: developer
+    team_role: member
+  - name: I059687
+    team_name: ''
+    first_name: Alla
+    last_name: Cherkes
+    email: alla.cherkes@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I059689
+    team_name: ''
+    first_name: Ariel
+    last_name: Bangiev
+    email: ariel.bangiev@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I060224
+    team_name: ''
+    first_name: Saar
+    last_name: Dagan
+    email: saar.dagan@sap.com
+    phone_number: '+972544800466'
+    team_domain: developer
+    team_role: member
+  - name: I060640
+    team_name: ''
+    first_name: Gadi
+    last_name: Sneh
+    email: gadi.sneh@sap.com
+    phone_number: '+972543318129'
+    team_domain: developer
+    team_role: member
+  - name: I060847
+    team_name: ''
+    first_name: Shachar
+    last_name: Soel
+    email: shachar.soel@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I061310
+    team_name: ''
+    first_name: Lidor
+    last_name: Tal
+    email: lidor.tal@sap.com
+    phone_number: '+972504844500'
+    team_domain: developer
+    team_role: member
+  - name: I061531
+    team_name: ''
+    first_name: Vered
+    last_name: Tagor
+    email: vered.tagor@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I061894
+    team_name: ''
+    first_name: Anita
+    last_name: Demayo
+    email: anita.demayo@sap.com
+    phone_number: '+972506899056'
+    team_domain: developer
+    team_role: member
+  - name: I062001
+    team_name: ''
+    first_name: Tarek
+    last_name: Sharafi
+    email: tarek.sharafi@sap.com
+    phone_number: '+972546350512'
+    team_domain: developer
+    team_role: member
+  - name: I064055
+    team_name: ''
+    first_name: Ran
+    last_name: Bittmann
+    email: ran.bittmann@sap.com
+    phone_number: '+972544343996'
+    team_domain: developer
+    team_role: member
+  - name: I064702
+    team_name: ''
+    first_name: Rotem
+    last_name: Puterman-Sobe
+    email: rotem.puterman-sobe@sap.com
+    phone_number: '+972545523450'
+    team_domain: developer
+    team_role: member
+  - name: I064852
+    team_name: ''
+    first_name: Alina
+    last_name: Vainshtain
+    email: alina.vainshtain@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I065595
+    team_name: ''
+    first_name: Vered
+    last_name: Constantin
+    email: vered.constantin@sap.com
+    phone_number: '+972548063166'
+    team_domain: developer
+    team_role: member
+  - name: I065699
+    team_name: ''
+    first_name: Oleg
+    last_name: Kossoy
+    email: oleg.kossoy@sap.com
+    phone_number: '+972524776277'
+    team_domain: developer
+    team_role: member
+  - name: I065988
+    team_name: ''
+    first_name: Nirit
+    last_name: Cohen-Zur
+    email: nirit.cohen-zur@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I066320
+    team_name: ''
+    first_name: Itamar
+    last_name: Segev
+    email: itamar.segev@sap.com
+    phone_number: '+972547555205'
+    team_domain: developer
+    team_role: member
+  - name: I066470
+    team_name: ''
+    first_name: Amiram
+    last_name: Wingarten
+    email: amiram.wingarten@sap.com
+    phone_number: '+972522644284'
+    team_domain: developer
+    team_role: member
+  - name: I066586
+    team_name: ''
+    first_name: Assaf
+    last_name: Hamm
+    email: assaf.hamm@sap.com
+    phone_number: '+972543388077'
+    team_domain: developer
+    team_role: member
+  - name: I066595
+    team_name: ''
+    first_name: Etay
+    last_name: Angrest
+    email: etay.angrest@sap.com
+    phone_number: '+972543119696'
+    team_domain: developer
+    team_role: member
+  - name: I066600
+    team_name: ''
+    first_name: Alon
+    last_name: Aizenberg
+    email: alon.aizenberg@sap.com
+    phone_number: '+972543388092'
+    team_domain: developer
+    team_role: member
+  - name: I067585
+    team_name: ''
+    first_name: Eran
+    last_name: Lavi
+    email: eran.lavi@sap.com
+    phone_number: '+972525311721'
+    team_domain: developer
+    team_role: member
+  - name: I067779
+    team_name: ''
+    first_name: Yan
+    last_name: Vulich
+    email: yan.vulich@sap.com
+    phone_number: '+972547974798'
+    team_domain: developer
+    team_role: member
+  - name: I067783
+    team_name: ''
+    first_name: Chaim
+    last_name: Bendelac
+    email: chaim.bendelac@sap.com
+    phone_number: '+972544424337'
+    team_domain: developer
+    team_role: member
+  - name: I068541
+    team_name: ''
+    first_name: Guy
+    last_name: Perets
+    email: guy.perets@sap.com
+    phone_number: '+972547454880'
+    team_domain: developer
+    team_role: member
+  - name: I069256
+    team_name: ''
+    first_name: Tahel
+    last_name: Milstein
+    email: tahel.milstein@sap.com
+    phone_number: '+972548131481'
+    team_domain: developer
+    team_role: member
+  - name: I069322
+    team_name: ''
+    first_name: Itay
+    last_name: Assraf
+    email: itay.assraf@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I069513
+    team_name: ''
+    first_name: Moran
+    last_name: Melamoud
+    email: moran.melamoud@sap.com
+    phone_number: '+972524826262'
+    team_domain: developer
+    team_role: member
+  - name: I070890
+    team_name: ''
+    first_name: Isaac
+    last_name: Eliassi
+    email: isaac.eliassi@sap.com
+    phone_number: '+972544608201'
+    team_domain: developer
+    team_role: member
+  - name: I071496
+    team_name: ''
+    first_name: Avital
+    last_name: Ben-Natan
+    email: avital.ben-natan@sap.com
+    phone_number: '+972543082548'
+    team_domain: developer
+    team_role: member
+  - name: I071857
+    team_name: ''
+    first_name: Chen
+    last_name: Rubinstein Binder
+    email: chen.rubinstein.binder@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I072331
+    team_name: ''
+    first_name: Yochai
+    last_name: Cohen
+    email: yochai.cohen@sap.com
+    phone_number: '+972508556284'
+    team_domain: developer
+    team_role: member
+  - name: I074921
+    team_name: ''
+    first_name: Asaf
+    last_name: Bruner
+    email: asaf.bruner@sap.com
+    phone_number: '+972547988857'
+    team_domain: developer
+    team_role: member
+  - name: I074992
+    team_name: ''
+    first_name: Betty
+    last_name: Jalba Cornfeld
+    email: betty.jalba.cornfeld@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I075211
+    team_name: ''
+    first_name: Alexander
+    last_name: Bolshakov
+    email: alexander.bolshakov@sap.com
+    phone_number: '+4915118876982'
+    team_domain: developer
+    team_role: member
+  - name: I300034
+    team_name: ''
+    first_name: Jason
+    last_name: Lax
+    email: jason.lax@sap.com
+    phone_number: '+972542064191'
+    team_domain: developer
+    team_role: member
+  - name: I300123
+    team_name: ''
+    first_name: Ariel
+    last_name: Tolkachov
+    email: a.tolkachov@sap.com
+    phone_number: '+972549491746'
+    team_domain: developer
+    team_role: member
+  - name: I300543
+    team_name: ''
+    first_name: Sergey
+    last_name: Kuperman
+    email: sergey.kuperman@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I302681
+    team_name: ''
+    first_name: Dekel
+    last_name: Liberman
+    email: dekel.liberman@sap.com
+    phone_number: '+972545445563'
+    team_domain: developer
+    team_role: member
+  - name: I306072
+    team_name: ''
+    first_name: Eran
+    last_name: Lahav
+    email: eran.lahav@sap.com
+    phone_number: '+972542561461'
+    team_domain: developer
+    team_role: member
+  - name: I306311
+    team_name: ''
+    first_name: Eran
+    last_name: Gans
+    email: eran.gans@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I306384
+    team_name: ''
+    first_name: Ido
+    last_name: Itzkovich
+    email: ido.itzkovich@sap.com
+    phone_number: '+972548117752'
+    team_domain: developer
+    team_role: member
+  - name: I306385
+    team_name: ''
+    first_name: Yasmeen
+    last_name: Frishman
+    email: yasmeen.frishman@sap.com
+    phone_number: '+972547748088'
+    team_domain: developer
+    team_role: scm
+  - name: I306534
+    team_name: ''
+    first_name: Vadim
+    last_name: Rommer
+    email: vadim.rommer@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I308036
+    team_name: ''
+    first_name: Sergey
+    last_name: Alhazov
+    email: sergey.alhazov@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I308060
+    team_name: ''
+    first_name: Ido
+    last_name: Bergerfroind
+    email: ido.bergerfroind@sap.com
+    phone_number: '+972503494902'
+    team_domain: developer
+    team_role: member
+  - name: I309025
+    team_name: ''
+    first_name: Boaz
+    last_name: Wimmer
+    email: boaz.wimmer@sap.com
+    phone_number: '+972526350020'
+    team_domain: developer
+    team_role: member
+  - name: I309216
+    team_name: ''
+    first_name: Moshe
+    last_name: Naveh
+    email: moshe.naveh@sap.com
+    phone_number: '+972543388527'
+    team_domain: developer
+    team_role: member
+  - name: I309451
+    team_name: ''
+    first_name: Yael
+    last_name: Katan
+    email: yael.katan@sap.com
+    phone_number: '+972544231454'
+    team_domain: developer
+    team_role: member
+  - name: I310019
+    team_name: ''
+    first_name: Shirly
+    last_name: Cohen
+    email: shirly.cohen@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I311818
+    team_name: ''
+    first_name: Guy
+    last_name: Hasenfeld
+    email: guy.hasenfeld@sap.com
+    phone_number: '+972528507611'
+    team_domain: developer
+    team_role: member
+  - name: I311913
+    team_name: ''
+    first_name: Gilad
+    last_name: Vidal
+    email: gilad.vidal@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I312000
+    team_name: ''
+    first_name: Nofar
+    last_name: Lagziel-Siso
+    email: nofar.lagziel-siso@sap.com
+    phone_number: '+972532817789'
+    team_domain: developer
+    team_role: member
+  - name: I312638
+    team_name: ''
+    first_name: Raz
+    last_name: Korn
+    email: raz.korn@sap.com
+    phone_number: '+972544359995'
+    team_domain: developer
+    team_role: member
+  - name: I312768
+    team_name: ''
+    first_name: David Vsevolod
+    last_name: Egupov
+    email: d.egupov@sap.com
+    phone_number: '+972533012193'
+    team_domain: developer
+    team_role: member
+  - name: I313632
+    team_name: ''
+    first_name: Guy
+    last_name: Daich
+    email: guy.daich@sap.com
+    phone_number: '+17738924190'
+    team_domain: developer
+    team_role: member
+  - name: I317995
+    team_name: ''
+    first_name: Shalvia
+    last_name: Glasner
+    email: shalvia.glasner@sap.com
+    phone_number: '+972543712367'
+    team_domain: developer
+    team_role: member
+  - name: I318223
+    team_name: ''
+    first_name: Nelly
+    last_name: Terman
+    email: nelly.terman@sap.com
+    phone_number: '+972547698561'
+    team_domain: developer
+    team_role: member
+  - name: I318734
+    team_name: ''
+    first_name: Shahar
+    last_name: Harari
+    email: shahar.harari@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I319704
+    team_name: team-ux
+    first_name: Oran
+    last_name: Almog
+    email: oran.almog@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I320695
+    team_name: ''
+    first_name: Israel
+    last_name: Even Hen
+    email: i.even.hen@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I320736
+    team_name: ''
+    first_name: Sivan
+    last_name: Solomon
+    email: sivan.solomon@sap.com
+    phone_number: '+972505400506'
+    team_domain: developer
+    team_role: member
+  - name: I321642
+    team_name: ''
+    first_name: Nir
+    last_name: Shapira
+    email: n.shapira@sap.com
+    phone_number: '+972547737617'
+    team_domain: developer
+    team_role: member
+  - name: I323384
+    team_name: ''
+    first_name: Steven
+    last_name: Lu
+    email: steven.lu02@sap.com
+    phone_number: '+8613263117311'
+    team_domain: developer
+    team_role: member
+  - name: I324180
+    team_name: ''
+    first_name: Jawad
+    last_name: Margieh
+    email: jawad.margieh@sap.com
+    phone_number: '+972528522838'
+    team_domain: developer
+    team_role: member
+  - name: I325184
+    team_name: ''
+    first_name: Adva
+    last_name: Licht
+    email: adva.licht@sap.com
+    phone_number: '+972507243210'
+    team_domain: developer
+    team_role: member
+  - name: I325570
+    team_name: ''
+    first_name: Ilanit
+    last_name: Fisher-Hinski
+    email: ilanit.fisher-hinski@sap.com
+    phone_number: '+972545224152'
+    team_domain: developer
+    team_role: member
+  - name: I327115
+    team_name: ''
+    first_name: Alma
+    last_name: Shalom
+    email: alma.shalom@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I328660
+    team_name: ''
+    first_name: Adi
+    last_name: Gingis
+    email: adi.gingis@sap.com
+    phone_number: '+972545462228'
+    team_domain: developer
+    team_role: member
+  - name: I331072
+    team_name: ''
+    first_name: Ofer
+    last_name: Moscovich
+    email: ofer.moscovich@sap.com
+    phone_number: '+972547564499'
+    team_domain: developer
+    team_role: member
+  - name: I332650
+    team_name: ''
+    first_name: Erez
+    last_name: Levin
+    email: erez.levin@sap.com
+    phone_number: '+972502221181'
+    team_domain: developer
+    team_role: member
+  - name: I333681
+    team_name: ''
+    first_name: Raya
+    last_name: Koren
+    email: raya.koren@sap.com
+    phone_number: '+972526700684'
+    team_domain: developer
+    team_role: member
+  - name: I334510
+    team_name: ''
+    first_name: Yaniv
+    last_name: Oshri
+    email: y.oshri@sap.com
+    phone_number: '+972526330258'
+    team_domain: developer
+    team_role: member
+  - name: I334603
+    team_name: ''
+    first_name: Katya
+    last_name: Reznik
+    email: katya.reznik@sap.com
+    phone_number: '+972539669742'
+    team_domain: developer
+    team_role: member
+  - name: I336151
+    team_name: ''
+    first_name: Daena
+    last_name: Dreyfuss
+    email: daena.dreyfuss@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I336783
+    team_name: ''
+    first_name: Nell
+    last_name: Schauder Zalcberg
+    email: nell.schauder.zalcberg@sap.com
+    phone_number: '+972504286292'
+    team_domain: developer
+    team_role: member
+  - name: I336940
+    team_name: ''
+    first_name: Nechama Tova
+    last_name: David
+    email: nechama.tova.david@sap.com
+    phone_number: '+972584556320'
+    team_domain: developer
+    team_role: member
+  - name: I337254
+    team_name: ''
+    first_name: Sharon
+    last_name: Langer
+    email: sharon.langer@sap.com
+    phone_number: '+972542444854'
+    team_domain: developer
+    team_role: member
+  - name: I337279
+    team_name: ''
+    first_name: Chen
+    last_name: Nakash
+    email: chen.nakash@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I337710
+    team_name: ''
+    first_name: Yoni
+    last_name: Shulman
+    email: yoni.shulman@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I337731
+    team_name: ''
+    first_name: Konstantin
+    last_name: Pozhidaev
+    email: k.pozhidaev@sap.com
+    phone_number: '+972522991335'
+    team_domain: developer
+    team_role: member
+  - name: I337786
+    team_name: ''
+    first_name: Iris
+    last_name: Sasson
+    email: iris.sasson@sap.com
+    phone_number: '+972506595356'
+    team_domain: developer
+    team_role: member
+  - name: I338413
+    team_name: ''
+    first_name: Joshua
+    last_name: Godwin
+    email: j.godwin@sap.com
+    phone_number: '+919916517744'
+    team_domain: developer
+    team_role: member
+  - name: I338594
+    team_name: ''
+    first_name: Josephine
+    last_name: Abou Manneh
+    email: josephine.abou.manneh@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I339272
+    team_name: ''
+    first_name: Aviel
+    last_name: Cohen
+    email: aviel.cohen@sap.com
+    phone_number: '+972522737558'
+    team_domain: developer
+    team_role: member
+  - name: I339460
+    team_name: ''
+    first_name: Itay
+    last_name: Zur
+    email: i.zur@sap.com
+    phone_number: '+972545661327'
+    team_domain: developer
+    team_role: member
+  - name: I340949
+    team_name: ''
+    first_name: Shlomi
+    last_name: Ben Simhon
+    email: shlomi.ben.simhon@sap.com
+    phone_number: '+972542346501'
+    team_domain: developer
+    team_role: member
+  - name: I341716
+    team_name: ''
+    first_name: Sharon
+    last_name: Mordechai
+    email: sharon.mordechai@sap.com
+    phone_number: '+972527333441'
+    team_domain: developer
+    team_role: member
+  - name: I342618
+    team_name: ''
+    first_name: Lev
+    last_name: Mazuz Kalifa
+    email: lev.mazuz.kalifa@sap.com
+    phone_number: '+972526131053'
+    team_domain: developer
+    team_role: member
+  - name: I343062
+    team_name: ''
+    first_name: Iryna
+    last_name: Ponomarenko
+    email: iryna.ponomarenko@sap.com
+    phone_number: '+972548274475'
+    team_domain: developer
+    team_role: member
+  - name: I343440
+    team_name: ''
+    first_name: Eliran
+    last_name: Azuri
+    email: eliran.azuri@sap.com
+    phone_number: '+972547266671'
+    team_domain: developer
+    team_role: member
+  - name: I344467
+    team_name: ''
+    first_name: Anna
+    last_name: Fishbein
+    email: a.fishbein@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I344537
+    team_name: ''
+    first_name: Anton
+    last_name: Ioffe
+    email: a.ioffe@sap.com
+    phone_number: '+972504644658'
+    team_domain: developer
+    team_role: member
+  - name: I345083
+    team_name: ''
+    first_name: Inbal
+    last_name: Moneta
+    email: inbal.moneta@sap.com
+    phone_number: '+972544282280'
+    team_domain: developer
+    team_role: member
+  - name: I345294
+    team_name: ''
+    first_name: David
+    last_name: Bahat
+    email: david.bahat@sap.com
+    phone_number: '+972547237293'
+    team_domain: developer
+    team_role: member
+  - name: I345597
+    team_name: ''
+    first_name: Uriel
+    last_name: Rosner
+    email: uriel.rosner@sap.com
+    phone_number: '+972528523955'
+    team_domain: developer
+    team_role: member
+  - name: I345994
+    team_name: ''
+    first_name: Hadar
+    last_name: Gerber
+    email: hadar.gerber@sap.com
+    phone_number: '+972505959887'
+    team_domain: developer
+    team_role: member
+  - name: I347041
+    team_name: ''
+    first_name: Rotem
+    last_name: Hermon
+    email: rotem.hermon@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I347127
+    team_name: ''
+    first_name: Yael
+    last_name: Shoval
+    email: yael.shoval@sap.com
+    phone_number: '+972545545045'
+    team_domain: developer
+    team_role: member
+  - name: I347151
+    team_name: ''
+    first_name: Igal
+    last_name: Miroshnichenko
+    email: igal.miroshnichenko@sap.com
+    phone_number: '+972586136024'
+    team_domain: developer
+    team_role: member
+  - name: I347152
+    team_name: ''
+    first_name: Kobi
+    last_name: Kasis
+    email: kobi.kasis@sap.com
+    phone_number: '+972525545858'
+    team_domain: developer
+    team_role: member
+  - name: I347158
+    team_name: ''
+    first_name: Shachar
+    last_name: Butnaro
+    email: shachar.butnaro@sap.com
+    phone_number: '+972542324040'
+    team_domain: developer
+    team_role: member
+  - name: I347164
+    team_name: ''
+    first_name: Assaf
+    last_name: Esh
+    email: assaf.esh@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I347165
+    team_name: ''
+    first_name: Moti
+    last_name: Geulayev
+    email: mordechai.geulayev@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I347172
+    team_name: ''
+    first_name: Andrey
+    last_name: Kaplan
+    email: andrey.kaplan@sap.com
+    phone_number: '+972535301539'
+    team_domain: developer
+    team_role: member
+  - name: I347174
+    team_name: ''
+    first_name: Ilan
+    last_name: Huberman
+    email: ilan.huberman@sap.com
+    phone_number: '+972527453808'
+    team_domain: developer
+    team_role: member
+  - name: I347176
+    team_name: ''
+    first_name: Yaniv
+    last_name: Yancovich
+    email: yaniv.yancovich@sap.com
+    phone_number: '+972547700841'
+    team_domain: developer
+    team_role: member
+  - name: I347177
+    team_name: ''
+    first_name: Ian
+    last_name: Hametz
+    email: ian.hametz@sap.com
+    phone_number: '+972527970808'
+    team_domain: developer
+    team_role: member
+  - name: I347179
+    team_name: ''
+    first_name: Eyal
+    last_name: Pessach
+    email: eyal.pessach@sap.com
+    phone_number: +972 972546693800
+    team_domain: developer
+    team_role: member
+  - name: I347183
+    team_name: ''
+    first_name: Eyal
+    last_name: Golan
+    email: eyal.golan@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I347204
+    team_name: ''
+    first_name: Lior
+    last_name: Mashiah
+    email: lior.mashiah@sap.com
+    phone_number: '+972522343324'
+    team_domain: developer
+    team_role: member
+  - name: I347208
+    team_name: ''
+    first_name: Elad
+    last_name: Akiva
+    email: elad.akiva@sap.com
+    phone_number: '+972546779898'
+    team_domain: developer
+    team_role: member
+  - name: I347223
+    team_name: ''
+    first_name: Sami
+    last_name: Saul
+    email: sami.saul@sap.com
+    phone_number: '+972544586640'
+    team_domain: developer
+    team_role: member
+  - name: I347230
+    team_name: ''
+    first_name: Yotam
+    last_name: Sonn
+    email: yotam.sonn@sap.com
+    phone_number: '+972524489652'
+    team_domain: developer
+    team_role: member
+  - name: I347248
+    team_name: ''
+    first_name: Itamar
+    last_name: Lahav
+    email: itamar.lahav@sap.com
+    phone_number: '+972547560549'
+    team_domain: developer
+    team_role: member
+  - name: I347254
+    team_name: ''
+    first_name: Levi
+    last_name: Stepanov
+    email: levi.stepanov@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I347256
+    team_name: ''
+    first_name: Nik
+    last_name: Poliakov
+    email: nik.poliakov@sap.com
+    phone_number: '+972542778822'
+    team_domain: developer
+    team_role: member
+  - name: I347260
+    team_name: ''
+    first_name: Shai
+    last_name: Ben Naphtali
+    email: shai.ben.naphtali@sap.com
+    phone_number: '+972547711107'
+    team_domain: developer
+    team_role: member
+  - name: I347261
+    team_name: ''
+    first_name: Mark
+    last_name: Shechtman
+    email: mark.shechtman@sap.com
+    phone_number: '+972546565430'
+    team_domain: developer
+    team_role: member
+  - name: I347263
+    team_name: ''
+    first_name: Shlomi
+    last_name: Beinhoren
+    email: shlomi.beinhoren@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I347267
+    team_name: ''
+    first_name: Liad
+    last_name: Shiri
+    email: liad.shiri@sap.com
+    phone_number: '+972542669618'
+    team_domain: developer
+    team_role: member
+  - name: I347270
+    team_name: ''
+    first_name: Yan
+    last_name: Nasonov
+    email: yan.nasonov@sap.com
+    phone_number: '+972585000678'
+    team_domain: developer
+    team_role: member
+  - name: I347273
+    team_name: ''
+    first_name: Victor
+    last_name: Mayorchik
+    email: victor.mayorchik@sap.com
+    phone_number: '+972545313223'
+    team_domain: developer
+    team_role: member
+  - name: I347280
+    team_name: ''
+    first_name: Amihai
+    last_name: Hayek
+    email: amihai.hayek@sap.com
+    phone_number: '+972528500974'
+    team_domain: developer
+    team_role: member
+  - name: I347281
+    team_name: ''
+    first_name: Lior
+    last_name: Izyck
+    email: lior.izyck@sap.com
+    phone_number: '+970587140510'
+    team_domain: developer
+    team_role: member
+  - name: I347285
+    team_name: ''
+    first_name: Sarah
+    last_name: Illouz
+    email: sarah.illouz@sap.com
+    phone_number: '+972545397258'
+    team_domain: developer
+    team_role: member
+  - name: I347286
+    team_name: ''
+    first_name: Tal
+    last_name: Sinay
+    email: tal.sinay@sap.com
+    phone_number: '+972545577751'
+    team_domain: developer
+    team_role: member
+  - name: I347287
+    team_name: ''
+    first_name: Aliza
+    last_name: Zeldin
+    email: aliza.zeldin@sap.com
+    phone_number: '+972548082699'
+    team_domain: developer
+    team_role: member
+  - name: I347289
+    team_name: ''
+    first_name: Eyal
+    last_name: Herman
+    email: eyal.herman@sap.com
+    phone_number: '+972542553726'
+    team_domain: developer
+    team_role: member
+  - name: I347292
+    team_name: ''
+    first_name: Tomer
+    last_name: Golan
+    email: tomer.golan@sap.com
+    phone_number: '+972542669634'
+    team_domain: developer
+    team_role: member
+  - name: I347293
+    team_name: ''
+    first_name: Limor
+    last_name: Dekel
+    email: limor.dekel@sap.com
+    phone_number: '+972526787876'
+    team_domain: developer
+    team_role: member
+  - name: I347295
+    team_name: ''
+    first_name: Alexander
+    last_name: Kohan
+    email: alex.kohan@sap.com
+    phone_number: '+972547662993'
+    team_domain: developer
+    team_role: member
+  - name: I347298
+    team_name: ''
+    first_name: Shirly
+    last_name: Leibovich
+    email: shirly.leibovich@sap.com
+    phone_number: '+972528791144'
+    team_domain: developer
+    team_role: member
+  - name: I347303
+    team_name: ''
+    first_name: Idan
+    last_name: Mutzary
+    email: idan.mutzary@sap.com
+    phone_number: '+972546538797'
+    team_domain: developer
+    team_role: member
+  - name: I347305
+    team_name: ''
+    first_name: Dina
+    last_name: Vinter
+    email: dina.vinter@sap.com
+    phone_number: '+972543231013'
+    team_domain: developer
+    team_role: member
+  - name: I347312
+    team_name: ''
+    first_name: Inna
+    last_name: Gurevich
+    email: inna.gurevich@sap.com
+    phone_number: '+972523979177'
+    team_domain: developer
+    team_role: member
+  - name: I347313
+    team_name: ''
+    first_name: Eugene
+    last_name: Krapivin
+    email: eugene.krapivin@sap.com
+    phone_number: '+972544762530'
+    team_domain: developer
+    team_role: member
+  - name: I347315
+    team_name: ''
+    first_name: Orit
+    last_name: Cohen
+    email: orit.cohen@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I347316
+    team_name: ''
+    first_name: Dor
+    last_name: Avidan
+    email: dor.avidan@sap.com
+    phone_number: '+972544450183'
+    team_domain: developer
+    team_role: member
+  - name: I347317
+    team_name: ''
+    first_name: Viki
+    last_name: Bar
+    email: viki.bar@sap.com
+    phone_number: '+972528402114'
+    team_domain: developer
+    team_role: member
+  - name: I347324
+    team_name: ''
+    first_name: Yaron
+    last_name: Gur-Ari
+    email: yaron.gur-ari@sap.com
+    phone_number: '+972546616206'
+    team_domain: developer
+    team_role: member
+  - name: I347329
+    team_name: ''
+    first_name: Kobi
+    last_name: Cohen
+    email: kobi.cohen@sap.com
+    phone_number: '+972546630686'
+    team_domain: developer
+    team_role: member
+  - name: I347367
+    team_name: ''
+    first_name: Limor
+    last_name: Gargir-Alpert
+    email: limor.gargir-alpert@sap.com
+    phone_number: '+972505710995'
+    team_domain: developer
+    team_role: member
+  - name: I347529
+    team_name: ''
+    first_name: Yulia
+    last_name: Kyuseva
+    email: y.kyuseva@sap.com
+    phone_number: '+972549573317'
+    team_domain: developer
+    team_role: member
+  - name: I347766
+    team_name: ''
+    first_name: Avi
+    last_name: Kessler
+    email: avi.kessler@sap.com
+    phone_number: '+972542268822'
+    team_domain: developer
+    team_role: member
+  - name: I348294
+    team_name: ''
+    first_name: Shay
+    last_name: Mishali
+    email: shay.mishali@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I348307
+    team_name: ''
+    first_name: Doron
+    last_name: Nahari
+    email: doron.nahari@sap.com
+    phone_number: '+972525704160'
+    team_domain: developer
+    team_role: member
+  - name: I348881
+    team_name: ''
+    first_name: Dafna
+    last_name: Kremer
+    email: dafna.kremer@sap.com
+    phone_number: '+16726675560'
+    team_domain: developer
+    team_role: member
+  - name: I349209
+    team_name: ''
+    first_name: Shany
+    last_name: Shefer
+    email: shany.shefer@sap.com
+    phone_number: '+972547207926'
+    team_domain: developer
+    team_role: member
+  - name: I349241
+    team_name: ''
+    first_name: Genady
+    last_name: Puzis
+    email: genady.puzis@sap.com
+    phone_number: '+972544947305'
+    team_domain: developer
+    team_role: member
+  - name: I349360
+    team_name: ''
+    first_name: Shir
+    last_name: Barak
+    email: shir.barak@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I349414
+    team_name: ''
+    first_name: Inbar
+    last_name: Yaffe
+    email: inbar.yaffe@sap.com
+    phone_number: '+972544923208'
+    team_domain: developer
+    team_role: member
+  - name: I349433
+    team_name: ''
+    first_name: Gil
+    last_name: Shikva
+    email: gil.shikva@sap.com
+    phone_number: '+972504082269'
+    team_domain: developer
+    team_role: member
+  - name: I349439
+    team_name: ''
+    first_name: Gadi
+    last_name: Krumholz
+    email: gadi.krumholz@sap.com
+    phone_number: '+972527008693'
+    team_domain: developer
+    team_role: member
+  - name: I349810
+    team_name: ''
+    first_name: Olga
+    last_name: Avrahami
+    email: olga.avrahami@sap.com
+    phone_number: '+972545746937'
+    team_domain: developer
+    team_role: member
+  - name: I349897
+    team_name: ''
+    first_name: Boris
+    last_name: Lipmanovich
+    email: boris.lipmanovich@sap.com
+    phone_number: '+972538292995'
+    team_domain: developer
+    team_role: member
+  - name: I350008
+    team_name: ''
+    first_name: Elena
+    last_name: Itin
+    email: elena.itin@sap.com
+    phone_number: '+972584005295'
+    team_domain: developer
+    team_role: member
+  - name: I350069
+    team_name: ''
+    first_name: Ira
+    last_name: Gordin
+    email: ira.gordin@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I350350
+    team_name: ''
+    first_name: Alexander
+    last_name: Bromberg
+    email: alexander.bromberg@sap.com
+    phone_number: '+972509417939'
+    team_domain: developer
+    team_role: member
+  - name: I350389
+    team_name: ''
+    first_name: Or
+    last_name: Cohen
+    email: or.cohen@sap.com
+    phone_number: '+972523333235'
+    team_domain: developer
+    team_role: member
+  - name: I350904
+    team_name: ''
+    first_name: Guy
+    last_name: Meron
+    email: guy.meron@sap.com
+    phone_number: '+972528631507'
+    team_domain: developer
+    team_role: member
+  - name: I351205
+    team_name: ''
+    first_name: Avital
+    last_name: Margalit
+    email: avital.margalit@sap.com
+    phone_number: '+972546541216'
+    team_domain: developer
+    team_role: member
+  - name: I351216
+    team_name: ''
+    first_name: Ilya
+    last_name: Khmelniker
+    email: ilya.khmelniker@sap.com
+    phone_number: '+972506401689'
+    team_domain: developer
+    team_role: member
+  - name: I351228
+    team_name: ''
+    first_name: Yariv
+    last_name: Lifchuk
+    email: yariv.lifchuk@sap.com
+    phone_number: '+972542111087'
+    team_domain: developer
+    team_role: member
+  - name: I351478
+    team_name: ''
+    first_name: Igor
+    last_name: Bukartyk
+    email: igor.bukartyk@sap.com
+    phone_number: '+972545951162'
+    team_domain: developer
+    team_role: member
+  - name: I352973
+    team_name: ''
+    first_name: Helen
+    last_name: Barak
+    email: helen.barak@sap.com
+    phone_number: '+972544600891'
+    team_domain: developer
+    team_role: member
+  - name: I353017
+    team_name: ''
+    first_name: Itsik
+    last_name: Versano
+    email: itsik.versano@sap.com
+    phone_number: '+972523831994'
+    team_domain: developer
+    team_role: member
+  - name: I353099
+    team_name: ''
+    first_name: Elena
+    last_name: Genkin
+    email: elena.genkin@sap.com
+    phone_number: '+972545706277'
+    team_domain: developer
+    team_role: member
+  - name: I353127
+    team_name: ''
+    first_name: Shay
+    last_name: Benami
+    email: shay.benami@sap.com
+    phone_number: '+972544436645'
+    team_domain: developer
+    team_role: member
+  - name: I353344
+    team_name: ''
+    first_name: Aryhe
+    last_name: Segal
+    email: aryhe.segal@sap.com
+    phone_number: '+972524776686'
+    team_domain: developer
+    team_role: member
+  - name: I353386
+    team_name: ''
+    first_name: David
+    last_name: Cockrell Katz
+    email: david.cockrell.katz@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I353416
+    team_name: ''
+    first_name: Keren
+    last_name: Mor Piperberg
+    email: keren.mor.piperberg@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I353727
+    team_name: ''
+    first_name: Alexander
+    last_name: Chirlin
+    email: alexander.chirlin@sap.com
+    phone_number: '+972545460641'
+    team_domain: developer
+    team_role: member
+  - name: I354404
+    team_name: ''
+    first_name: Yair
+    last_name: Greenberg
+    email: yair.greenberg@sap.com
+    phone_number: '+972586466455'
+    team_domain: developer
+    team_role: member
+  - name: I354455
+    team_name: ''
+    first_name: Ido
+    last_name: Kaplan
+    email: ido.kaplan@sap.com
+    phone_number: '+972525605218'
+    team_domain: developer
+    team_role: member
+  - name: I355323
+    team_name: ''
+    first_name: Yoav
+    last_name: Cohen
+    email: yoav.cohen02@sap.com
+    phone_number: '+972547930660'
+    team_domain: developer
+    team_role: member
+  - name: I355563
+    team_name: ''
+    first_name: Rakefet
+    last_name: Jackoby Galazan
+    email: rakefet.jackoby.galazan@sap.com
+    phone_number: '+972509393410'
+    team_domain: developer
+    team_role: member
+  - name: I355582
+    team_name: ''
+    first_name: Shalom
+    last_name: Yaish
+    email: shalom.yaish@sap.com
+    phone_number: '+972502332233'
+    team_domain: developer
+    team_role: member
+  - name: I355608
+    team_name: ''
+    first_name: Alice
+    last_name: Kindi Cynamon
+    email: alice.kindi.cynamon@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I355633
+    team_name: ''
+    first_name: Aharon
+    last_name: Muallem
+    email: aharon.muallem@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I356305
+    team_name: ''
+    first_name: Karin
+    last_name: Paz
+    email: karin.paz@sap.com
+    phone_number: '+972543351456'
+    team_domain: developer
+    team_role: member
+  - name: I356355
+    team_name: ''
+    first_name: Evyatar
+    last_name: Atias
+    email: e.atias@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I356379
+    team_name: ''
+    first_name: Saggi
+    last_name: Raiter
+    email: saggi.raiter@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I500035
+    team_name: ''
+    first_name: Neta
+    last_name: Molcho
+    email: neta.molcho@sap.com
+    phone_number: '+972503334403'
+    team_domain: developer
+    team_role: member
+  - name: I500420
+    team_name: ''
+    first_name: Guy
+    last_name: Rozenblat
+    email: guy.rozenblat@sap.com
+    phone_number: '+972508478384'
+    team_domain: developer
+    team_role: member
+  - name: I500424
+    team_name: ''
+    first_name: Alex
+    last_name: Pekurovsky
+    email: alex.pekurovsky@sap.com
+    phone_number: '+972587793800'
+    team_domain: developer
+    team_role: member
+  - name: I500442
+    team_name: ''
+    first_name: Sapir
+    last_name: Pol
+    email: sapir.pol@sap.com
+    phone_number: '+972544967876'
+    team_domain: developer
+    team_role: member
+  - name: I500553
+    team_name: ''
+    first_name: Asaf
+    last_name: Maman
+    email: asaf.maman@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I501083
+    team_name: ''
+    first_name: Rony
+    last_name: Horvitz
+    email: rony.horvitz@sap.com
+    phone_number: '+972584006251'
+    team_domain: developer
+    team_role: member
+  - name: I501378
+    team_name: ''
+    first_name: Lital
+    last_name: Avigad
+    email: lital.avigad@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I501740
+    team_name: ''
+    first_name: Tal
+    last_name: Mirmelshtein
+    email: tal.mirmelshtein@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I502277
+    team_name: ''
+    first_name: Alex
+    last_name: Strusberg
+    email: alex.strusberg@sap.com
+    phone_number: '+972544406521'
+    team_domain: developer
+    team_role: member
+  - name: I502872
+    team_name: ''
+    first_name: Daniel
+    last_name: Amsalem
+    email: daniel.amsalem@sap.com
+    phone_number: '+972543313166'
+    team_domain: developer
+    team_role: member
+  - name: I504291
+    team_name: ''
+    first_name: Gil
+    last_name: Schmidt
+    email: gil.schmidt@sap.com
+    phone_number: '+972528400566'
+    team_domain: developer
+    team_role: member
+  - name: I504460
+    team_name: ''
+    first_name: Michael
+    last_name: Miller
+    email: michael.miller07@sap.com
+    phone_number: '+972549909399'
+    team_domain: developer
+    team_role: member
+  - name: I505375
+    team_name: ''
+    first_name: Shira
+    last_name: Manas
+    email: shira.manas@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I506600
+    team_name: ''
+    first_name: Matan
+    last_name: Ochayon
+    email: matan.ochayon@sap.com
+    phone_number: '+972542285486'
+    team_domain: developer
+    team_role: member
+  - name: I506998
+    team_name: ''
+    first_name: Erik
+    last_name: Feigin
+    email: erik.feigin@sap.com
+    phone_number: '+972542118544'
+    team_domain: developer
+    team_role: member
+  - name: I507121
+    team_name: ''
+    first_name: Pnina
+    last_name: Pais
+    email: pnina.pais@sap.com
+    phone_number: '+972546711215'
+    team_domain: developer
+    team_role: member
+  - name: I507306
+    team_name: ''
+    first_name: Osher
+    last_name: Kramer
+    email: osher.kramer@sap.com
+    phone_number: '+972544557238'
+    team_domain: developer
+    team_role: member
+  - name: I507316
+    team_name: ''
+    first_name: Yoad
+    last_name: Gonen
+    email: yoad.gonen@sap.com
+    phone_number: '+972547999171'
+    team_domain: developer
+    team_role: member
+  - name: I507698
+    team_name: ''
+    first_name: Sagi
+    last_name: Shmuel
+    email: sagi.shmuel@sap.com
+    phone_number: '+972585555655'
+    team_domain: developer
+    team_role: member
+  - name: I508119
+    team_name: ''
+    first_name: Michael
+    last_name: Pensky
+    email: michael.pensky@sap.com
+    phone_number: '+972505874070'
+    team_domain: developer
+    team_role: member
+  - name: I509244
+    team_name: ''
+    first_name: Reuven
+    last_name: Kozel
+    email: reuven.kozel@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I513387
+    team_name: ''
+    first_name: Omer
+    last_name: Mashraki
+    email: o.mashraki@sap.com
+    phone_number: '+972544995205'
+    team_domain: developer
+    team_role: member
+  - name: I514382
+    team_name: ''
+    first_name: Chris
+    last_name: Vasilchenko
+    email: chris.vasilchenko@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I514635
+    team_name: ''
+    first_name: Shahar Zeev
+    last_name: Silberstein
+    email: shahar.zeev.silberstein@sap.com
+    phone_number: '+972546902906'
+    team_domain: developer
+    team_role: member
+  - name: I517369
+    team_name: ''
+    first_name: Eliav
+    last_name: Maman
+    email: eliav.maman@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I520145
+    team_name: ''
+    first_name: Alexander
+    last_name: Zeltser
+    email: alexander.zeltser@sap.com
+    phone_number: '+972542188063'
+    team_domain: developer
+    team_role: member
+  - name: I520321
+    team_name: ''
+    first_name: Roni
+    last_name: Taoz
+    email: roni.taoz@sap.com
+    phone_number: '+972528260630'
+    team_domain: developer
+    team_role: member
+  - name: I520773
+    team_name: ''
+    first_name: Nikita
+    last_name: Kogan
+    email: nikita.kogan@sap.com
+    phone_number: '+972528361197'
+    team_domain: developer
+    team_role: member
+  - name: I521258
+    team_name: ''
+    first_name: Adam
+    last_name: Cohen
+    email: adam.cohen01@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I521350
+    team_name: ''
+    first_name: Daniel
+    last_name: Jacoby
+    email: daniel.jacoby@sap.com
+    phone_number: '+972522428035'
+    team_domain: developer
+    team_role: member
+  - name: I521652
+    team_name: ''
+    first_name: Kfir
+    last_name: Wilfand
+    email: kfir.wilfand@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I523502
+    team_name: ''
+    first_name: Elena
+    last_name: Darevsky
+    email: elena.darevsky@sap.com
+    phone_number: '+972585577921'
+    team_domain: developer
+    team_role: member
+  - name: I524108
+    team_name: ''
+    first_name: Oren
+    last_name: Gross
+    email: oren.gross@sap.com
+    phone_number: '+972548070741'
+    team_domain: developer
+    team_role: member
+  - name: I524190
+    team_name: ''
+    first_name: Vered
+    last_name: Dayan
+    email: vered.dayan@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I524398
+    team_name: ''
+    first_name: Reuven
+    last_name: Kandov
+    email: reuven.kandov@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I525245
+    team_name: ''
+    first_name: Yaniv
+    last_name: Kesner
+    email: yaniv.kesner@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I529620
+    team_name: ''
+    first_name: Yarden
+    last_name: Kenigsberg
+    email: y.kenigsberg@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I529791
+    team_name: ''
+    first_name: Andrey
+    last_name: Kanevsky
+    email: andrey.kanevsky@sap.com
+    phone_number: '+972544201301'
+    team_domain: developer
+    team_role: member
+  - name: I529927
+    team_name: ''
+    first_name: Shahar
+    last_name: Yigal
+    email: shahar.yigal@sap.com
+    phone_number: '+972545340025'
+    team_domain: developer
+    team_role: member
+  - name: I530500
+    team_name: ''
+    first_name: Eitan
+    last_name: Tsukerman
+    email: eitan.tsukerman@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I530573
+    team_name: ''
+    first_name: Yaniv
+    last_name: Naor
+    email: yaniv.naor@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I530905
+    team_name: ''
+    first_name: Yarden
+    last_name: Greenberg
+    email: yarden.greenberg@sap.com
+    phone_number: '+972547673360'
+    team_domain: developer
+    team_role: member
+  - name: I531295
+    team_name: ''
+    first_name: Dror
+    last_name: Uri
+    email: dror.uri@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I531832
+    team_name: ''
+    first_name: Lior
+    last_name: Weizman
+    email: lior.weizman@sap.com
+    phone_number: '+16474696867'
+    team_domain: developer
+    team_role: member
+  - name: I532408
+    team_name: ''
+    first_name: Tomer
+    last_name: Lutzky
+    email: tomer.lutzky@sap.com
+    phone_number: '+972545991501'
+    team_domain: developer
+    team_role: member
+  - name: I533247
+    team_name: ''
+    first_name: Eyal
+    last_name: Styskin
+    email: eyal.styskin@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I533271
+    team_name: ''
+    first_name: Saar
+    last_name: Zilberberg
+    email: saar.zilberberg@sap.com
+    phone_number: '+972526116654'
+    team_domain: developer
+    team_role: member
+  - name: I533426
+    team_name: ''
+    first_name: Alexey
+    last_name: Portnov
+    email: alexey.portnov@sap.com
+    phone_number: '+972523972002'
+    team_domain: developer
+    team_role: member
+  - name: I533524
+    team_name: ''
+    first_name: Eddy
+    last_name: Levi
+    email: e.levi@sap.com
+    phone_number: '+972528676222'
+    team_domain: developer
+    team_role: member
+  - name: I534427
+    team_name: ''
+    first_name: Shem
+    last_name: Maimon
+    email: shem.maimon@sap.com
+    phone_number: '+972522888183'
+    team_domain: developer
+    team_role: member
+  - name: I534847
+    team_name: ''
+    first_name: Kfir
+    last_name: Ariel
+    email: kfir.ariel@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I535068
+    team_name: ''
+    first_name: Amir
+    last_name: Fleisher
+    email: amir.fleisher@sap.com
+    phone_number: '+972509611192'
+    team_domain: developer
+    team_role: member
+  - name: I535365
+    team_name: ''
+    first_name: Daniel
+    last_name: Plocker
+    email: daniel.plocker@sap.com
+    phone_number: '+972543554688'
+    team_domain: developer
+    team_role: member
+  - name: I535594
+    team_name: ''
+    first_name: Amit
+    last_name: Dainovsky
+    email: amit.dainovsky@sap.com
+    phone_number: '+972504545115'
+    team_domain: developer
+    team_role: member
+  - name: I535952
+    team_name: ''
+    first_name: Immanuel
+    last_name: Ben Hefer
+    email: immanuel.ben.hefer@sap.com
+    phone_number: '+972507281548'
+    team_domain: developer
+    team_role: member
+  - name: I536791
+    team_name: ''
+    first_name: Adi
+    last_name: Avivi
+    email: adi.avivi@sap.com
+    phone_number: '+972587787981'
+    team_domain: developer
+    team_role: member
+  - name: I537215
+    team_name: ''
+    first_name: Avigail
+    last_name: Avidan
+    email: avigail.avidan@sap.com
+    phone_number: '+972584495188'
+    team_domain: developer
+    team_role: member
+  - name: I537843
+    team_name: ''
+    first_name: Shaked
+    last_name: Vosco
+    email: shaked.vosco@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I538111
+    team_name: ''
+    first_name: Michael
+    last_name: Gorokhovsky
+    email: michael.gorokhovsky@sap.com
+    phone_number: '+972549904333'
+    team_domain: developer
+    team_role: member
+  - name: I538157
+    team_name: ''
+    first_name: Yuval
+    last_name: Manor
+    email: yuval.manor@sap.com
+    phone_number: '+972525451682'
+    team_domain: developer
+    team_role: member
+  - name: I539055
+    team_name: ''
+    first_name: Tomer
+    last_name: Kosovicz
+    email: tomer.kosovicz@sap.com
+    phone_number: '+972545810033'
+    team_domain: developer
+    team_role: member
+  - name: I539307
+    team_name: ''
+    first_name: Amit
+    last_name: Lasri
+    email: amit.lasri@sap.com
+    phone_number: '+972542117616'
+    team_domain: developer
+    team_role: member
+  - name: I539786
+    team_name: ''
+    first_name: Guy
+    last_name: Azulay
+    email: g.azulay@sap.com
+    phone_number: '+972506800123'
+    team_domain: developer
+    team_role: member
+  - name: I539864
+    team_name: ''
+    first_name: Niv
+    last_name: Eliyahu
+    email: niv.eliyahu@sap.com
+    phone_number: '+972506662864'
+    team_domain: developer
+    team_role: member
+  - name: I539931
+    team_name: ''
+    first_name: Maor
+    last_name: Levi
+    email: maor.levi@sap.com
+    phone_number: '+972546824070'
+    team_domain: developer
+    team_role: member
+  - name: I539937
+    team_name: ''
+    first_name: Eitan
+    last_name: Behar
+    email: eitan.behar@sap.com
+    phone_number: '+972528527181'
+    team_domain: developer
+    team_role: member
+  - name: I539942
+    team_name: ''
+    first_name: Vadim
+    last_name: Portnoy
+    email: vadim.portnoy@sap.com
+    phone_number: '+972526280546'
+    team_domain: developer
+    team_role: member
+  - name: I540010
+    team_name: ''
+    first_name: Igor
+    last_name: Fleyshman
+    email: igor.fleyshman@sap.com
+    phone_number: '+972546685723'
+    team_domain: developer
+    team_role: member
+  - name: I540078
+    team_name: ''
+    first_name: Denis
+    last_name: Dolgunov
+    email: denis.dolgunov@sap.com
+    phone_number: '+972504584451'
+    team_domain: developer
+    team_role: member
+  - name: I540109
+    team_name: ''
+    first_name: Yedidyah
+    last_name: Wenner
+    email: yedidyah.wenner@sap.com
+    phone_number: '+972523570073'
+    team_domain: developer
+    team_role: member
+  - name: I540139
+    team_name: ''
+    first_name: Lior
+    last_name: Sharir
+    email: lior.sharir@sap.com
+    phone_number: '+972527444102'
+    team_domain: developer
+    team_role: member
+  - name: I540331
+    team_name: ''
+    first_name: Chen
+    last_name: Tchetchik Aloni
+    email: chen.tchetchik.aloni@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I540347
+    team_name: ''
+    first_name: Ricki
+    last_name: Biran
+    email: ricki.biran@sap.com
+    phone_number: '+972542676306'
+    team_domain: developer
+    team_role: member
+  - name: I540349
+    team_name: ''
+    first_name: Maxim
+    last_name: Buryak
+    email: maxim.buryak@sap.com
+    phone_number: '+972542177751'
+    team_domain: developer
+    team_role: member
+  - name: I540352
+    team_name: ''
+    first_name: Kalman
+    last_name: Labinsky
+    email: kalman.labinsky@sap.com
+    phone_number: '+972545868415'
+    team_domain: developer
+    team_role: member
+  - name: I540500
+    team_name: ''
+    first_name: Irena
+    last_name: Kimburg
+    email: irena.kimburg@sap.com
+    phone_number: '+972545326463'
+    team_domain: developer
+    team_role: member
+  - name: I540655
+    team_name: ''
+    first_name: Orit
+    last_name: Yafe
+    email: orit.yafe@sap.com
+    phone_number: '+972523571771'
+    team_domain: developer
+    team_role: member
+  - name: I540758
+    team_name: ''
+    first_name: Alexander
+    last_name: Futoryan
+    email: alexander.futoryan@sap.com
+    phone_number: '+972545503880'
+    team_domain: developer
+    team_role: member
+  - name: I540815
+    team_name: ''
+    first_name: Matan
+    last_name: Rosenfeld
+    email: matan.rosenfeld@sap.com
+    phone_number: '+972548981152'
+    team_domain: developer
+    team_role: member
+  - name: I541039
+    team_name: ''
+    first_name: Tomer
+    last_name: Ahimeir
+    email: tomer.ahimeir@sap.com
+    phone_number: '+972528988805'
+    team_domain: developer
+    team_role: member
+  - name: I541849
+    team_name: ''
+    first_name: Oren
+    last_name: Shochat
+    email: oren.shochat@sap.com
+    phone_number: '+972543300922'
+    team_domain: developer
+    team_role: member
+  - name: I541852
+    team_name: ''
+    first_name: Daniel Andres
+    last_name: Friedmann
+    email: daniel.andres.friedmann@sap.com
+    phone_number: '+972526858582'
+    team_domain: developer
+    team_role: member
+  - name: I541853
+    team_name: ''
+    first_name: Ben
+    last_name: Ohana
+    email: ben.ohana@sap.com
+    phone_number: '+972502671116'
+    team_domain: developer
+    team_role: member
+  - name: I542566
+    team_name: ''
+    first_name: Oriel
+    last_name: Goldstein
+    email: oriel.goldstein@sap.com
+    phone_number: '+972546859800'
+    team_domain: developer
+    team_role: member
+  - name: I542963
+    team_name: ''
+    first_name: Elad
+    last_name: Israel
+    email: elad.israel@sap.com
+    phone_number: '+972547405374'
+    team_domain: developer
+    team_role: member
+  - name: I543050
+    team_name: ''
+    first_name: Ariel
+    last_name: Latman
+    email: ariel.latman@sap.com
+    phone_number: '+972526234564'
+    team_domain: developer
+    team_role: member
+  - name: I543051
+    team_name: ''
+    first_name: Ori
+    last_name: Agranat
+    email: ori.agranat@sap.com
+    phone_number: '+972546671213'
+    team_domain: developer
+    team_role: member
+  - name: I543052
+    team_name: ''
+    first_name: Slava
+    last_name: Rubejevsky
+    email: slava.rubejevsky@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I543234
+    team_name: ''
+    first_name: Dubi
+    last_name: Greenfeld
+    email: dubi.greenfeld@sap.com
+    phone_number: '+972549935764'
+    team_domain: developer
+    team_role: member
+  - name: I543559
+    team_name: ''
+    first_name: Rostislav
+    last_name: Aronov
+    email: rostislav.aronov@sap.com
+    phone_number: '+972546504707'
+    team_domain: developer
+    team_role: member
+  - name: I543620
+    team_name: ''
+    first_name: Yossi
+    last_name: Soberano
+    email: yossi.soberano@sap.com
+    phone_number: '+972526644766'
+    team_domain: developer
+    team_role: member
+  - name: I543672
+    team_name: ''
+    first_name: Hila
+    last_name: Cohen Snir
+    email: hila.cohen.snir@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I543675
+    team_name: ''
+    first_name: Iryna
+    last_name: Butselan
+    email: iryna.butselan@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I543829
+    team_name: ''
+    first_name: Dudi
+    last_name: Sagit
+    email: d.sagit@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I543830
+    team_name: ''
+    first_name: Ron
+    last_name: Ayzenberg
+    email: ron.ayzenberg@sap.com
+    phone_number: '+972524677649'
+    team_domain: developer
+    team_role: member
+  - name: I543991
+    team_name: ''
+    first_name: Mor
+    last_name: Akiva
+    email: mor.akiva@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I544062
+    team_name: ''
+    first_name: Stanislav
+    last_name: Beylis
+    email: stanislav.beylis@sap.com
+    phone_number: '+972549873354'
+    team_domain: developer
+    team_role: member
+  - name: I544199
+    team_name: ''
+    first_name: Galit
+    last_name: Helbron
+    email: g.helbron@sap.com
+    phone_number: '+972528691884'
+    team_domain: developer
+    team_role: member
+  - name: I544218
+    team_name: ''
+    first_name: Ale
+    last_name: Mikanowski
+    email: ale.mikanowski@sap.com
+    phone_number: '+972544814000'
+    team_domain: developer
+    team_role: member
+  - name: I544252
+    team_name: ''
+    first_name: Erez
+    last_name: Shindelman
+    email: erez.shindelman@sap.com
+    phone_number: '+972528364908'
+    team_domain: developer
+    team_role: member
+  - name: I544266
+    team_name: ''
+    first_name: Elena
+    last_name: Poliachenko
+    email: elena.poliachenko@sap.com
+    phone_number: '+972546474641'
+    team_domain: developer
+    team_role: member
+  - name: I544409
+    team_name: ''
+    first_name: Rachel
+    last_name: Amar
+    email: rachel.amar@sap.com
+    phone_number: '+972502138281'
+    team_domain: developer
+    team_role: member
+  - name: I544548
+    team_name: ''
+    first_name: Nir
+    last_name: Koren
+    email: nir.koren@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I545046
+    team_name: ''
+    first_name: Eli
+    last_name: Naim
+    email: eli.naim@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I545047
+    team_name: ''
+    first_name: Kfir
+    last_name: Moshe
+    email: kfir.moshe@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I545272
+    team_name: ''
+    first_name: Elisheva
+    last_name: Cowan
+    email: elisheva.cowan@sap.com
+    phone_number: '+972527606824'
+    team_domain: developer
+    team_role: member
+  - name: I546223
+    team_name: ''
+    first_name: Ido
+    last_name: Lavi
+    email: ido.lavi@sap.com
+    phone_number: '+972508926809'
+    team_domain: developer
+    team_role: member
+  - name: I546495
+    team_name: ''
+    first_name: Michael
+    last_name: Lutsky
+    email: michael.lutsky@sap.com
+    phone_number: '+972544588141'
+    team_domain: developer
+    team_role: member
+  - name: I546534
+    team_name: ''
+    first_name: Itamar
+    last_name: Miron
+    email: itamar.miron@sap.com
+    phone_number: '+972547492295'
+    team_domain: developer
+    team_role: member
+  - name: I548149
+    team_name: ''
+    first_name: Sandy
+    last_name: Gilad
+    email: ariel.gilad@sap.com
+    phone_number: '+972545442041'
+    team_domain: developer
+    team_role: member
+  - name: I548303
+    team_name: ''
+    first_name: Ohad
+    last_name: Shemer
+    email: ohad.shemer@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I548738
+    team_name: ''
+    first_name: Ben Zion
+    last_name: Galili
+    email: ben.zion.galili@sap.com
+    phone_number: '+972545614686'
+    team_domain: developer
+    team_role: member
+  - name: I548739
+    team_name: ''
+    first_name: Oren
+    last_name: Twaig
+    email: oren.twaig@sap.com
+    phone_number: '+972546367364'
+    team_domain: developer
+    team_role: member
+  - name: I548741
+    team_name: ''
+    first_name: Tal
+    last_name: Rath
+    email: tal.rath@sap.com
+    phone_number: '+972545828982'
+    team_domain: developer
+    team_role: member
+  - name: I548744
+    team_name: ''
+    first_name: Leonid
+    last_name: Arsh
+    email: leonid.arsh@sap.com
+    phone_number: '+972544424841'
+    team_domain: developer
+    team_role: member
+  - name: I548745
+    team_name: ''
+    first_name: Zion
+    last_name: Chen
+    email: zion.chen01@sap.com
+    phone_number: '+972522211762'
+    team_domain: developer
+    team_role: member
+  - name: I548753
+    team_name: ''
+    first_name: Sharon
+    last_name: Sameah
+    email: sharon.sameah@sap.com
+    phone_number: '+972542616212'
+    team_domain: developer
+    team_role: member
+  - name: I548755
+    team_name: ''
+    first_name: Nitzan
+    last_name: Weller
+    email: nitzan.weller@sap.com
+    phone_number: '+972547338829'
+    team_domain: developer
+    team_role: member
+  - name: I548762
+    team_name: ''
+    first_name: Amos
+    last_name: Maimon
+    email: amos.maimon@sap.com
+    phone_number: '+972528089720'
+    team_domain: developer
+    team_role: member
+  - name: I548771
+    team_name: ''
+    first_name: Eial
+    last_name: Czerwacki
+    email: eial.czerwacki@sap.com
+    phone_number: '+972507119502'
+    team_domain: developer
+    team_role: member
+  - name: I548791
+    team_name: ''
+    first_name: Reoven
+    last_name: Kantan
+    email: reoven.kantan@sap.com
+    phone_number: '+972524540860'
+    team_domain: developer
+    team_role: member
+  - name: I548796
+    team_name: ''
+    first_name: Nir
+    last_name: Paikowsky
+    email: nir.paikowsky@sap.com
+    phone_number: '+972544938280'
+    team_domain: developer
+    team_role: member
+  - name: I548802
+    team_name: ''
+    first_name: Yuval
+    last_name: Fuchs
+    email: yuval.fuchs@sap.com
+    phone_number: '+972545664713'
+    team_domain: developer
+    team_role: member
+  - name: I548809
+    team_name: ''
+    first_name: Dror
+    last_name: Yardeni
+    email: dror.yardeni@sap.com
+    phone_number: '+972528271234'
+    team_domain: developer
+    team_role: member
+  - name: I548810
+    team_name: ''
+    first_name: Yakov
+    last_name: Kugel
+    email: yakov.kugel@sap.com
+    phone_number: '+972526887120'
+    team_domain: developer
+    team_role: member
+  - name: I548812
+    team_name: ''
+    first_name: Michael
+    last_name: Mazur
+    email: michael.mazur@sap.com
+    phone_number: '+972544320798'
+    team_domain: developer
+    team_role: member
+  - name: I548813
+    team_name: ''
+    first_name: Guy
+    last_name: Aburus
+    email: guy.aburus@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I548814
+    team_name: ''
+    first_name: David
+    last_name: Barbe
+    email: david.barbe@sap.com
+    phone_number: '+972545664204'
+    team_domain: developer
+    team_role: member
+  - name: I548907
+    team_name: ''
+    first_name: David
+    last_name: Parshan
+    email: david.parshan@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I548908
+    team_name: ''
+    first_name: Yehuda
+    last_name: Kahan
+    email: yehonatan.kahan@sap.com
+    phone_number: '+972587271600'
+    team_domain: developer
+    team_role: member
+  - name: I549518
+    team_name: ''
+    first_name: Ofir
+    last_name: Saloniko
+    email: o.saloniko@sap.com
+    phone_number: '+972547784676'
+    team_domain: developer
+    team_role: member
+  - name: I549595
+    team_name: ''
+    first_name: Itsik
+    last_name: Maor
+    email: itsik.maor@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I550420
+    team_name: ''
+    first_name: Moti
+    last_name: Furman
+    email: mordechai.furman@sap.com
+    phone_number: '+972545604854'
+    team_domain: developer
+    team_role: member
+  - name: I550428
+    team_name: ''
+    first_name: Noam
+    last_name: Levi
+    email: noam.levi@sap.com
+    phone_number: '+972502434979'
+    team_domain: developer
+    team_role: member
+  - name: I550637
+    team_name: ''
+    first_name: Yaniv
+    last_name: Peeri
+    email: yaniv.peeri@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I551217
+    team_name: ''
+    first_name: Eyal
+    last_name: Kotler
+    email: eyal.kotler@sap.com
+    phone_number: '+972548196699'
+    team_domain: developer
+    team_role: member
+  - name: I551766
+    team_name: ''
+    first_name: Talia
+    last_name: Novich
+    email: talia.novich@sap.com
+    phone_number: '+972544573489'
+    team_domain: developer
+    team_role: member
+  - name: I552581
+    team_name: ''
+    first_name: Mikhail
+    last_name: Povolotskii
+    email: mikhail.povolotskii@sap.com
+    phone_number: '+972585230770'
+    team_domain: developer
+    team_role: member
+  - name: I553506
+    team_name: ''
+    first_name: Talia
+    last_name: Knopp
+    email: talia.knopp@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I555060
+    team_name: ''
+    first_name: Yoni
+    last_name: Romm
+    email: yonatan.romm@sap.com
+    phone_number: '+972522243622'
+    team_domain: developer
+    team_role: member
+  - name: I555250
+    team_name: ''
+    first_name: Alice
+    last_name: Amos
+    email: alice.amos@sap.com
+    phone_number: '+972506500783'
+    team_domain: developer
+    team_role: member
+  - name: I555654
+    team_name: ''
+    first_name: Nader
+    last_name: Mandalawi
+    email: nader.mandalawi@sap.com
+    phone_number: '+972546629577'
+    team_domain: developer
+    team_role: member
+  - name: I555736
+    team_name: ''
+    first_name: Tanya
+    last_name: Filozof
+    email: tanya.filozof@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I555878
+    team_name: ''
+    first_name: Matan
+    last_name: Yamin
+    email: matan.yamin@sap.com
+    phone_number: '+972524588298'
+    team_domain: developer
+    team_role: member
+  - name: I555951
+    team_name: ''
+    first_name: Alon
+    last_name: Schwartz
+    email: alon.schwartz@sap.com
+    phone_number: '+972544465575'
+    team_domain: developer
+    team_role: member
+  - name: I555958
+    team_name: ''
+    first_name: Moshe
+    last_name: Shemoon
+    email: moshe.shemoon@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I556036
+    team_name: ''
+    first_name: Udi
+    last_name: Baruch
+    email: udi.baruch@sap.com
+    phone_number: '+972547453288'
+    team_domain: developer
+    team_role: member
+  - name: I556037
+    team_name: ''
+    first_name: Gabi
+    last_name: Israeli
+    email: gabi.israeli@sap.com
+    phone_number: '+972545390648'
+    team_domain: developer
+    team_role: member
+  - name: I556123
+    team_name: ''
+    first_name: Dekel
+    last_name: Tamam
+    email: dekel.tamam@sap.com
+    phone_number: '+972524887822'
+    team_domain: developer
+    team_role: member
+  - name: I557089
+    team_name: ''
+    first_name: Yulia
+    last_name: Kitsis
+    email: y.kitsis@sap.com
+    phone_number: '+972547880994'
+    team_domain: developer
+    team_role: member
+  - name: I557322
+    team_name: ''
+    first_name: Rivka
+    last_name: Wexler
+    email: rivka.wexler@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I558050
+    team_name: ''
+    first_name: Shachar
+    last_name: Wild
+    email: shachar.wild@sap.com
+    phone_number: '+972503556744'
+    team_domain: developer
+    team_role: member
+  - name: I558057
+    team_name: ''
+    first_name: Rebecca
+    last_name: Akouka
+    email: rebecca.akouka@sap.com
+    phone_number: '+972587081934'
+    team_domain: developer
+    team_role: member
+  - name: I558206
+    team_name: ''
+    first_name: Yarin
+    last_name: Israeli
+    email: yarin.israeli@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I558207
+    team_name: ''
+    first_name: Yael
+    last_name: Shechter
+    email: yael.shechter@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I558343
+    team_name: ''
+    first_name: Tal
+    last_name: Stern
+    email: tal.stern@sap.com
+    phone_number: '+972547383186'
+    team_domain: developer
+    team_role: member
+  - name: I558346
+    team_name: ''
+    first_name: Keren
+    last_name: Temkin
+    email: keren.temkin@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I558352
+    team_name: ''
+    first_name: Kobi
+    last_name: Sekli
+    email: yacov.sekli@sap.com
+    phone_number: '+972543003204'
+    team_domain: developer
+    team_role: member
+  - name: I558815
+    team_name: ''
+    first_name: Noam
+    last_name: Hadad
+    email: noam.hadad@sap.com
+    phone_number: '+972527924155'
+    team_domain: developer
+    team_role: member
+  - name: I559358
+    team_name: ''
+    first_name: Yael
+    last_name: Uzan
+    email: yael.uzan@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I559625
+    team_name: ''
+    first_name: Alexey
+    last_name: Gnidko
+    email: alexey.gnidko@sap.com
+    phone_number: '+972547483121'
+    team_domain: developer
+    team_role: member
+  - name: I559781
+    team_name: ''
+    first_name: Omer
+    last_name: Harouvi
+    email: omer.harouvi@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I559861
+    team_name: ''
+    first_name: Tomer
+    last_name: Levy
+    email: tomer.levy@sap.com
+    phone_number: '+4915153222497'
+    team_domain: developer
+    team_role: member
+  - name: I560222
+    team_name: ''
+    first_name: Tal
+    last_name: Kharetsky
+    email: tal.kharetsky@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I560223
+    team_name: ''
+    first_name: Igor
+    last_name: Ladnik
+    email: igor.ladnik@sap.com
+    phone_number: '+972548113293'
+    team_domain: developer
+    team_role: member
+  - name: I560387
+    team_name: ''
+    first_name: Niv
+    last_name: Dahan
+    email: niv.dahan@sap.com
+    phone_number: '+972545325270'
+    team_domain: developer
+    team_role: member
+  - name: I560433
+    team_name: ''
+    first_name: Esti
+    last_name: Rapaport
+    email: esther.rapaport@sap.com
+    phone_number: '+972544428094'
+    team_domain: developer
+    team_role: member
+  - name: I560473
+    team_name: ''
+    first_name: Gal
+    last_name: Cohen
+    email: gal.cohen@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I560647
+    team_name: ''
+    first_name: Gabriel
+    last_name: Kalaora
+    email: gabriel.kalaora@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I561056
+    team_name: ''
+    first_name: Jacob
+    last_name: Shalom
+    email: jacob.shalom@sap.com
+    phone_number: '+972544930146'
+    team_domain: developer
+    team_role: member
+  - name: I561067
+    team_name: ''
+    first_name: Shimon
+    last_name: Gewirtz
+    email: shimon.gewirtz@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I561070
+    team_name: ''
+    first_name: Dikla
+    last_name: Hovel Nathan
+    email: dikla.hovel.nathan@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I561176
+    team_name: ''
+    first_name: Eliran
+    last_name: Barel
+    email: eliran.barel@sap.com
+    phone_number: '+972523370050'
+    team_domain: developer
+    team_role: member
+  - name: I561752
+    team_name: ''
+    first_name: Vassiliy
+    last_name: Popov
+    email: vassiliy.popov@sap.com
+    phone_number: '+972534224701'
+    team_domain: developer
+    team_role: member
+  - name: I561817
+    team_name: ''
+    first_name: Yonatan
+    last_name: Tintpulver
+    email: yonatan.tintpulver@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I562179
+    team_name: ''
+    first_name: Tom
+    last_name: Schuller
+    email: tom.schuller@sap.com
+    phone_number: '+972548361877'
+    team_domain: developer
+    team_role: member
+  - name: I562227
+    team_name: ''
+    first_name: Najwan
+    last_name: Hino
+    email: najwan.hino@sap.com
+    phone_number: '+972549004529'
+    team_domain: developer
+    team_role: member
+  - name: I562364
+    team_name: ''
+    first_name: Ofir
+    last_name: Kolin
+    email: ofir.kolin@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I562394
+    team_name: ''
+    first_name: Yoav
+    last_name: Fried
+    email: yoav.fried@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I562594
+    team_name: ''
+    first_name: Eyal
+    last_name: Zadik
+    email: eyal.zadik@sap.com
+    phone_number: '+972502299456'
+    team_domain: developer
+    team_role: member
+  - name: I563100
+    team_name: ''
+    first_name: Shani
+    last_name: Shavit
+    email: shani.shavit@sap.com
+    phone_number: '+972545361649'
+    team_domain: developer
+    team_role: member
+  - name: I563392
+    team_name: ''
+    first_name: Ido
+    last_name: Hirsh
+    email: i.hirsh@sap.com
+    phone_number: '+972525722208'
+    team_domain: developer
+    team_role: member
+  - name: I563393
+    team_name: ''
+    first_name: Asaf
+    last_name: Schreiber
+    email: asaf.schreiber01@sap.com
+    phone_number: '+972545228335'
+    team_domain: developer
+    team_role: member
+  - name: I563451
+    team_name: ''
+    first_name: Yaniv
+    last_name: Levy
+    email: yaniv.levy@sap.com
+    phone_number: '+972526602555'
+    team_domain: developer
+    team_role: member
+  - name: I563456
+    team_name: ''
+    first_name: Bashar
+    last_name: Kablan
+    email: b.kablan@sap.com
+    phone_number: '+972542811687'
+    team_domain: developer
+    team_role: member
+  - name: I563474
+    team_name: ''
+    first_name: Lilach
+    last_name: Laniado
+    email: lilach.laniado@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I563495
+    team_name: ''
+    first_name: Roee
+    last_name: Fabrikant
+    email: r.fabrikant@sap.com
+    phone_number: '+972525903836'
+    team_domain: developer
+    team_role: member
+  - name: I563567
+    team_name: ''
+    first_name: Eliav
+    last_name: Amar
+    email: liav.amar@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I563636
+    team_name: ''
+    first_name: Vladislav
+    last_name: Slavinsky
+    email: vladislav.slavinsky@sap.com
+    phone_number: '+972547560506'
+    team_domain: developer
+    team_role: member
+  - name: I563637
+    team_name: ''
+    first_name: Ola
+    last_name: Nasra Hamshawi
+    email: ola.nasra.hamshawi@sap.com
+    phone_number: '+972524697035'
+    team_domain: developer
+    team_role: member
+  - name: I563709
+    team_name: ''
+    first_name: Ilia
+    last_name: Gurevich
+    email: i.gurevich@sap.com
+    phone_number: '+972539583375'
+    team_domain: developer
+    team_role: member
+  - name: I563756
+    team_name: ''
+    first_name: Reuven
+    last_name: Kadison
+    email: reuven.kadison@sap.com
+    phone_number: '+972548111238'
+    team_domain: developer
+    team_role: member
+  - name: I564041
+    team_name: ''
+    first_name: Noam
+    last_name: Gal Oz
+    email: noam.gal.oz@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I564246
+    team_name: ''
+    first_name: Vitaly
+    last_name: Sourikov
+    email: vitaly.sourikov@sap.com
+    phone_number: '+972548089137'
+    team_domain: developer
+    team_role: member
+  - name: I564371
+    team_name: ''
+    first_name: Ran
+    last_name: Rosh
+    email: ran.rosh@sap.com
+    phone_number: '+972586111166'
+    team_domain: developer
+    team_role: member
+  - name: I564686
+    team_name: ''
+    first_name: Irit
+    last_name: Maharian
+    email: irit.maharian@sap.com
+    phone_number: '+972523751986'
+    team_domain: developer
+    team_role: member
+  - name: I564728
+    team_name: ''
+    first_name: Denis
+    last_name: Voloshin
+    email: denis.voloshin@sap.com
+    phone_number: '+972546422269'
+    team_domain: developer
+    team_role: member
+  - name: I564828
+    team_name: ''
+    first_name: Eitan
+    last_name: Schreiber
+    email: eitan.schreiber@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I564829
+    team_name: ''
+    first_name: Avichai
+    last_name: Geldzahler
+    email: avichai.geldzahler@sap.com
+    phone_number: '+972547773240'
+    team_domain: developer
+    team_role: member
+  - name: I564876
+    team_name: ''
+    first_name: Gil
+    last_name: Fuchs
+    email: gil.fuchs@sap.com
+    phone_number: '+972547383895'
+    team_domain: developer
+    team_role: member
+  - name: I565060
+    team_name: ''
+    first_name: Oren
+    last_name: Iny
+    email: oren.iny@sap.com
+    phone_number: '+972524286290'
+    team_domain: developer
+    team_role: member
+  - name: I565421
+    team_name: ''
+    first_name: Victor
+    last_name: Kait
+    email: victor.kait@sap.com
+    phone_number: '+972542500929'
+    team_domain: developer
+    team_role: member
+  - name: I566023
+    team_name: ''
+    first_name: Rony
+    last_name: Shoham Dadush
+    email: rony.shoham.dadush@sap.com
+    phone_number: '+972526135946'
+    team_domain: developer
+    team_role: member
+  - name: I566256
+    team_name: ''
+    first_name: Chana
+    last_name: Reisner
+    email: chana.reisner@sap.com
+    phone_number: '+972587245678'
+    team_domain: developer
+    team_role: member
+  - name: I566702
+    team_name: ''
+    first_name: Roi
+    last_name: Soreq
+    email: roi.soreq@sap.com
+    phone_number: '+972507121613'
+    team_domain: developer
+    team_role: member
+  - name: I566719
+    team_name: ''
+    first_name: Liz
+    last_name: Berezin
+    email: liz.berezin@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I566920
+    team_name: ''
+    first_name: Shiran
+    last_name: Goldstein
+    email: shiran.goldstein@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I567877
+    team_name: ''
+    first_name: Shira
+    last_name: Zchut Agiv
+    email: s.zchut.agiv@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I567923
+    team_name: ''
+    first_name: Leo
+    last_name: Magrisso
+    email: leo.magrisso@sap.com
+    phone_number: '+972542227334'
+    team_domain: developer
+    team_role: member
+  - name: I567957
+    team_name: ''
+    first_name: Yiftach
+    last_name: Nun
+    email: y.nun@sap.com
+    phone_number: '+972524429233'
+    team_domain: developer
+    team_role: member
+  - name: I567963
+    team_name: ''
+    first_name: Zohar
+    last_name: David
+    email: zohar.david@sap.com
+    phone_number: '+972523499395'
+    team_domain: developer
+    team_role: member
+  - name: I568588
+    team_name: ''
+    first_name: Eliyahu
+    last_name: Baker
+    email: eliyahu.baker@sap.com
+    phone_number: '+972527126255'
+    team_domain: developer
+    team_role: member
+  - name: I568711
+    team_name: ''
+    first_name: Liraz
+    last_name: Hayat
+    email: liraz.hayat@sap.com
+    phone_number: '+972503377721'
+    team_domain: developer
+    team_role: member
+  - name: I569523
+    team_name: ''
+    first_name: Sagi
+    last_name: Sela
+    email: sagi.sela@sap.com
+    phone_number: '+972526868684'
+    team_domain: developer
+    team_role: member
+  - name: I569530
+    team_name: ''
+    first_name: Barak
+    last_name: Taya
+    email: barak.taya@sap.com
+    phone_number: '+972542124525'
+    team_domain: developer
+    team_role: member
+  - name: I569641
+    team_name: ''
+    first_name: Munir
+    last_name: Khoury
+    email: munir.khoury@sap.com
+    phone_number: '+972532232536'
+    team_domain: developer
+    team_role: member
+  - name: I569922
+    team_name: ''
+    first_name: Pavel
+    last_name: Kantor
+    email: pavel.kantor@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I570004
+    team_name: ''
+    first_name: Ronen
+    last_name: Hamisha
+    email: ronen.hamisha@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I570006
+    team_name: ''
+    first_name: Ze'ev
+    last_name: Brodsky
+    email: ze-ev.brodsky@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I570887
+    team_name: ''
+    first_name: Lior
+    last_name: Caspi
+    email: lior.caspi@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I570911
+    team_name: ''
+    first_name: Meital
+    last_name: Mendel
+    email: meital.mendel@sap.com
+    phone_number: '+972546430648'
+    team_domain: developer
+    team_role: member
+  - name: I571243
+    team_name: ''
+    first_name: Sharon
+    last_name: Duvdevani
+    email: sharon.duvdevani@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I571802
+    team_name: ''
+    first_name: Niran
+    last_name: Baruch
+    email: n.baruch@sap.com
+    phone_number: '+972546505110'
+    team_domain: developer
+    team_role: member
+  - name: I572194
+    team_name: ''
+    first_name: Vered
+    last_name: Zilberstein
+    email: vered.zilberstein@sap.com
+    phone_number: '+972544802441'
+    team_domain: developer
+    team_role: member
+  - name: I572252
+    team_name: ''
+    first_name: Sigalit
+    last_name: Franji-Gefen
+    email: sigalit.franji-gefen@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I572539
+    team_name: ''
+    first_name: Rafael
+    last_name: Zigovski
+    email: rafael.zigovski@sap.com
+    phone_number: '+972548022877'
+    team_domain: developer
+    team_role: member
+  - name: I573314
+    team_name: ''
+    first_name: Merav
+    last_name: Chak
+    email: merav.chak@sap.com
+    phone_number: '+972545458387'
+    team_domain: developer
+    team_role: member
+  - name: I573773
+    team_name: ''
+    first_name: Eman
+    last_name: Abu Zid
+    email: eman.abu.zid@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I573944
+    team_name: ''
+    first_name: Orna
+    last_name: Kleinmann
+    email: o.kleinmann@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I574311
+    team_name: ''
+    first_name: Snir
+    last_name: Shainfeld
+    email: snir.shainfeld@sap.com
+    phone_number: '+508102029'
+    team_domain: developer
+    team_role: member
+  - name: I574365
+    team_name: ''
+    first_name: Gal
+    last_name: Mazor
+    email: gal.mazor@sap.com
+    phone_number: '+972523653421'
+    team_domain: developer
+    team_role: member
+  - name: I574380
+    team_name: ''
+    first_name: Shani
+    last_name: Shorer
+    email: shani.shorer@sap.com
+    phone_number: '+972523331697'
+    team_domain: developer
+    team_role: member
+  - name: I574388
+    team_name: ''
+    first_name: Ilan
+    last_name: Benhamou
+    email: ilan.benhamou@sap.com
+    phone_number: '+972587924002'
+    team_domain: developer
+    team_role: member
+  - name: I574422
+    team_name: ''
+    first_name: Ammar
+    last_name: Mandlawi
+    email: ammar.mandlawi@sap.com
+    phone_number: '+972547173566'
+    team_domain: developer
+    team_role: member
+  - name: I574630
+    team_name: ''
+    first_name: Omer
+    last_name: Pahima
+    email: omer.pahima@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I574757
+    team_name: ''
+    first_name: Idan
+    last_name: Orgad
+    email: idan.orgad@sap.com
+    phone_number: '+972523691846'
+    team_domain: developer
+    team_role: member
+  - name: I574823
+    team_name: ''
+    first_name: Hadas
+    last_name: Amitzur
+    email: hadas.amitzur@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I574873
+    team_name: ''
+    first_name: Nimrod
+    last_name: Eshar
+    email: nimrod.eshar@sap.com
+    phone_number: '+972587160020'
+    team_domain: developer
+    team_role: member
+  - name: I575109
+    team_name: ''
+    first_name: Lin
+    last_name: Moskovitch
+    email: lin.moskovitch@sap.com
+    phone_number: '+972586555549'
+    team_domain: developer
+    team_role: member
+  - name: I575983
+    team_name: ''
+    first_name: Gil
+    last_name: Rosenberg
+    email: gil.rosenberg@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I576612
+    team_name: ''
+    first_name: Ron
+    last_name: Deitch
+    email: ron.deitch@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I576814
+    team_name: ''
+    first_name: George
+    last_name: Jobran
+    email: george.jobran@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I576815
+    team_name: ''
+    first_name: Saar
+    last_name: Zur
+    email: saar.zur@sap.com
+    phone_number: '+972526424885'
+    team_domain: developer
+    team_role: member
+  - name: I577247
+    team_name: ''
+    first_name: Raz
+    last_name: Getzel
+    email: raz.getzel@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I577550
+    team_name: ''
+    first_name: Shahar
+    last_name: Asor
+    email: shahar.asor@sap.com
+    phone_number: '+972522702118'
+    team_domain: developer
+    team_role: member
+  - name: I583134
+    team_name: ''
+    first_name: Amin
+    last_name: Tehaucha
+    email: amin.tehaucha@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I583264
+    team_name: ''
+    first_name: Or
+    last_name: Messing
+    email: or.messing@sap.com
+    phone_number: '+972509531588'
+    team_domain: developer
+    team_role: member
+  - name: I583925
+    team_name: ''
+    first_name: Guy
+    last_name: Ben Razon
+    email: guy.ben.razon@sap.com
+    phone_number: '+972545328728'
+    team_domain: developer
+    team_role: member
+  - name: I584062
+    team_name: ''
+    first_name: Liraz
+    last_name: Ohayon
+    email: liraz.ohayon@sap.com
+    phone_number: '+972506509197'
+    team_domain: developer
+    team_role: member
+  - name: I584968
+    team_name: ''
+    first_name: Adi
+    last_name: Douchan
+    email: adi.douchan@sap.com
+    phone_number: '+972543002393'
+    team_domain: developer
+    team_role: member
+  - name: I585067
+    team_name: ''
+    first_name: Adi
+    last_name: Rozenberg
+    email: adi.rozenberg@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I585180
+    team_name: ''
+    first_name: Tamar
+    last_name: Treiger
+    email: tamar.treiger@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I585770
+    team_name: ''
+    first_name: Alon
+    last_name: Manshari
+    email: alon.manshari@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I587375
+    team_name: ''
+    first_name: Artur
+    last_name: Nikoghosyan
+    email: artur.nikoghosyan@sap.com
+    phone_number: '+972523838906'
+    team_domain: developer
+    team_role: member
+  - name: I587541
+    team_name: ''
+    first_name: Idan
+    last_name: Cohen
+    email: idan.cohen@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I588643
+    team_name: ''
+    first_name: Nadav
+    last_name: Levy
+    email: n.levy@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I741080
+    team_name: ''
+    first_name: Barak
+    last_name: Malul
+    email: barak.malul@sap.com
+    phone_number: '+972507500806'
+    team_domain: developer
+    team_role: member
+  - name: I741292
+    team_name: ''
+    first_name: Dor
+    last_name: Levanon
+    email: d.levanon@sap.com
+    phone_number: '+972545278871'
+    team_domain: developer
+    team_role: member
+  - name: I741919
+    team_name: ''
+    first_name: zohar
+    last_name: Levi
+    email: zohar.levi@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I742789
+    team_name: ''
+    first_name: Rom
+    last_name: Bernheimer
+    email: rom.bernheimer@sap.com
+    phone_number: '+972527036164'
+    team_domain: developer
+    team_role: member
+  - name: I743019
+    team_name: ''
+    first_name: Shai
+    last_name: Beinhoren
+    email: s.beinhoren@sap.com
+    phone_number: '+972545914875'
+    team_domain: developer
+    team_role: member
+  - name: I743024
+    team_name: ''
+    first_name: Eli
+    last_name: Bunimovich
+    email: e.bunimovich@sap.com
+    phone_number: '+972526015940'
+    team_domain: developer
+    team_role: member
+  - name: I743377
+    team_name: ''
+    first_name: Lior
+    last_name: Ariely
+    email: lior.ariely@sap.com
+    phone_number: '+972542560515'
+    team_domain: developer
+    team_role: member
+  - name: I746073
+    team_name: ''
+    first_name: Tali
+    last_name: Itzikovich Evron
+    email: tali.itzikovich.evron@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I746949
+    team_name: ''
+    first_name: Elad
+    last_name: Ariel
+    email: elad.ariel@sap.com
+    phone_number: '+972542516662'
+    team_domain: developer
+    team_role: member
+  - name: I747749
+    team_name: ''
+    first_name: Michal
+    last_name: Shachar
+    email: michal.shachar@sap.com
+    phone_number: '+972506916700'
+    team_domain: developer
+    team_role: member
+  - name: I752229
+    team_name: ''
+    first_name: Stanislav
+    last_name: Blagoev
+    email: stanislav.blagoev@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I752484
+    team_name: ''
+    first_name: Amitai
+    last_name: Schapiro
+    email: amitai.schapiro@sap.com
+    phone_number: '+972505202266'
+    team_domain: developer
+    team_role: member
+  - name: I757538
+    team_name: ''
+    first_name: Carla
+    last_name: Maman
+    email: carla.maman@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I757583
+    team_name: ''
+    first_name: Roi
+    last_name: Yomtovyan
+    email: roi.yomtovyan@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I757590
+    team_name: ''
+    first_name: Emil
+    last_name: Vasilev
+    email: emil.vasilev@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I757627
+    team_name: ''
+    first_name: Ella
+    last_name: Kamenetsky
+    email: ella.kamenetsky@sap.com
+    phone_number: '+972523773975'
+    team_domain: developer
+    team_role: member
+  - name: I757904
+    team_name: ''
+    first_name: Ventsislav
+    last_name: Angelov
+    email: ventsislav.angelov@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I758253
+    team_name: ''
+    first_name: Galit
+    last_name: Icicson
+    email: galit.icicson@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I758322
+    team_name: ''
+    first_name: Reut
+    last_name: Hadad
+    email: reut.hadad@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I758553
+    team_name: ''
+    first_name: Saar
+    last_name: Sever
+    email: saar.sever@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I758865
+    team_name: ''
+    first_name: Daniel
+    last_name: Smotritsky
+    email: daniel.smotritsky@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I758867
+    team_name: ''
+    first_name: Yotam
+    last_name: Plaut
+    email: yotam.plaut@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I758942
+    team_name: ''
+    first_name: Boris
+    last_name: Penev
+    email: boris.penev@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I759161
+    team_name: ''
+    first_name: Ofri
+    last_name: Olshevichki
+    email: ofri.olshevichki@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I759469
+    team_name: ''
+    first_name: Itsik
+    last_name: Elia
+    email: itsik.elia@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I759727
+    team_name: ''
+    first_name: Cristian
+    last_name: Tirotta
+    email: cristian.tirotta@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I761008
+    team_name: ''
+    first_name: Sara
+    last_name: Katsanelbogen
+    email: sara.katsanelbogen@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I761171
+    team_name: ''
+    first_name: Nir
+    last_name: Steinfeld
+    email: nir.steinfeld@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I762131
+    team_name: ''
+    first_name: Jenny
+    last_name: Werner
+    email: jenny.werner@sap.com
+    phone_number: '+972525346366'
+    team_domain: developer
+    team_role: member
+  - name: I762374
+    team_name: ''
+    first_name: Tiran
+    last_name: Spierer
+    email: tiran.spierer@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I762375
+    team_name: ''
+    first_name: Tal
+    last_name: Mizrahi
+    email: tal.mizrahi@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I762767
+    team_name: ''
+    first_name: Yoav
+    last_name: Malul
+    email: yoav.malul@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I762872
+    team_name: ''
+    first_name: Ido
+    last_name: Millo
+    email: ido.millo@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I762873
+    team_name: ''
+    first_name: Or
+    last_name: Zollman
+    email: or.zollman@sap.com
+    phone_number: '+972546514000'
+    team_domain: developer
+    team_role: member
+  - name: I762933
+    team_name: ''
+    first_name: Jonathan
+    last_name: Lautman
+    email: jonathan.lautman@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I762936
+    team_name: ''
+    first_name: Yael
+    last_name: Keidar
+    email: yael.keidar@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I762939
+    team_name: ''
+    first_name: Shira
+    last_name: Weinberger
+    email: shira.weinberger@sap.com
+    phone_number: '+972547362332'
+    team_domain: developer
+    team_role: member
+  - name: I763459
+    team_name: ''
+    first_name: Orian
+    last_name: Polin
+    email: orian.polin@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I763597
+    team_name: ''
+    first_name: Neta
+    last_name: Novogrodsky
+    email: neta.novogrodsky@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I763598
+    team_name: ''
+    first_name: Kai
+    last_name: Cheifetz
+    email: kai.cheifetz@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I763940
+    team_name: ''
+    first_name: Nissim
+    last_name: Brami
+    email: nissim.brami@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I763945
+    team_name: ''
+    first_name: Yael
+    last_name: Kulish
+    email: yael.kulish@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I764005
+    team_name: ''
+    first_name: Siba
+    last_name: Azab
+    email: siba.azab@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I765289
+    team_name: ''
+    first_name: Sahar
+    last_name: Hagbi
+    email: sahar.hagbi@sap.com
+    phone_number: '+972543201133'
+    team_domain: developer
+    team_role: member
+  - name: I765481
+    team_name: ''
+    first_name: Nimrod
+    last_name: Schatzman
+    email: nimrod.schatzman@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I765591
+    team_name: ''
+    first_name: Amit
+    last_name: Friedman
+    email: amit.friedman@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I765814
+    team_name: ''
+    first_name: Or
+    last_name: Tubul
+    email: or.tubul@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I766207
+    team_name: ''
+    first_name: Tom
+    last_name: Raz
+    email: tom.raz@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I767574
+    team_name: ''
+    first_name: Matan
+    last_name: Shalit
+    email: matan.shalit@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I767628
+    team_name: ''
+    first_name: Dara
+    last_name: Rosenzweig
+    email: dara.rosenzweig@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I769284
+    team_name: ''
+    first_name: Evyatar
+    last_name: Kersh
+    email: evyatar.kersh@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I769789
+    team_name: ''
+    first_name: Vitali
+    last_name: Muzhailo
+    email: vitali.muzhailo@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I769930
+    team_name: ''
+    first_name: Irena
+    last_name: Yakobovich
+    email: irena.yakobovich@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I770308
+    team_name: ''
+    first_name: Orian
+    last_name: Almosnino
+    email: orian.almosnino@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I771088
+    team_name: ''
+    first_name: Oz
+    last_name: Blech
+    email: oz.blech@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I771130
+    team_name: ''
+    first_name: Amit
+    last_name: Galili
+    email: amit.galili@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I771315
+    team_name: ''
+    first_name: Rotem
+    last_name: Revivo
+    email: rotem.revivo@sap.com
+    phone_number: '+15258500807'
+    team_domain: developer
+    team_role: member
+  - name: I771560
+    team_name: ''
+    first_name: Omri
+    last_name: Sherman
+    email: omri.sherman@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I771577
+    team_name: ''
+    first_name: Iael
+    last_name: Berger
+    email: iael.berger@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I771607
+    team_name: ''
+    first_name: Ariel
+    last_name: Shohat
+    email: ariel.shohat@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I771657
+    team_name: ''
+    first_name: Yuval
+    last_name: Sadot
+    email: yuval.sadot@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I771694
+    team_name: ''
+    first_name: Shaked
+    last_name: Tsabari
+    email: shaked.tsabari@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I771741
+    team_name: ''
+    first_name: Lotem
+    last_name: Tzur
+    email: lotem.tzur@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I807291
+    team_name: ''
+    first_name: Nir M
+    last_name: Kol
+    email: nir.m.kol@sap.com
+    phone_number: '+972545216456'
+    team_domain: developer
+    team_role: member
+  - name: I807516
+    team_name: ''
+    first_name: Gilles
+    last_name: Atlan
+    email: g.atlan@sap.com
+    phone_number: '+972543388493'
+    team_domain: developer
+    team_role: member
+  - name: I771465
+    team_name: ''
+    first_name: Eran
+    last_name: Kramf
+    email: eran.kramf@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member
+  - name: I771668
+    team_name: ''
+    first_name: Tomer
+    last_name: Dvash
+    email: tomer.dvash@sap.com
+    phone_number: ''
+    team_domain: developer
+    team_role: member

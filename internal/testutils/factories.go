@@ -20,15 +20,15 @@ func NewOrganizationFactory() *OrganizationFactory {
 func (f *OrganizationFactory) Create() *models.Organization {
 	return &models.Organization{
 		BaseModel: models.BaseModel{
-			ID:        uuid.New(),
-			CreatedAt: time.Now(),
-			UpdatedAt: time.Now(),
+			ID:          uuid.New(),
+			CreatedAt:   time.Now(),
+			UpdatedAt:   time.Now(),
+			Name:        "test-org",
+			Title:       "Test Organization Display Name",
+			Description: "A test organization for testing purposes",
 		},
-		Name:        "Test Organization",
-		DisplayName: "Test Organization Display Name",
-		Description: "A test organization for testing purposes",
-		Domain:      "test.com",
-		Metadata:    nil,
+		Owner: "I00001",
+		Email: "org@test.com",
 	}
 }
 
@@ -36,77 +36,67 @@ func (f *OrganizationFactory) Create() *models.Organization {
 func (f *OrganizationFactory) WithName(name string) *models.Organization {
 	org := f.Create()
 	org.Name = name
-	org.DisplayName = name + " Display Name"
+	org.Title = name + " Display Name"
 	return org
 }
 
 // WithDomain sets a custom domain for the organization
 func (f *OrganizationFactory) WithDomain(domain string) *models.Organization {
 	org := f.Create()
-	org.Domain = domain
+	// Domain field removed in new model; approximate by setting email for tests
+	org.Email = domain
 	return org
 }
 
-// MemberFactory provides methods to create test Member data
-type MemberFactory struct{}
+// UserFactory (alias to User) provides methods to create test User data
+type UserFactory struct{}
 
-// NewMemberFactory creates a new MemberFactory
-func NewMemberFactory() *MemberFactory {
-	return &MemberFactory{}
+// NewUserFactory creates a new UserFactory
+func NewUserFactory() *UserFactory {
+	return &UserFactory{}
 }
 
-// Create creates a test Member with default values
-func (f *MemberFactory) Create() *models.Member {
+// Create creates a test User with default values
+func (f *UserFactory) Create() *models.User {
 	id := uuid.New()
-	// Generate unique IUser using part of UUID to avoid conflicts
-	iUser := "I" + id.String()[:6]
+	// Generate unique short user id using part of UUID to avoid conflicts
+	userID := "I" + id.String()[:6]
 
-	return &models.Member{
-		BaseModel: models.BaseModel{
-			ID:        id,
-			CreatedAt: time.Now(),
-			UpdatedAt: time.Now(),
-		},
-		OrganizationID: uuid.New(),
-		TeamID:         nil,
-		FullName:       "John Doe",
-		FirstName:      "John",
-		LastName:       "Doe",
-		Email:          "john.doe@test.com",
-		PhoneNumber:    "+1-555-0123",
-		IUser:          iUser,
-		Role:           models.MemberRoleDeveloper,
-		IsActive:       true,
-		ExternalType:   models.ExternalTypeInternal,
-		Metadata:       nil,
+	return &models.User{
+		TeamID:     nil,
+		UserID:     userID,
+		FirstName:  "John",
+		LastName:   "Doe",
+		Email:      "john.doe@test.com",
+		Mobile:     "+1-555-0123",
+		TeamDomain: models.TeamDomainDeveloper,
+		TeamRole:   models.TeamRoleMember,
 	}
 }
 
-// WithOrganization sets the organization ID for the member
-func (f *MemberFactory) WithOrganization(orgID uuid.UUID) *models.Member {
-	member := f.Create()
-	member.OrganizationID = orgID
-	return member
+// WithOrganization is retained for compatibility; returns a default user
+func (f *UserFactory) WithOrganization(orgID uuid.UUID) *models.User {
+	return f.Create()
 }
 
-// WithTeam sets the team ID for the member
-func (f *MemberFactory) WithTeam(teamID uuid.UUID) *models.Member {
+// WithTeam sets the team ID for the member (user)
+func (f *UserFactory) WithTeam(teamID uuid.UUID) *models.User {
 	member := f.Create()
 	member.TeamID = &teamID
 	return member
 }
 
 // WithEmail sets a custom email for the member
-func (f *MemberFactory) WithEmail(email string) *models.Member {
+func (f *UserFactory) WithEmail(email string) *models.User {
 	member := f.Create()
 	member.Email = email
 	return member
 }
 
 // WithRole sets a custom role for the member
-func (f *MemberFactory) WithRole(role models.MemberRole) *models.Member {
+func (f *UserFactory) WithRole(role models.TeamRole) *models.User {
 	member := f.Create()
-	member.Role = role
+	member.TeamRole = role
 	return member
 }
 
@@ -122,22 +112,24 @@ func NewGroupFactory() *GroupFactory {
 func (f *GroupFactory) Create() *models.Group {
 	return &models.Group{
 		BaseModel: models.BaseModel{
-			ID:        uuid.New(),
-			CreatedAt: time.Now(),
-			UpdatedAt: time.Now(),
+			ID:          uuid.New(),
+			CreatedAt:   time.Now(),
+			UpdatedAt:   time.Now(),
+			Name:        "test-group",
+			Title:       "Test Group",
+			Description: "A test group for testing purposes",
 		},
-		OrganizationID: uuid.New(),
-		Name:           "test-group",
-		DisplayName:    "Test Group",
-		Description:    "A test group for testing purposes",
-		Metadata:       nil,
+		OrgID:      uuid.New(),
+		Owner:      "I00001",
+		Email:      "group@test.com",
+		PictureURL: "https://example.com/picture.png",
 	}
 }
 
 // WithOrganization sets the organization ID for the group
 func (f *GroupFactory) WithOrganization(orgID uuid.UUID) *models.Group {
 	group := f.Create()
-	group.OrganizationID = orgID
+	group.OrgID = orgID
 	return group
 }
 
@@ -145,7 +137,7 @@ func (f *GroupFactory) WithOrganization(orgID uuid.UUID) *models.Group {
 func (f *GroupFactory) WithName(name string) *models.Group {
 	group := f.Create()
 	group.Name = name
-	group.DisplayName = name + " Group"
+	group.Title = name + " Group"
 	return group
 }
 
@@ -161,17 +153,17 @@ func NewTeamFactory() *TeamFactory {
 func (f *TeamFactory) Create() *models.Team {
 	return &models.Team{
 		BaseModel: models.BaseModel{
-			ID:        uuid.New(),
-			CreatedAt: time.Now(),
-			UpdatedAt: time.Now(),
+			ID:          uuid.New(),
+			CreatedAt:   time.Now(),
+			UpdatedAt:   time.Now(),
+			Name:        "test-team",
+			Title:       "Test Team",
+			Description: "A test team for testing purposes",
 		},
-		GroupID:     uuid.New(),
-		Name:        "test-team",
-		DisplayName: "Test Team",
-		Description: "A test team for testing purposes",
-		Status:      models.TeamStatusActive,
-		Links:       nil,
-		Metadata:    nil,
+		GroupID:    uuid.New(),
+		Owner:      "I00001",
+		Email:      "team@test.com",
+		PictureURL: "https://example.com/picture.png",
 	}
 }
 
@@ -197,15 +189,7 @@ func (f *TeamFactory) WithOrganization(orgID uuid.UUID) *models.Team {
 func (f *TeamFactory) WithName(name string) *models.Team {
 	team := f.Create()
 	team.Name = name
-	team.DisplayName = name + " Team"
-	return team
-}
-
-// WithTeamLead is deprecated; leadership is handled via the linking table (TeamLeadership).
-// This is now a no-op to preserve test compatibility without touching removed fields.
-func (f *TeamFactory) WithTeamLead(teamLeadID uuid.UUID) *models.Team {
-	team := f.Create()
-	// deprecated: no direct leader assignment on team
+	team.Title = name + " Team"
 	return team
 }
 
@@ -221,47 +205,21 @@ func NewProjectFactory() *ProjectFactory {
 func (f *ProjectFactory) Create() *models.Project {
 	return &models.Project{
 		BaseModel: models.BaseModel{
-			ID:        uuid.New(),
-			CreatedAt: time.Now(),
-			UpdatedAt: time.Now(),
+			ID:          uuid.New(),
+			CreatedAt:   time.Now(),
+			UpdatedAt:   time.Now(),
+			Name:        "test-project",
+			Title:       "Test Project",
+			Description: "A test project for testing purposes",
 		},
-		OrganizationID: uuid.New(),
-		Name:           "test-project",
-		DisplayName:    "Test Project",
-		Description:    "A test project for testing purposes",
-		ProjectType:    models.ProjectTypeApplication,
-		Status:         models.ProjectStatusActive,
-		SortOrder:      0,
-		Metadata:       nil,
 	}
-}
-
-// WithOrganization sets the organization ID for the project
-func (f *ProjectFactory) WithOrganization(orgID uuid.UUID) *models.Project {
-	project := f.Create()
-	project.OrganizationID = orgID
-	return project
 }
 
 // WithName sets a custom name for the project
 func (f *ProjectFactory) WithName(name string) *models.Project {
 	project := f.Create()
 	project.Name = name
-	project.DisplayName = name + " Project"
-	return project
-}
-
-// WithStatus sets a custom status for the project
-func (f *ProjectFactory) WithStatus(status models.ProjectStatus) *models.Project {
-	project := f.Create()
-	project.Status = status
-	return project
-}
-
-// WithType sets a custom type for the project
-func (f *ProjectFactory) WithType(projectType models.ProjectType) *models.Project {
-	project := f.Create()
-	project.ProjectType = projectType
+	project.Title = name + " Project"
 	return project
 }
 
@@ -277,44 +235,23 @@ func NewComponentFactory() *ComponentFactory {
 func (f *ComponentFactory) Create() *models.Component {
 	return &models.Component{
 		BaseModel: models.BaseModel{
-			ID:        uuid.New(),
-			CreatedAt: time.Now(),
-			UpdatedAt: time.Now(),
+			ID:          uuid.New(),
+			CreatedAt:   time.Now(),
+			UpdatedAt:   time.Now(),
+			Name:        "test-component",
+			Title:       "Test Component",
+			Description: "A test component for testing purposes",
 		},
-		OrganizationID:   uuid.New(),
-		Name:             "test-component",
-		DisplayName:      "Test Component",
-		Description:      "A test component for testing purposes",
-		ComponentType:    models.ComponentTypeService,
-		Status:           models.ComponentStatusActive,
-		GroupName:        "test-group",
-		ArtifactName:     "test-artifact",
-		GitRepositoryURL: "https://github.com/test/test-component",
-		DocumentationURL: "https://docs.test.com/test-component",
-		Links:            nil,
-		Metadata:         nil,
+		ProjectID: uuid.New(),
+		OwnerID:   uuid.New(),
 	}
-}
-
-// WithOrganization sets the organization ID for the component
-func (f *ComponentFactory) WithOrganization(orgID uuid.UUID) *models.Component {
-	component := f.Create()
-	component.OrganizationID = orgID
-	return component
 }
 
 // WithName sets a custom name for the component
 func (f *ComponentFactory) WithName(name string) *models.Component {
 	component := f.Create()
 	component.Name = name
-	component.DisplayName = name + " Component"
-	return component
-}
-
-// WithType sets a custom type for the component
-func (f *ComponentFactory) WithType(componentType models.ComponentType) *models.Component {
-	component := f.Create()
-	component.ComponentType = componentType
+	component.Title = name + " Component"
 	return component
 }
 
@@ -330,45 +267,33 @@ func NewLandscapeFactory() *LandscapeFactory {
 func (f *LandscapeFactory) Create() *models.Landscape {
 	return &models.Landscape{
 		BaseModel: models.BaseModel{
-			ID:        uuid.New(),
-			CreatedAt: time.Now(),
-			UpdatedAt: time.Now(),
+			ID:          uuid.New(),
+			CreatedAt:   time.Now(),
+			UpdatedAt:   time.Now(),
+			Name:        "test-landscape",
+			Title:       "Test Landscape",
+			Description: "A test landscape for testing purposes",
 		},
-		OrganizationID:   uuid.New(),
-		Name:             "test-landscape",
-		DisplayName:      "Test Landscape",
-		Description:      "A test landscape for testing purposes",
-		LandscapeType:    models.LandscapeTypeDevelopment,
-		EnvironmentGroup: "test-group",
-		Status:           models.LandscapeStatusActive,
-		DeploymentStatus: models.DeploymentStatusHealthy,
-		GitHubConfigURL:  "https://github.com/test/config",
-		AWSAccountID:     "123456789012",
-		CAMProfileURL:    "https://cam.test.com/profile",
-		SortOrder:        0,
-		Metadata:         nil,
+		ProjectID:   uuid.New(),
+		Domain:      "example.com",
+		Environment: "development",
 	}
 }
 
-// WithOrganization sets the organization ID for the landscape
+// WithOrganization removed; no organization on Landscape in new model, keep for compatibility
 func (f *LandscapeFactory) WithOrganization(orgID uuid.UUID) *models.Landscape {
-	landscape := f.Create()
-	landscape.OrganizationID = orgID
-	return landscape
+	return f.Create()
 }
 
 // WithName sets a custom name for the landscape
 func (f *LandscapeFactory) WithName(name string) *models.Landscape {
 	landscape := f.Create()
+	// Truncate name to 40 chars (BaseModel.Name has max length 40)
+	if len(name) > 40 {
+		name = name[:40]
+	}
 	landscape.Name = name
-	landscape.DisplayName = name + " Landscape"
-	return landscape
-}
-
-// WithLandscapeType sets a custom landscape type for the landscape
-func (f *LandscapeFactory) WithLandscapeType(landscapeType models.LandscapeType) *models.Landscape {
-	landscape := f.Create()
-	landscape.LandscapeType = landscapeType
+	landscape.Title = name + " Landscape"
 	return landscape
 }
 
@@ -380,60 +305,10 @@ func NewComponentDeploymentFactory() *ComponentDeploymentFactory {
 	return &ComponentDeploymentFactory{}
 }
 
-// Create creates a test ComponentDeployment with default values
-func (f *ComponentDeploymentFactory) Create() *models.ComponentDeployment {
-	now := time.Now()
-	return &models.ComponentDeployment{
-		BaseModel: models.BaseModel{
-			ID:        uuid.New(),
-			CreatedAt: time.Now(),
-			UpdatedAt: time.Now(),
-		},
-		ComponentID:     uuid.New(),
-		LandscapeID:     uuid.New(),
-		Version:         "1.0.0",
-		GitCommitID:     "abc123def456",
-		GitCommitTime:   &now,
-		BuildTime:       &now,
-		BuildProperties: nil,
-		GitProperties:   nil,
-		IsActive:        true,
-		DeployedAt:      &now,
-	}
-}
-
-// WithComponent sets the component ID for the deployment
-func (f *ComponentDeploymentFactory) WithComponent(componentID uuid.UUID) *models.ComponentDeployment {
-	deployment := f.Create()
-	deployment.ComponentID = componentID
-	return deployment
-}
-
-// WithLandscape sets the landscape ID for the deployment
-func (f *ComponentDeploymentFactory) WithLandscape(landscapeID uuid.UUID) *models.ComponentDeployment {
-	deployment := f.Create()
-	deployment.LandscapeID = landscapeID
-	return deployment
-}
-
-// WithVersion sets a custom version for the deployment
-func (f *ComponentDeploymentFactory) WithVersion(version string) *models.ComponentDeployment {
-	deployment := f.Create()
-	deployment.Version = version
-	return deployment
-}
-
-// WithActive sets the active status for the deployment
-func (f *ComponentDeploymentFactory) WithActive(isActive bool) *models.ComponentDeployment {
-	deployment := f.Create()
-	deployment.IsActive = isActive
-	return deployment
-}
-
 // FactorySet provides access to all factories
 type FactorySet struct {
 	Organization        *OrganizationFactory
-	Member              *MemberFactory
+	User                *UserFactory
 	Group               *GroupFactory
 	Team                *TeamFactory
 	Project             *ProjectFactory
@@ -446,7 +321,7 @@ type FactorySet struct {
 func NewFactorySet() *FactorySet {
 	return &FactorySet{
 		Organization:        NewOrganizationFactory(),
-		Member:              NewMemberFactory(),
+		User:                NewUserFactory(),
 		Group:               NewGroupFactory(),
 		Team:                NewTeamFactory(),
 		Project:             NewProjectFactory(),
@@ -456,30 +331,29 @@ func NewFactorySet() *FactorySet {
 	}
 }
 
-// CreateFullOrganizationHierarchy creates a complete organization with teams, members, projects, and components
-func (fs *FactorySet) CreateFullOrganizationHierarchy() (*models.Organization, *models.Team, *models.Member, *models.Project, *models.Component, *models.Landscape) {
+// CreateFullOrganizationHierarchy creates a complete organization with team, user, project, component, and landscape
+func (fs *FactorySet) CreateFullOrganizationHierarchy() (*models.Organization, *models.Team, *models.User, *models.Project, *models.Component, *models.Landscape) {
 	// Create organization
 	org := fs.Organization.Create()
 
-	// Create team
+	// Create team under org
 	team := fs.Team.WithOrganization(org.ID)
 
-	// Create member as team lead
-	member := fs.Member.WithOrganization(org.ID)
-
-	// deprecated: TeamLeadID removed; leadership is handled via linking table
-
-	// Update member with team
+	// Create member and assign to team
+	member := fs.User.WithOrganization(org.ID)
 	member.TeamID = &team.ID
 
 	// Create project
-	project := fs.Project.WithOrganization(org.ID)
+	project := fs.Project.Create()
 
-	// Create component
-	component := fs.Component.WithOrganization(org.ID)
+	// Create component owned by team and linked to project
+	component := fs.Component.Create()
+	component.OwnerID = team.ID
+	component.ProjectID = project.ID
 
-	// Create landscape
-	landscape := fs.Landscape.WithOrganization(org.ID)
+	// Create landscape linked to project
+	landscape := fs.Landscape.Create()
+	landscape.ProjectID = project.ID
 
 	return org, team, member, project, component, landscape
 }

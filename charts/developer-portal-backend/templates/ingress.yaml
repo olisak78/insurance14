@@ -1,0 +1,39 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "developer-portal-backend.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "developer-portal-backend.labels" . | nindent 4 }}
+  annotations:
+    # Gardener managed certificate
+    cert.gardener.cloud/purpose: managed
+    cert.gardener.cloud/issuer: sapca
+    # Gardener DNS management
+    dns.gardener.cloud/class: garden
+    dns.gardener.cloud/dnsnames: {{ .Values.ingress.host }}
+    # Nginx ingress controller
+    kubernetes.io/ingress.class: nginx
+    {{- with .Values.ingress.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  rules:
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "developer-portal-backend.fullname" . }}
+                port:
+                  number: {{ .Values.service.port }}
+  tls:
+    - hosts:
+        - {{ .Values.ingress.host }}
+      secretName: {{ .Values.ingress.tlsSecretName | default "tls-secret" }}
+{{- end }}
+
+

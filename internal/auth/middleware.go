@@ -48,7 +48,6 @@ func (m *AuthMiddleware) RequireAuth() gin.HandlerFunc {
 		c.Set("username", claims.Username)
 		c.Set("email", claims.Email)
 		c.Set("provider", claims.Provider)
-		c.Set("environment", claims.Environment)
 		c.Set("auth_claims", claims)
 
 		c.Next()
@@ -86,7 +85,6 @@ func (m *AuthMiddleware) OptionalAuth() gin.HandlerFunc {
 		c.Set("username", claims.Username)
 		c.Set("email", claims.Email)
 		c.Set("provider", claims.Provider)
-		c.Set("environment", claims.Environment)
 		c.Set("auth_claims", claims)
 
 		c.Next()

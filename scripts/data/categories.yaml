@@ -1,0 +1,37 @@
+categories:
+  - name: ci-cd
+    title: CI/CD & Build
+    icon: Code
+    color: bg-blue-500
+  - name: security
+    title: Security & Compliance
+    icon: Shield
+    color: bg-red-500
+  - name: monitoring
+    title: Monitoring & Observability
+    icon: Monitor
+    color: bg-green-500
+  - name: project
+    title: Project Management
+    icon: Users
+    color: bg-purple-500
+  - name: documentation
+    title: Documentation & Knowledge
+    icon: FileText
+    color: bg-amber-500
+  - name: development
+    title: Development Tools
+    icon: Wrench
+    color: bg-indigo-500
+  - name: infrastructure
+    title: Infrastructure & Cloud
+    icon: Cloud
+    color: bg-cyan-500
+  - name: testing
+    title: Testing & QA
+    icon: TestTube
+    color: bg-emerald-500
+  - name: community
+    title: Community & Support
+    icon: HelpCircle
+    color: bg-orange-500

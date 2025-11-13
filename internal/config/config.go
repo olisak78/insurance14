@@ -8,9 +8,10 @@ import (
 
 // Config holds all configuration for the application
 type Config struct {
-	Environment string `mapstructure:"ENVIRONMENT"`
-	Port        string `mapstructure:"PORT"`
-	LogLevel    string `mapstructure:"LOG_LEVEL"`
+	Environment       string `mapstructure:"ENVIRONMENT"`
+	DeployEnvironment string `mapstructure:"DEPLOY_ENVIRONMENT"`
+	Port              string `mapstructure:"PORT"`
+	LogLevel          string `mapstructure:"LOG_LEVEL"`
 
 	// Database configuration
 	DatabaseURL      string `mapstructure:"DATABASE_URL"`
@@ -44,6 +45,10 @@ type Config struct {
 	// Sonar configuration
 	SonarHost  string `mapstructure:"SONAR_HOST"`
 	SonarToken string `mapstructure:"SONAR_TOKEN"`
+
+	// Jenkins configuration
+	JenkinsBaseURL             string `mapstructure:"JENKINS_BASE_URL"`
+	JenkinsInsecureSkipVerify bool   `mapstructure:"JENKINS_INSECURE_SKIP_VERIFY"`
 }
 
 // Load reads configuration from environment variables and config files
@@ -86,6 +91,7 @@ func Load() (*Config, error) {
 
 func setDefaults() {
 	viper.SetDefault("ENVIRONMENT", "development")
+	viper.SetDefault("DEPLOY_ENVIRONMENT", "local")
 	viper.SetDefault("PORT", "7008")
 	viper.SetDefault("LOG_LEVEL", "info")
 
@@ -120,6 +126,10 @@ func setDefaults() {
 	// Sonar defaults
 	viper.SetDefault("SONAR_HOST", "")
 	viper.SetDefault("SONAR_TOKEN", "")
+
+	// Jenkins defaults - production uses real JAAS URL pattern
+	viper.SetDefault("JENKINS_BASE_URL", "https://{jaasName}.jaas-gcp.cloud.sap.corp")
+	viper.SetDefault("JENKINS_INSECURE_SKIP_VERIFY", true)
 }
 
 func buildDatabaseURL(config *Config) string {

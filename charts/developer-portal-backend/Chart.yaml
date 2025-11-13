@@ -1,0 +1,23 @@
+apiVersion: v2
+name: developer-portal-backend
+description: A Helm chart for Developer Portal Backend API
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+
+dependencies:
+  - name: postgresql
+    version: ~16.2.0
+    repository: https://charts.bitnami.com/bitnami
+    condition: postgresql.enabled
+
+maintainers:
+  - name: CFS Platform Engineering
+    email: support@example.com
+
+keywords:
+  - developer-portal
+  - backend
+  - api
+  - golang
+

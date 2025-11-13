@@ -10,6 +10,18 @@ import (
 	"github.com/go-ldap/ldap/v3"
 )
 
+ // Test hook and client abstraction for LDAP dialing; default uses ldap.DialTLS
+type ldapClient interface {
+	Bind(username, password string) error
+	Search(searchRequest *ldap.SearchRequest) (*ldap.SearchResult, error)
+	Close() error
+	SetTimeout(time.Duration)
+}
+
+var dialLDAP = func(network, addr string, config *tls.Config) (ldapClient, error) {
+	return ldap.DialTLS(network, addr, config)
+}
+
 // LDAPUser represents a subset of LDAP user attributes returned by the search
 type LDAPUser struct {
 	DN          string `json:"dn"`
@@ -36,7 +48,7 @@ func (s *LDAPService) SearchUsersByCN(cn string) ([]LDAPUser, error) {
 	addr := s.cfg.LDAPHost + ":" + s.cfg.LDAPPort
 
 	// Establish TLS connection to LDAP server
-	l, err := ldap.DialTLS("tcp", addr, &tls.Config{InsecureSkipVerify: s.cfg.LDAPInsecureSkipVerify})
+	l, err := dialLDAP("tcp", addr, &tls.Config{InsecureSkipVerify: s.cfg.LDAPInsecureSkipVerify})
 	if err != nil {
 		return nil, err
 	}

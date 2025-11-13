@@ -1,6 +1,6 @@
 organizations:
 - name: sap-cfs
-  display_name: SAP Cloud Foundry Services
-  domain: sap.com
-  description: SAP Cloud Foundry Services organization containing development teams
-  metadata: {}
+  title: Cloud Foundry Services
+  description: Cloud Foundry Services organization
+  owner: I033872
+  email: DL_63DB81D07624E9029A186BA4@global.corp.sap

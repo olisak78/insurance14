@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"testing"
 
-	"developer-portal-backend/internal/database/models"
 	"developer-portal-backend/internal/mocks"
 	"developer-portal-backend/internal/service"
 
@@ -57,28 +56,31 @@ func (suite *LandscapeServiceTestSuite) TestCreateLandscapeValidation() {
 		{
 			name: "Valid request",
 			request: &service.CreateLandscapeRequest{
-				OrganizationID: uuid.New(),
-				Name:           "production-landscape",
-				DisplayName:    "Production Landscape",
-				Description:    "Main production environment",
+				ProjectID:   uuid.New(),
+				Name:        "production-landscape",
+				Title:       "Production Landscape",
+				Description: "Main production environment",
+				Domain:      "production.example.com",
+				Environment: "production",
 			},
 			expectError: false,
 		},
-		{
-			name: "Missing organization ID",
-			request: &service.CreateLandscapeRequest{
-				Name:        "production-landscape",
-				DisplayName: "Production Landscape",
-			},
-			expectError: true,
-			errorMsg:    "OrganizationID",
-		},
+		// REMOVED: OrganizationID no longer exists - replaced by ProjectID
+		// {
+		// 	name: "Missing organization ID",
+		// 	request: &service.CreateLandscapeRequest{
+		// 		Name:        "production-landscape",
+		// 		Title: "Production Landscape",
+		// 	},
+		// 	expectError: true,
+		// 	errorMsg:    "OrganizationID",
+		// },
 		{
 			name: "Empty name",
 			request: &service.CreateLandscapeRequest{
-				OrganizationID: uuid.New(),
+				ProjectID: uuid.New(),
 				Name:           "",
-				DisplayName:    "Production Landscape",
+				Title:    "Production Landscape",
 			},
 			expectError: true,
 			errorMsg:    "Name",
@@ -86,19 +88,19 @@ func (suite *LandscapeServiceTestSuite) TestCreateLandscapeValidation() {
 		{
 			name: "Empty display name",
 			request: &service.CreateLandscapeRequest{
-				OrganizationID: uuid.New(),
+				ProjectID: uuid.New(),
 				Name:           "production-landscape",
-				DisplayName:    "",
+				Title:    "",
 			},
 			expectError: true,
-			errorMsg:    "DisplayName",
+			errorMsg:    "Title",
 		},
 		{
 			name: "Name too long",
 			request: &service.CreateLandscapeRequest{
-				OrganizationID: uuid.New(),
+				ProjectID: uuid.New(),
 				Name:           "this-is-a-very-long-landscape-name-that-exceeds-the-maximum-allowed-length-of-two-hundred-characters-for-landscape-names-in-this-validation-system-and-should-trigger-validation-error-when-creating-landscape",
-				DisplayName:    "Production Landscape",
+				Title:    "Production Landscape",
 			},
 			expectError: true,
 			errorMsg:    "Name",
@@ -106,12 +108,12 @@ func (suite *LandscapeServiceTestSuite) TestCreateLandscapeValidation() {
 		{
 			name: "Display name too long",
 			request: &service.CreateLandscapeRequest{
-				OrganizationID: uuid.New(),
+				ProjectID: uuid.New(),
 				Name:           "production-landscape",
-				DisplayName:    "This is an extremely long display name that definitely exceeds the maximum allowed length of two hundred and fifty characters for the display name field and should trigger a validation error when we try to create a landscape with this incredibly long display name that goes way beyond the specified character limit making it invalid for validation system",
+				Title:    "This is an extremely long display name that definitely exceeds the maximum allowed length of two hundred and fifty characters for the display name field and should trigger a validation error when we try to create a landscape with this incredibly long display name that goes way beyond the specified character limit making it invalid for validation system",
 			},
 			expectError: true,
-			errorMsg:    "DisplayName",
+			errorMsg:    "Title",
 		},
 	}
 
@@ -141,7 +143,7 @@ func (suite *LandscapeServiceTestSuite) TestUpdateLandscapeValidation() {
 		{
 			name: "Valid request",
 			request: &service.UpdateLandscapeRequest{
-				DisplayName: "Updated Production Landscape",
+				Title: "Updated Production Landscape",
 				Description: "Updated description",
 			},
 			expectError: false,
@@ -149,18 +151,18 @@ func (suite *LandscapeServiceTestSuite) TestUpdateLandscapeValidation() {
 		{
 			name: "Empty display name",
 			request: &service.UpdateLandscapeRequest{
-				DisplayName: "",
+				Title: "",
 			},
 			expectError: true,
-			errorMsg:    "DisplayName",
+			errorMsg:    "Title",
 		},
 		{
 			name: "Display name too long",
 			request: &service.UpdateLandscapeRequest{
-				DisplayName: "This is an extremely long display name that definitely exceeds the maximum allowed length of two hundred and fifty characters for the display name field and should trigger a validation error when we try to update a landscape with this incredibly long display name that goes way beyond the specified character limit making it invalid for validation system",
+				Title: "This is an extremely long display name that definitely exceeds the maximum allowed length of two hundred and fifty characters for the display name field and should trigger a validation error when we try to update a landscape with this incredibly long display name that goes way beyond the specified character limit making it invalid for validation system",
 			},
 			expectError: true,
-			errorMsg:    "DisplayName",
+			errorMsg:    "Title",
 		},
 	}
 
@@ -184,22 +186,16 @@ func (suite *LandscapeServiceTestSuite) TestLandscapeResponseSerialization() {
 	metadata := json.RawMessage(`{"region": "us-east-1", "tier": "production"}`)
 
 	response := &service.LandscapeResponse{
-		ID:               landscapeID,
-		OrganizationID:   orgID,
-		Name:             "production-landscape",
-		DisplayName:      "Production Landscape",
-		Description:      "Main production environment",
-		LandscapeType:    models.LandscapeTypeProduction,
-		EnvironmentGroup: "prod",
-		Status:           models.LandscapeStatusActive,
-		DeploymentStatus: models.DeploymentStatusHealthy,
-		GitHubConfigURL:  "https://github.com/org/config",
-		AWSAccountID:     "123456789012",
-		CAMProfileURL:    "https://cam.sap.com/profile",
-		SortOrder:        1,
-		Metadata:         metadata,
-		CreatedAt:        "2023-01-01T00:00:00Z",
-		UpdatedAt:        "2023-01-01T00:00:00Z",
+		ID:          landscapeID,
+		ProjectID:   orgID,
+		Name:        "production-landscape",
+		Title:       "Production Landscape",
+		Description: "Main production environment",
+		Domain:      "production.example.com",
+		Environment: "production",
+		Metadata:    metadata,
+		CreatedAt:   "2023-01-01T00:00:00Z",
+		UpdatedAt:   "2023-01-01T00:00:00Z",
 	}
 
 	// Test JSON marshaling
@@ -209,44 +205,42 @@ func (suite *LandscapeServiceTestSuite) TestLandscapeResponseSerialization() {
 	assert.Contains(suite.T(), string(jsonData), orgID.String())
 	assert.Contains(suite.T(), string(jsonData), "production-landscape")
 	assert.Contains(suite.T(), string(jsonData), "Production Landscape")
-	assert.Contains(suite.T(), string(jsonData), `"landscape_type":"production"`)
-	assert.Contains(suite.T(), string(jsonData), `"status":"active"`)
+	assert.Contains(suite.T(), string(jsonData), `"environment":"production"`)
 
 	// Test JSON unmarshaling
 	var unmarshaled service.LandscapeResponse
 	err = json.Unmarshal(jsonData, &unmarshaled)
 	assert.NoError(suite.T(), err)
 	assert.Equal(suite.T(), response.ID, unmarshaled.ID)
-	assert.Equal(suite.T(), response.OrganizationID, unmarshaled.OrganizationID)
+	assert.Equal(suite.T(), response.ProjectID, unmarshaled.ProjectID)
 	assert.Equal(suite.T(), response.Name, unmarshaled.Name)
-	assert.Equal(suite.T(), response.DisplayName, unmarshaled.DisplayName)
-	assert.Equal(suite.T(), response.LandscapeType, unmarshaled.LandscapeType)
-	assert.Equal(suite.T(), response.Status, unmarshaled.Status)
-	assert.Equal(suite.T(), response.DeploymentStatus, unmarshaled.DeploymentStatus)
+	assert.Equal(suite.T(), response.Title, unmarshaled.Title)
+	assert.Equal(suite.T(), response.Environment, unmarshaled.Environment)
+	assert.Equal(suite.T(), response.Domain, unmarshaled.Domain)
 }
 
 // TestLandscapeListResponseSerialization tests the landscape list response serialization
 func (suite *LandscapeServiceTestSuite) TestLandscapeListResponseSerialization() {
 	landscapes := []service.LandscapeResponse{
 		{
-			ID:             uuid.New(),
-			OrganizationID: uuid.New(),
-			Name:           "production",
-			DisplayName:    "Production",
-			LandscapeType:  models.LandscapeTypeProduction,
-			Status:         models.LandscapeStatusActive,
-			CreatedAt:      "2023-01-01T00:00:00Z",
-			UpdatedAt:      "2023-01-01T00:00:00Z",
+			ID:          uuid.New(),
+			ProjectID:   uuid.New(),
+			Name:        "production",
+			Title:       "Production",
+			Environment: "production",
+			Domain:      "us-east-1",
+			CreatedAt:   "2023-01-01T00:00:00Z",
+			UpdatedAt:   "2023-01-01T00:00:00Z",
 		},
 		{
-			ID:             uuid.New(),
-			OrganizationID: uuid.New(),
-			Name:           "development",
-			DisplayName:    "Development",
-			LandscapeType:  models.LandscapeTypeDevelopment,
-			Status:         models.LandscapeStatusActive,
-			CreatedAt:      "2023-01-02T00:00:00Z",
-			UpdatedAt:      "2023-01-02T00:00:00Z",
+			ID:          uuid.New(),
+			ProjectID:   uuid.New(),
+			Name:        "development",
+			Title:       "Development",
+			Environment: "development",
+			Domain:      "us-west-2",
+			CreatedAt:   "2023-01-02T00:00:00Z",
+			UpdatedAt:   "2023-01-02T00:00:00Z",
 		},
 	}
 
@@ -275,47 +269,10 @@ func (suite *LandscapeServiceTestSuite) TestLandscapeListResponseSerialization()
 	assert.Equal(suite.T(), response.PageSize, unmarshaled.PageSize)
 }
 
-// TestDefaultValuesBehavior tests the default values behavior
-func (suite *LandscapeServiceTestSuite) TestDefaultValuesBehavior() {
-	// Test landscape type defaults
-	var emptyType models.LandscapeType
-	expectedDefaultType := models.LandscapeTypeDevelopment
-
-	var finalType models.LandscapeType
-	if emptyType == "" {
-		finalType = models.LandscapeTypeDevelopment
-	} else {
-		finalType = emptyType
-	}
-
-	assert.Equal(suite.T(), expectedDefaultType, finalType)
-
-	// Test status defaults
-	var emptyStatus models.LandscapeStatus
-	expectedDefaultStatus := models.LandscapeStatusActive
-
-	var finalStatus models.LandscapeStatus
-	if emptyStatus == "" {
-		finalStatus = models.LandscapeStatusActive
-	} else {
-		finalStatus = emptyStatus
-	}
-
-	assert.Equal(suite.T(), expectedDefaultStatus, finalStatus)
-
-	// Test deployment status defaults
-	var emptyDeploymentStatus models.DeploymentStatus
-	expectedDefaultDeploymentStatus := models.DeploymentStatusUnknown
-
-	var finalDeploymentStatus models.DeploymentStatus
-	if emptyDeploymentStatus == "" {
-		finalDeploymentStatus = models.DeploymentStatusUnknown
-	} else {
-		finalDeploymentStatus = emptyDeploymentStatus
-	}
-
-	assert.Equal(suite.T(), expectedDefaultDeploymentStatus, finalDeploymentStatus)
-}
+// TestDefaultValuesBehavior tests the default values behavior (REMOVED - enum types no longer exist)
+// func (suite *LandscapeServiceTestSuite) TestDefaultValuesBehavior() {
+// 	// NOTE: LandscapeType, LandscapeStatus, and DeploymentStatus enums removed in new schema
+// }
 
 // TestPaginationLogic tests the pagination logic
 func (suite *LandscapeServiceTestSuite) TestPaginationLogic() {
@@ -391,64 +348,20 @@ func (suite *LandscapeServiceTestSuite) TestPaginationLogic() {
 	}
 }
 
-// TestLandscapeTypeValidation tests landscape type validation
-func (suite *LandscapeServiceTestSuite) TestLandscapeTypeValidation() {
-	validTypes := []models.LandscapeType{
-		models.LandscapeTypeDevelopment,
-		models.LandscapeTypeStaging,
-		models.LandscapeTypeProduction,
-	}
+// TestLandscapeTypeValidation tests landscape type validation (REMOVED - LandscapeType enum no longer exists)
+// func (suite *LandscapeServiceTestSuite) TestLandscapeTypeValidation() {
+// 	// NOTE: LandscapeType enum removed in new schema
+// }
 
-	for _, landscapeType := range validTypes {
-		suite.T().Run(string(landscapeType), func(t *testing.T) {
-			// Test that valid landscape types are accepted
-			assert.NotEmpty(t, string(landscapeType))
-			assert.True(t, landscapeType == models.LandscapeTypeDevelopment ||
-				landscapeType == models.LandscapeTypeStaging ||
-				landscapeType == models.LandscapeTypeProduction)
-		})
-	}
-}
+// TestLandscapeStatusValidation tests landscape status validation (REMOVED - LandscapeStatus enum no longer exists)
+// func (suite *LandscapeServiceTestSuite) TestLandscapeStatusValidation() {
+// 	// NOTE: LandscapeStatus enum removed in new schema
+// }
 
-// TestLandscapeStatusValidation tests landscape status validation
-func (suite *LandscapeServiceTestSuite) TestLandscapeStatusValidation() {
-	validStatuses := []models.LandscapeStatus{
-		models.LandscapeStatusActive,
-		models.LandscapeStatusInactive,
-		models.LandscapeStatusMaintenance,
-	}
-
-	for _, status := range validStatuses {
-		suite.T().Run(string(status), func(t *testing.T) {
-			// Test that valid statuses are accepted
-			assert.NotEmpty(t, string(status))
-			assert.True(t, status == models.LandscapeStatusActive ||
-				status == models.LandscapeStatusInactive ||
-				status == models.LandscapeStatusMaintenance)
-		})
-	}
-}
-
-// TestDeploymentStatusValidation tests deployment status validation
-func (suite *LandscapeServiceTestSuite) TestDeploymentStatusValidation() {
-	validStatuses := []models.DeploymentStatus{
-		models.DeploymentStatusHealthy,
-		models.DeploymentStatusDegraded,
-		models.DeploymentStatusUnhealthy,
-		models.DeploymentStatusUnknown,
-	}
-
-	for _, status := range validStatuses {
-		suite.T().Run(string(status), func(t *testing.T) {
-			// Test that valid deployment statuses are accepted
-			assert.NotEmpty(t, string(status))
-			assert.True(t, status == models.DeploymentStatusHealthy ||
-				status == models.DeploymentStatusDegraded ||
-				status == models.DeploymentStatusUnhealthy ||
-				status == models.DeploymentStatusUnknown)
-		})
-	}
-}
+// TestDeploymentStatusValidation tests deployment status validation (REMOVED - DeploymentStatus enum no longer exists)
+// func (suite *LandscapeServiceTestSuite) TestDeploymentStatusValidation() {
+// 	// NOTE: DeploymentStatus enum removed in new schema
+// }
 
 // TestJSONFieldsHandling tests handling of JSON fields (Metadata)
 func (suite *LandscapeServiceTestSuite) TestJSONFieldsHandling() {
@@ -475,8 +388,10 @@ func (suite *LandscapeServiceTestSuite) TestJSONFieldsHandling() {
 	assert.Equal(suite.T(), "null", string(nilData))
 }
 
-// TestAWSAccountIDValidation tests AWS Account ID handling
+// TestAWSAccountIDValidation tests AWS Account ID handling (REMOVED - AWSAccountID field no longer exists)
 func (suite *LandscapeServiceTestSuite) TestAWSAccountIDValidation() {
+	suite.T().Skip("AWSAccountID field removed from Landscape model in new schema")
+	return
 	testCases := []struct {
 		name         string
 		awsAccountID string
@@ -512,10 +427,10 @@ func (suite *LandscapeServiceTestSuite) TestAWSAccountIDValidation() {
 	for _, tc := range testCases {
 		suite.T().Run(tc.name, func(t *testing.T) {
 			request := &service.CreateLandscapeRequest{
-				OrganizationID: uuid.New(),
-				Name:           "test-landscape",
-				DisplayName:    "Test Landscape",
-				AWSAccountID:   tc.awsAccountID,
+				ProjectID: uuid.New(),
+				Name:      "test-landscape",
+				Title:     "Test Landscape",
+				// NOTE: AWSAccountID removed from Landscape model in new schema
 			}
 
 			// Test validation (AWS Account IDs are not validated by struct tags currently)
@@ -530,8 +445,10 @@ func (suite *LandscapeServiceTestSuite) TestAWSAccountIDValidation() {
 	}
 }
 
-// TestURLFieldsValidation tests URL fields handling
+// TestURLFieldsValidation tests URL fields handling (REMOVED - URL fields no longer exist)
 func (suite *LandscapeServiceTestSuite) TestURLFieldsValidation() {
+	suite.T().Skip("GitHubConfigURL and CAMProfileURL fields removed from Landscape model in new schema")
+	return
 	testCases := []struct {
 		name  string
 		urls  map[string]string
@@ -574,11 +491,10 @@ func (suite *LandscapeServiceTestSuite) TestURLFieldsValidation() {
 	for _, tc := range testCases {
 		suite.T().Run(tc.name, func(t *testing.T) {
 			request := &service.CreateLandscapeRequest{
-				OrganizationID:  uuid.New(),
-				Name:            "test-landscape",
-				DisplayName:     "Test Landscape",
-				GitHubConfigURL: tc.urls["github"],
-				CAMProfileURL:   tc.urls["cam"],
+				ProjectID: uuid.New(),
+				Name:      "test-landscape",
+				Title:     "Test Landscape",
+				// NOTE: GitHubConfigURL and CAMProfileURL removed from Landscape model in new schema
 			}
 
 			// Test validation (URLs are not validated by struct tags currently)
@@ -593,8 +509,10 @@ func (suite *LandscapeServiceTestSuite) TestURLFieldsValidation() {
 	}
 }
 
-// TestSortOrderHandling tests sort order handling
+// TestSortOrderHandling tests sort order handling (REMOVED - SortOrder field no longer exists)
 func (suite *LandscapeServiceTestSuite) TestSortOrderHandling() {
+	suite.T().Skip("SortOrder field removed from Landscape model in new schema")
+	return
 	testCases := []struct {
 		name      string
 		sortOrder int
@@ -625,10 +543,10 @@ func (suite *LandscapeServiceTestSuite) TestSortOrderHandling() {
 	for _, tc := range testCases {
 		suite.T().Run(tc.name, func(t *testing.T) {
 			request := &service.CreateLandscapeRequest{
-				OrganizationID: uuid.New(),
-				Name:           "test-landscape",
-				DisplayName:    "Test Landscape",
-				SortOrder:      tc.sortOrder,
+				ProjectID: uuid.New(),
+				Name:      "test-landscape",
+				Title:     "Test Landscape",
+				// NOTE: SortOrder removed from Landscape model in new schema
 			}
 
 			// Test validation
@@ -643,8 +561,10 @@ func (suite *LandscapeServiceTestSuite) TestSortOrderHandling() {
 	}
 }
 
-// TestEnvironmentGroupHandling tests environment group handling
+// TestEnvironmentGroupHandling tests environment group handling (REMOVED - EnvironmentGroup field no longer exists)
 func (suite *LandscapeServiceTestSuite) TestEnvironmentGroupHandling() {
+	suite.T().Skip("EnvironmentGroup field removed from Landscape model in new schema")
+	return
 	testCases := []struct {
 		name             string
 		environmentGroup string
@@ -675,10 +595,10 @@ func (suite *LandscapeServiceTestSuite) TestEnvironmentGroupHandling() {
 	for _, tc := range testCases {
 		suite.T().Run(tc.name, func(t *testing.T) {
 			request := &service.CreateLandscapeRequest{
-				OrganizationID:   uuid.New(),
-				Name:             "test-landscape",
-				DisplayName:      "Test Landscape",
-				EnvironmentGroup: tc.environmentGroup,
+				ProjectID: uuid.New(),
+				Name:      "test-landscape",
+				Title:     "Test Landscape",
+				// NOTE: EnvironmentGroup removed from Landscape model in new schema
 			}
 
 			// Test validation
@@ -693,37 +613,27 @@ func (suite *LandscapeServiceTestSuite) TestEnvironmentGroupHandling() {
 	}
 }
 
-// TestUpdateRequestPointerFields tests pointer fields in update requests
-func (suite *LandscapeServiceTestSuite) TestUpdateRequestPointerFields() {
-	// Test that pointer fields can be nil or have values
-	landscapeType := models.LandscapeTypeProduction
-	status := models.LandscapeStatusActive
-	deploymentStatus := models.DeploymentStatusHealthy
-	sortOrder := 5
+// TestUpdateRequestPointerFields tests pointer fields in update requests (REMOVED - enum types no longer exist)
+// func (suite *LandscapeServiceTestSuite) TestUpdateRequestPointerFields() {
+// 	// NOTE: LandscapeType, Status, DeploymentStatus, and SortOrder removed in new schema
+// }
 
+// Placeholder test to avoid compilation errors
+func (suite *LandscapeServiceTestSuite) TestUpdateRequestPointerFieldsPlaceholder() {
 	request := &service.UpdateLandscapeRequest{
-		DisplayName:      "Updated Landscape",
-		LandscapeType:    &landscapeType,
-		Status:           &status,
-		DeploymentStatus: &deploymentStatus,
-		SortOrder:        &sortOrder,
+		Title: "Updated Landscape",
 	}
 
 	// Test JSON marshaling with pointer fields
 	jsonData, err := json.Marshal(request)
 	assert.NoError(suite.T(), err)
 	assert.Contains(suite.T(), string(jsonData), "Updated Landscape")
-	assert.Contains(suite.T(), string(jsonData), `"landscape_type":"production"`)
-	assert.Contains(suite.T(), string(jsonData), `"status":"active"`)
-	assert.Contains(suite.T(), string(jsonData), `"sort_order":5`)
+	// NOTE: landscape_type, status, deployment_status, and sort_order removed in new schema
 
 	// Test with nil pointer fields
 	requestWithNils := &service.UpdateLandscapeRequest{
-		DisplayName:      "Updated Landscape",
-		LandscapeType:    nil,
-		Status:           nil,
-		DeploymentStatus: nil,
-		SortOrder:        nil,
+		Title: "Updated Landscape",
+		// NOTE: LandscapeType, Status, DeploymentStatus, and SortOrder fields removed
 	}
 
 	jsonDataWithNils, err := json.Marshal(requestWithNils)

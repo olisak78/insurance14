@@ -16,12 +16,12 @@ import (
 	"gorm.io/gorm"
 )
 
-// memberRepoAdapter adapts repository.MemberRepository to auth.MemberRepository
-type memberRepoAdapter struct {
-	repo *repository.MemberRepository
+// userRepoAdapter adapts repository.MemberRepository to auth.MemberRepository
+type userRepoAdapter struct {
+	repo *repository.UserRepository
 }
 
-func (a *memberRepoAdapter) GetByEmail(email string) (interface{}, error) {
+func (a *userRepoAdapter) GetByEmail(email string) (interface{}, error) {
 	return a.repo.GetByEmail(email)
 }
 
@@ -42,32 +42,32 @@ func SetupRoutes(db *gorm.DB, cfg *config.Config) *gin.Engine {
 	// Initialize repositories
 	organizationRepo := repository.NewOrganizationRepository(db)
 	groupRepo := repository.NewGroupRepository(db)
-	memberRepo := repository.NewMemberRepository(db)
+	userRepo := repository.NewUserRepository(db)
 	teamRepo := repository.NewTeamRepository(db)
 	projectRepo := repository.NewProjectRepository(db)
 	componentRepo := repository.NewComponentRepository(db)
 	landscapeRepo := repository.NewLandscapeRepository(db)
-	componentDeploymentRepo := repository.NewComponentDeploymentRepository(db)
+	categoryRepo := repository.NewCategoryRepository(db)
+	linkRepo := repository.NewLinkRepository(db)
+	docRepo := repository.NewDocumentationRepository(db)
 
 	// Initialize services
-	organizationService := service.NewOrganizationService(organizationRepo, validator)
-	groupService := service.NewGroupService(groupRepo, organizationRepo, validator)
-	memberService := service.NewMemberService(memberRepo, validator)
-	teamService := service.NewTeamService(teamRepo, groupRepo, organizationRepo, memberRepo, validator)
-	projectService := service.NewProjectService(projectRepo, organizationRepo, validator)
-	componentService := service.NewComponentService(componentRepo, organizationRepo, validator)
-	landscapeService := service.NewLandscapeService(landscapeRepo, organizationRepo, validator)
-	componentDeploymentService := service.NewComponentDeploymentService(componentDeploymentRepo, componentRepo, landscapeRepo, validator)
+	userService := service.NewUserService(userRepo, linkRepo, validator)
+	teamService := service.NewTeamService(teamRepo, groupRepo, organizationRepo, userRepo, linkRepo, componentRepo, validator)
+	componentService := service.NewComponentService(componentRepo, organizationRepo, projectRepo, validator)
+	landscapeService := service.NewLandscapeService(landscapeRepo, organizationRepo, projectRepo, validator)
+	categoryService := service.NewCategoryService(categoryRepo, validator)
+	linkService := service.NewLinkService(linkRepo, userRepo, teamRepo, categoryRepo, validator)
+	docService := service.NewDocumentationService(docRepo, teamRepo, validator)
 	ldapService := service.NewLDAPService(cfg)
 	jiraService := service.NewJiraService(cfg)
 	// Initialize Jira PAT on startup: use fixed-name PAT with machine identifier, delete existing if present, then create a new one
 	if err := jiraService.InitializePATOnStartup(); err != nil {
 		log.Printf("Warning: Jira PAT initialization failed: %v", err)
 	}
-	jenkinsService := service.NewJenkinsService()
+	jenkinsService := service.NewJenkinsService(cfg)
 	sonarService := service.NewSonarService(cfg)
-	aicoreService := service.NewAICoreService(memberRepo, teamRepo, groupRepo)
-	linkService := service.NewLinkService()
+	aicoreService := service.NewAICoreService(userRepo, teamRepo, groupRepo, organizationRepo)
 
 	// Initialize auth configuration and services
 	authConfig, err := auth.LoadAuthConfig("config/auth.yaml")
@@ -81,7 +81,7 @@ func SetupRoutes(db *gorm.DB, cfg *config.Config) *gin.Engine {
 	var authMiddleware *auth.AuthMiddleware
 	var authService *auth.AuthService
 	if authConfig != nil {
-		memberRepoAuth := &memberRepoAdapter{repo: memberRepo}
+		memberRepoAuth := &userRepoAdapter{repo: userRepo}
 		authService, err = auth.NewAuthService(authConfig, memberRepoAuth)
 		if err != nil {
 			log.Printf("Warning: Failed to initialize auth service: %v", err)
@@ -93,22 +93,22 @@ func SetupRoutes(db *gorm.DB, cfg *config.Config) *gin.Engine {
 
 	// Initialize handlers
 	healthHandler := handlers.NewHealthHandler(db)
-	organizationHandler := handlers.NewOrganizationHandler(organizationService)
-	groupHandler := handlers.NewGroupHandler(groupService)
-	memberHandler := handlers.NewMemberHandler(memberService)
+	userHandler := handlers.NewUserHandler(userService, teamRepo)
 	teamHandler := handlers.NewTeamHandler(teamService)
-	projectHandler := handlers.NewProjectHandler(projectService)
 	componentHandler := handlers.NewComponentHandler(componentService, teamService)
 	landscapeHandler := handlers.NewLandscapeHandler(landscapeService)
-	componentDeploymentHandler := handlers.NewComponentDeploymentHandler(componentDeploymentService)
-	ldapHandler := handlers.NewLDAPHandler(ldapService)
+	categoryHandler := handlers.NewCategoryHandler(categoryService)
+	linkHandler := handlers.NewLinkHandler(linkService)
+	docHandler := handlers.NewDocumentationHandler(docService)
+	ldapHandler := handlers.NewLDAPHandler(ldapService, userRepo)
 	jiraHandler := handlers.NewJiraHandler(jiraService)
 	jenkinsHandler := handlers.NewJenkinsHandler(jenkinsService)
 	sonarHandler := handlers.NewSonarHandler(sonarService)
 	githubService := service.NewGitHubService(authService)
 	githubHandler := handlers.NewGitHubHandler(githubService)
 	aicoreHandler := handlers.NewAICoreHandler(aicoreService, validator)
-	linkHandler := handlers.NewLinkHandler(linkService)
+	alertsService := service.NewAlertsService(projectRepo, authService)
+	alertsHandler := handlers.NewAlertsHandler(alertsService)
 
 	// Health check routes
 	router.GET("/health", healthHandler.Health)
@@ -139,134 +139,58 @@ func SetupRoutes(db *gorm.DB, cfg *config.Config) *gin.Engine {
 	// API v1 routes - All endpoints require authentication
 	v1 := router.Group("/api/v1")
 
-	// Apply auth middleware to require authentication for all API endpoints
-	if authMiddleware != nil {
-		v1.Use(authMiddleware.RequireAuth())
+	// Auth middleware is mandatory - endpoints rely on user context
+	if authMiddleware == nil {
+		panic("Authentication middleware is required but not initialized. Check auth configuration.")
 	}
+	v1.Use(authMiddleware.RequireAuth())
 
 	{
-		// Organization routes
-		organizations := v1.Group("/organizations")
+
+		// Users routes
+		users := v1.Group("/users")
 		{
-			organizations.GET("", organizationHandler.ListOrganizations)
-			organizations.POST("", organizationHandler.CreateOrganization)
-			organizations.GET("/:id", organizationHandler.GetOrganization)
-			organizations.GET("/by-name/:name", organizationHandler.GetOrganizationByName)
-			organizations.PUT("/:id", organizationHandler.UpdateOrganization)
-			organizations.DELETE("/:id", organizationHandler.DeleteOrganization)
-			organizations.GET("/:id/members", memberHandler.GetMembersByOrganization)
-			organizations.GET("/:id/groups", groupHandler.GetGroupsByOrganization)
-			organizations.GET("/:id/teams", teamHandler.GetTeamsByOrganization)
-			organizations.GET("/:id/projects", projectHandler.GetProjectsByOrganization)
-			organizations.GET("/:id/components", componentHandler.GetComponentsByOrganization)
-			organizations.GET("/:id/landscapes", landscapeHandler.GetLandscapesByOrganization)
+			users.GET("/search/new", ldapHandler.UserSearch)
+			users.POST("", userHandler.CreateUser)
+			users.PUT("", userHandler.UpdateUserTeam)
+			users.GET("", userHandler.ListUsers)
+			users.GET("/:user_id", userHandler.GetMemberByUserID)
+			users.POST("/:user_id/favorites/:link_id", userHandler.AddFavoriteLink)
+			users.DELETE("/:user_id/favorites/:link_id", userHandler.RemoveFavoriteLink)
 		}
 
-		// Group routes
-		groups := v1.Group("/groups")
-		{
-			groups.GET("", groupHandler.GetGroupsByOrganization) // Requires organization_id parameter
-			groups.POST("", groupHandler.CreateGroup)
-			groups.GET("/:id", groupHandler.GetGroup)
-			groups.PUT("/:id", groupHandler.UpdateGroup)
-			groups.DELETE("/:id", groupHandler.DeleteGroup)
-			groups.GET("/:id/teams", groupHandler.GetGroupWithTeams)
-			groups.GET("/by-name/:name", groupHandler.GetGroupByName) // Requires organization_id parameter
-			groups.GET("/search", groupHandler.SearchGroups)          // Requires organization_id and q parameters
-		}
-
-		// Member routes
-		members := v1.Group("/members")
-		{
-			members.GET("", memberHandler.GetMembersByOrganization) // Requires organization_id parameter
-			members.POST("", memberHandler.CreateMember)
-			members.GET("/:id", memberHandler.GetMember)
-			members.PUT("/:id", memberHandler.UpdateMember)
-			members.DELETE("/:id", memberHandler.DeleteMember)
-			members.GET("/:id/quick-links", memberHandler.GetQuickLinks)      // Get quick links for a member
-			members.POST("/:id/quick-links", memberHandler.AddQuickLink)      // Add a quick link to a member
-			members.DELETE("/:id/quick-links", memberHandler.RemoveQuickLink) // Remove a quick link from a member
-		}
+		// Current user route: /users/me
+		v1.GET("/users/me", userHandler.GetCurrentUser)
 
 		// Team routes
 		teams := v1.Group("/teams")
 		{
-			teams.GET("", teamHandler.GetAllTeams) // Optional organization_id parameter
-			teams.GET("/all", teamHandler.GetAllTeamsDeprecated)
-			teams.POST("", teamHandler.CreateTeam)
-			teams.GET("/:id", teamHandler.GetTeam)
-			teams.PUT("/:id", teamHandler.UpdateTeam)
-			teams.DELETE("/:id", teamHandler.DeleteTeam)
-			teams.GET("/:id/members", teamHandler.GetTeamWithMembers)
-			teams.GET("/:id/details", teamHandler.GetTeamWithMembers)
-			teams.GET("/:id/components", teamHandler.GetTeamComponents)           // Get components by team ID
-			teams.POST("/:id/links", teamHandler.AddLink)                         // Add a link to a team
-			teams.DELETE("/:id/links", teamHandler.RemoveLink)                    // Remove a link from a team
-			teams.PUT("/:id/links", teamHandler.UpdateLinks)                      // Update all links for a team
-			teams.GET("/by-name/:name", teamHandler.GetTeamByName)                // Requires organization_id parameter
-			teams.GET("/by-name/:name/members", teamHandler.GetTeamMembersByName) // Requires organization_id parameter
+			teams.GET("", teamHandler.GetAllTeams)
+			teams.PATCH("/:id/metadata", teamHandler.UpdateTeamMetadata) // Update team metadata
+			teams.GET("/:id/documentations", docHandler.GetDocumentationsByTeamID) // Get documentations by team ID
 		}
 
-		// Project routes
-		projects := v1.Group("/projects")
+		// Documentation routes
+		documentations := v1.Group("/documentations")
 		{
-			projects.GET("", projectHandler.GetProjectsByOrganization) // Requires organization_id parameter
-			projects.POST("", projectHandler.CreateProject)
-			projects.GET("/:id", projectHandler.GetProject)
-			projects.PUT("/:id", projectHandler.UpdateProject)
-			projects.DELETE("/:id", projectHandler.DeleteProject)
-			projects.GET("/:id/organization", projectHandler.GetProjectWithOrganization)
-			projects.GET("/:id/components", projectHandler.GetProjectWithComponents)
-			projects.GET("/:id/landscapes", projectHandler.GetProjectWithLandscapes)
-			projects.GET("/status/:status", projectHandler.GetProjectsByStatus)
+			documentations.POST("", docHandler.CreateDocumentation)
+			documentations.GET("/:id", docHandler.GetDocumentationByID)
+			documentations.PATCH("/:id", docHandler.UpdateDocumentation)
+			documentations.DELETE("/:id", docHandler.DeleteDocumentation)
 		}
 
 		// Component routes
 		components := v1.Group("/components")
 		{
 			components.GET("", componentHandler.ListComponents)
-			components.POST("", componentHandler.CreateComponent)
-			components.GET("/by-name/:name", componentHandler.GetComponentByName)  // Requires organization_id parameter
-			components.GET("/by-team/:id", componentHandler.GetComponentsByTeamID) // Get components by team ID
-			components.GET("/:id", componentHandler.GetComponent)
-			components.PUT("/:id", componentHandler.UpdateComponent)
-			components.DELETE("/:id", componentHandler.DeleteComponent)
-			components.GET("/:id/projects", componentHandler.GetComponentWithProjects)
-			components.GET("/:id/deployments", componentHandler.GetComponentWithDeployments)
-			components.GET("/:id/ownerships", componentHandler.GetComponentWithOwnerships)
-			components.GET("/:id/details", componentHandler.GetComponentWithFullDetails)
 		}
 
-		// Landscape routes
-		landscapes := v1.Group("/landscapes")
-		{
-			landscapes.GET("", landscapeHandler.ListLandscapes)
-			landscapes.POST("", landscapeHandler.CreateLandscape)
-			landscapes.GET("/:id", landscapeHandler.GetLandscape)
-			landscapes.PUT("/:id", landscapeHandler.UpdateLandscape)
-			landscapes.DELETE("/:id", landscapeHandler.DeleteLandscape)
-			landscapes.GET("/:id/projects", landscapeHandler.GetLandscapeWithProjects)
-			landscapes.GET("/:id/deployments", landscapeHandler.GetLandscapeWithDeployments)
-			landscapes.GET("/:id/details", landscapeHandler.GetLandscapeWithFullDetails)
-			landscapes.GET("/environment/:environment", landscapeHandler.GetLandscapesByEnvironment)
-		}
+		// Query-param endpoint: /api/v1/landscapes?project-name=<project_name>
+		v1.GET("/landscapes", landscapeHandler.ListLandscapesByQuery)
 
-		// Component Deployment routes
-		componentDeployments := v1.Group("/component-deployments")
-		{
-			componentDeployments.GET("", componentDeploymentHandler.ListComponentDeployments)
-			componentDeployments.POST("", componentDeploymentHandler.CreateComponentDeployment)
-			componentDeployments.GET("/:id", componentDeploymentHandler.GetComponentDeployment)
-			componentDeployments.PUT("/:id", componentDeploymentHandler.UpdateComponentDeployment)
-			componentDeployments.DELETE("/:id", componentDeploymentHandler.DeleteComponentDeployment)
-			componentDeployments.GET("/:id/details", componentDeploymentHandler.GetComponentDeploymentWithDetails)
-		}
-
-		// LDAP routes
-		ldap := v1.Group("/ldap")
-		{
-			ldap.GET("/users/search", ldapHandler.UserSearch)
-		}
+		// CIS public endpoints proxy: /api/v1/cis-public/proxy?url=<component_public_url>
+		// Used for proxying health checks, version info, and other public endpoints
+		v1.GET("/cis-public/proxy", healthHandler.ProxyComponentHealth)
 
 		// Jira routes - Consolidated endpoints
 		jira := v1.Group("/jira")
@@ -280,8 +204,17 @@ func SetupRoutes(db *gorm.DB, cfg *config.Config) *gin.Engine {
 		github := v1.Group("/github")
 		{
 			github.GET("/pull-requests", githubHandler.GetMyPullRequests)
+			github.PATCH("/pull-requests/close/:pr_number", githubHandler.ClosePullRequest)
 			github.GET("/prs", githubHandler.GetMyPullRequests) // Convenient alias
 			github.GET("/contributions", githubHandler.GetUserTotalContributions)
+			github.GET("/average-pr-time", githubHandler.GetAveragePRMergeTime)
+			github.GET("/pr-review-comments", githubHandler.GetPRReviewComments)
+			github.GET("/:provider/heatmap", githubHandler.GetContributionsHeatmap)
+			// Repository content proxy for documentation viewer
+			github.GET("/repos/:owner/:repo/contents/*path", githubHandler.GetRepositoryContent)
+			github.PUT("/repos/:owner/:repo/contents/*path", githubHandler.UpdateRepositoryFile)
+			// GitHub asset proxy for images and other assets
+			github.GET("/asset", githubHandler.GetGitHubAsset)
 		}
 
 		// Sonar routes
@@ -298,6 +231,8 @@ func SetupRoutes(db *gorm.DB, cfg *config.Config) *gin.Engine {
 			{
 				jenkins.GET("/:jaasName/:jobName/parameters", jenkinsHandler.GetJobParameters)
 				jenkins.POST("/:jaasName/:jobName/trigger", jenkinsHandler.TriggerJob)
+				jenkins.GET("/:jaasName/queue/:queueItemId/status", jenkinsHandler.GetQueueItemStatus)
+				jenkins.GET("/:jaasName/:jobName/:buildNumber/status", jenkinsHandler.GetBuildStatus)
 			}
 		}
 
@@ -307,17 +242,34 @@ func SetupRoutes(db *gorm.DB, cfg *config.Config) *gin.Engine {
 			aicore.GET("/deployments", aicoreHandler.GetDeployments)
 			aicore.GET("/deployments/:deploymentId", aicoreHandler.GetDeploymentDetails)
 			aicore.GET("/models", aicoreHandler.GetModels)
-			aicore.GET("/configurations", aicoreHandler.GetConfigurations)
+			aicore.GET("/me", aicoreHandler.GetMe)
 			aicore.POST("/configurations", aicoreHandler.CreateConfiguration)
 			aicore.POST("/deployments", aicoreHandler.CreateDeployment)
 			aicore.PATCH("/deployments/:deploymentId", aicoreHandler.UpdateDeployment)
 			aicore.DELETE("/deployments/:deploymentId", aicoreHandler.DeleteDeployment)
+			aicore.POST("/chat/inference", aicoreHandler.ChatInference)
+			aicore.POST("/upload", aicoreHandler.UploadAttachment)
+		}
+
+		// Alerts routes - Prometheus AlertManager alerts from GitHub
+		alerts := v1.Group("/projects/:projectId/alerts")
+		{
+			alerts.GET("", alertsHandler.GetAlerts)         // GET /api/v1/projects/:projectId/alerts
+			alerts.POST("/pr", alertsHandler.CreateAlertPR) // POST /api/v1/projects/:projectId/alerts/pr
+		}
+
+		// Category routes
+		categories := v1.Group("/categories")
+		{
+			categories.GET("", categoryHandler.ListCategories)
 		}
 
 		// Link routes
 		links := v1.Group("/links")
 		{
-			links.GET("/:id", linkHandler.GetLinksByMemberID) // Get links by member ID
+			links.GET("", linkHandler.ListLinks) // GET /api/v1/links?owner=<user_id>
+			links.POST("", linkHandler.CreateLink)
+			links.DELETE("/:id", linkHandler.DeleteLink)
 		}
 
 		// Nested resource routes moved to respective groups to avoid conflicts

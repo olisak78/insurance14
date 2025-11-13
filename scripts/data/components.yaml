@@ -1,2311 +1,1242 @@
 components:
-    - name: btp-subaccount-operator
-      organization_name: sap-cfs
-      team_name: team-yael
-      display_name: btp-subaccount-operator
-      description: btp-subaccount-operator
-      component_type: service
-      status: active
-      group_name: unified-services
-      git_repository_url: https://github.tools.sap/atom-cfs/btp-subaccount-operator
-      documentation_url: dir:.
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.atom%3Abtp-subaccount-operator&branch=main
-          title: Sonar
-          icon: sonar
-        - url: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/80061034
-          title: Availability
-          icon: sap
-        - url: https://jira.tools.sap/issues/?jql=project%20%3D%20SAPBTPCFSBUG%20AND%20component%20%3D%20%22Unified%20Account%22%20AND%20statusCategory%20in%20(%22To%20Do%22%2C%22In%20Progress%22)
-          title: Bugs
-          icon: jira
-        - url: https://graf.ingress.staging.staging.shoot.live.k8s-hana.ondemand.com/d/N0EeeWYna/atom-operator-controller-namespace?orgId=1&refresh=5s&var-datasource=default&var-namespace=btp-subaccount-operator
-          title: Grafana
-          icon: grafana
-      metadata:
-        annotations:
-            backstage.io/github-url: https://github.tools.sap/atom-cfs/btp-subaccount-operator
-            backstage.io/kubernetes-id: btp-subaccount-operator
-            backstage.io/source-location: url:https://github.tools.sap/atom-cfs/btp-subaccount-operator
-            backstage.io/techdocs-ref: dir:.
-            grafana/overview-dashboard: https://fourkeys-grafana-dashboard-rhvzft4seq-ey.a.run.app/d/adoyhae5m9fcwe33/ci-cd-component-dashboard?orgId=1&var-Component=btp-subaccount-operator&kiosk
-            jenkins.io/job-full-name: atom.jaas-gcp.cloud.sap.corp:btp-subaccount-operator
-            jira/component: BTP Subaccount Operator
-            jira/project-key: SAPBTPCFS
-            prometheus.io/alert: all
-            prometheus.io/annotations: component=btp-subaccount-operator
-        consumes_apis:
-            - component:resources-server
-        depends_on:
-            - component:feature-toggle-client
-            - component:controller-utils
-            - component:resources-server-client
-            - component:resources-server-api
-        lifecycle: production
-        namespace: unified-services
-        system: unified-services
-        tags:
-            - go
-    - name: commercial-integration-manager
-      organization_name: sap-cfs
-      team_name: team-zohar
-      display_name: Commercial-integration-manager
-      description: Commercial-integration-manager
-      component_type: service
-      status: active
-      group_name: unified-services
-      git_repository_url: https://github.tools.sap/atom-cfs/commercial-integration-manager
-      documentation_url: dir:.
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.atom%3Acommercial-integration-manager
-          title: Sonar
-          icon: sonar
-        - url: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/76818945
-          title: Availability
-          icon: sap
-        - url: https://jira.tools.sap/issues/?jql=project%20%3D%20SAPBTPCFSBUG%20AND%20component%20%3D%20"Unified%20Commercial%20Integration"%20%20%20AND%20statusCategory%20in%20("To%20Do"%2C"In%20Progress")
-          title: Bugs
-          icon: jira
-      metadata:
-        annotations:
-            backstage.io/github-url: https://github.tools.sap/atom-cfs/commercial-integration-manager
-            backstage.io/kubernetes-id: commercial-integration-manager
-            backstage.io/source-location: url:https://github.tools.sap/atom-cfs/commercial-integration-manager
-            backstage.io/techdocs-ref: dir:.
-            grafana/overview-dashboard: https://fourkeys-grafana-dashboard-rhvzft4seq-ey.a.run.app/d/adoyhae5m9fcwe33/ci-cd-component-dashboard?orgId=1&var-Component=commercial-integration-manager&kiosk
-            jenkins.io/job-full-name: atom.jaas-gcp.cloud.sap.corp:commercial-integration-manager
-            jira/component: Unified Commercial Integration
-            jira/project-key: SAPBTPCFS
-            prometheus.io/alert: all
-            prometheus.io/annotations: component=commercial-integration-manager
-            prometheus.io/rule: ""
-        consumes_apis:
-            - component:resources-server
-        depends_on:
-            - component:feature-toggle-client
-            - component:controller-utils
-            - component:resources-server-client
-            - component:resources-server-api
-        domain: atom
-        lifecycle: production
-        namespace: unified-services
-        system: unified-services
-        tags:
-            - go
-    - name: controller-utils
-      organization_name: sap-cfs
-      team_name: team-alex
-      display_name: Controller-utils
-      description: Controller-utils
-      component_type: service
-      status: active
-      group_name: unified-services
-      git_repository_url: https://github.tools.sap/resource-manager/controller-utils
-      documentation_url: dir:.
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.atom%3Acontroller-utils
-          title: Sonar
-          icon: sonar
-        - url: https://jira.tools.sap/issues/?jql=Project%20in%20(SAPBTPCFSBUG)%20AND%20issuetype%20%3D%20Bug%20AND%20component%20in%20(%22Unified%20Resource%20Manager%22%2C%20%22Unified%20Resource%20Manager%22)%20AND%20status%20in%20(Open%2C%20%22In%20Progress%22%2C%20Reopened%2C%20%22Author%20Action%22)
-          title: Bugs
-          icon: jira
-      metadata:
-        annotations:
-            backstage.io/github-url: https://github.tools.sap/resource-manager/controller-utils
-            backstage.io/source-location: url:https://github.tools.sap/resource-manager/controller-utils
-            backstage.io/techdocs-ref: dir:.
-            grafana/overview-dashboard: https://fourkeys-grafana-dashboard-rhvzft4seq-ey.a.run.app/d/adoyhae5m9fcwe33/ci-cd-component-dashboard?orgId=1&var-Component=controller-utils&kiosk
-            jenkins.io/job-full-name: atomcirm.jaas-gcp.cloud.sap.corp:controller-utils
-            jira/component: URM Controller Utils
-            jira/project-key: SAPBTPCFS
-            prometheus.io/alert: all
-            prometheus.io/annotations: component=controller-utils
-            prometheus.io/rule: ""
-        depends_on:
-            - component:resources-server-client
-            - component:resources-server-api
-        domain: atom
-        lifecycle: production
-        namespace: unified-services
-        system: resource-manager
-        tags:
-            - go
-    - name: core-controllers
-      organization_name: sap-cfs
-      team_name: team-alex
-      display_name: Core-controllers
-      description: Core-controllers
-      component_type: service
-      status: active
-      group_name: unified-services
-      git_repository_url: https://github.tools.sap/resource-manager/core-controllers
-      documentation_url: dir:.
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.atom%3Acore-controllers
-          title: Sonar
-          icon: sonar
-        - url: https://jira.tools.sap/issues/?jql=Project%20in%20(SAPBTPCFSBUG)%20AND%20issuetype%20%3D%20Bug%20AND%20component%20in%20(%22Unified%20Resource%20Manager%22%2C%20%22Unified%20Resource%20Manager%22)%20AND%20status%20in%20(Open%2C%20%22In%20Progress%22%2C%20Reopened%2C%20%22Author%20Action%22)
-          title: Bugs
-          icon: jira
-      metadata:
-        annotations:
-            backstage.io/github-url: https://github.tools.sap/resource-manager/core-controllers
-            backstage.io/kubernetes-id: core-controllers
-            backstage.io/source-location: url:https://github.tools.sap/resource-manager/core-controllers
-            backstage.io/techdocs-ref: dir:.
-            grafana/overview-dashboard: https://fourkeys-grafana-dashboard-rhvzft4seq-ey.a.run.app/d/adoyhae5m9fcwe33/ci-cd-component-dashboard?orgId=1&var-Component=core-controllers&kiosk
-            jenkins.io/job-full-name: atomcirm.jaas-gcp.cloud.sap.corp:core-controllers
-            jira/component: Unified Resource Manager
-            jira/project-key: SAPBTPCFS
-            prometheus.io/alert: all
-            prometheus.io/annotations: component=core-controllers
-            prometheus.io/rule: ""
-        depends_on:
-            - component:feature-toggle-client
-            - component:controller-utils
-            - component:resources-server-client
-            - component:resources-server-api
-        domain: atom
-        lifecycle: production
-        namespace: unified-services
-        system: resource-manager
-        tags:
-            - go
-    - name: feature-toggle-client
-      organization_name: sap-cfs
-      team_name: team-coe
-      display_name: feature-toggle-client service
-      description: feature-toggle-client service
-      component_type: service
-      status: active
-      group_name: unified-services
-      git_repository_url: https://github.tools.sap/atom-cfs/feature-toggle-client
-      documentation_url: dir:.
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.atom%3Afeature-toggle-client&branch=main
-          title: Sonar
-          icon: sonar
-        - url: https://jira.tools.sap/issues/?jql=project%20%3D%20SAPBTPCFSBUG%20AND%20component%20in%20(%22Feature%20Toggle%20Client%22%2C%20%22Feature%20Toggle%22%2C%20%22Feature%20Toggle%20Client%22)%20AND%20statusCategory%20in%20(%22To%20Do%22%2C%20%22In%20Progress%22)
-          title: Bugs
-          icon: jira
-      metadata:
-        annotations:
-            backstage.io/github-url: https://github.tools.sap/atom-cfs/feature-toggle-client
-            backstage.io/kubernetes-id: feature-toggle-client
-            backstage.io/source-location: url:https://github.tools.sap/atom-cfs/feature-toggle-client
-            backstage.io/techdocs-ref: dir:.
-            grafana/overview-dashboard: https://fourkeys-grafana-dashboard-rhvzft4seq-ey.a.run.app/d/adoyhae5m9fcwe33/ci-cd-component-dashboard?orgId=1&var-Component=feature-toggle-client&kiosk
-            jenkins.io/job-full-name: atom.jaas-gcp.cloud.sap.corp:feature-toggle-client
-            jira/component: Feature Toggle Client
-            jira/project-key: SAPBTPCFS
-            prometheus.io/alert: all
-            prometheus.io/annotations: component=feature-toggle-client
-            prometheus.io/rule: ""
-        domain: atom
-        lifecycle: production
-        namespace: unified-services
-        system: platform-engineering
-        tags:
-            - go
-    - name: feature-toggle-manager
-      organization_name: sap-cfs
-      team_name: team-coe
-      display_name: Feature-toggle-manager service
-      description: Feature-toggle-manager service
-      component_type: service
-      status: active
-      group_name: unified-services
-      git_repository_url: https://github.tools.sap/atom-cfs/feature-toggle-manager
-      documentation_url: dir:.
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.atom%3Afeature-toggle-manager&branch=main
-          title: Sonar
-          icon: sonar
-        - url: https://jira.tools.sap/issues/?jql=project%20%3D%20SAPBTPCFSBUG%20AND%20component%20in%20(%22Feature%20Toggle%20Manager%22%2C%20%22Feature%20Toggle%22%2C%20%22Feature%20Toggle%20Client%22)%20AND%20statusCategory%20in%20(%22To%20Do%22%2C%20%22In%20Progress%22)
-          title: Bugs
-          icon: jira
-      metadata:
-        annotations:
-            backstage.io/github-url: https://github.tools.sap/atom-cfs/feature-toggle-manager
-            backstage.io/kubernetes-id: feature-toggle-manager
-            backstage.io/source-location: url:https://github.tools.sap/atom-cfs/feature-toggle-manager
-            backstage.io/techdocs-ref: dir:.
-            grafana/overview-dashboard: https://fourkeys-grafana-dashboard-rhvzft4seq-ey.a.run.app/d/adoyhae5m9fcwe33/ci-cd-component-dashboard?orgId=1&var-Component=feature-toggle-manager&kiosk
-            jenkins.io/job-full-name: atom.jaas-gcp.cloud.sap.corp:feature-toggle-manager
-            jira/component: Feature Toggle Manager
-            jira/project-key: SAPBTPCFS
-            prometheus.io/alert: all
-            prometheus.io/annotations: component=feature-toggle-manager
-            prometheus.io/rule: ""
-        domain: atom
-        lifecycle: production
-        namespace: unified-services
-        system: platform-engineering
-        tags:
-            - go
-    - name: healthcheck
-      organization_name: sap-cfs
-      team_name: team-coe
-      display_name: Healthcheck service
-      description: Healthcheck service
-      component_type: service
-      status: active
-      group_name: unified-services
-      git_repository_url: https://github.tools.sap/atom-cfs/healthcheck
-      documentation_url: dir:.
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.atom%3Ahealthcheck
-          title: Sonar
-          icon: sonar
-        - url: https://jira.tools.sap/issues/?jql=project%20%3D%20SAPBTPCFSBUG%20AND%20component%20%3D%20%22Health%20Check%22%20AND%20statusCategory%20in%20(%22To%20Do%22%2C%22In%20Progress%22)
-          title: Bugs
-          icon: jira
-      metadata:
-        annotations:
-            backstage.io/github-url: https://github.tools.sap/atom-cfs/healthcheck
-            backstage.io/kubernetes-id: healthcheck
-            backstage.io/source-location: url:https://github.tools.sap/atom-cfs/healthcheck
-            backstage.io/techdocs-ref: dir:.
-            grafana/overview-dashboard: https://fourkeys-grafana-dashboard-rhvzft4seq-ey.a.run.app/d/adoyhae5m9fcwe33/ci-cd-component-dashboard?orgId=1&var-Component=healthcheck&kiosk
-            jenkins.io/job-full-name: atom.jaas-gcp.cloud.sap.corp:healthcheck
-            jira/component: Health Check
-            jira/project-key: SAPBTPCFS
-            prometheus.io/alert: all
-            prometheus.io/annotations: component=healthcheck
-            prometheus.io/rule: ""
-        domain: atom
-        lifecycle: production
-        namespace: unified-services
-        system: platform-engineering
-        tags:
-            - go
-    - name: resources-server-api
-      organization_name: sap-cfs
-      team_name: team-alex
-      display_name: Resources-server-api
-      description: Resources-server-api
-      component_type: service
-      status: active
-      group_name: unified-services
-      git_repository_url: https://github.tools.sap/unified-resource-manager/api
-      documentation_url: dir:.
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.atom%3Aapi
-          title: Sonar
-          icon: sonar
-        - url: https://jira.tools.sap/issues/?jql=Project%20in%20(SAPBTPCFSBUG)%20AND%20issuetype%20%3D%20Bug%20AND%20component%20in%20(%22Unified%20Resource%20Manager%22%2C%20%22Unified%20Resource%20Manager%22)%20AND%20status%20in%20(Open%2C%20%22In%20Progress%22%2C%20Reopened%2C%20%22Author%20Action%22)
-          title: Bugs
-          icon: jira
-      metadata:
-        annotations:
-            backstage.io/github-url: https://github.tools.sap/unified-resource-manager/api
-            backstage.io/source-location: url:https://github.tools.sap/unified-resource-manager/api
-            backstage.io/techdocs-ref: dir:.
-            grafana/overview-dashboard: https://fourkeys-grafana-dashboard-rhvzft4seq-ey.a.run.app/d/adoyhae5m9fcwe33/ci-cd-component-dashboard?orgId=1&var-Component=resources-server-api&kiosk
-            jenkins.io/job-full-name: atomcirm.jaas-gcp.cloud.sap.corp:api
-            jira/component: URM API
-            jira/project-key: SAPBTPCFS
-            prometheus.io/alert: all
-            prometheus.io/annotations: component=resources-server-api
-            prometheus.io/rule: ""
-        domain: atom
-        lifecycle: production
-        namespace: unified-services
-        system: resource-manager
-        tags:
-            - go
-    - name: resources-server-client
-      organization_name: sap-cfs
-      team_name: team-alex
-      display_name: Resources-server-client
-      description: Resources-server-client
-      component_type: service
-      status: active
-      group_name: unified-services
-      git_repository_url: https://github.tools.sap/unified-resource-manager/client
-      documentation_url: dir:.
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.atom%3Aclient
-          title: Sonar
-          icon: sonar
-        - url: https://jira.tools.sap/issues/?jql=Project%20in%20(SAPBTPCFSBUG)%20AND%20issuetype%20%3D%20Bug%20AND%20component%20in%20(%22Unified%20Resource%20Manager%22%2C%20%22Unified%20Resource%20Manager%22)%20AND%20status%20in%20(Open%2C%20%22In%20Progress%22%2C%20Reopened%2C%20%22Author%20Action%22)
-          title: Bugs
-          icon: jira
-      metadata:
-        annotations:
-            backstage.io/github-url: https://github.tools.sap/unified-resource-manager/client
-            backstage.io/source-location: url:https://github.tools.sap/unified-resource-manager/client
-            backstage.io/techdocs-ref: dir:.
-            grafana/overview-dashboard: https://fourkeys-grafana-dashboard-rhvzft4seq-ey.a.run.app/d/adoyhae5m9fcwe33/ci-cd-component-dashboard?orgId=1&var-Component= resources-server-client&kiosk
-            jenkins.io/job-full-name: atomcirm.jaas-gcp.cloud.sap.corp:client
-            jira/component: URM Client
-            jira/project-key: SAPBTPCFS
-            prometheus.io/alert: all
-            prometheus.io/annotations: component=resources-server-client
-            prometheus.io/rule: ""
-        domain: atom
-        lifecycle: production
-        namespace: unified-services
-        system: resource-manager
-        tags:
-            - go
-    - name: resources-server
-      organization_name: sap-cfs
-      team_name: team-alex
-      display_name: Resources-server
-      description: Resources-server
-      component_type: service
-      status: active
-      group_name: unified-services
-      git_repository_url: https://github.tools.sap/resource-manager/resources-server
-      documentation_url: dir:.
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.atom%3Aresources-server
-          title: Sonar
-          icon: sonar
-        - url: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/73010577
-          title: Availability
-          icon: sap
-        - url: https://jira.tools.sap/issues/?jql=Project%20in%20(SAPBTPCFSBUG)%20AND%20issuetype%20%3D%20Bug%20AND%20component%20in%20(%22Unified%20Resource%20Manager%22%2C%20%22Unified%20Resource%20Manager%22)%20AND%20status%20in%20(Open%2C%20%22In%20Progress%22%2C%20Reopened%2C%20%22Author%20Action%22)
-          title: Bugs
-          icon: jora
-      metadata:
-        annotations:
-            backstage.io/github-url: https://github.tools.sap/resource-manager/resources-server
-            backstage.io/kubernetes-id: resource-manager
-            backstage.io/source-location: url:https://github.tools.sap/resource-manager/resources-server
-            backstage.io/techdocs-ref: dir:.
-            grafana/overview-dashboard: https://fourkeys-grafana-dashboard-rhvzft4seq-ey.a.run.app/d/adoyhae5m9fcwe33/ci-cd-component-dashboard?orgId=1&var-Component=resource-manager&kiosk
-            jaeger/link-Canary: https://jaeger.ingress.canary.urm-eu10c.shoot.live.k8s-hana.ondemand.com?limit=20&lookback=1h&maxDuration&minDuration&service=resource-manager.resource-manager|Int Jaeger Traces
-            jaeger/link-Int: https://jaeger.ingress.int.btp.shoot.canary.k8s-hana.ondemand.com?limit=20&lookback=1h&maxDuration&minDuration&service=resource-manager.resource-manager|Int Jaeger Traces
-            jaeger/link-Perf: https://jaeger.ingress.perf.perf.shoot.canary.k8s-hana.ondemand.com?limit=20&lookback=1h&maxDuration&minDuration&service=resource-manager.resource-manager|Perf Jaeger Traces
-            jaeger/link-Staging: https://jaeger.ingress.staging.staging.shoot.live.k8s-hana.ondemand.com?limit=20&lookback=1h&maxDuration&minDuration&service=resource-manager.resource-manager|Staging Jaeger Traces
-            jaeger/use-plugin: "true"
-            jenkins.io/job-full-name: atomcirm.jaas-gcp.cloud.sap.corp:resources-server
-            jira/component: Unified Resource Manager
-            jira/project-key: SAPBTPCFS
-            prometheus.io/alert: all
-            prometheus.io/annotations: component=resources-server
-        depends_on:
-            - component:feature-toggle-client
-            - resource:resource-server-db
-        domain: atom
-        lifecycle: production
-        namespace: unified-services
-        system: resource-manager
-        tags:
-            - go
-    - name: uctl
-      organization_name: sap-cfs
-      team_name: team-lior
-      display_name: Unified Services Command Line Tool
-      description: Unified Services Command Line Tool
-      component_type: service
-      status: active
-      group_name: unified-services
-      git_repository_url: https://github.tools.sap/unified-services/uctl
-      documentation_url: dir:.
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.atom%3Auctl
-          title: Sonar
-          icon: sonar
-        - url: https://jira.tools.sap/issues/?jql=Project%20in%20(SAPBTPCFSBUG)%20AND%20issuetype%20%3D%20Bug%20AND%20component%20%3D%20%22Unified%20Services%20CLI%22%20AND%20status%20in%20(Open%2C%20%22In%20Progress%22%2C%20Reopened%2C%20%22Author%20Action%22)
-          title: Bugs
-          icon: jira
-      metadata:
-        annotations:
-            backstage.io/github-url: https://github.tools.sap/unified-services/uctl
-            backstage.io/source-location: https://github.tools.sap/unified-services/uctl
-            backstage.io/techdocs-ref: dir:.
-            grafana/overview-dashboard: https://fourkeys-grafana-dashboard-rhvzft4seq-ey.a.run.app/d/adoyhae5m9fcwe33/ci-cd-component-dashboard?orgId=1&var-Component=uctl&kiosk
-            jenkins.io/job-full-name: atomcirm.jaas-gcp.cloud.sap.corp:uctl
-            jira/component: Unified Services CLI
-            jira/project-key: SAPBTPCFS
-        depends_on:
-            - component:resources-server-client
-            - component:resources-server-api
-        domain: atom
-        lifecycle: production
-        namespace: unified-services
-        system: resource-manager
-        tags:
-            - go
-    - name: unified-account
-      organization_name: sap-cfs
-      team_name: team-lior
-      display_name: unified-account
-      description: unified-account
-      component_type: service
-      status: active
-      group_name: unified-services
-      git_repository_url: https://github.tools.sap/atom-cfs/unified-account
-      documentation_url: dir:.
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.atom%3Aunified-account&branch=main
-          title: Sonar
-          icon: sonar
-        - url: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/80061034
-          title: Availability
-          icon: sap
-        - url: https://jira.tools.sap/issues/?jql=project%20%3D%20SAPBTPCFSBUG%20AND%20component%20%3D%20%22Unified%20Account%22%20AND%20statusCategory%20in%20(%22To%20Do%22%2C%22In%20Progress%22)
-          title: Bugs
-          icon: jira
-        - url: https://graf.ingress.staging.staging.shoot.live.k8s-hana.ondemand.com/d/N0EeeWYna/atom-operator-controller-namespace?orgId=1&refresh=5s&var-datasource=default&var-namespace=unified-account
-          title: Grafana
-          icon: grafana
-      metadata:
-        annotations:
-            backstage.io/github-url: https://github.tools.sap/atom-cfs/unified-account
-            backstage.io/kubernetes-id: unified-account
-            backstage.io/source-location: url:https://github.tools.sap/atom-cfs/unified-account
-            backstage.io/techdocs-ref: dir:.
-            grafana/overview-dashboard: https://fourkeys-grafana-dashboard-rhvzft4seq-ey.a.run.app/d/adoyhae5m9fcwe33/ci-cd-component-dashboard?orgId=1&var-Component=unified-account&kiosk
-            jenkins.io/job-full-name: atom.jaas-gcp.cloud.sap.corp:unified-account
-            jira/component: Unified Account
-            jira/project-key: SAPBTPCFS
-            prometheus.io/alert: all
-            prometheus.io/annotations: component=unified-account
-            prometheus.io/rule: urm_number_of_current_inflight_requests|request_kind, urm_number_of_total_requests|method, urm_current_number_of_resources, urm_current_number_of_resources|type
-        consumes_apis:
-            - component:resources-server
-        depends_on:
-            - component:feature-toggle-client
-            - component:controller-utils
-            - component:resources-server-client
-            - component:resources-server-api
-        domain: atom
-        lifecycle: production
-        namespace: unified-services
-        system: unified-services
-        tags:
-            - go
-    - name: unified-cloud-automation
-      organization_name: sap-cfs
-      team_name: team-lior
-      display_name: Unified Cloud Automation Service
-      description: Unified Cloud Automation Service
-      component_type: service
-      status: active
-      group_name: unified-services
-      git_repository_url: https://github.tools.sap/atom-cfs/unified-cloud-automation
-      documentation_url: dir:.
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.atom%3Aunified-cloud-automation
-          title: Sonar
-          icon: sonar
-        - url: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/140471691
-          title: Availability
-          icon: sap
-        - url: https://jira.tools.sap/issues/?jql=project%20%3D%20SAPBTPCFSBUG%20AND%20component%20%3D%20%22Unified%20Cloud%20Automation%22%20%20AND%20statusCategory%20in%20(%22To%20Do%22%2C%22In%20Progress%22)
-          title: Bugs
-          icon: jira
-      metadata:
-        annotations:
-            backstage.io/github-url: https://github.tools.sap/atom-cfs/unified-cloud-automation
-            backstage.io/kubernetes-id: unified-cloud-automation
-            backstage.io/source-location: url:https://github.tools.sap/atom-cfs/unified-cloud-automation
-            backstage.io/techdocs-ref: dir:.
-            grafana/overview-dashboard: https://fourkeys-grafana-dashboard-rhvzft4seq-ey.a.run.app/d/adoyhae5m9fcwe33/ci-cd-component-dashboard?orgId=1&var-Component=unified-cloud-automation&kiosk
-            jenkins.io/job-full-name: atom.jaas-gcp.cloud.sap.corp:unified-cloud-automation
-            jira/component: Unified Cloud Automation
-            jira/project-key: SAPBTPCFS
-            prometheus.io/alert: all
-            prometheus.io/annotations: component=unified-cloud-automation
-            prometheus.io/rule: ""
-        depends_on:
-            - component:feature-toggle-client
-            - component:resources-server-api
-        domain: atom
-        lifecycle: production
-        namespace: unified-services
-        system: unified-services
-        tags:
-            - go
-    - name: unified-service-orchestration
-      organization_name: sap-cfs
-      team_name: team-yael
-      display_name: Unified Service Orchestration Service
-      description: Unified Service Orchestration Service
-      component_type: service
-      status: active
-      group_name: unified-services
-      git_repository_url: https://github.tools.sap/atom-cfs/unified-service-orchestration
-      documentation_url: dir:.
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.atom%3Aunified-service-orchestration
-          title: Sonar
-          icon: sonar
-        - url: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/73010652
-          title: Availability
-          icon: sap
-        - url: https://jira.tools.sap/issues/?jql=project%20%3D%20SAPBTPCFSBUG%20AND%20component%20%3D%20%22Unified%20Service%20Orchestration%22%20%20AND%20statusCategory%20in%20(%22To%20Do%22%2C%22In%20Progress%22)
-          title: Bugs
-          icon: jira
-      metadata:
-        annotations:
-            backstage.io/github-url: https://github.tools.sap/atom-cfs/unified-service-orchestration
-            backstage.io/kubernetes-id: unified-service-orchestration
-            backstage.io/source-location: url:https://github.tools.sap/atom-cfs/unified-service-orchestration
-            backstage.io/techdocs-ref: dir:.
-            grafana/overview-dashboard: https://fourkeys-grafana-dashboard-rhvzft4seq-ey.a.run.app/d/adoyhae5m9fcwe33/ci-cd-component-dashboard?orgId=1&var-Component=unified-service-orchestration&kiosk
-            jenkins.io/job-full-name: atom.jaas-gcp.cloud.sap.corp:unified-service-orchestration
-            jira/component: Unified Service Orchestration
-            jira/project-key: SAPBTPCFS
-            prometheus.io/alert: all
-            prometheus.io/annotations: component=unified-service-orchestration
-            prometheus.io/rule: ""
-        depends_on:
-            - component:feature-toggle-client
-            - component:controller-utils
-            - component:resources-server-client
-            - component:resources-server-api
-        domain: atom
-        lifecycle: production
-        namespace: unified-services
-        system: unified-services
-        tags:
-            - go
-    - name: workspace-app
-      organization_name: sap-cfs
-      team_name: team-naomi
-      display_name: Workspace App
-      description: Workspace App
-      component_type: application
-      status: active
-      group_name: unified-services
-      git_repository_url: https://github.tools.sap/atom-cfs/workspace-app
-      documentation_url: dir:.
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=atom-cfs%3Aworkspace-app&code_scope=new
-          title: Sonar
-          icon: sonar
-        - url: https://jira.tools.sap/issues/?jql=component%20%3D%20%22Unified%20Services%20Frontend%22%20AND%20project%20%3D%22SAPBTPCFSBUG%22%20%20AND%20statusCategory%20in%20(%22To%20Do%22%2C%22In%20Progress%22)
-          title: Bugs
-          icon: jira
-      metadata:
-        annotations:
-            backstage.io/github-url: https://github.tools.sap/atom-cfs/workspace-app
-            backstage.io/kubernetes-id: workspace-app
-            backstage.io/source-location: url:https://github.tools.sap/atom-cfs/workspace-app
-            backstage.io/techdocs-ref: dir:.
-            grafana/overview-dashboard: https://fourkeys-grafana-dashboard-rhvzft4seq-ey.a.run.app/d/adoyhae5m9fcwe33/ci-cd-component-dashboard?orgId=1&var-Component=workspace-app&kiosk
-            jenkins.io/job-full-name: atom.jaas-gcp.cloud.sap.corp:workspace-app
-            jira/component: Unified Workspace App
-            jira/project-key: SAPBTPCFS
-            prometheus.io/alert: all
-            prometheus.io/annotations: component=workspace-app
-            prometheus.io/rule: ""
-        consumes_apis:
-            - component:workspace-server
-        depends_on:
-            - component:workspace-server
-        domain: atom
-        lifecycle: production
-        namespace: unified-services
-        system: frontend
-        tags:
-            - go
-    - name: workspace-server
-      organization_name: sap-cfs
-      team_name: team-naomi
-      display_name: Workspace Server
-      description: Workspace Server
-      component_type: application
-      status: active
-      group_name: unified-services
-      git_repository_url: https://github.tools.sap/atom-cfs/workspace-server
-      documentation_url: dir:.
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.atom%3Aworkspace-server&branch=main
-          title: Sonar
-          icon: sonar
-        - url: https://jira.tools.sap/issues/?jql=component%20%3D%20%22Unified%20Services%20Frontend%22%20AND%20project%20%3D%22SAPBTPCFSBUG%22%20%20AND%20statusCategory%20in%20(%22To%20Do%22%2C%22In%20Progress%22)
-          title: Bugs
-          icon: jira
-      metadata:
-        annotations:
-            backstage.io/github-url: https://github.tools.sap/atom-cfs/workspace-server
-            backstage.io/kubernetes-id: workspace-server
-            backstage.io/source-location: url:https://github.tools.sap/atom-cfs/workspace-server
-            backstage.io/techdocs-ref: dir:.
-            grafana/overview-dashboard: https://fourkeys-grafana-dashboard-rhvzft4seq-ey.a.run.app/d/adoyhae5m9fcwe33/ci-cd-component-dashboard?orgId=1&var-Component=workspace-server&kiosk
-            jenkins.io/job-full-name: atom.jaas-gcp.cloud.sap.corp:workspace-server
-            jira/component: Unified Workspace Server
-            jira/project-key: SAPBTPCFS
-            prometheus.io/alert: all
-            prometheus.io/annotations: component=workspace-server
-            prometheus.io/rule: ""
-        consumes_apis:
-            - component:resources-server
-        depends_on:
-            - component:feature-toggle-client
-            - component:resources-server
-            - component:resources-server-client
-            - component:resources-server-api
-        domain: atom
-        lifecycle: production
-        namespace: unified-services
-        system: frontend
-        tags:
-            - go
-    - name: account-budgets-service
-      organization_name: sap-cfs
-      team_name: team-lior
-      display_name: Account Budgets Service
-      description: Account Budgets Service
-      component_type: service
-      status: active
-      group_name: cis-cf
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/account-budgets-service
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Aaccount-budgets-service&branch=main
-          title: Sonar
-          icon: sonar
-        - url: https://github.wdf.sap.corp/cp-cfs-services/account-budgets-service/blob/main/README.md
-          title: Documentation
-          icon: docs
-        - url: https://cis2ciqbs.jaas-gcp.cloud.sap.corp/job/account-budgets-service/
-          title: CI/CD
-          icon: jenkins
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/account-budgets-service
-            health/source: https://account-budgets-service<multi-cis-suffix>.cfapps.<domain>/health
-            jira/component: Core Commercialization Foundation
-            jira/project: SAPBTPCFS
-            sonarqube/project: com.sap.core.commercial.service:account-budgets-service
-            swagger/source: https://account-budgets-service<multi-cis-suffix>.cfapps.<domain>/swagger-ui.html?scope=cis-system
-            system-information/source: https://account-budgets-service<multi-cis-suffix>.cfapps.<domain>/systemInformation/public
-        depends_on:
-            - component:cis-common
-            - component:cis-parent
-        domain: cis-cf
-        lifecycle: production
-        namespace: cis-cf
-        system: cloud-foundry
-        tags:
-            - java
-            - micro-service
-    - name: account-context-service
-      organization_name: sap-cfs
-      team_name: team-lior
-      display_name: Account Context Service
-      description: Account Context Service
-      component_type: service
-      status: active
-      group_name: cis-cf
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/account-context-service
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Aaccount-context-service&branch=main
-          title: Sonar
-          icon: sonar
-        - url: https://cis2ciqbs.jaas-gcp.cloud.sap.corp/job/account-context-service/
-          title: CI/CD
-          icon: jenkins
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/account-context-service
-            health/source: https://account-context-service<multi-cis-suffix>.cfapps.<domain>/health
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-            sonarqube/project: com.sap.core.commercial.service:account-context-service
-            swagger/source: https://account-context-service<multi-cis-suffix>.cfapps.<domain>/swagger-ui.html?scope=cis-system
-            system-information/source: https://account-context-service<multi-cis-suffix>.cfapps.<domain>/systemInformation/public
-        depends_on:
-            - component:cis-common
-            - component:cis-parent
-        domain: cis-cf
-        lifecycle: production
-        namespace: cis-cf
-        system: cloud-foundry
-        tags:
-            - java
-    - name: accounts-service
-      organization_name: sap-cfs
-      team_name: team-lior
-      display_name: Accounts Service
-      description: Accounts Service
-      component_type: service
-      status: active
-      group_name: cis-cf
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/accounts-service
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Aaccounts-service&branch=main
-          title: Sonar
-          icon: sonar
-        - url: https://cis2ciqbs.jaas-gcp.cloud.sap.corp/job/accounts-service/
-          title: CI/CD
-          icon: jenkins
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/accounts-service
-            health/source: https://accounts-service<multi-cis-suffix>.cfapps.<domain>/health
-            jira/component: BTP Accounts
-            jira/project-key: SAPBTPCFS
-            sonarqube/project: com.sap.core.commercial.service:accounts-service
-            swagger/source: https://accounts-service<multi-cis-suffix>.cfapps.<domain>/swagger-ui.html?scope=cis-system
-            system-information/source: https://accounts-service<multi-cis-suffix>.cfapps.<domain>/systemInformation/public
-        depends_on:
-            - component:cis-common
-            - component:cis-parent
-        domain: cis-cf
-        lifecycle: production
-        namespace: cis-cf
-        system: cloud-foundry
-        tags:
-            - java
-    - name: auth-lib
-      organization_name: sap-cfs
-      team_name: team-avihai
-      display_name: oAuth Lib
-      description: oAuth Lib
-      component_type: library
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.tools.sap/cfs-services/auth-lib
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.tools.sap/cfs-services/auth-lib
-            jira/component: Core Commercialization Foundation
-            jira/project: SAPBTPCFS
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - shell
-    - name: cf-deploy-lib
-      organization_name: sap-cfs
-      team_name: team-avihai
-      display_name: A common library for cfs services (deploy)
-      description: A common library for cfs services (deploy)
-      component_type: library
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.tools.sap/cfs-services/cf-deploy-lib
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.tools.sap/cfs-services/cf-deploy-lib
-            jira/component: Core Commercialization Foundation
-            jira/project: SAPBTPCFS
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - shell
-    - name: cis-active-monitoring
-      organization_name: sap-cfs
-      team_name: team-eyal
-      display_name: CIS Active Monitoring
-      description: CIS Active Monitoring
-      component_type: service
-      status: active
-      group_name: cis-cf
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/cis-active-monitoring
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Acis-active-monitoring&branch=main
-          title: Sonar
-          icon: sonar
-        - url: https://gkecfscis3ci.jaas-gcp.cloud.sap.corp/job/active-monitoring-service/
-          title: CI/CD
-          icon: jenkins
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/cis-active-monitoring
-            health/source: https://cis-active-monitoring<multi-cis-suffix>.cfapps.<domain>/health
-            jira/component: Core Commercialization Foundation
-            jira/project: SAPBTPCFS
-            swagger/source: https://cis-active-monitoring<multi-cis-suffix>.cfapps.<domain>/swagger-ui.html?scope=cis-system
-            system-information/source: https://cis-active-monitoring<multi-cis-suffix>.cfapps.<domain>/systemInformation/public
-        depends_on:
-            - component:cis-common
-            - component:cis-parent
-        domain: cis-cf
-        lifecycle: production
-        namespace: cis-cf
-        system: cloud-foundry
-        tags:
-            - java
-            - micro-service
-    - name: cis-cli-backend
-      organization_name: sap-cfs
-      team_name: team-zohar
-      display_name: CIS CLI Backend
-      description: CIS CLI Backend
-      component_type: service
-      status: active
-      group_name: cis-cf
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/cis-cli-backend
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Acis-cli-backende&branch=main
-          title: Sonar
-          icon: sonar
-        - url: https://gkecfscis2ci.jaas-gcp.cloud.sap.corp/job/cis-cli-backend/
-          title: CI/CD
-          icon: jenkins
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/cis-cli-backend
-            health/source: https://cis-cli-backend<multi-cis-suffix>.cfapps.<domain>/health
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-            sonarqube/project: com.sap.core.commercial.service:cis-cli-backend
-            system-information/source: https://cis-cli-backend<multi-cis-suffix>.cfapps.<domain>/systemInformation/public
-        depends_on:
-            - component:cis-common
-            - component:cis-parent
-        domain: cis-cf
-        lifecycle: production
-        namespace: cis-cf
-        system: cloud-foundry
-        tags:
-            - java
-            - micro-service
-    - name: cis-common
-      organization_name: sap-cfs
-      team_name: team-zohar
-      display_name: CIS common
-      description: CIS common
-      component_type: library
-      status: active
-      group_name: cis-cf
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/cis-common
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Acis-common&branch=main
-          title: Sonar
-          icon: sonar
-        - url: https://gkecfscis3ci.jaas-gcp.cloud.sap.corp/job/cis-common/
-          title: CI/CD
-          icon: jenkins
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/cis-common
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-            sonarqube/project: com.sap.core.commercial.service:cis-common
-        depends_on:
-            - component:cis-parent
-        domain: cis-cf
-        lifecycle: production
-        namespace: cis-cf
-        system: cloud-foundry
-        tags:
-            - java
-            - library
-    - name: cis-parent
-      organization_name: sap-cfs
-      team_name: team-zohar
-      display_name: CIS Parent
-      description: CIS Parent
-      component_type: library
-      status: active
-      group_name: cis-cf
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/cis-parent
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Acis-parent&branch=main
-          title: Sonar
-          icon: sonar
-        - url: https://gkecfscis3ci.jaas-gcp.cloud.sap.corp/job/cis-parent/
-          title: CI/CD
-          icon: jenkins
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/cis-parent
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-            sonarqube/project: com.sap.core.commercial.service:cis-parent
-        domain: cis-cf
-        lifecycle: production
-        namespace: cis-cf
-        system: cloud-foundry
-        tags:
-            - java
-            - parent-project
-            - library
-    - name: cis-service-broker
-      organization_name: sap-cfs
-      team_name: team-avihai
-      display_name: CIS Service Broker
-      description: CIS Service Broker
-      component_type: service
-      status: active
-      group_name: cis-cf
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/cis-service-broker
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Acis-service-broker&branch=main
-          title: Sonar
-          icon: sonar
-        - url: https://gkecfscis2ci.jaas-gcp.cloud.sap.corp/job/cis-service-broker/
-          title: CI/CD
-          icon: jenkins
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/cis-service-broker
-            health/source: https://cis-service-broker<multi-cis-suffix>.cfapps.<domain>/health
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-            sonarqube/project: com.sap.core.commercial.service:cis-service-broker
-            swagger/source: https://cis-service-broker<multi-cis-suffix>.cfapps.<domain>/swagger-ui.html?scope=cis-system
-            system-information/source: https://cis-service-broker<multi-cis-suffix>.cfapps.<domain>/systemInformation/public
-        depends_on:
-            - component:cis-common
-            - component:cis-parent
-        domain: cis-cf
-        lifecycle: production
-        namespace: cis-cf
-        system: cloud-foundry
-        tags:
-            - java
-            - broker
-    - name: cloud-management-foundation-services
-      organization_name: sap-cfs
-      team_name: team-avihai
-      display_name: Cloud Management Foundation Services
-      description: Cloud Management Foundation Services
-      component_type: service
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.tools.sap/cloudfoundry/cloud-management-foundation-services
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/cloud-management-foundation-services
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - shell
-    - name: cloud-management-integration-services
-      organization_name: sap-cfs
-      team_name: team-avihai
-      display_name: Cloud Management Integration Services
-      description: Cloud Management Integration Services
-      component_type: service
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.tools.sap/cloudfoundry/cloud-management-integration-services
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/cloud-management-integration-services
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - shell
-    - name: cloudfoundry-client
-      organization_name: sap-cfs
-      team_name: team-avihai
-      display_name: Cloud Foundry Client
-      description: Cloud Foundry Client
-      component_type: library
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/cloudfoundry-client
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Acloudfoundry-client&branch=main
-          title: Sonar
-          icon: sonar
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/cloudfoundry-client
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-            sonarqube/project: com.sap.core.commercial.service:cloudfoundry-client
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - java
-            - library
-    - name: cloudfoundry-environment-broker
-      organization_name: sap-cfs
-      team_name: team-avihai
-      display_name: Cloud Foundry Environment Broker
-      description: Cloud Foundry Environment Broker
-      component_type: service
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/cloudfoundry-environment-broker
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Acloudfoundry-environment-broker&branch=main
-          title: Sonar
-          icon: sonar
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/cloudfoundry-environment-broker
-            health/source: https://cloudfoundry-environment-broker<multi-cis-suffix>.cfapps.<domain>/health
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-            swagger/source: https://cloudfoundry-environment-broker<multi-cis-suffix>.cfapps.<domain>/swagger-ui.html?scope=cis-system
-            system-information/source: https://cloudfoundry-environment-broker<multi-cis-suffix>.cfapps.<domain>/systemInformation/public
-        depends_on:
-            - component:cis-common
-            - component:cis-parent
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - java
-            - broker
-    - name: cloudfoundry-runtime-environment
-      organization_name: sap-cfs
-      team_name: team-avihai
-      display_name: Cloudfoundry Runtime Rnvironment
-      description: Cloudfoundry Runtime Rnvironment
-      component_type: service
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.tools.sap/cloudfoundry/cloudfoundry-runtime-environment
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/cloudfoundry-runtime-environment
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - shell
-    - name: cockpit
-      organization_name: sap-cfs
-      team_name: team-naomi
-      display_name: Cockpit
-      description: Cockpit
-      component_type: application
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://git.wdf.sap.corp/q/project:NGJP%252FJPaaS%252Fcom.sap.core.account
-      links:
-        - url: https://staging.cockpit.btp.int.sap/info/version
-          title: Version
-          icon: version
-        - url: https://git.wdf.sap.corp/q/project:NGJP%252FJPaaS%252Fcom.sap.core.account
-          title: GitHub
-          icon: github
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://git.wdf.sap.corp/q/project:NGJP%252FJPaaS%252Fcom.sap.core.account
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-    - name: control-center
-      organization_name: sap-cfs
-      team_name: team-naomi
-      display_name: Control Center
-      description: Control Center
-      component_type: application
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.wdf.sap.corp/cfs-soc/soc-global-accounts
-      links:
-        - url: https://cp-control-client.cfapps.staginggcp.hanavlab.ondemand.com/health
-          title: Version
-          icon: version
-        - url: https://cp-control-client.cfapps.staginggcp.hanavlab.ondemand.com/index.html
-          title: Swagger
-          icon: swagger
-        - url: https://github.wdf.sap.corp/cfs-soc/soc-global-accounts
-          title: GitHub
-          icon: github
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cfs-soc/soc-global-accounts
-            sap.com/dashboard: https://cp-control-client<multi-cis-suffix>.cfapps.<domain>/index.html
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-    - name: core-commercialization-foundation
-      organization_name: sap-cfs
-      team_name: team-avihai
-      display_name: Core Commercialization Foundation
-      description: Core Commercialization Foundation
-      component_type: service
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.tools.sap/cloudfoundry/core-commercialization-foundation
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/core-commercialization-foundation
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - shell
-    - name: cp-formations
-      organization_name: sap-cfs
-      team_name: team-zohar
-      display_name: Cloud Automation Service
-      description: Cloud Automation Service
-      component_type: service
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/cp-formations
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Acp-formations&branch=main
-          title: Sonar
-          icon: sonar
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/cp-formations
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-            sap.com/swagger: https://cp-formations<multi-cis-suffix>.cfapps.<domain>/swagger-ui.html?scope=cis-system
-            sonarqube/project: com.sap.core.commercial.service:cp-formations
-        depends_on:
-            - component:cis-common
-            - component:cis-parent
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - java
-            - micro-service
-    - name: cross-registry-service
-      organization_name: sap-cfs
-      team_name: team-avihai
-      display_name: Cross Registry Service (xRS)
-      description: Cross Registry Service (xRS)
-      component_type: service
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/cross-registry-service
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Across-registry-service&branch=main
-          title: Sonar
-          icon: sonar
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/cross-registry-service
-            health/source: https://cross-registry-service<multi-cis-suffix>.cfapps.<domain>/health
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-            sonarqube/project: com.sap.core.commercial.service:cross-registry-service
-            swagger/source: https://cross-registry-service<multi-cis-suffix>.cfapps.<domain>/swagger-ui.html?scope=cis-system
-            system-information/source: https://cross-registry-service<multi-cis-suffix>.cfapps.<domain>/systemInformation/public
-        depends_on:
-            - component:cis-common
-            - component:cis-parent
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - java
-            - micro-service
-    - name: entitlements-service
-      organization_name: sap-cfs
-      team_name: team-zohar
-      display_name: Entitlements Service
-      description: Entitlements Service
-      component_type: service
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/entitlements-service
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Aentitlements-service&branch=main
-          title: Sonar
-          icon: sonar
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/entitlements-service
-            health/source: https://entitlements-service<multi-cis-suffix>.cfapps.<domain>/health
-            jira/component: BTP Entitlements
-            jira/project-key: SAPBTPCFS
-            sonarqube/project: com.sap.core.commercial.service:entitlements-service
-            swagger/source: https://entitlements-service<multi-cis-suffix>.cfapps.<domain>/swagger-ui.html?scope=cis-system
-            system-information/source: https://entitlements-service<multi-cis-suffix>.cfapps.<domain>/systemInformation/public
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - java
-    - name: events-service
-      organization_name: sap-cfs
-      team_name: team-lior
-      display_name: Events Service
-      description: Events Service
-      component_type: service
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/events-service
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Aevents-service&branch=main
-          title: Sonar
-          icon: sonar
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/events-service
-            health/source: https://events-service<multi-cis-suffix>.cfapps.<domain>/health
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-            sonarqube/project: com.sap.core.commercial.service:events-service
-            swagger/source: https://events-service<multi-cis-suffix>.cfapps.<domain>/swagger-ui.html?scope=cis-system
-            system-information/source: https://events-service<multi-cis-suffix>.cfapps.<domain>/systemInformation/public
-        depends_on:
-            - component:cis-common
-            - component:cis-parent
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - java
-            - micro-service
-    - name: external-provider-registry
-      organization_name: sap-cfs
-      team_name: team-avihai
-      display_name: External Provider Registry
-      description: External Provider Registry
-      component_type: service
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/external-provider-registry
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Aexternal-provider-registry&branch=main
-          title: Sonar
-          icon: sonar
-        - url: https://gkecfscis2ci.jaas-gcp.cloud.sap.corp/job/external-provider-registry/
-          title: CI/CD
-          icon: jenkins
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/external-provider-registry
-            health/source: https://external-provider-registry<multi-cis-suffix>.cfapps.<domain>/health
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-            swagger/source: https://external-provider-registry<multi-cis-suffix>.cfapps.<domain>/swagger-ui.html?scope=cis-system
-            system-information/source: https://external-provider-registry<multi-cis-suffix>.cfapps.<domain>/systemInformation/public
-        depends_on:
-            - component:cis-common
-            - component:cis-parent
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - java
-    - name: helpers-lib
-      organization_name: sap-cfs
-      team_name: team-avihai
-      display_name: Helpers Lib
-      description: Helpers Lib
-      component_type: library
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.tools.sap/cfs-services/helpers-lib
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.tools.sap/cfs-services/helpers-lib
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - shell
-    - name: olingo2
-      organization_name: sap-cfs
-      team_name: team-lior
-      display_name: Olingo 2
-      description: Olingo 2
-      component_type: library
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/olingo2
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Aolingo2&branch=main
-          title: Sonar
-          icon: sonar
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/olingo2
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - java
-            - library
-    - name: operation-console-service-manager
-      organization_name: sap-cfs
-      team_name: team-naomi
-      display_name: Operation Console for Service Manager
-      description: Operation Console for Service Manager
-      component_type: service
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/operation-console-service-manager
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Aoperation-console-service-manager&branch=main
-          title: Sonar
-          icon: sonar
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/operation-console-service-manager
-            jira/component: Commercialization frontends
-            jira/project-key: SAPBTPCFS
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - javascript
-    - name: operation-console
-      organization_name: sap-cfs
-      team_name: team-naomi
-      display_name: Operation Console
-      description: Operation Console
-      component_type: service
-      status: active
-      group_name: cis-cf
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/operation-console
-      links:
-        - url: https://sonar.wdf.sap.corp/dashboard?id=com.sap.core.commercial.service:operation-console
-          title: Sonar
-          icon: sonar
-        - url: https://gkeoperationconsole.jaas-gcp.cloud.sap.corp/job/operation-console/
-          title: CI/CD
-          icon: jenkins
-        - url: https://wiki.wdf.sap.corp/wiki/x/ESyTi
-          title: CAM Profiles Wiki
-          icon: cam
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/operation-console
-            dashboard/source: https://operations-console.operationsconsole<multi-cis-suffix>.cfapps.<domain>
-            health/source: https://operations-console.operationsconsole<multi-cis-suffix>.cfapps.<domain>/health
-            jira/component: Commercialization frontends
-            jira/project: SAPBTPCFS
-            system-information/source: https://operations-console.operationsconsole<multi-cis-suffix>.cfapps.<domain>/systemInformation/public
-        domain: cis-cf
-        lifecycle: production
-        namespace: cis-cf
-        system: cloud-foundry
-        tags:
-            - nodejs
-    - name: order-processing
-      organization_name: sap-cfs
-      team_name: team-lior
-      display_name: Order Processing
-      description: Order Processing
-      component_type: service
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/order-processing
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Aorder-processing&branch=main
-          title: Sonar
-          icon: sonar
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/order-processing
-            health/source: https://order-processing<multi-cis-suffix>.cfapps.<domain>/health
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-            swagger/source: https://order-processing<multi-cis-suffix>.cfapps.<domain>/swagger-ui.html?scope=cis-system
-            system-information/source: https://order-processing<multi-cis-suffix>.cfapps.<domain>/systemInformation/public
-        depends_on:
-            - component:cis-common
-            - component:cis-parent
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - java
-            - micro-service
-    - name: provisioning-service
-      organization_name: sap-cfs
-      team_name: team-avihai
-      display_name: Provisioning Service
-      description: Provisioning Service
-      component_type: service
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/provisioning-service
-      links:
-        - url: https://provisioning-service.cfapps.staginggcp.hanavlab.ondemand.com/swagger-ui.html?scope=cis-system
-          title: Swagger
-          icon: swagger
-        - url: https://provisioning-service.cfapps.staginggcp.hanavlab.ondemand.com/systemInformation/public
-          title: Version
-          icon: version
-        - url: https://fortify.tools.sap/ssc/html/ssc/version/15621/fixedView?projectId=project%3Acom.sap.core.commercial.service%3Aprovisioning-service
-          title: Fortify
-          icon: fortify
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Aprovisioning-service&branch=main
-          title: Sonar
-          icon: sonar
-        - url: https://gkecfsmicroservice.jaas-gcp.cloud.sap.corp/view/provisioning-service/
-          title: Jenkins
-          icon: jenkins
-        - url: https://github.wdf.sap.corp/cp-cfs-services/provisioning-service
-          title: GitHub
-          icon: github
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/provisioning-service
-            health/source: https://provisioning-service<multi-cis-suffix>.cfapps.<domain>/health
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-            swagger/source: https://provisioning-service<multi-cis-suffix>.cfapps.<domain>/swagger-ui.html?scope=cis-system
-            system-information/source: https://provisioning-service<multi-cis-suffix>.cfapps.<domain>/systemInformation/public
-        depends_on:
-            - component:cis-common
-            - component:cis-parent
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - java
-            - micro-service
-    - name: saas-registry
-      organization_name: sap-cfs
-      team_name: team-zohar
-      display_name: SaaS Registry
-      description: SaaS Registry
-      component_type: service
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/saas-registry
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Asaas-registry&branch=main
-          title: Sonar
-          icon: sonar
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/saas-registry
-            health/source: https://saas-registry<multi-cis-suffix>.cfapps.<domain>/health
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-            swagger/source: https://saas-registry<multi-cis-suffix>.cfapps.<domain>/swagger-ui.html?scope=cis-system
-            system-information/source: https://saas-registry<multi-cis-suffix>.cfapps.<domain>/systemInformation/public
-        depends_on:
-            - component:cis-common
-            - component:cis-parent
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - java
-            - micro-service
-    - name: subscription-management-dashboard
-      organization_name: sap-cfs
-      team_name: team-naomi
-      display_name: Subscription Management Dashboard
-      description: Subscription Management Dashboard
-      component_type: service
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/subscription-management-dashboard
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Asubscription-management-dashboard&branch=main
-          title: Sonar
-          icon: sonar
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/subscription-management-dashboard
-            jira/component: Commercialization frontends
-            jira/project-key: SAPBTPCFS
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - javascript
-    - name: subscription-management
-      organization_name: sap-cfs
-      team_name: team-avihai
-      display_name: Subscription Management
-      description: Subscription Management
-      component_type: service
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.tools.sap/cloudfoundry/subscription-management
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.tools.sap/cloudfoundry/subscription-management
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - shell
-    - name: task-management
-      organization_name: sap-cfs
-      team_name: team-avihai
-      display_name: Task Management
-      description: Task Management
-      component_type: service
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/task-management
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Atask-management&branch=main
-          title: Sonar
-          icon: sonar
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/task-management
-            health/source: https://task-management<multi-cis-suffix>.cfapps.<domain>/health
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-            swagger/source: https://task-management<multi-cis-suffix>.cfapps.<domain>/swagger-ui.html?scope=cis-system
-            system-information/source: https://task-management<multi-cis-suffix>.cfapps.<domain>/systemInformation/public
-        depends_on:
-            - component:cis-common
-            - component:cis-parent
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - java
-    - name: tenant-onboarding-gateway
-      organization_name: sap-cfs
-      team_name: team-avihai
-      display_name: Tenant On-Boarding Gateway
-      description: Tenant On-Boarding Gateway
-      component_type: service
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/tenant-onboarding-gateway
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Atenant-onboarding-gateway&branch=main
-          title: Sonar
-          icon: sonar
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/tenant-onboarding-gateway
-            health/source: https://tenant-onboarding-gateway<multi-cis-suffix>.cfapps.<domain>/health
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-            swagger/source: https://tenant-onboarding-gateway<multi-cis-suffix>.cfapps.<domain>/swagger-ui.html?scope=cis-system
-            system-information/source: https://tenant-onboarding-gateway<multi-cis-suffix>.cfapps.<domain>/systemInformation/public
-        depends_on:
-            - component:cis-common
-            - component:cis-parent
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - java
-            - micro-service
-    - name: workflow-adapter
-      organization_name: sap-cfs
-      team_name: team-avihai
-      display_name: Workflow Adapter
-      description: Workflow Adapter
-      component_type: service
-      status: active
-      group_name: cloud-foundry
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/workflow-adapter
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.services%3Aworkflow-adapter&branch=main
-          title: Sonar
-          icon: sonar
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/workflow-adapter
-            health/source: https://workflow-adapter<multi-cis-suffix>.cfapps.<domain>/health
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-            swagger/source: https://workflow-adapter<multi-cis-suffix>.cfapps.<domain>/swagger-ui.html?scope=cis-system
-            system-information/source: https://workflow-adapter<multi-cis-suffix>.cfapps.<domain>/systemInformation/public
-        depends_on:
-            - component:cis-common
-            - component:cis-parent
-        domain: cis-cf
-        lifecycle: production
-        system: cloud-foundry
-        tags:
-            - java
-            - library
-    - name: com.sap.cloud.commercial.cmd
-      organization_name: sap-cfs
-      team_name: team-avihai
-      display_name: CIS Command
-      description: CIS Command
-      component_type: service
-      status: active
-      group_name: cis-neo
-      git_repository_url: https://git.wdf.sap.corp/admin/repos/NGJP/JPaaS/commInfra/com.sap.cloud.commercial.cmd
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://git.wdf.sap.corp/admin/repos/NGJP/JPaaS/commInfra/com.sap.cloud.commercial.cmd
-            jira/component: CIS@Neo
-            jira/project-key: SAPBTPCFS
-        domain: cis-neo
-        lifecycle: production
-        namespace: cis-neo
-        tags:
-            - java
-    - name: com.sap.core.commercial.service.admin
-      organization_name: sap-cfs
-      team_name: team-avihai
-      display_name: CIS Service Admin
-      description: CIS Service Admin
-      component_type: service
-      status: active
-      group_name: cis-neo
-      git_repository_url: https://git.wdf.sap.corp/admin/repos/NGJP/JPaaS/com.sap.core.commercial.service
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://git.wdf.sap.corp/admin/repos/NGJP/JPaaS/com.sap.core.commercial.service
-            jira/component: CIS@Neo
-            jira/project-key: SAPBTPCFS
-        domain: cis-neo
-        lifecycle: production
-        namespace: cis-neo
-        tags:
-            - java
-    - name: com.sap.core.commercial.service.metadata.service
-      organization_name: sap-cfs
-      team_name: team-avihai
-      display_name: CIS Service Metadata Service
-      description: CIS Service Metadata Service
-      component_type: service
-      status: active
-      group_name: cis-neo
-      git_repository_url: https://git.wdf.sap.corp/admin/repos/NGJP/JPaaS/commInfra/com.sap.core.commercial.service.metadata.services
-      metadata:
-        annotations:
-            backstage.io/source-location: https://git.wdf.sap.corp/admin/repos/NGJP/JPaaS/commInfra/com.sap.core.commercial.service.metadata.services
-            jira/component: CIS@Neo
-            jira/project-key: SAPBTPCFS
-        domain: cis-neo
-        lifecycle: production
-        namespace: cis-neo
-        tags:
-            - java
-    - name: com.sap.core.commercial.service.metadata
-      organization_name: sap-cfs
-      team_name: team-avihai
-      display_name: CIS Service Metadata
-      description: CIS Service Metadata
-      component_type: service
-      status: active
-      group_name: cis-neo
-      git_repository_url: https://git.wdf.sap.corp/admin/repos/NGJP/JPaaS/commInfra/com.sap.core.commercial.service.metadata
-      metadata:
-        annotations:
-            backstage.io/source-location: https://git.wdf.sap.corp/admin/repos/NGJP/JPaaS/commInfra/com.sap.core.commercial.service.metadata
-            jira/component: CIS@Neo
-            jira/project-key: SAPBTPCFS
-        domain: cis-neo
-        lifecycle: production
-        namespace: cis-neo
-        tags:
-            - java
-    - name: com.sap.core.commercial.service
-      organization_name: sap-cfs
-      team_name: team-avihai
-      display_name: CIS Service
-      description: CIS Service
-      component_type: service
-      status: active
-      group_name: cis-neo
-      git_repository_url: https://git.wdf.sap.corp/admin/repos/NGJP/JPaaS/com.sap.core.commercial.service
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://git.wdf.sap.corp/admin/repos/NGJP/JPaaS/com.sap.core.commercial.service
-            jira/component: CIS@Neo
-            jira/project-key: SAPBTPCFS
-        domain: cis-neo
-        lifecycle: production
-        namespace: cis-neo
-        tags:
-            - java
-    - name: com.sap.core.service.commandtunnel
-      organization_name: sap-cfs
-      team_name: team-avihai
-      display_name: CIS Command Tunnel Service
-      description: CIS Command Tunnel Service
-      component_type: service
-      status: active
-      group_name: cis-neo
-      git_repository_url: https://git.wdf.sap.corp/admin/repos/NGJP/JPaaS/Infrastruc/com.sap.core.service.commandtunnel
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://git.wdf.sap.corp/admin/repos/NGJP/JPaaS/Infrastruc/com.sap.core.service.commandtunnel
-            jira/component: CIS@Neo
-            jira/project-key: SAPBTPCFS
-        domain: cis-neo
-        lifecycle: production
-        namespace: cis-neo
-        tags:
-            - java
-    - name: cloud-automation-operator
-      organization_name: sap-cfs
-      team_name: team-zohar
-      display_name: Cloud Automation Operator
-      description: Cloud Automation Operator
-      component_type: service
-      status: active
-      group_name: cloud-automation
-      git_repository_url: https://github.tools.sap/cfs-cloud-automation/cloud-automation-operator
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.cloud.automation%3Acloud-automation-operator
-          title: Sonar
-          icon: dashboard
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.tools.sap/cfs-cloud-automation/cloud-automation-operator
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-        domain: cloud-automation
-        lifecycle: production
-        namespace: cloud-automation
-        system: cloud-automation
-        tags:
-            - go
-            - k8s
-            - controller
-    - name: cloud-automation-registry
-      organization_name: sap-cfs
-      team_name: team-zohar
-      display_name: Cloud Automation Registry
-      description: Cloud Automation Registry
-      component_type: service
-      status: active
-      group_name: cloud-automation
-      git_repository_url: https://github.tools.sap/cfs-cloud-automation/cloud-automation-registry
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.cloud.automation%3Acloud-automation-registry
-          title: Sonar
-          icon: dashboard
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.tools.sap/cfs-cloud-automation/cloud-automation-registry
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-        domain: cloud-automation
-        lifecycle: production
-        namespace: cloud-automation
-        system: cloud-automation
-        tags:
-            - go
-    - name: cloud-automation-service
-      organization_name: sap-cfs
-      team_name: team-zohar
-      display_name: Cloud Automation Service
-      description: Cloud Automation Service
-      component_type: service
-      status: active
-      group_name: cloud-automation
-      git_repository_url: https://github.wdf.sap.corp/cp-cfs-services/cp-formations
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/cp-cfs-services/cp-formations
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-        depends_on:
-            - component:cis-common
-            - component:cis-parent
-        domain: cloud-automation
-        lifecycle: production
-        namespace: cloud-automation
-        system: cloud-automation
-        tags:
-            - java
-            - micro-service
-    - name: cloud-automation-terraform
-      organization_name: sap-cfs
-      team_name: team-zohar
-      display_name: Cloud Automation Terraform
-      description: Cloud Automation Terraform
-      component_type: service
-      status: active
-      group_name: cloud-automation
-      git_repository_url: https://github.tools.sap/cfs-cloud-automation/cloud-automation-terraform
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.tools.sap/cfs-cloud-automation/cloud-automation-terraform
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-        domain: cloud-automation
-        lifecycle: production
-        namespace: cloud-automation
-        system: cloud-automation
-        tags:
-            - shell
-    - name: terraform-provider-cis
-      organization_name: sap-cfs
-      team_name: team-zohar
-      display_name: Terraform Provider CIS
-      description: Terraform Provider CIS
-      component_type: service
-      status: active
-      group_name: cloud-automation
-      git_repository_url: https://github.tools.sap/cfs-cloud-automation/terraform-provider-cis
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.cloud.automation%3Aterraform-provider-cis
-          title: Sonar
-          icon: dashboard
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.tools.sap/cfs-cloud-automation/terraform-provider-cis
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-        domain: cloud-automation
-        lifecycle: production
-        namespace: cloud-automation
-        system: cloud-automation
-        tags:
-            - go
-            - terraform
-            - terraform-provider
-    - name: terraform-provider-cloudfoundry
-      organization_name: sap-cfs
-      team_name: team-zohar
-      display_name: Terraform Provider Cloud Foundry
-      description: Terraform Provider Cloud Foundry
-      component_type: service
-      status: active
-      group_name: cloud-automation
-      git_repository_url: https://github.tools.sap/cfs-cloud-automation/terraform-provider-cloudfoundry
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.cloud.automation%3Aterraform-provider-cloudfoundry
-          title: Sonar
-          icon: dashboard
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.tools.sap/cfs-cloud-automation/terraform-provider-cloudfoundry
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-        domain: cloud-automation
-        lifecycle: production
-        namespace: cloud-automation
-        system: cloud-automation
-        tags:
-            - go
-            - terraform
-            - terraform-provider
-    - name: terraform-provider-destination
-      organization_name: sap-cfs
-      team_name: team-lior
-      display_name: Terraform Provider Destination
-      description: Terraform Provider Destination
-      component_type: service
-      status: active
-      group_name: cloud-automation
-      git_repository_url: https://github.tools.sap/cfs-cloud-automation/terraform-provider-destination
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.cloud.automation%3Aterraform-provider-destination
-          title: Sonar
-          icon: dashboard
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.tools.sap/cfs-cloud-automation/terraform-provider-destination
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-        domain: cloud-automation
-        lifecycle: production
-        namespace: cloud-automation
-        system: cloud-automation
-        tags:
-            - go
-            - terraform
-            - terraform-provider
-    - name: terraform-provider-sci
-      organization_name: sap-cfs
-      team_name: team-zohar
-      display_name: Terraform Provider SCI
-      description: Terraform Provider SCI
-      component_type: service
-      status: active
-      group_name: cloud-automation
-      git_repository_url: https://github.tools.sap/cfs-cloud-automation/terraform-provider-sci
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.cloud.automation%3Aterraform-provider-sci
-          title: Sonar
-          icon: dashboard
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.tools.sap/cfs-cloud-automation/terraform-provider-sci
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-        domain: cloud-automation
-        lifecycle: production
-        namespace: cloud-automation
-        system: cloud-automation
-        tags:
-            - go
-            - terraform
-            - terraform-provider
-    - name: terraform-provider-sm
-      organization_name: sap-cfs
-      team_name: team-zohar
-      display_name: Terraform Provider Service Manager
-      description: Terraform Provider Service Manager
-      component_type: service
-      status: active
-      group_name: cloud-automation
-      git_repository_url: https://github.tools.sap/cfs-cloud-automation/terraform-provider-sm
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.cloud.automation%3Aterraform-provider-sm
-          title: Sonar
-          icon: dashboard
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.tools.sap/cfs-cloud-automation/terraform-provider-sm
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-        domain: cloud-automation
-        lifecycle: production
-        namespace: cloud-automation
-        system: cloud-automation
-        tags:
-            - go
-            - terraform
-            - terraform-provider
-    - name: terraform-provider-spc
-      organization_name: sap-cfs
-      team_name: team-zohar
-      display_name: Terraform Provider SPC
-      description: Terraform Provider SPC
-      component_type: service
-      status: active
-      group_name: cloud-automation
-      git_repository_url: https://github.tools.sap/cfs-cloud-automation/terraform-provider-spc
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.cloud.automation%3Aterraform-provider-spc
-          title: Sonar
-          icon: dashboard
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.tools.sap/cfs-cloud-automation/terraform-provider-spc
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-        domain: cloud-automation
-        lifecycle: production
-        namespace: cloud-automation
-        system: cloud-automation
-        tags:
-            - go
-            - terraform
-            - terraform-provider
-    - name: terraform-provider-xsuaa
-      organization_name: sap-cfs
-      team_name: team-zohar
-      display_name: Terraform Provider XSUAA
-      description: Terraform Provider XSUAA
-      component_type: service
-      status: active
-      group_name: cloud-automation
-      git_repository_url: https://github.tools.sap/cfs-cloud-automation/terraform-provider-xsuaa
-      links:
-        - url: https://sonar.tools.sap/dashboard?id=cfs.cloud.automation%3Aterraform-provider-xsuaa
-          title: Sonar
-          icon: dashboard
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.tools.sap/cfs-cloud-automation/terraform-provider-xsuaa
-            jira/component: Core Commercialization Foundation
-            jira/project-key: SAPBTPCFS
-        domain: cloud-automation
-        lifecycle: production
-        namespace: cloud-automation
-        system: cloud-automation
-        tags:
-            - go
-            - terraform
-            - terraform-provider
-    - name: sm-sap
-      organization_name: sap-cfs
-      team_name: team-yael
-      display_name: A Node.js framework to create a service broker in SAP Cloud Platform.
-      description: A Node.js framework to create a service broker in SAP Cloud Platform.
-      component_type: service
-      status: active
-      group_name: service-manager
-      git_repository_url: https://github.wdf.sap.corp/xs2/node-sbf
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/xs2/node-sbf
-            sonarqube/project: cfs.service.manager:node-sbf
-        domain: btp
-        lifecycle: production
-        namespace: service-manager
-        system: service-manager
-        tags:
-            - nodejs
-    - name: sap-btp-service-operator
-      organization_name: sap-cfs
-      team_name: team-yael
-      display_name: Sap Btp Service Operator
-      description: SAP BTP service operator enables developers to connect Kubernetes clusters to SAP BTP accounts and to consume SAP BTP services within the clusters by using Kubernetes native tools.
-      component_type: service
-      status: active
-      group_name: service-manager
-      git_repository_url: https://github.com/SAP/sap-btp-service-operator
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.com/SAP/sap-btp-service-operator
-        domain: btp
-        lifecycle: production
-        namespace: service-manager
-        system: service-manager
-        tags:
-            - go
-    - name: sb-proxy-cf-sap
-      organization_name: sap-cfs
-      team_name: team-yael
-      display_name: sb-proxy-cf-sap
-      description: sb-proxy-cf-sap
-      component_type: service
-      status: active
-      group_name: service-manager
-      git_repository_url: https://github.wdf.sap.corp/SvcManager/sb-proxy-cf-sap
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/SvcManager/sb-proxy-cf-sap
-            sonarqube/project: cfs.service.manager:sb-proxy-cf-sap
-        domain: btp
-        lifecycle: production
-        namespace: service-manager
-        system: service-manager
-        tags:
-            - go
-    - name: sb-proxy-k8s-sap
-      organization_name: sap-cfs
-      team_name: team-yael
-      display_name: DEPRECATED - use https://github.com/Peripli/service-broker-proxy-k8s.
-      description: DEPRECATED - use https://github.com/Peripli/service-broker-proxy-k8s.
-      component_type: service
-      status: active
-      group_name: service-manager
-      git_repository_url: https://github.wdf.sap.corp/SvcManager/sb-proxy-k8s-sap
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/SvcManager/sb-proxy-k8s-sap
-            sonarqube/project: cfs.service.manager:sb-proxy-k8s-sap
-        domain: btp
-        lifecycle: production
-        namespace: service-manager
-        system: service-manager
-        tags:
-            - Makefile
-    - name: service-manager-client
-      organization_name: sap-cfs
-      team_name: team-yael
-      display_name: service manager java sdk.
-      description: service manager java sdk.
-      component_type: service
-      status: active
-      group_name: service-manager
-      git_repository_url: https://github.wdf.sap.corp/SvcManager/service-manager-client
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/SvcManager/service-manager-client
-            sonarqube/project: cfs.service.manager:service-manager-client
-        domain: btp
-        lifecycle: production
-        namespace: service-manager
-        system: service-manager
-        tags:
-            - go
-    - name: service-manager-platform-worker
-      organization_name: sap-cfs
-      team_name: team-yael
-      display_name: Service Manager Platform Worker.
-      description: Service Manager Platform Worker.
-      component_type: service
-      status: active
-      group_name: service-manager
-      git_repository_url: https://github.wdf.sap.corp/SvcManager/service-manager-platform-worker
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/SvcManager/service-manager-platform-worker
-            sonarqube/project: cfs.service.manager:service-manager-platform-worker
-        domain: btp
-        lifecycle: production
-        namespace: service-manager
-        system: service-manager
-        tags:
-            - go
-    - name: service-manager-platform
-      organization_name: sap-cfs
-      team_name: team-yael
-      display_name: Service Manager Platform.
-      description: Service Manager Platform.
-      component_type: service
-      status: active
-      group_name: service-manager
-      git_repository_url: https://github.wdf.sap.corp/SvcManager/service-manager-platform
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/SvcManager/service-manager-platform
-            sonarqube/project: cfs.service.manager:service-manager-platform
-        domain: btp
-        lifecycle: production
-        namespace: service-manager
-        system: service-manager
-        tags:
-            - go
-    - name: sm-active-monitoring
-      organization_name: sap-cfs
-      team_name: team-yael
-      display_name: SM Active Monitoring.
-      description: SM Active Monitoring.
-      component_type: service
-      status: active
-      group_name: service-manager
-      git_repository_url: https://github.wdf.sap.corp/SvcManager/sm-active-monitoring
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/SvcManager/sm-active-monitoring
-            sonarqube/project: cfs.service.manager:sm-active-monitoring
-        domain: btp
-        lifecycle: production
-        namespace: service-manager
-        system: service-manager
-        tags:
-            - go
-    - name: sm-e2e-tests
-      organization_name: sap-cfs
-      team_name: team-yael
-      display_name: MS e2e Tests.
-      description: MS e2e Tests.
-      component_type: service
-      status: active
-      group_name: service-manager
-      git_repository_url: https://github.wdf.sap.corp/SvcManager/sm-e2e-tests
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/SvcManager/sm-e2e-tests
-        domain: btp
-        lifecycle: production
-        namespace: service-manager
-        system: service-manager
-        tags:
-            - go
-    - name: sm-gateway
-      organization_name: sap-cfs
-      team_name: team-yael
-      display_name: Component to proxy requests to different service managers.
-      description: Component to proxy requests to different service managers.
-      component_type: service
-      status: active
-      group_name: service-manager
-      git_repository_url: https://github.wdf.sap.corp/SvcManager/sm-gateway
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/SvcManager/sm-gateway
-            sonarqube/project: cfs.service.manager:sm-gateway
-        domain: btp
-        lifecycle: production
-        namespace: service-manager
-        system: service-manager
-        tags:
-            - go
-    - name: sm-performance
-      organization_name: sap-cfs
-      team_name: team-yael
-      display_name: SM Performance.
-      description: SM Performance.
-      component_type: service
-      status: active
-      group_name: service-manager
-      git_repository_url: https://github.wdf.sap.corp/SvcManager/sm-performance
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/SvcManager/sm-performance
-        domain: btp
-        lifecycle: production
-        namespace: service-manager
-        system: service-manager
-        tags:
-            - go
-    - name: sm-pipeline-jobs
-      organization_name: sap-cfs
-      team_name: team-yael
-      display_name: pipeline-jobs specific for sm.
-      description: pipeline-jobs specific for sm.
-      component_type: service
-      status: active
-      group_name: service-manager
-      git_repository_url: https://github.wdf.sap.corp/SvcManager/sm-pipeline-jobs
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/SvcManager/sm-pipeline-jobs
-        domain: btp
-        lifecycle: production
-        namespace: service-manager
-        system: service-manager
-        tags:
-            - go
-    - name: sm-protobuf-go
-      organization_name: sap-cfs
-      team_name: team-yael
-      display_name: SM Protobuf Go.
-      description: SM Protobuf Go.
-      component_type: service
-      status: active
-      group_name: service-manager
-      git_repository_url: https://github.wdf.sap.corp/SvcManager/sm-protobuf-go
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/SvcManager/sm-protobuf-go
-            sonarqube/project: cfs.service.manager:sm-protobuf-go
-        domain: btp
-        lifecycle: production
-        namespace: service-manager
-        system: service-manager
-        tags:
-            - go
-    - name: sm-protobuf
-      organization_name: sap-cfs
-      team_name: team-yael
-      display_name: Sm Protobuf
-      description: This repository contains Protocol Buffers (Protobuf) definitions for Kafka message events. It includes the raw .proto files only. The Protobuf schemas here define the structure of the event messages that are sent over Kafka in our system, facilitating effective cross-language communication.
-      component_type: service
-      status: active
-      group_name: service-manager
-      git_repository_url: https://github.wdf.sap.corp/SvcManager/sm-protobuf
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/SvcManager/sm-protobuf
-            sonarqube/project: cfs.service.manager:sm-protobuf
-        domain: btp
-        lifecycle: production
-        namespace: service-manager
-        system: service-manager
-        tags:
-            - go
-    - name: sm-sdk
-      organization_name: sap-cfs
-      team_name: team-yael
-      display_name: SM SDK.
-      description: SM SDK.
-      component_type: service
-      status: active
-      group_name: service-manager
-      git_repository_url: https://github.wdf.sap.corp/SvcManager/sm-sdk
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/SvcManager/sm-sdk
-            sonarqube/project: cfs.service.manager:sm-sdk
-        domain: btp
-        lifecycle: production
-        namespace: service-manager
-        system: service-manager
-        tags:
-            - go
-    - name: validate-service-broker
-      organization_name: sap-cfs
-      team_name: team-yael
-      display_name: This tool verifies that a deployed service broker works with a service manager correctly.
-      description: This tool verifies that a deployed service broker works with a service manager correctly.
-      component_type: service
-      status: active
-      group_name: service-manager
-      git_repository_url: https://github.wdf.sap.corp/SvcManager/validate-service-broker
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.wdf.sap.corp/SvcManager/validate-service-broker
-            sonarqube/project: cfs.service.manager:validate-service-broker
-        domain: btp
-        lifecycle: production
-        namespace: service-manager
-        system: service-manager
-        tags:
-            - go
+  - name: cloud-automation-terraform
+    title: Cloud Automation Terraform
+    description: cloud-automation-terraform managed by team-zohar
+    owner: team-zohar
+    project: ca
+    metadata:
+      github:
+        url: https://github.tools.sap/cfs-cloud-automation/cloud-automation-terraform
+      technology: docker
+  - name: terraform-provider-cis
+    title: Terraform Provider Cis
+    description: terraform-provider-cis managed by team-zohar
+    owner: team-zohar
+    project: ca
+    metadata:
+      github:
+        url: https://github.tools.sap/cfs-cloud-automation/terraform-provider-cis
+      sonar:
+        project_id: cfs.cloud.automation:terraform-provider-cis
+      technology: go
+  - name: terraform-provider-destination
+    title: Terraform Provider Destination
+    description: terraform-provider-destination managed by team-zohar
+    owner: team-zohar
+    project: ca
+    metadata:
+      github:
+        url: https://github.tools.sap/cfs-cloud-automation/terraform-provider-destination
+      sonar:
+        project_id: cfs.cloud.automation:terraform-provider-destination
+      technology: go
+  - name: cloud-automation-progress-monitor
+    title: Cloud Automation Progress Monitor
+    description: cloud-automation-progress-monitor managed by team-lior
+    owner: team-lior
+    project: ca
+    metadata:
+      github:
+        url: https://github.tools.sap/cfs-cloud-automation/cloud-automation-progress-monitor
+      sonar:
+        project_id: cfs.cloud.automation:cloud-automation-progress-monitor
+      technology: go
+  - name: terraform-provider-cloudfoundry
+    title: Terraform Provider Cloudfoundry
+    description: terraform-provider-cloudfoundry managed by team-lior
+    owner: team-lior
+    project: ca
+    metadata:
+      github:
+        url: https://github.tools.sap/cfs-cloud-automation/terraform-provider-cloudfoundry
+      sonar:
+        project_id: cfs.cloud.automation:terraform-provider-cloudfoundry
+      technology: go
+  - name: cloud-automation-operator
+    title: Cloud Automation Operator
+    description: cloud-automation-operator managed by team-zohar
+    owner: team-zohar
+    project: ca
+    metadata:
+      github:
+        url: https://github.tools.sap/cfs-cloud-automation/cloud-automation-operator
+      sonar:
+        project_id: cfs.cloud.automation:cloud-automation-operator
+      technology: docker
+  - name: terraform-provider-sm
+    title: Terraform Provider Sm
+    description: terraform-provider-sm managed by team-zohar
+    owner: team-zohar
+    project: ca
+    metadata:
+      github:
+        url: https://github.tools.sap/cfs-cloud-automation/terraform-provider-sm
+      sonar:
+        project_id: cfs.cloud.automation:terraform-provider-sm
+      technology: go
+  - name: terraform-provider-common
+    title: Terraform Provider Common
+    description: terraform-provider-common managed by team-lior
+    owner: team-lior
+    project: ca
+    metadata:
+      github:
+        url: https://github.tools.sap/cfs-cloud-automation/terraform-provider-common
+      sonar:
+        project_id: cfs.cloud.automation:terraform-provider-common
+      technology: go
+  - name: terraform-provider-rest
+    title: Terraform Provider Rest
+    description: terraform-provider-rest managed by team-lior
+    owner: team-lior
+    project: ca
+    metadata:
+      github:
+        url: https://github.tools.sap/cfs-cloud-automation/terraform-provider-rest
+      sonar:
+        project_id: cfs.cloud.automation:terraform-provider-rest
+      technology: go
+  - name: cloud-automation-content
+    title: Cloud Automation Content
+    description: cloud-automation-content managed by team-zohar
+    owner: team-zohar
+    project: ca
+    metadata:
+      github:
+        url: https://github.tools.sap/cfs-cloud-automation/cloud-automation-content
+      technology: chart
+  - name: terraform-provider-spc
+    title: Terraform Provider Spc
+    description: terraform-provider-spc managed by team-lior
+    owner: team-lior
+    project: ca
+    metadata:
+      github:
+        url: https://github.tools.sap/cfs-cloud-automation/terraform-provider-spc
+      sonar:
+        project_id: cfs.cloud.automation:terraform-provider-spc
+      technology: go
+  - name: terraform-provider-xsuaa
+    title: Terraform Provider Xsuaa
+    description: terraform-provider-xsuaa managed by team-lior
+    owner: team-lior
+    project: ca
+    metadata:
+      github:
+        url: https://github.tools.sap/cfs-cloud-automation/terraform-provider-xsuaa
+      sonar:
+        project_id: cfs.cloud.automation:terraform-provider-xsuaa
+      technology: go
+  - name: terraform-provider-sci
+    title: Terraform Provider Sci
+    description: terraform-provider-sci managed by team-zohar
+    owner: team-zohar
+    project: ca
+    metadata:
+      github:
+        url: https://github.tools.sap/cfs-cloud-automation/terraform-provider-sci
+      sonar:
+        project_id: cfs.cloud.automation:terraform-provider-sci
+      technology: go
+  - name: terraform-provider-sample
+    title: Terraform Provider Sample
+    description: terraform-provider-sample managed by team-lior
+    owner: team-lior
+    project: ca
+    metadata:
+      github:
+        url: https://github.tools.sap/cfs-cloud-automation/terraform-provider-sample
+      sonar:
+        project_id: cfs.cloud.automation:terraform-provider-sample
+      technology: go
+  - name: cloud-automation-registry
+    title: Cloud Automation Registry
+    description: cloud-automation-registry managed by team-lior
+    owner: team-lior
+    project: ca
+    metadata:
+      github:
+        url: https://github.tools.sap/cfs-cloud-automation/cloud-automation-registry
+      sonar:
+        project_id: cfs.cloud.automation:cloud-automation-registry
+      technology: docker
+  - name: accounts-service
+    title: Accounts Service
+    description: accounts-service managed by team-lior
+    owner: team-lior
+    project: cis20
+    metadata:
+      central-service: true
+      ci:
+        qos:
+          jenkins_url: https://cis2ciqbs.jaas-gcp.cloud.sap.corp/job/accounts-service
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/accounts-service
+      sonar:
+        project_id: com.sap.core.commercial.service:accounts-service
+      technology: java
+  - name: account-context-service
+    title: Account Context Service
+    description: account-context-service managed by team-zohar
+    owner: team-zohar
+    project: cis20
+    metadata:
+      central-service: true
+      ci:
+        qos:
+          jenkins_url: https://cis2ciqbs.jaas-gcp.cloud.sap.corp/job/account-context-service
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/account-context-service
+      sonar:
+        project_id: com.sap.core.commercial.service:account-context-service
+      technology: java
+  - name: cis-common
+    title: Cis Common
+    description: cis-common managed by team-eli
+    owner: team-eli
+    project: cis20
+    metadata:
+      isLibrary: true
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/cis-common
+      sonar:
+        project_id: com.sap.core.commercial.service:cis-common
+      technology: java
+  - name: cis-parent
+    title: Cis Parent
+    description: cis-parent managed by team-eli
+    owner: team-eli
+    project: cis20
+    metadata:
+      isLibrary: true
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/cis-parent
+      technology: java
+  - name: cis-service-broker
+    title: Cis Service Broker
+    description: cis-service-broker managed by team-eli
+    owner: team-eli
+    project: cis20
+    metadata:
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/cis-service-broker
+      sonar:
+        project_id: com.sap.core.commercial.service:cis-service-broker
+      technology: java
+  - name: cloud-automation-service
+    title: Cp Formations
+    description: cp-formations managed by team-zohar
+    owner: team-zohar
+    project: cis20
+    metadata:
+      central-service: true
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/cp-formations
+      sonar:
+        project_id: com.sap.core.commercial.service:cp-formations
+      technology: java
+  - name: order-processing
+    title: Order Processing
+    description: order-processing managed by team-lior
+    owner: team-lior
+    project: cis20
+    metadata:
+      central-service: true
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/order-processing
+      sonar:
+        project_id: com.sap.core.commercial.service:order-processing
+      technology: java
+  - name: active-monitoring-service
+    title: Active Monitoring Service
+    description: active-monitoring-service managed by team-eyal
+    owner: team-eyal
+    project: cis20
+    metadata:
+      central-service: true
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/active-monitoring-service
+      sonar:
+        project_id: com.sap.core.commercial.service:active-monitoring-service
+      technology: java_docker
+  - name: entitlements-service
+    title: Entitlements Service
+    description: entitlements-service managed by team-zohar
+    owner: team-zohar
+    project: cis20
+    metadata:
+      central-service: true
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/entitlements-service
+      sonar:
+        project_id: com.sap.core.commercial.service:entitlements-service
+      technology: java
+  - name: account-budgets-service
+    title: Account Budgets Service
+    description: account-budgets-service managed by team-lior
+    owner: team-lior
+    project: cis20
+    metadata:
+      central-service: true
+      ci:
+        qos:
+          jenkins_url: https://cis2ciqbs.jaas-gcp.cloud.sap.corp/job/account-budgets-service
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/account-budgets-service
+      sonar:
+        project_id: com.sap.core.commercial.service:account-budgets-service
+      technology: java
+  - name: events-service
+    title: Events Service
+    description: events-service managed by team-eli
+    owner: team-eli
+    project: cis20
+    metadata:
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/events-service
+      sonar:
+        project_id: com.sap.core.commercial.service:events-service
+      technology: java
+  - name: external-provider-registry
+    title: External Provider Registry
+    description: external-provider-registry managed by team-eli
+    owner: team-eli
+    project: cis20
+    metadata:
+      central-service: true
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/external-provider-registry
+      sonar:
+        project_id: com.sap.core.commercial.service:external-provider-registry
+      technology: java
+  - name: operation-console
+    title: Operation Console
+    description: operation-console managed by team-naomi
+    owner: team-naomi
+    project: cis20
+    metadata:
+      subdomain: operator
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/operation-console
+      sonar:
+        project_id: com.sap.core.commercial.service:operation-console
+      technology: nodejs
+  - name: operation-console-service-manager
+    title: Operation Console Service Manager
+    description: operation-console-service-manager managed by team-naomi
+    owner: team-naomi
+    project: cis20
+    metadata:
+      isLibrary: true
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/operation-console-service-manager
+      sonar:
+        project_id: com.sap.core.commercial.service:operation-console-service-manager
+      technology: nodejs
+  - name: saas-manager
+    title: Saas Registry
+    description: saas-registry managed by team-zohar
+    owner: team-zohar
+    project: cis20
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://cis2ciqbs.jaas-gcp.cloud.sap.corp/job/saas-registry
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/saas-registry
+      sonar:
+        project_id: com.sap.core.commercial.service:saas-registry
+      technology: java
+  - name: tenant-onboarding
+    title: Tenant Onboarding Gateway
+    description: tenant-onboarding-gateway managed by team-eli
+    owner: team-eli
+    project: cis20
+    metadata:
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/tenant-onboarding-gateway
+      sonar:
+        project_id: com.sap.core.commercial.service:tenant-onboarding-gateway
+      technology: java
+  - name: cross-registry-service
+    title: Cross Registry Service
+    description: cross-registry-service managed by team-eli
+    owner: team-eli
+    project: cis20
+    metadata:
+      central-service: true
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/cross-registry-service
+      sonar:
+        project_id: com.sap.core.commercial.service:cross-registry-service
+      technology: java
+  - name: cloudfoundry-client
+    title: Cloudfoundry Client
+    description: cloudfoundry-client managed by team-eli
+    owner: team-eli
+    project: cis20
+    metadata:
+      isLibrary: true
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/cloudfoundry-client
+      sonar:
+        project_id: com.sap.core.commercial.service:cloudfoundry-client
+      technology: java
+  - name: cloudfoundry-environment-broker
+    title: Cloudfoundry Environment Broker
+    description: cloudfoundry-environment-broker managed by team-eli
+    owner: team-eli
+    project: cis20
+    metadata:
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/cloudfoundry-environment-broker
+      sonar:
+        project_id: com.sap.core.commercial.service:cloudfoundry-environment-broker
+      technology: java
+  - name: provisioning-service
+    title: Provisioning Service
+    description: provisioning-service managed by team-eli
+    owner: team-eli
+    project: cis20
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://cis2ciqbs.jaas-gcp.cloud.sap.corp/job/provisioning-service
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/provisioning-service
+      sonar:
+        project_id: com.sap.core.commercial.service:provisioning-service
+      technology: java
+  - name: cis-cli-backend
+    title: Cis Cli Backend
+    description: cis-cli-backend managed by team-zohar
+    owner: team-zohar
+    project: cis20
+    metadata:
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/cis-cli-backend
+      sonar:
+        project_id: com.sap.core.commercial.service:cis-cli-backend
+      technology: java
+  - name: subscription-management-dashboard
+    title: Subscription Management Dashboard
+    description: subscription-management-dashboard managed by team-naomi
+    owner: team-naomi
+    project: cis20
+    metadata:
+      subdomain: sap-provisioning
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/subscription-management-dashboard
+      sonar:
+        project_id: com.sap.core.commercial.service:subscription-management-dashboard
+      technology: nodejs
+  - name: task-management
+    title: Task Management
+    description: task-management managed by team-eli
+    owner: team-eli
+    project: cis20
+    metadata:
+      central-service: true
+      ci:
+        qos:
+          jenkins_url: https://cis2ciqbs.jaas-gcp.cloud.sap.corp/job/task-management
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/task-management
+      sonar:
+        project_id: com.sap.core.commercial.service:task-management
+      technology: java
+  - name: workflow-adapter
+    title: Workflow Adapter
+    description: workflow-adapter managed by team-yael
+    owner: team-yael
+    project: cis20
+    metadata:
+      isLibrary: true
+      github:
+        url: https://github.wdf.sap.corp/cp-cfs-services/workflow-adapter
+      sonar:
+        project_id: com.sap.core.commercial.service:workflow-adapter
+      technology: java
+  - name: aws-opensearch-controller
+    title: Aws Opensearch Controller
+    description: aws-opensearch-controller
+    project: usrv
+    owner: team-developer-portal-technical
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/aws-opensearch-controller
+  - name: pre-deploy
+    title: Pre Deploy
+    description: pre-deploy
+    project: usrv
+    owner: team-developer-portal-technical
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/pre-deploy
+  - name: workspace-server
+    title: Workspace Server
+    description: workspace-server managed by team-naomi
+    owner: team-naomi
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/workspace-server
+      github:
+        url: https://github.tools.sap/atom-cfs/workspace-server
+      sonar:
+        project_id: cfs.atom:workspace-server
+      technology: go
+  - name: commercial-integration
+    title: Commercial Integration
+    description: commercial-integration managed by team-zohar
+    owner: team-zohar
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/commercial-integration
+      github:
+        url: https://github.tools.sap/atom-cfs/commercial-integration
+      sonar:
+        project_id: cfs.atom:commercial-integration
+      technology: go-package
+  - name: unified-account-extension
+    title: Unified Account Extension
+    description: unified-account-extension managed by team-lior
+    project: usrv
+    owner: team-lior
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/unified-account-extension
+  - name: unified-platform-providers-resources
+    title: Unified Platform Providers Resources
+    description: unified-platform-providers-resources managed by team-avihai
+    project: usrv
+    owner: team-avihai
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/unified-platform-providers-resources
+  - name: cert-management
+    title: Cert Management
+    description: cert-management managed by team-coe
+    project: usrv
+    owner: team-coe
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/cert-management
+  - name: workspace-app
+    title: Workspace App
+    description: workspace-app managed by team-naomi
+    owner: team-naomi
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/workspace-app
+      github:
+        url: https://github.tools.sap/atom-cfs/workspace-app
+      technology: node-js
+  - name: workspace-uilib
+    title: Workspace Uilib
+    description: workspace-uilib managed by team-naomi
+    owner: team-naomi
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/workspace-uilib
+      github:
+        url: https://github.tools.sap/atom-cfs/workspace-uilib
+      technology: node-js-package
+  - name: service-management
+    title: Service Management
+    description: service-management managed by team-avihai
+    owner: team-avihai
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/service-management
+      github:
+        url: https://github.tools.sap/atom-cfs/service-management
+      sonar:
+        project_id: cfs.atom:service-management
+      technology: go-package
+  - name: prometheus-another-cloudwatch-exporter
+    title: Prometheus Another Cloudwatch Exporter
+    description: prometheus-another-cloudwatch-exporter managed by team-coe
+    project: usrv
+    owner: team-coe
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/prometheus-another-cloudwatch-exporter
+  - name: atom-oauth2-proxy
+    title: Atom Oauth2 Proxy
+    description: atom-oauth2-proxy managed by team-coe
+    project: usrv
+    owner: team-coe
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/atom-oauth2-proxy
+      github:
+        url: https://github.tools.sap/atom-cfs/atom-oauth2-proxy
+  - name: deploy-cycle-charts
+    title: Deploy Cycle Charts
+    description: deploy-cycle-charts managed by team-avihai
+    owner: team-avihai
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/deploy-cycle-charts
+      github:
+        url: https://github.tools.sap/atom-cfs/deploy-cycle-charts
+      technology: charts
+  - name: healthcheck
+    title: Healthcheck
+    description: healthcheck managed by team-coe
+    owner: team-coe
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/healthcheck
+      github:
+        url: https://github.tools.sap/atom-cfs/healthcheck
+      sonar:
+        project_id: cfs.atom:healthcheck
+      technology: go
+  - name: feature-toggle-manager
+    title: Feature Toggle Manager
+    description: feature-toggle-manager managed by team-coe
+    owner: team-coe
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/feature-toggle-manager
+      github:
+        url: https://github.tools.sap/atom-cfs/feature-toggle-manager
+      sonar:
+        project_id: cfs.atom:feature-toggle-manager
+      technology: go
+  - name: btp-solution-operator
+    title: Btp Solution Operator
+    description: btp-solution-operator managed by team-avihai
+    owner: team-avihai
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/btp-solution-operator
+      github:
+        url: https://github.tools.sap/atom-cfs/btp-solution-operator
+      sonar:
+        project_id: cfs.atom:btp-solution-operator
+      technology: go
+  - name: commercial-integration-manager
+    title: Commercial Integration Manager
+    description: commercial-integration-manager managed by team-zohar
+    owner: team-zohar
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/commercial-integration-manager
+      github:
+        url: https://github.tools.sap/atom-cfs/commercial-integration-manager
+      sonar:
+        project_id: cfs.atom:commercial-integration-manager
+      technology: go
+  - name: feature-toggle-extension
+    title: Feature Toggle Extension
+    description: feature-toggle-extension managed by team-coe
+    owner: team-coe
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/feature-toggle-extension
+      github:
+        url: https://github.tools.sap/atom-cfs/feature-toggle-extension
+      technology: go-package
+  - name: uctl-providers
+    title: Uctl Providers
+    description: uctl-providers managed by team-lior
+    owner: team-lior
+    project: usrv
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/uctl-providers
+      sonar:
+        project_id: cfs.atom:uctl-providers
+      technology: go-package
+  - name: feature-toggle-client
+    title: Feature Toggle Client
+    description: feature-toggle-client managed by team-coe
+    owner: team-coe
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/feature-toggle-client
+      github:
+        url: https://github.tools.sap/atom-cfs/feature-toggle-client
+      sonar:
+        project_id: cfs.atom:feature-toggle-client
+      technology: go-package
+  - name: cloud-automation
+    title: Cloud Automation
+    description: cloud-automation managed by team-lior
+    owner: team-lior
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/cloud-automation
+      github:
+        url: https://github.tools.sap/atom-cfs/cloud-automation
+      sonar:
+        project_id: cfs.atom:cloud-automation
+      technology: go-package
+  - name: workspace-server-extension
+    title: Workspace Server Extension
+    description: workspace-server-extension managed by team-naomi
+    project: usrv
+    owner: team-naomi
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/workspace-server-extension
+  - name: auditlog
+    title: Auditlog
+    description: auditlog managed by team-avihai
+    owner: team-avihai
+    project: usrv
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/auditlog
+      sonar:
+        project_id: cfs.atom:auditlog
+      technology: go-package
+  - name: cloud-automation-java
+    title: Cloud Automation Java
+    description: cloud-automation-java managed by team-lior
+    owner: team-lior
+    project: usrv
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/cloud-automation-java
+      technology: java-package
+  - name: jaeger
+    title: Jaeger
+    description: jaeger managed by team-coe
+    project: usrv
+    owner: team-coe
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/jaeger
+  - name: aws-pod-identity-webhook
+    title: Aws Pod Identity Webhook
+    description: aws-pod-identity-webhook
+    project: usrv
+    owner: team-developer-portal-technical
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/aws-pod-identity-webhook
+  - name: opentelemetry-collector
+    title: Opentelemetry Collector
+    description: opentelemetry-collector
+    project: usrv
+    owner: team-developer-portal-technical
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/opentelemetry-collector
+      github:
+        url: https://github.tools.sap/atom-cfs/opentelemetry-collector
+  - name: kyverno-atom-wrapper
+    title: Kyverno Atom Wrapper
+    description: kyverno-atom-wrapper managed by team-coe
+    owner: team-coe
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/kyverno-atom-wrapper
+      github:
+        url: https://github.tools.sap/atom-cfs/kyverno-atom-wrapper
+      technology: go-package
+  - name: aws-s3-controller
+    title: Aws S3 Controller
+    description: aws-s3-controller
+    project: usrv
+    owner: team-developer-portal-technical
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/aws-s3-controller
+  - name: istio-operator-extension
+    title: Istio Operator Extension
+    description: istio-operator-extension managed by team-alex
+    project: usrv
+    owner: team-alex
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/istio-operator-extension
+  - name: unleash
+    title: Unleash
+    description: unleash managed by team-coe
+    project: usrv
+    owner: team-coe
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/unleash
+  - name: gate-keeper
+    title: Gate Keeper
+    description: gate-keeper managed by team-coe
+    project: usrv
+    owner: team-coe
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/gate-keeper
+  - name: unified-account
+    title: Unified Account
+    description: unified-account managed by team-lior
+    owner: team-lior
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/unified-account
+      github:
+        url: https://github.tools.sap/atom-cfs/unified-account
+      sonar:
+        project_id: cfs.atom:unified-account
+      technology: go
+  - name: unified-platform-providers
+    title: Unified Platform Providers
+    description: unified-platform-providers managed by team-avihai
+    owner: team-avihai
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/unified-platform-providers
+      github:
+        url: https://github.tools.sap/atom-cfs/unified-platform-providers
+      technology: charts
+  - name: btp-subaccount
+    title: Btp Subaccount
+    description: btp-subaccount managed by team-avihai
+    owner: team-avihai
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/btp-subaccount
+      github:
+        url: https://github.tools.sap/atom-cfs/btp-subaccount
+      sonar:
+        project_id: cfs.atom:btp-subaccount
+      technology: go
+  - name: btp-subaccount-operator
+    title: Btp Subaccount Operator
+    description: btp-subaccount-operator managed by team-avihai
+    owner: team-avihai
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/btp-subaccount-operator
+      github:
+        url: https://github.tools.sap/atom-cfs/btp-subaccount-operator
+      sonar:
+        project_id: cfs.atom:btp-subaccount-operator
+      technology: go
+  - name: aws-elasticache-controller
+    title: Aws Elasticache Controller
+    description: aws-elasticache-controller
+    project: usrv
+    owner: team-developer-portal-technical
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/aws-elasticache-controller
+  - name: feature-toggle-extension-configurations
+    title: Feature Toggle Extension Configurations
+    description: feature-toggle-extension-configurations managed by team-coe
+    project: usrv
+    owner: team-coe
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/feature-toggle-extension-configurations
+  - name: unified-service-orchestration-resources
+    title: Unified Service Orchestration Resources
+    description: unified-service-orchestration-resources managed by team-avihai
+    project: usrv
+    owner: team-avihai
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/unified-service-orchestration-resources
+  - name: atom-istio-operator
+    title: Atom Istio Operator
+    description: atom-istio-operator managed by team-coe
+    owner: team-coe
+    project: usrv
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/atom-istio-operator
+      technology: chart
+  - name: service-management-java
+    title: Service Management Java
+    description: service-management-java managed by team-avihai
+    owner: team-avihai
+    project: usrv
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/service-management-java
+      technology: java-package
+  - name: aws-rds-controller
+    title: Aws Rds Controller
+    description: aws-rds-controller
+    project: usrv
+    owner: team-developer-portal-technical
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/aws-rds-controller
+  - name: commercial-integration-resources
+    title: Commercial Integration Resources
+    description: commercial-integration-resources managed by team-zohar
+    project: usrv
+    owner: team-zohar
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/commercial-integration-resources
+  - name: atom-rtd-governance
+    title: Atom Rtd Governance
+    description: atom-rtd-governance
+    project: usrv
+    owner: team-developer-portal-technical
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/atom-rtd-governance
+      github:
+        url: https://github.tools.sap/atom-cfs/atom-rtd-governance
+  - name: aws-rds-controller-k8s-wrapper
+    title: Aws Rds Controller K8s Wrapper
+    description: aws-rds-controller-k8s-wrapper managed by team-coe
+    owner: team-coe
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/aws-rds-controller-k8s-wrapper
+      github:
+        url: https://github.tools.sap/atom-cfs/aws-rds-controller-k8s-wrapper
+      technology: go-package
+  - name: btp-bridge-operator
+    title: Btp Bridge Operator
+    description: btp-bridge-operator managed by team-yael
+    owner: team-yael
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/btp-bridge-operator
+      github:
+        url: https://github.tools.sap/atom-cfs/btp-bridge-operator
+      sonar:
+        project_id: cfs.atom:btp-bridge-operator
+      technology: go
+  - name: aws-iam-controller
+    title: Aws Iam Controller
+    description: aws-iam-controller
+    project: usrv
+    owner: team-developer-portal-technical
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/aws-iam-controller
+  - name: secrets-store-csi-driver
+    title: Secrets Store Csi Driver
+    description: secrets-store-csi-driver
+    project: usrv
+    owner: team-developer-portal-technical
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/secrets-store-csi-driver
+      github:
+        url: https://github.tools.sap/atom-cfs/secrets-store-csi-driver
+  - name: unified-cloud-automation
+    title: Unified Cloud Automation
+    description: unified-cloud-automation managed by team-lior
+    owner: team-lior
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/unified-cloud-automation
+      github:
+        url: https://github.tools.sap/atom-cfs/unified-cloud-automation
+      sonar:
+        project_id: cfs.atom:unified-cloud-automation
+      technology: go
+  - name: e2e-initial-content
+    title: E2e Initial Content
+    description: e2e-initial-content managed by team-yael
+    owner: team-yael
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/e2e-initial-content
+      github:
+        url: https://github.tools.sap/atom-cfs/e2e-initial-content
+      technology: chart
+  - name: atom-initial-content
+    title: Atom Initial Content
+    description: atom-initial-content managed by team-zohar
+    owner: team-zohar
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/atom-initial-content
+      github:
+        url: https://github.tools.sap/atom-cfs/atom-initial-content
+  - name: istio-operator
+    title: Istio Operator
+    description: istio-operator managed by team-alex
+    owner: team-alex
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/istio-operator
+      github:
+        url: https://github.tools.sap/atom-cfs/istio-operator
+      technology: go-package
+  - name: initial-content
+    title: Initial Content
+    description: initial-content
+    project: usrv
+    owner: team-developer-portal-technical
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/initial-content
+  - name: kyverno
+    title: Kyverno
+    description: kyverno managed by team-coe
+    project: usrv
+    owner: team-coe
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/kyverno
+  - name: unified-service-orchestration
+    title: Unified Service Orchestration
+    description: unified-service-orchestration managed by team-avihai
+    owner: team-avihai
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/unified-service-orchestration
+      github:
+        url: https://github.tools.sap/atom-cfs/unified-service-orchestration
+      sonar:
+        project_id: cfs.atom:unified-service-orchestration
+      technology: go
+  - name: uctl
+    title: Uctl
+    description: uctl managed by team-lior
+    owner: team-lior
+    project: usrv
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/uctl
+      sonar:
+        project_id: cfs.atom:uctl
+      technology: go-package
+  - name: atom-unleash
+    title: Atom Unleash
+    description: atom-unleash managed by team-coe
+    owner: team-coe
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/atom-unleash
+      github:
+        url: https://github.tools.sap/atom-cfs/atom-unleash
+      technology: chart
+  - name: generic-broker
+    title: Generic Broker
+    description: generic-broker managed by team-yael
+    owner: team-yael
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/generic-broker
+      github:
+        url: https://github.tools.sap/atom-cfs/generic-broker
+      sonar:
+        project_id: cfs.atom:generic-broker
+      technology: go
+  - name: common
+    title: Common
+    description: common managed by team-avihai
+    owner: team-avihai
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/common
+      github:
+        url: https://github.tools.sap/atom-cfs/common
+      sonar:
+        project_id: cfs.atom:common
+      technology: go-package
+  - name: commercial-integration-java
+    title: Commercial Integration Java
+    description: commercial-integration-java managed by team-zohar
+    owner: team-zohar
+    project: usrv
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/commercial-integration-java
+      technology: java-package
+  - name: platform-providers
+    title: Platform Providers
+    description: platform-providers managed by team-avihai
+    owner: team-avihai
+    project: usrv
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/platform-providers
+      technology: go-package
+  - name: DevOps
+    title: DevOps
+    description: DevOps managed by team-eyal
+    owner: team-eyal
+    project: usrv
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/DevOps
+  - name: account-java
+    title: Account Java
+    description: account-java managed by team-lior
+    owner: team-lior
+    project: usrv
+    metadata:
+      github:
+        url: https://github.tools.sap/atom-cfs/account-java
+      technology: java-package
+  - name: account
+    title: Account
+    description: account managed by team-lior
+    owner: team-lior
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/account
+      github:
+        url: https://github.tools.sap/atom-cfs/account
+      sonar:
+        project_id: cfs.atom:account
+      technology: go-package
+  - name: internal-monitoring
+    title: Internal Monitoring
+    description: internal-monitoring managed by team-coe
+    owner: team-coe
+    project: usrv
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://atom.jaas-gcp.cloud.sap.corp/job/internal-monitoring
+      github:
+        url: https://github.tools.sap/atom-cfs/internal-monitoring
+      technology: node-js
+  - name: developer-portal-backend
+    title: Developer Portal Backend
+    description: Backend side of the developer portal project managed by team-coe
+    owner: team-coe
+    project: internal
+    metadata:
+      github:
+        url: https://github.tools.sap/cfs-platform-engineering/developer-portal-backend
+      technology: go
+  - name: developer-portal-frontend
+    title: Developer Portal Frontend
+    description: Frontend side of the developer portal project managed by team-coe
+    owner: team-coe
+    project: internal
+    metadata:
+      github:
+        url: https://github.tools.sap/cfs-platform-engineering/developer-portal-frontend
+      technology: react
+  - name: cis-web
+    title: CIS - Web
+    description: Commercial Infrastructure Service main project
+    owner: team-zohar
+    project: neo
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://gkeo2pproductiveci.jaas-gcp.cloud.sap.corp/job/CIS_QOS
+      github:
+        url: https://git.wdf.sap.corp/admin/repos/NGJP/JPaaS/com.sap.core.commercial.service
+      technology: java
+  - name: cis-admin
+    title: CIS - Admin
+    description: Commercial Infrastructure Service Administrator UI
+    owner: team-zohar
+    project: neo
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://gkeo2pproductiveci.jaas-gcp.cloud.sap.corp/job/CIS_QOS
+      github:
+        url: https://git.wdf.sap.corp/admin/repos/NGJP/JPaaS/com.sap.core.commercial.service
+      technology: java
+  - name: cis-cmd
+    title: CIS - Command Line
+    description: Commercial Infrastructure Service Command Line (Neo SDK)
+    owner: team-zohar
+    project: neo
+    metadata:
+      github:
+        url: https://git.wdf.sap.corp/admin/repos/NGJP/JPaaS/commInfra/com.sap.cloud.commercial.cmd
+      technology: java
+  - name: cis-metadata
+    title: CIS - Metadata
+    description: Commercial Infrastructure Service services metadata
+    owner: team-zohar
+    project: neo
+    metadata:
+      github:
+        url: https://git.wdf.sap.corp/admin/repos/NGJP/JPaaS/commInfra/com.sap.core.commercial.service.metadata
+      technology: text
+  - name: cis-metadata-services
+    title: CIS - Metadata Services Translation
+    description: Commercial Infrastructure Service services metadata (i18n)
+    owner: team-zohar
+    project: neo
+    metadata:
+      ci:
+        qos:
+          jenkins_url: https://cfsprodflows.jaas-gcp.cloud.sap.corp/job/services-metadata-factory
+      github:
+        url: https://git.wdf.sap.corp/admin/repos/NGJP/JPaaS/commInfra/com.sap.core.commercial.service.metadata.services
+      technology: text
+  - name: cis-cmd-tunnel
+    title: CIS - Command Tunnel
+    description: Commercial Infrastructure Service Command Tunnel (Neo SDK)
+    owner: team-zohar
+    project: neo
+    metadata:
+      github:
+        url: https://git.wdf.sap.corp/admin/repos/NGJP/JPaaS/Infrastruc/com.sap.core.service.commandtunnel
+      technology: java

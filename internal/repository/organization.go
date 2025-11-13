@@ -84,7 +84,7 @@ func (r *OrganizationRepository) Delete(id uuid.UUID) error {
 // GetWithMembers retrieves an organization with its members
 func (r *OrganizationRepository) GetWithMembers(id uuid.UUID) (*models.Organization, error) {
 	var org models.Organization
-	err := r.db.Preload("Members").First(&org, "id = ?", id).Error
+	err := r.db.Preload("Users").First(&org, "id = ?", id).Error
 	if err != nil {
 		return nil, err
 	}
@@ -94,7 +94,7 @@ func (r *OrganizationRepository) GetWithMembers(id uuid.UUID) (*models.Organizat
 // GetWithGroups retrieves an organization with its groups
 func (r *OrganizationRepository) GetWithGroups(id uuid.UUID) (*models.Organization, error) {
 	var org models.Organization
-	err := r.db.Preload("Groups").First(&org, "id = ? AND deleted_at IS NULL", id).Error
+	err := r.db.Preload("Groups").First(&org, "id = ?", id).Error
 	if err != nil {
 		return nil, err
 	}
@@ -135,7 +135,7 @@ func (r *OrganizationRepository) GetWithLandscapes(id uuid.UUID) (*models.Organi
 func (r *OrganizationRepository) GetWithAllRelations(id uuid.UUID) (*models.Organization, error) {
 	var org models.Organization
 	err := r.db.
-		Preload("Members").
+		Preload("Users").
 		Preload("Groups").
 		Preload("Projects").
 		Preload("Components").

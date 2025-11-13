@@ -2,6 +2,8 @@ package service
 
 import (
 	"context"
+	"encoding/json"
+	"mime/multipart"
 
 	"developer-portal-backend/internal/auth"
 	"developer-portal-backend/internal/database/models"
@@ -12,89 +14,28 @@ import (
 
 //go:generate mockgen -source=interfaces.go -destination=../mocks/service_mocks.go -package=mocks
 
-// OrganizationServiceInterface defines the interface for organization service
-type OrganizationServiceInterface interface {
-	Create(req *CreateOrganizationRequest) (*OrganizationResponse, error)
-	GetByID(id uuid.UUID) (*OrganizationResponse, error)
-	GetByName(name string) (*OrganizationResponse, error)
-	GetByDomain(domain string) (*OrganizationResponse, error)
-	Update(id uuid.UUID, req *UpdateOrganizationRequest) (*OrganizationResponse, error)
-	Delete(id uuid.UUID) error
-	GetAll(page, pageSize int) (*OrganizationListResponse, error)
-	GetWithMembers(id uuid.UUID) (*models.Organization, error)
-	GetWithGroups(id uuid.UUID) (*models.Organization, error)
-	GetWithProjects(id uuid.UUID) (*models.Organization, error)
-	GetWithComponents(id uuid.UUID) (*models.Organization, error)
-	GetWithLandscapes(id uuid.UUID) (*models.Organization, error)
-}
-
-// MemberServiceInterface defines the interface for member service
-type MemberServiceInterface interface {
-	CreateMember(req *CreateMemberRequest) (*MemberResponse, error)
-	GetMemberByID(id uuid.UUID) (*MemberResponse, error)
-	GetMembersByOrganization(organizationID uuid.UUID, limit, offset int) ([]MemberResponse, int64, error)
-	UpdateMember(id uuid.UUID, req *UpdateMemberRequest) (*MemberResponse, error)
-	DeleteMember(id uuid.UUID) error
-	SearchMembers(organizationID uuid.UUID, query string, limit, offset int) ([]MemberResponse, int64, error)
-	GetActiveMembers(organizationID uuid.UUID, limit, offset int) ([]MemberResponse, int64, error)
+// UserServiceInterface defines the interface for user service
+type UserServiceInterface interface {
+	CreateUser(req *CreateUserRequest) (*UserResponse, error)
+	GetUserByID(id uuid.UUID) (*UserResponse, error)
+	GetUsersByOrganization(organizationID uuid.UUID, limit, offset int) ([]UserResponse, int64, error)
+	UpdateUser(id uuid.UUID, req *UpdateUserRequest) (*UserResponse, error)
+	DeleteUser(id uuid.UUID) error
+	SearchUsers(organizationID uuid.UUID, query string, limit, offset int) ([]UserResponse, int64, error)
+	GetActiveUsers(organizationID uuid.UUID, limit, offset int) ([]UserResponse, int64, error)
 	GetQuickLinks(id uuid.UUID) (*QuickLinksResponse, error)
-	AddQuickLink(id uuid.UUID, req *AddQuickLinkRequest) (*MemberResponse, error)
-	RemoveQuickLink(id uuid.UUID, linkURL string) (*MemberResponse, error)
-}
-
-// GroupServiceInterface defines the interface for group service
-type GroupServiceInterface interface {
-	Create(req *CreateGroupRequest) (*GroupResponse, error)
-	GetByID(id uuid.UUID) (*GroupResponse, error)
-	GetByName(organizationID uuid.UUID, name string) (*GroupResponse, error)
-	GetByOrganization(organizationID uuid.UUID, page, pageSize int) (*GroupListResponse, error)
-	GetAll(orgID uuid.UUID, page, pageSize int) (*GroupListResponse, error)
-	GetWithTeams(id uuid.UUID, page, pageSize int) (*GroupWithTeamsResponse, error)
-	Search(organizationID uuid.UUID, query string, page, pageSize int) (*GroupListResponse, error)
-	Update(id uuid.UUID, req *UpdateGroupRequest) (*GroupResponse, error)
-	Delete(id uuid.UUID) error
+	AddQuickLink(id uuid.UUID, req *AddQuickLinkRequest) (*UserResponse, error)
+	RemoveQuickLink(id uuid.UUID, linkURL string) (*UserResponse, error)
 }
 
 // TeamServiceInterface defines the interface for team service
 type TeamServiceInterface interface {
-	Create(req *CreateTeamRequest) (*TeamResponse, error)
-	GetByID(id uuid.UUID) (*TeamResponse, error)
-	GetByName(organization uuid.UUID, name string) (*TeamResponse, error)
-	GetByOrganization(organizationID uuid.UUID, page, pageSize int) (*TeamListResponse, error)
-	Search(organizationID uuid.UUID, query string, page, pageSize int) (*TeamListResponse, error)
-	Update(id uuid.UUID, req *UpdateTeamRequest) (*TeamResponse, error)
-	Delete(id uuid.UUID) error
-	GetWithMembers(id uuid.UUID) (*models.Team, error)
-	GetWithProjects(id uuid.UUID) (*models.Team, error)
-	GetWithComponentOwnerships(id uuid.UUID) (*models.Team, error)
-	GetWithDutySchedules(id uuid.UUID) (*models.Team, error)
-	GetTeamLead(id uuid.UUID) (*models.Team, error)
 	GetAllTeams(organizationID *uuid.UUID, page, pageSize int) (*TeamListResponse, error)
-	GetMembersOnly(id uuid.UUID) ([]MemberResponse, error)
-	GetTeamMembersByName(organizationID uuid.UUID, teamName string, page, pageSize int) ([]models.Member, int64, error)
-	GetTeamComponentsByName(organizationID uuid.UUID, teamName string, page, pageSize int) ([]models.Component, int64, error)
+	GetByID(id uuid.UUID) (*TeamResponse, error)
+	GetBySimpleName(teamName string) (*TeamWithMembersResponse, error)
+	GetBySimpleNameWithViewer(teamName string, viewerName string) (*TeamWithMembersResponse, error)
 	GetTeamComponentsByID(id uuid.UUID, page, pageSize int) ([]models.Component, int64, error)
-	AddLink(id uuid.UUID, req *AddLinkRequest) (*TeamResponse, error)
-	RemoveLink(id uuid.UUID, linkURL string) (*TeamResponse, error)
-	UpdateLinks(id uuid.UUID, req *UpdateLinksRequest) (*TeamResponse, error)
-}
-
-// ProjectServiceInterface defines the interface for project service
-type ProjectServiceInterface interface {
-	CreateProject(req *CreateProjectRequest) (*ProjectResponse, error)
-	GetProjectByID(id uuid.UUID) (*ProjectResponse, error)
-	GetProjectsByOrganization(organizationID uuid.UUID, limit, offset int) ([]ProjectResponse, int64, error)
-	UpdateProject(id uuid.UUID, req *UpdateProjectRequest) (*ProjectResponse, error)
-	DeleteProject(id uuid.UUID) error
-}
-
-// ComponentServiceInterface defines the interface for component service
-type ComponentServiceInterface interface {
-	CreateComponent(req *CreateComponentRequest) (*ComponentResponse, error)
-	GetComponentByID(id uuid.UUID) (*ComponentResponse, error)
-	GetComponentsByProject(projectID uuid.UUID, limit, offset int) ([]ComponentResponse, int64, error)
-	UpdateComponent(id uuid.UUID, req *UpdateComponentRequest) (*ComponentResponse, error)
-	DeleteComponent(id uuid.UUID) error
+	UpdateTeamMetadata(id uuid.UUID, metadata json.RawMessage) (*TeamResponse, error)
 }
 
 // LandscapeServiceInterface defines the interface for landscape service
@@ -104,27 +45,30 @@ type LandscapeServiceInterface interface {
 	GetLandscapesByOrganization(organizationID uuid.UUID, limit, offset int) ([]LandscapeResponse, int64, error)
 	UpdateLandscape(id uuid.UUID, req *UpdateLandscapeRequest) (*LandscapeResponse, error)
 	DeleteLandscape(id uuid.UUID) error
-}
-
-// ComponentDeploymentServiceInterface defines the interface for component deployment service
-type ComponentDeploymentServiceInterface interface {
-	CreateComponentDeployment(req *CreateComponentDeploymentRequest) (*ComponentDeploymentResponse, error)
-	GetComponentDeploymentByID(id uuid.UUID) (*ComponentDeploymentResponse, error)
-	GetComponentDeploymentsByComponent(componentID uuid.UUID, limit, offset int) ([]ComponentDeploymentResponse, int64, error)
-	UpdateComponentDeployment(id uuid.UUID, req *UpdateComponentDeploymentRequest) (*ComponentDeploymentResponse, error)
-	DeleteComponentDeployment(id uuid.UUID) error
+	GetByProjectName(projectName string) (*LandscapeListResponse, error)
+	GetByProjectNameAll(projectName string) ([]LandscapeMinimalResponse, error)
+	ListByQuery(q string, domains []string, environments []string, limit int, offset int) (*LandscapeListResponse, error)
 }
 
 // GitHubServiceInterface defines the interface for GitHub service
 type GitHubServiceInterface interface {
 	GetUserOpenPullRequests(ctx context.Context, claims *auth.AuthClaims, state, sort, direction string, perPage, page int) (*PullRequestsResponse, error)
 	GetUserTotalContributions(ctx context.Context, claims *auth.AuthClaims, period string) (*TotalContributionsResponse, error)
+	GetContributionsHeatmap(ctx context.Context, claims *auth.AuthClaims, period string) (*ContributionsHeatmapResponse, error)
+	GetAveragePRMergeTime(ctx context.Context, claims *auth.AuthClaims, period string) (*AveragePRMergeTimeResponse, error)
+	GetUserPRReviewComments(ctx context.Context, claims *auth.AuthClaims, period string) (*PRReviewCommentsResponse, error)
+	GetRepositoryContent(ctx context.Context, claims *auth.AuthClaims, owner, repo, path, ref string) (interface{}, error)
+	UpdateRepositoryFile(ctx context.Context, claims *auth.AuthClaims, owner, repo, path, message, content, sha, branch string) (interface{}, error)
+	ClosePullRequest(ctx context.Context, claims *auth.AuthClaims, owner, repo string, prNumber int, deleteBranch bool) (*PullRequest, error)
+	GetGitHubAsset(ctx context.Context, claims *auth.AuthClaims, assetURL string) ([]byte, string, error)
 }
 
 // JenkinsServiceInterface defines the interface for Jenkins service
 type JenkinsServiceInterface interface {
 	GetJobParameters(ctx context.Context, jaasName, jobName string) (interface{}, error)
-	TriggerJob(ctx context.Context, jaasName, jobName string, parameters map[string]string) error
+	TriggerJob(ctx context.Context, jaasName, jobName string, parameters map[string]string) (*JenkinsTriggerResult, error)
+	GetQueueItemStatus(ctx context.Context, jaasName, queueItemID string) (*JenkinsQueueStatusResult, error)
+	GetBuildStatus(ctx context.Context, jaasName, jobName string, buildNumber int) (*JenkinsBuildStatusResult, error)
 }
 
 // SonarServiceInterface defines the interface for Sonar service
@@ -148,4 +92,34 @@ type AICoreServiceInterface interface {
 	CreateDeployment(c *gin.Context, req *AICoreDeploymentRequest) (*AICoreDeploymentResponse, error)
 	UpdateDeployment(c *gin.Context, deploymentID string, req *AICoreDeploymentModificationRequest) (*AICoreDeploymentModificationResponse, error)
 	DeleteDeployment(c *gin.Context, deploymentID string) (*AICoreDeploymentDeletionResponse, error)
+	ChatInference(c *gin.Context, req *AICoreInferenceRequest) (*AICoreInferenceResponse, error)
+	ChatInferenceStream(c *gin.Context, req *AICoreInferenceRequest, writer gin.ResponseWriter) error
+	UploadAttachment(c *gin.Context, file multipart.File, header *multipart.FileHeader) (map[string]interface{}, error)
+	GetMe(c *gin.Context) (*AICoreMeResponse, error)
+}
+
+// CategoryServiceInterface defines the interface for category service
+type CategoryServiceInterface interface {
+	GetAll(page, pageSize int) (*CategoryListResponse, error)
+}
+
+// LinkServiceInterface defines the interface for link service
+type LinkServiceInterface interface {
+	// GetByOwnerUserID returns all links owned by the user with the given user_id (string, not)
+	GetByOwnerUserID(ownerUserID string) ([]LinkResponse, error)
+	// GetByOwnerUserIDWithViewer returns links owned by the given user and marks favorites based on viewer's favorites
+	GetByOwnerUserIDWithViewer(ownerUserID string, viewerName string) ([]LinkResponse, error)
+	// CreateLink creates a new link with validation and audit fields
+	CreateLink(req *CreateLinkRequest) (*LinkResponse, error)
+	// DeleteLink deletes a link by UUID
+	DeleteLink(id uuid.UUID) error
+}
+
+// DocumentationServiceInterface defines the interface for documentation service
+type DocumentationServiceInterface interface {
+	CreateDocumentation(req *CreateDocumentationRequest) (*DocumentationResponse, error)
+	GetDocumentationByID(id uuid.UUID) (*DocumentationResponse, error)
+	GetDocumentationsByTeamID(teamID uuid.UUID) ([]DocumentationResponse, error)
+	UpdateDocumentation(id uuid.UUID, req *UpdateDocumentationRequest) (*DocumentationResponse, error)
+	DeleteDocumentation(id uuid.UUID) error
 }

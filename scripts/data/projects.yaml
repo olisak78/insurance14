@@ -1,31 +1,18 @@
 projects:
-    - name: atom
-      organization_name: sap-cfs
-      display_name: ATOM
-      description: CFS ATOM Project
-      project_type: service
-      status: active
-      sort_order: 20
-      metadata:
-        annotations:
-            backstage.io/source-location: url:https://github.tools.sap/atom-cfs
-            cfs-feature-toggle/project: atom
-            cfs-landscapes/project: atom
-            feature-toggles/source-path: atom-cfs/feature-toggle-extension/main/docs/featureToggleMetaData.json
-            prometheus-alerts-dictionary/source-name: Atom
-        owner: department-cfs
-        source_location: https://github.tools.sap/atom-cfs
-        tags:
-            - kubernetes
-            - unified-services
-    - name: btp
-      organization_name: sap-cfs
-      display_name: BTP
-      description: Business Technology Platform
-      project_type: platform
-      status: active
-      sort_order: 10
-      metadata:
-        owner: department-cfs
-        tags:
-            - cloud-foundry
+  - name: neo
+    title: SAP Neo environment
+    description: SAP BTP, Neo environment is an enterprise platform-as-a-service (enterprise PaaS) that provides comprehensive application development services and capabilities.
+  - name: cis20
+    title: CIS@2.0
+    description: SAP BTP is a platform engineered to integrate, automate, extend, and build AI-supported business applications and processes across your enterprise.
+    metadata:
+      alerts-repo: "https://github.tools.sap/btp-monitoring/monitoring-configs/tree/main/charts/monitoring-configs/templates/alerts"
+  - name: ca
+    title: Cloud Automation
+    description: Cloud Automation
+  - name: usrv
+    title: Unified Services
+    description: Unified Services
+  - name: internal
+    title: Internal Projects
+    description: Projects that are not delivered to customers not related to neo/cf/atom.

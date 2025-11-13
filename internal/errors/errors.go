@@ -90,7 +90,7 @@ var (
 	ErrOrganizationNotFound           = &NotFoundError{Entity: "organization"}
 	ErrTeamNotFound                   = &NotFoundError{Entity: "team"}
 	ErrComponentNotFound              = &NotFoundError{Entity: "component"}
-	ErrMemberNotFound                 = &NotFoundError{Entity: "member"}
+	ErrUserNotFound                   = &NotFoundError{Entity: "user"}
 	ErrProjectNotFound                = &NotFoundError{Entity: "project"}
 	ErrLandscapeNotFound              = &NotFoundError{Entity: "landscape"}
 	ErrGroupNotFound                  = &NotFoundError{Entity: "group"}
@@ -111,7 +111,7 @@ var (
 	ErrOrganizationExists              = &AlreadyExistsError{Entity: "organization", Context: "with this name or domain"}
 	ErrTeamExists                      = &AlreadyExistsError{Entity: "team", Context: "with this name in the group"}
 	ErrComponentExists                 = &AlreadyExistsError{Entity: "component", Context: "with this name in the organization"}
-	ErrMemberExists                    = &AlreadyExistsError{Entity: "member", Context: "with this email"}
+	ErrUserExists                      = &AlreadyExistsError{Entity: "user", Context: "with this email"}
 	ErrProjectExists                   = &AlreadyExistsError{Entity: "project", Context: "with this name in the organization"}
 	ErrLandscapeExists                 = &AlreadyExistsError{Entity: "landscape", Context: "with this name"}
 	ErrGroupExists                     = &AlreadyExistsError{Entity: "group", Context: "with this name in the organization"}
@@ -147,13 +147,15 @@ var (
 	ErrNoMembersInTeam            = errors.New("team has no members")
 	ErrInvalidPaginationParams    = errors.New("invalid pagination parameters")
 	ErrGitHubAPIRateLimitExceeded = errors.New("GitHub API rate limit exceeded")
+	ErrProviderNotConfigured      = errors.New("provider is not configured")
+	ErrInvalidPeriodFormat        = errors.New("invalid period format")
 )
 
 // Authentication Errors
 var (
 	ErrInvalidRefreshToken = errors.New("invalid refresh token")
 	ErrRefreshTokenExpired = errors.New("refresh token has expired")
-	
+
 	// AI Core specific authentication errors
 	ErrUserEmailNotFound     = &AuthenticationError{Message: "user email not found in context"}
 	ErrUserNotAssignedToTeam = &AuthorizationError{Message: "user is not assigned to any team"}
@@ -163,16 +165,18 @@ var (
 
 // Configuration Errors
 var (
-	ErrJiraConfigMissing    = errors.New("jira configuration missing: JIRA_DOMAIN, JIRA_USER or JIRA_PASSWORD")
-	ErrJenkinsTokenNotFound = errors.New("jenkins token not found")
-	ErrJenkinsUserNotFound  = errors.New("jenkins username not found")
-	
+	ErrJiraConfigMissing        = errors.New("jira configuration missing: JIRA_DOMAIN, JIRA_USER or JIRA_PASSWORD")
+	ErrJenkinsTokenNotFound     = errors.New("jenkins token not found")
+	ErrJenkinsUserNotFound      = errors.New("jenkins username not found")
+	ErrJenkinsQueueItemNotFound = errors.New("jenkins queue item not found")
+	ErrJenkinsBuildNotFound     = errors.New("jenkins build not found")
+
 	// AI Core specific configuration errors
-	ErrAICoreCredentialsNotSet      = &ConfigurationError{Message: "AI_CORE_CREDENTIALS environment variable not set"}
-	ErrAICoreCredentialsInvalid     = &ConfigurationError{Message: "failed to parse AI_CORE_CREDENTIALS"}
-	ErrAICoreCredentialsNotFound    = &ConfigurationError{Message: "no credentials found for team"}
-	ErrAICoreAPIRequestFailed       = errors.New("AI Core API request failed")
-	ErrAICoreDeploymentNotFound     = &NotFoundError{Entity: "deployment"}
+	ErrAICoreCredentialsNotSet   = &ConfigurationError{Message: "AI_CORE_CREDENTIALS environment variable not set"}
+	ErrAICoreCredentialsInvalid  = &ConfigurationError{Message: "failed to parse AI_CORE_CREDENTIALS"}
+	ErrAICoreCredentialsNotFound = &ConfigurationError{Message: "no credentials found for team"}
+	ErrAICoreAPIRequestFailed    = errors.New("AI Core API request failed")
+	ErrAICoreDeploymentNotFound  = &NotFoundError{Entity: "deployment"}
 )
 
 // Helper Functions

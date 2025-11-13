@@ -1,0 +1,348 @@
+links:
+  - title: Artifactory (external)
+    url: https://common.repositories.cloud.sap/ui
+    category: development
+    tags: artifactory, repository
+
+  - title: Artifactory (internal)
+    url: https://int.repositories.cloud.sap/ui
+    category: development
+    tags: artifactory, repository
+
+  - title: ATOM Features Toggles
+    url: https://pages.github.tools.sap/atom-cfs/feature-toggle-extension/dashboard.html
+    category: development
+    tags: atom, feature-toggle
+
+  - title: Atom Release
+    url: https://atomrelease.jaas-gcp.cloud.sap.corp/
+    category: ci-cd
+    tags: atom, jenkins, jaas, release
+
+  - title: Atom-rm
+    url: https://atomcirm.jaas-gcp.cloud.sap.corp/
+    category: ci-cd
+    tags: atom, jenkins, jaas
+
+  - title: Atom-ua
+    url: https://atom.jaas-gcp.cloud.sap.corp/
+    category: ci-cd
+    tags: atom, jenkins, jaas
+
+  - title: Availability Canary
+    url: https://availability.cfapps.sap.hana.ondemand.com/
+    category: monitoring
+    tags: availability, canary
+
+  - title: Availability Live
+    url: https://availability.cfapps.us10.hana.ondemand.com/index.html
+    category: monitoring
+    tags: availability, live
+
+  - title: Black Duck
+    url: https://sap.blackducksoftware.com
+    category: security
+    tags: code-quality, open-source
+
+  - title: Bridge (CAT2)
+    url: https://bridge.tools.only.sap/#/detail/cats/
+    category: community
+    tags: bridge
+
+  - title: btp-monitoring (GitHub)
+    url: https://github.tools.sap/btp-monitoring
+    category: monitoring
+    tags: github, btp
+
+  - title: CAM Profiles
+    url: https://cam.int.sap/cam/ui/admin
+    category: community
+    tags: cam
+
+  - title: CF 2024
+    url: https://qpa.internal.cfapps.eu12.hana.ondemand.com/index.html#/timelinetable
+    category: project
+    tags: cf, timeline
+
+  - title: CF Hotfix Status
+    url: https://hotfix-status-overview.internal.cfapps.eu12.hana.ondemand.com/
+    category: project
+    tags: cf, hotfix, status
+
+  - title: CF Monitor
+    url: https://cfsmonitor.jaas-gcp.cloud.sap.corp/
+    category: monitoring
+    tags: cf, jenkins, jaas
+
+  - title: Checkmarx
+    url: https://cx.wdf.sap.corp/CxWebClient/
+    category: security
+    tags: code-quality, security-scan
+
+  - title: CIS 1.0
+    url: https://gkeo2pproductiveci.jaas-gcp.cloud.sap.corp/
+    category: ci-cd
+    tags: cis, jenkins, jaas
+
+  - title: CIS 2.0
+    url: https://gkecfsmicroservice.jaas-gcp.cloud.sap.corp/
+    category: ci-cd
+    tags: cis, jenkins, jaas
+
+  - title: CIS 2.0 (CF) Automation
+    url: https://gkecfsautomation.jaas-gcp.cloud.sap.corp/
+    category: ci-cd
+    tags: cis, jenkins, jaas, automation, cf
+
+  - title: CIS 2.0 QBS 1
+    url: https://gkecfscis2ci.jaas-gcp.cloud.sap.corp/
+    category: ci-cd
+    tags: cis, jenkins, jaas, qbs
+
+  - title: CIS 2.0 QBS 2
+    url: https://cis2ciqbs.jaas-gcp.cloud.sap.corp/
+    category: ci-cd
+    tags: cis, jenkins, jaas, qbs
+
+  - title: CIS 2.0 QBS
+    url: https://gkecfscis3ci.jaas-gcp.cloud.sap.corp/
+    category: ci-cd
+    tags: cis, jenkins, jaas, qbs
+
+  - title: CIS 2.0 QBS operation-console
+    url: https://gkeoperationconsole.jaas-gcp.cloud.sap.corp
+    category: ci-cd
+    tags: cis, jenkins, jaas, qbs, operations
+
+  - title: CIS 2.0 Release
+    url: https://gkecfsrelease.jaas-gcp.cloud.sap.corp/
+    category: ci-cd
+    tags: cis, jenkins, jaas, release
+
+  - title: CIS/LPS On-Duty Tasks and Info
+    url: https://wiki.wdf.sap.corp/wiki/x/6_jyc
+    category: documentation
+    tags: wiki, on-duty
+
+  - title: Cloud Engineer OnDuty
+    url: https://wiki.wdf.sap.corp/wiki/display/CloudEng/Cloud+Engineer+on+Duty
+    category: documentation
+    tags: wiki, on-duty
+
+  - title: Converged Cloud
+    url: https://dashboard.eu-de-2.cloud.sap/monsoon3/home
+    category: infrastructure
+    tags: cloud, dashboard
+
+  - title: Copernicus
+    url: https://copernicus.cfapps.sap.hana.ondemand.com/
+    category: monitoring
+    tags: []
+
+  - title: CP Components Contacts
+    url: https://wiki.wdf.sap.corp/wiki/display/NGP/Scrum+Teams
+    category: documentation
+    tags: wiki, contacts
+
+  - title: Developers Corner
+    url: https://gkecfsmulticis2.jaas-gcp.cloud.sap.corp/
+    category: ci-cd
+    tags: cis, jenkins, jaas
+
+  - title: DomainDB Contacts
+    url: https://wiki.wdf.sap.corp/wiki/display/DomainDB/Domain+DB
+    category: documentation
+    tags: wiki, contacts, domain
+
+  - title: E2E CLI Staging AWS GC
+    url: https://gkecfsautomation.jaas-gcp.cloud.sap.corp/job/cli-e2e-tests-on-stagingawsgc/
+    category: testing
+    tags: e2e, cli, staging, aws
+
+  - title: Events
+    url: https://jam4.sapjam.com/groups/2vRC8cQuXNwgKvdAcI66gS/events
+    category: project
+    tags: jam, events
+
+  - title: Gardener - canary
+    url: https://dashboard.garden.canary.k8s.ondemand.com/
+    category: infrastructure
+    tags: gardener, kubernetes, canary
+
+  - title: Gardener - live
+    url: https://dashboard.garden.live.k8s.ondemand.com/
+    category: infrastructure
+    tags: gardener, kubernetes, live
+
+  - title: GIT wdf (Gerrit)
+    url: https://git.wdf.sap.corp/
+    category: development
+    tags: git, gerrit
+
+  - title: GitHub tools
+    url: https://github.tools.sap/
+    category: development
+    tags: github
+
+  - title: GitHub wdf
+    url: https://github.wdf.sap.corp/
+    category: development
+    tags: github
+
+  - title: Gitlab CN
+    url: https://gitlab.tools.vlab-sapcloudplatformdev.cn/
+    category: development
+    tags: gitlab
+
+  - title: Hyperspace Portal
+    url: https://portal.hyperspace.tools.sap
+    category: ci-cd
+    tags: portal
+
+  - title: JaaS Status
+    url: https://me.sap.com/cacv2/customer/2029347
+    description: JaaS status dashboard
+    category: ci-cd
+    tags: jaas, status, dashboard
+
+  - title: Jira Tools
+    url: https://jira.tools.sap/
+    category: project
+    tags: jira
+
+  - title: Mend
+    url: https://iungo.wdf.sap.corp/ui
+    category: security
+    tags: []
+
+  - title: MIT/DevPro
+    url: https://devpro.only.sap/mit
+    category: ci-cd
+    tags: []
+
+  - title: MS - How to Guide
+    url: https://wiki.wdf.sap.corp/wiki/display/CPC15N/CIS+2.0+Microservice+-+How-To+Guide
+    category: documentation
+    tags: wiki, microservice, guide
+
+  - title: NEO 2025
+    url: https://wiki.one.int.sap/wiki/display/JPaaS/CP+Neo+Timelines+2025
+    category: project
+    tags: neo, timeline
+
+  - title: Operations - github.tools
+    url: https://github.tools.sap/cloudfoundry/cf-docs/wiki/Operations
+    category: documentation
+    tags: github, operations, cf
+
+  - title: ops2go
+    url: https://ops2go.internal.cfapps.eu12.hana.ondemand.com
+    category: infrastructure
+    tags: operations
+
+  - title: Plutono Canary
+    url: https://plutono.ingress.btp-mnt-ca.btp.shoot.live.k8s-hana.ondemand.com/?orgId=1
+    category: monitoring
+    tags: plutono, canary
+
+  - title: Plutono Live
+    url: https://plutono.ingress.btp-mnt-live.btp.shoot.live.k8s-hana.ondemand.com/?orgId=1
+    category: monitoring
+    tags: plutono, live
+
+  - title: PPMS
+    url: https://i7p.wdf.sap.corp/ppmslight
+    category: security
+    tags: []
+
+  - title: Productive Flows
+    url: https://cfsprodflows.jaas-gcp.cloud.sap.corp/
+    category: ci-cd
+    tags: jenkins, jaas
+
+  - title: Project Portal
+    url: https://projectportal.tools.sap/
+    category: ci-cd
+    tags: portal
+
+  - title: SAP API Business Hub
+    url: https://api.sap.com/package/SAPCloudPlatformCoreServices
+    category: development
+    tags: api
+
+  - title: SAP PassVault
+    url: https://cmp.wdf.sap.corp/passvault/
+    category: security
+    tags: vault, secrets, password
+
+  - title: SAP@Stackoverflow
+    url: https://sap.stackenterprise.co/
+    category: community
+    tags: stackoverflow
+
+  - title: Secrets
+    url: https://thycotic.wdf.global.corp.sap/
+    category: security
+    tags: secrets, thycotic
+
+  - title: SNOW
+    url: https://itsm.services.sap/sp
+    category: project
+    tags: snow, itsm
+
+  - title: Sonar
+    url: https://sonar.tools.sap/
+    category: security
+    tags: code-quality, sonar
+
+  - title: Splunk
+    url: https://portal.victorops.com/ui/sap-ti-ce/incidents
+    category: monitoring
+    tags: splunk
+
+  - title: SVM
+    url: https://svmprod-zdohvhnx0v.dispatcher.int.sap.eu2.hana.ondemand.com
+    category: security
+    tags: []
+
+  - title: Takt Schedules
+    url: https://wiki.wdf.sap.corp/wiki/display/technology/Takt+Schedule
+    category: project
+    tags: schedule
+
+  - title: Test Plan CF
+    url: https://jira.tools.sap/projects/CFTEST?selectedItem=com.xpandit.plugins.xray:testplan-panel
+    category: testing
+    tags: jira, cf, test-plan
+
+  - title: Test Plan Neo
+    url: https://jira.tools.sap/projects/NEOTEST?selectedItem=com.xpandit.plugins.xray:testplan-panel
+    category: testing
+    tags: jira, neo, test-plan
+
+  - title: Thycotic
+    url: https://dewdfalm01.wdf.global.corp.sap/
+    category: security
+    tags: secrets
+
+  - title: Vault
+    url: https://vault.tools.sap/ui/vault/auth?with=oidc%2F
+    category: security
+    tags: vault, secrets
+
+  - title: WhiteSource
+    url: https://sap.whitesourcesoftware.com/
+    category: security
+    tags: code-quality, open-source
+
+  - title: xMake Dev
+    url: https://xmake-dev.wdf.sap.corp
+    category: ci-cd
+    tags: xmake, build, dev
+
+  - title: xMake Nova
+    url: https://xmake-nova.wdf.sap.corp
+    description: Jenkins Job Finder
+    category: ci-cd
+    tags: xmake, build
+

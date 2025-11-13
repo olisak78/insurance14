@@ -42,6 +42,16 @@ func (r *TeamRepository) GetByName(groupID uuid.UUID, name string) (*models.Team
 	return &team, nil
 }
 
+// GetByNameGlobal retrieves a team by name across all groups/organizations (first match)
+func (r *TeamRepository) GetByNameGlobal(name string) (*models.Team, error) {
+	var team models.Team
+	err := r.db.First(&team, "name = ?", name).Error
+	if err != nil {
+		return nil, err
+	}
+	return &team, nil
+}
+
 // GetByGroupID retrieves all teams for a group with pagination
 func (r *TeamRepository) GetByGroupID(groupID uuid.UUID, limit, offset int) ([]models.Team, int64, error) {
 	var teams []models.Team
@@ -69,7 +79,7 @@ func (r *TeamRepository) GetByOrganizationID(orgID uuid.UUID, limit, offset int)
 	// Get total count - join with groups to filter by organization
 	if err := r.db.Model(&models.Team{}).
 		Joins("JOIN groups ON teams.group_id = groups.id").
-		Where("groups.organization_id = ?", orgID).
+		Where("groups.org_id = ?", orgID).
 		Count(&total).Error; err != nil {
 		return nil, 0, err
 	}
@@ -77,32 +87,9 @@ func (r *TeamRepository) GetByOrganizationID(orgID uuid.UUID, limit, offset int)
 	// Get paginated results
 	err := r.db.
 		Joins("JOIN groups ON teams.group_id = groups.id").
-		Where("groups.organization_id = ?", orgID).
+		Where("groups.org_id = ?", orgID).
 		Limit(limit).Offset(offset).
 		Find(&teams).Error
-	if err != nil {
-		return nil, 0, err
-	}
-
-	return teams, total, nil
-}
-
-// GetActiveTeams retrieves all active teams for an organization (through groups)
-func (r *TeamRepository) GetActiveTeams(orgID uuid.UUID, limit, offset int) ([]models.Team, int64, error) {
-	var teams []models.Team
-	var total int64
-
-	query := r.db.Model(&models.Team{}).
-		Joins("JOIN groups ON teams.group_id = groups.id").
-		Where("groups.organization_id = ? AND teams.status = ?", orgID, models.TeamStatusActive)
-
-	// Get total count
-	if err := query.Count(&total).Error; err != nil {
-		return nil, 0, err
-	}
-
-	// Get paginated results
-	err := query.Limit(limit).Offset(offset).Find(&teams).Error
 	if err != nil {
 		return nil, 0, err
 	}
@@ -138,7 +125,7 @@ func (r *TeamRepository) GetWithOrganization(id uuid.UUID) (*models.Team, error)
 // GetWithMembers retrieves a team with all its members
 func (r *TeamRepository) GetWithMembers(id uuid.UUID) (*models.Team, error) {
 	var team models.Team
-	err := r.db.Preload("Members").First(&team, "id = ?", id).Error
+	err := r.db.Preload("Users").First(&team, "id = ?", id).Error
 	if err != nil {
 		return nil, err
 	}
@@ -178,11 +165,6 @@ func (r *TeamRepository) GetWithProjects(id uuid.UUID) (*models.Team, error) {
 	return &team, nil
 }
 
-// SetStatus sets the status of a team
-func (r *TeamRepository) SetStatus(teamID uuid.UUID, status models.TeamStatus) error {
-	return r.db.Model(&models.Team{}).Where("id = ?", teamID).Update("status", status).Error
-}
-
 // Search searches for teams by name or description within an organization (through groups)
 func (r *TeamRepository) Search(orgID uuid.UUID, query string, limit, offset int) ([]models.Team, int64, error) {
 	var teams []models.Team
@@ -190,7 +172,7 @@ func (r *TeamRepository) Search(orgID uuid.UUID, query string, limit, offset int
 
 	searchQuery := r.db.Model(&models.Team{}).
 		Joins("JOIN groups ON teams.group_id = groups.id").
-		Where("groups.organization_id = ? AND (teams.name ILIKE ? OR teams.description ILIKE ?)", orgID, "%"+query+"%", "%"+query+"%")
+		Where("groups.org_id = ? AND (teams.name ILIKE ? OR teams.description ILIKE ?)", orgID, "%"+query+"%", "%"+query+"%")
 
 	// Get total count
 	if err := searchQuery.Count(&total).Error; err != nil {
@@ -209,14 +191,7 @@ func (r *TeamRepository) Search(orgID uuid.UUID, query string, limit, offset int
 // GetMemberCount returns the number of members in a team
 func (r *TeamRepository) GetMemberCount(teamID uuid.UUID) (int64, error) {
 	var count int64
-	err := r.db.Model(&models.Member{}).Where("team_id = ?", teamID).Count(&count).Error
-	return count, err
-}
-
-// GetComponentOwnershipCount returns the number of components owned by a team
-func (r *TeamRepository) GetComponentOwnershipCount(teamID uuid.UUID) (int64, error) {
-	var count int64
-	err := r.db.Model(&models.TeamComponentOwnership{}).Where("team_id = ?", teamID).Count(&count).Error
+	err := r.db.Model(&models.User{}).Where("team_id = ?", teamID).Count(&count).Error
 	return count, err
 }
 
@@ -236,7 +211,7 @@ func (r *TeamRepository) GetTeamsWithMemberCount(orgID uuid.UUID, limit, offset 
 	// Get total count
 	if err := r.db.Model(&models.Team{}).
 		Joins("JOIN groups ON teams.group_id = groups.id").
-		Where("groups.organization_id = ?", orgID).
+		Where("groups.org_id = ?", orgID).
 		Count(&total).Error; err != nil {
 		return nil, 0, err
 	}
@@ -247,7 +222,7 @@ func (r *TeamRepository) GetTeamsWithMemberCount(orgID uuid.UUID, limit, offset 
 		FROM teams t
 		JOIN groups g ON t.group_id = g.id
 		LEFT JOIN members m ON t.id = m.team_id
-		WHERE g.organization_id = ?
+		WHERE g.org_id = ?
 		GROUP BY t.id, g.id
 		LIMIT ? OFFSET ?
 	`, orgID, limit, offset).Scan(&teams).Error
@@ -259,14 +234,16 @@ func (r *TeamRepository) GetTeamsWithMemberCount(orgID uuid.UUID, limit, offset 
 	// Convert to map format for easier JSON handling
 	for _, team := range teams {
 		teamMap := map[string]interface{}{
-			"id":           team.ID,
-			"name":         team.Name,
-			"display_name": team.DisplayName,
-			"description":  team.Description,
-			"group_id":     team.GroupID,
-			"status":       team.Status,
-			"created_at":   team.CreatedAt,
-			"updated_at":   team.UpdatedAt,
+			"id":          team.ID,
+			"name":        team.Name,
+			"title":       team.Title,
+			"description": team.Description,
+			"group_id":    team.GroupID,
+			"owner":       team.Owner,
+			"email":       team.Email,
+			"picture_url": team.PictureURL,
+			"created_at":  team.CreatedAt,
+			"updated_at":  team.UpdatedAt,
 		}
 		results = append(results, teamMap)
 	}

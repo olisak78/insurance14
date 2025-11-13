@@ -20,14 +20,13 @@ type RefreshTokenData struct {
 	Email       string    `json:"email"`
 	MemberID    *string   `json:"member_id,omitempty"` // ID of member with matching email
 	Provider    string    `json:"provider"`
-	Environment string    `json:"environment"`
 	AccessToken string    `json:"access_token"`
 	ExpiresAt   time.Time `json:"expires_at"`
 	CreatedAt   time.Time `json:"created_at"`
 }
 
 // MemberRepository defines the interface for member operations needed by auth service
-type MemberRepository interface {
+type UserRepository interface {
 	GetByEmail(email string) (interface{}, error)
 }
 
@@ -37,16 +36,15 @@ type AuthService struct {
 	githubClients map[string]*GitHubClient
 	refreshTokens map[string]*RefreshTokenData // In-memory store for refresh tokens
 	tokenMutex    sync.RWMutex                 // Protect the refresh token store
-	memberRepo    MemberRepository             // Repository for member lookup
+	userRepo      UserRepository               // Repository for member lookup
 }
 
 // AuthClaims represents JWT token claims
 type AuthClaims struct {
-	UserID      int64  `json:"user_id" example:"12345"`
-	Username    string `json:"username" example:"johndoe"`
-	Email       string `json:"email" example:"john.doe@example.com"`
-	Provider    string `json:"provider" example:"githubtools"`
-	Environment string `json:"environment" example:"development"`
+	UserID   int64  `json:"user_id" example:"12345"`
+	Username string `json:"username" example:"johndoe"`
+	Email    string `json:"email" example:"john.doe@example.com"`
+	Provider string `json:"provider" example:"githubtools"`
 	// Standard JWT fields
 	Issuer               string `json:"iss,omitempty" example:"developer-portal-backend"`
 	Subject              string `json:"sub,omitempty" example:"12345"`
@@ -97,18 +95,15 @@ type AuthValidateResponse struct {
 }
 
 // NewAuthService creates a new authentication service
-func NewAuthService(config *AuthConfig, memberRepo MemberRepository) (*AuthService, error) {
+func NewAuthService(config *AuthConfig, userRepo UserRepository) (*AuthService, error) {
 	if err := config.ValidateConfig(); err != nil {
 		return nil, fmt.Errorf("invalid auth config: %w", err)
 	}
 
-	// Initialize GitHub clients for each provider/environment combination
+	// Initialize GitHub clients for each provider
 	githubClients := make(map[string]*GitHubClient)
-	for providerName, provider := range config.Providers {
-		for envName, envConfig := range provider.Environments {
-			key := fmt.Sprintf("%s_%s", providerName, envName)
-			githubClients[key] = NewGitHubClient(&envConfig)
-		}
+	for providerName, providerConfig := range config.Providers {
+		githubClients[providerName] = NewGitHubClient(&providerConfig)
 	}
 
 	return &AuthService{
@@ -116,18 +111,18 @@ func NewAuthService(config *AuthConfig, memberRepo MemberRepository) (*AuthServi
 		githubClients: githubClients,
 		refreshTokens: make(map[string]*RefreshTokenData),
 		tokenMutex:    sync.RWMutex{},
-		memberRepo:    memberRepo,
+		userRepo:      userRepo,
 	}, nil
 }
 
 // getMemberIDByEmail looks up a member by email and returns their ID as a string pointer
 // Returns nil if member is not found or an error occurs
 func (s *AuthService) getMemberIDByEmail(email string) *string {
-	if s.memberRepo == nil || email == "" {
+	if s.userRepo == nil || email == "" {
 		return nil
 	}
 
-	member, err := s.memberRepo.GetByEmail(email)
+	member, err := s.userRepo.GetByEmail(email)
 	if err != nil || member == nil {
 		return nil
 	}
@@ -158,16 +153,15 @@ func (s *AuthService) GetMemberIDByEmail(email string) *string {
 }
 
 // GetAuthURL generates OAuth2 authorization URL
-func (s *AuthService) GetAuthURL(provider, env, state string) (string, error) {
-	_, err := s.config.GetProvider(provider, env)
+func (s *AuthService) GetAuthURL(provider, state string) (string, error) {
+	_, err := s.config.GetProvider(provider)
 	if err != nil {
 		return "", err
 	}
 
-	key := fmt.Sprintf("%s_%s", provider, env)
-	githubClient, exists := s.githubClients[key]
+	githubClient, exists := s.githubClients[provider]
 	if !exists {
-		return "", fmt.Errorf("GitHub client not found for provider %s environment %s", provider, env)
+		return "", fmt.Errorf("GitHub client not found for provider %s", provider)
 	}
 
 	// Generate callback URL
@@ -180,16 +174,15 @@ func (s *AuthService) GetAuthURL(provider, env, state string) (string, error) {
 }
 
 // HandleCallback processes OAuth2 callback and returns user information
-func (s *AuthService) HandleCallback(ctx context.Context, provider, env, code, state string) (*AuthHandlerResponse, error) {
-	_, err := s.config.GetProvider(provider, env)
+func (s *AuthService) HandleCallback(ctx context.Context, provider, code, state string) (*AuthHandlerResponse, error) {
+	_, err := s.config.GetProvider(provider)
 	if err != nil {
 		return nil, err
 	}
 
-	key := fmt.Sprintf("%s_%s", provider, env)
-	githubClient, exists := s.githubClients[key]
+	githubClient, exists := s.githubClients[provider]
 	if !exists {
-		return nil, fmt.Errorf("GitHub client not found for provider %s environment %s", provider, env)
+		return nil, fmt.Errorf("GitHub client not found for provider %s", provider)
 	}
 
 	// Generate callback URL
@@ -213,7 +206,7 @@ func (s *AuthService) HandleCallback(ctx context.Context, provider, env, code, s
 	profile.MemberID = s.getMemberIDByEmail(profile.Email)
 
 	// Generate JWT token
-	jwtToken, err := s.GenerateJWT(profile, provider, env)
+	jwtToken, err := s.GenerateJWT(profile, provider)
 	if err != nil {
 		return nil, fmt.Errorf("failed to generate JWT: %w", err)
 	}
@@ -232,7 +225,6 @@ func (s *AuthService) HandleCallback(ctx context.Context, provider, env, code, s
 		Email:       profile.Email,
 		MemberID:    profile.MemberID,
 		Provider:    provider,
-		Environment: env,
 		AccessToken: token.AccessToken,                   // Store the original OAuth access token
 		ExpiresAt:   time.Now().Add(30 * 24 * time.Hour), // 30 days
 		CreatedAt:   time.Now(),
@@ -278,7 +270,7 @@ func (s *AuthService) RefreshToken(refreshToken string) (*AuthHandlerResponse, e
 	}
 
 	// Generate new JWT token
-	jwtToken, err := s.GenerateJWT(profile, tokenData.Provider, tokenData.Environment)
+	jwtToken, err := s.GenerateJWT(profile, tokenData.Provider)
 	if err != nil {
 		return nil, fmt.Errorf("failed to generate new JWT: %w", err)
 	}
@@ -298,7 +290,6 @@ func (s *AuthService) RefreshToken(refreshToken string) (*AuthHandlerResponse, e
 		Email:       tokenData.Email,
 		MemberID:    tokenData.MemberID,
 		Provider:    tokenData.Provider,
-		Environment: tokenData.Environment,
 		AccessToken: tokenData.AccessToken,               // Keep the original OAuth access token
 		ExpiresAt:   time.Now().Add(30 * 24 * time.Hour), // 30 days
 		CreatedAt:   time.Now(),
@@ -317,14 +308,13 @@ func (s *AuthService) RefreshToken(refreshToken string) (*AuthHandlerResponse, e
 }
 
 // GenerateJWT creates a JWT token for the user
-func (s *AuthService) GenerateJWT(userProfile *UserProfile, provider, env string) (string, error) {
+func (s *AuthService) GenerateJWT(userProfile *UserProfile, provider string) (string, error) {
 	now := time.Now()
 	claims := &AuthClaims{
-		UserID:      userProfile.ID,
-		Username:    userProfile.Username,
-		Email:       userProfile.Email,
-		Provider:    provider,
-		Environment: env,
+		UserID:   userProfile.ID,
+		Username: userProfile.Username,
+		Email:    userProfile.Email,
+		Provider: provider,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(now.Add(time.Hour)),
 			IssuedAt:  jwt.NewNumericDate(now),
@@ -393,11 +383,10 @@ func (s *AuthService) GetGitHubAccessTokenFromClaims(claims *AuthClaims) (string
 	s.tokenMutex.RLock()
 	defer s.tokenMutex.RUnlock()
 
-	// Find a valid refresh token for this user/provider/environment
+	// Find a valid refresh token for this user/provider
 	for _, tokenData := range s.refreshTokens {
 		if tokenData.UserID == claims.UserID &&
 			tokenData.Provider == claims.Provider &&
-			tokenData.Environment == claims.Environment &&
 			time.Now().Before(tokenData.ExpiresAt) {
 
 			return tokenData.AccessToken, nil
@@ -407,16 +396,15 @@ func (s *AuthService) GetGitHubAccessTokenFromClaims(claims *AuthClaims) (string
 	return "", fmt.Errorf("no valid GitHub session found for user %d with provider %s", claims.UserID, claims.Provider)
 }
 
-// GetGitHubClient retrieves the GitHub client for a specific provider and environment
-func (s *AuthService) GetGitHubClient(provider, environment string) (*GitHubClient, error) {
+// GetGitHubClient retrieves the GitHub client for a specific provider
+func (s *AuthService) GetGitHubClient(provider string) (*GitHubClient, error) {
 	if s == nil {
 		return nil, fmt.Errorf("auth service is not initialized")
 	}
 
-	key := fmt.Sprintf("%s_%s", provider, environment)
-	client, exists := s.githubClients[key]
+	client, exists := s.githubClients[provider]
 	if !exists {
-		return nil, fmt.Errorf("GitHub client not found for provider %s environment %s", provider, environment)
+		return nil, fmt.Errorf("GitHub client not found for provider %s", provider)
 	}
 	return client, nil
 }

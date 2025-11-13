@@ -105,7 +105,7 @@ func TestGetUserOpenPullRequests_FullFlow_WithMocks(t *testing.T) {
 		Times(1)
 
 	// Create a GitHub client that points to our mock server
-	envConfig := &auth.EnvironmentConfig{
+	envConfig := &auth.ProviderConfig{
 		ClientID:          "test_client_id",
 		ClientSecret:      "test_client_secret",
 		EnterpriseBaseURL: mockGitHubServer.URL,
@@ -113,7 +113,7 @@ func TestGetUserOpenPullRequests_FullFlow_WithMocks(t *testing.T) {
 	githubClient := auth.NewGitHubClient(envConfig)
 
 	mockAuthService.EXPECT().
-		GetGitHubClient("githubtools", "development").
+		GetGitHubClient("githubtools").
 		Return(githubClient, nil).
 		Times(1)
 
@@ -121,11 +121,10 @@ func TestGetUserOpenPullRequests_FullFlow_WithMocks(t *testing.T) {
 	githubService := service.NewGitHubServiceWithAdapter(mockAuthService)
 
 	claims := &auth.AuthClaims{
-		UserID:      12345,
-		Username:    "testuser",
-		Email:       "test@example.com",
-		Provider:    "githubtools",
-		Environment: "development",
+		UserID:   12345,
+		Username: "testuser",
+		Email:    "test@example.com",
+		Provider: "githubtools",
 	}
 
 	ctx := context.Background()
@@ -210,14 +209,13 @@ func TestGetUserOpenPullRequests_ClosedState(t *testing.T) {
 	mockAuthService := mocks.NewMockGitHubAuthService(ctrl)
 	mockAuthService.EXPECT().GetGitHubAccessTokenFromClaims(gomock.Any()).Return("token", nil)
 
-	envConfig := &auth.EnvironmentConfig{EnterpriseBaseURL: mockGitHubServer.URL}
-	mockAuthService.EXPECT().GetGitHubClient(gomock.Any(), gomock.Any()).Return(auth.NewGitHubClient(envConfig), nil)
+	envConfig := &auth.ProviderConfig{EnterpriseBaseURL: mockGitHubServer.URL}
+	mockAuthService.EXPECT().GetGitHubClient(gomock.Any()).Return(auth.NewGitHubClient(envConfig), nil)
 
 	githubService := service.NewGitHubServiceWithAdapter(mockAuthService)
 	claims := &auth.AuthClaims{
-		UserID:      12345,
-		Provider:    "githubtools",
-		Environment: "development",
+		UserID:   12345,
+		Provider: "githubtools",
 	}
 
 	result, err := githubService.GetUserOpenPullRequests(context.Background(), claims, "closed", "created", "desc", 30, 1)
@@ -246,11 +244,11 @@ func TestGetUserOpenPullRequests_EmptyResults(t *testing.T) {
 	mockAuthService := mocks.NewMockGitHubAuthService(ctrl)
 	mockAuthService.EXPECT().GetGitHubAccessTokenFromClaims(gomock.Any()).Return("token", nil)
 
-	envConfig := &auth.EnvironmentConfig{EnterpriseBaseURL: mockGitHubServer.URL}
-	mockAuthService.EXPECT().GetGitHubClient(gomock.Any(), gomock.Any()).Return(auth.NewGitHubClient(envConfig), nil)
+	envConfig := &auth.ProviderConfig{EnterpriseBaseURL: mockGitHubServer.URL}
+	mockAuthService.EXPECT().GetGitHubClient(gomock.Any()).Return(auth.NewGitHubClient(envConfig), nil)
 
 	githubService := service.NewGitHubServiceWithAdapter(mockAuthService)
-	claims := &auth.AuthClaims{UserID: 12345, Provider: "githubtools", Environment: "development"}
+	claims := &auth.AuthClaims{UserID: 12345, Provider: "githubtools"}
 
 	result, err := githubService.GetUserOpenPullRequests(context.Background(), claims, "open", "created", "desc", 30, 1)
 
@@ -288,12 +286,12 @@ func TestGetUserOpenPullRequests_GitHubClientRetrievalFailure(t *testing.T) {
 	mockAuthService := mocks.NewMockGitHubAuthService(ctrl)
 	mockAuthService.EXPECT().GetGitHubAccessTokenFromClaims(gomock.Any()).Return("token", nil)
 	mockAuthService.EXPECT().
-		GetGitHubClient(gomock.Any(), gomock.Any()).
+		GetGitHubClient(gomock.Any()).
 		Return(nil, fmt.Errorf("client not found")).
 		Times(1)
 
 	githubService := service.NewGitHubServiceWithAdapter(mockAuthService)
-	claims := &auth.AuthClaims{UserID: 12345, Provider: "invalid", Environment: "dev"}
+	claims := &auth.AuthClaims{UserID: 12345, Provider: "invalid"}
 
 	result, err := githubService.GetUserOpenPullRequests(context.Background(), claims, "open", "created", "desc", 30, 1)
 
@@ -320,11 +318,11 @@ func TestGetUserOpenPullRequests_GitHubAPIRateLimit(t *testing.T) {
 	mockAuthService := mocks.NewMockGitHubAuthService(ctrl)
 	mockAuthService.EXPECT().GetGitHubAccessTokenFromClaims(gomock.Any()).Return("token", nil)
 
-	envConfig := &auth.EnvironmentConfig{EnterpriseBaseURL: mockGitHubServer.URL}
-	mockAuthService.EXPECT().GetGitHubClient(gomock.Any(), gomock.Any()).Return(auth.NewGitHubClient(envConfig), nil)
+	envConfig := &auth.ProviderConfig{EnterpriseBaseURL: mockGitHubServer.URL}
+	mockAuthService.EXPECT().GetGitHubClient(gomock.Any()).Return(auth.NewGitHubClient(envConfig), nil)
 
 	githubService := service.NewGitHubServiceWithAdapter(mockAuthService)
-	claims := &auth.AuthClaims{UserID: 12345, Provider: "githubtools", Environment: "development"}
+	claims := &auth.AuthClaims{UserID: 12345, Provider: "githubtools"}
 
 	result, err := githubService.GetUserOpenPullRequests(context.Background(), claims, "open", "created", "desc", 30, 1)
 
@@ -354,11 +352,11 @@ func TestGetUserOpenPullRequests_DefaultParameterNormalization(t *testing.T) {
 	mockAuthService := mocks.NewMockGitHubAuthService(ctrl)
 	mockAuthService.EXPECT().GetGitHubAccessTokenFromClaims(gomock.Any()).Return("token", nil)
 
-	envConfig := &auth.EnvironmentConfig{EnterpriseBaseURL: mockGitHubServer.URL}
-	mockAuthService.EXPECT().GetGitHubClient(gomock.Any(), gomock.Any()).Return(auth.NewGitHubClient(envConfig), nil)
+	envConfig := &auth.ProviderConfig{EnterpriseBaseURL: mockGitHubServer.URL}
+	mockAuthService.EXPECT().GetGitHubClient(gomock.Any()).Return(auth.NewGitHubClient(envConfig), nil)
 
 	githubService := service.NewGitHubServiceWithAdapter(mockAuthService)
-	claims := &auth.AuthClaims{UserID: 12345, Provider: "githubtools", Environment: "development"}
+	claims := &auth.AuthClaims{UserID: 12345, Provider: "githubtools"}
 
 	// Call with empty parameters to test defaults
 	_, err := githubService.GetUserOpenPullRequests(context.Background(), claims, "", "", "", 0, 0)
@@ -391,11 +389,11 @@ func TestGetUserOpenPullRequests_PaginationParameters(t *testing.T) {
 	mockAuthService := mocks.NewMockGitHubAuthService(ctrl)
 	mockAuthService.EXPECT().GetGitHubAccessTokenFromClaims(gomock.Any()).Return("token", nil)
 
-	envConfig := &auth.EnvironmentConfig{EnterpriseBaseURL: mockGitHubServer.URL}
-	mockAuthService.EXPECT().GetGitHubClient(gomock.Any(), gomock.Any()).Return(auth.NewGitHubClient(envConfig), nil)
+	envConfig := &auth.ProviderConfig{EnterpriseBaseURL: mockGitHubServer.URL}
+	mockAuthService.EXPECT().GetGitHubClient(gomock.Any()).Return(auth.NewGitHubClient(envConfig), nil)
 
 	githubService := service.NewGitHubServiceWithAdapter(mockAuthService)
-	claims := &auth.AuthClaims{UserID: 12345, Provider: "githubtools", Environment: "development"}
+	claims := &auth.AuthClaims{UserID: 12345, Provider: "githubtools"}
 
 	// Test with specific pagination
 	_, err := githubService.GetUserOpenPullRequests(context.Background(), claims, "open", "created", "desc", 50, 3)
@@ -451,11 +449,11 @@ func TestGetUserOpenPullRequests_PRDataParsing(t *testing.T) {
 	mockAuthService := mocks.NewMockGitHubAuthService(ctrl)
 	mockAuthService.EXPECT().GetGitHubAccessTokenFromClaims(gomock.Any()).Return("token", nil)
 
-	envConfig := &auth.EnvironmentConfig{EnterpriseBaseURL: mockGitHubServer.URL}
-	mockAuthService.EXPECT().GetGitHubClient(gomock.Any(), gomock.Any()).Return(auth.NewGitHubClient(envConfig), nil)
+	envConfig := &auth.ProviderConfig{EnterpriseBaseURL: mockGitHubServer.URL}
+	mockAuthService.EXPECT().GetGitHubClient(gomock.Any()).Return(auth.NewGitHubClient(envConfig), nil)
 
 	githubService := service.NewGitHubServiceWithAdapter(mockAuthService)
-	claims := &auth.AuthClaims{UserID: 12345, Provider: "githubtools", Environment: "development"}
+	claims := &auth.AuthClaims{UserID: 12345, Provider: "githubtools"}
 
 	result, err := githubService.GetUserOpenPullRequests(context.Background(), claims, "open", "created", "desc", 30, 1)
 

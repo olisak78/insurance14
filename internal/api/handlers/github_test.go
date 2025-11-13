@@ -1,6 +1,7 @@
 package handlers_test
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -62,6 +63,161 @@ func (m *MockGitHubService) GetUserTotalContributions(ctx context.Context, claim
 	}, nil
 }
 
+func (m *MockGitHubService) GetContributionsHeatmap(ctx context.Context, claims *auth.AuthClaims, period string) (*service.ContributionsHeatmapResponse, error) {
+	if m.Error != nil {
+		return nil, m.Error
+	}
+	// Return a mock response
+	return &service.ContributionsHeatmapResponse{
+		TotalContributions: 1234,
+		Weeks: []service.ContributionWeek{
+			{
+				FirstDay: "2024-10-27",
+				ContributionDays: []service.ContributionDay{
+					{
+						Date:              "2024-10-27",
+						ContributionCount: 5,
+						ContributionLevel: "SECOND_QUARTILE",
+						Color:             "#40c463",
+					},
+					{
+						Date:              "2024-10-28",
+						ContributionCount: 10,
+						ContributionLevel: "THIRD_QUARTILE",
+						Color:             "#30a14e",
+					},
+				},
+			},
+		},
+		From: "2024-10-30T00:00:00Z",
+		To:   "2025-10-30T23:59:59Z",
+	}, nil
+}
+
+func (m *MockGitHubService) GetAveragePRMergeTime(ctx context.Context, claims *auth.AuthClaims, period string) (*service.AveragePRMergeTimeResponse, error) {
+	if m.Error != nil {
+		return nil, m.Error
+	}
+	// Return a mock response
+	return &service.AveragePRMergeTimeResponse{
+		AveragePRMergeTimeHours: 24.5,
+		PRCount:                 15,
+		Period:                  period,
+		From:                    "2024-10-03T00:00:00Z",
+		To:                      "2024-11-02T23:59:59Z",
+		TimeSeries: []service.PRMergeTimeDataPoint{
+			{
+				WeekStart:    "2024-10-26",
+				WeekEnd:      "2024-11-02",
+				AverageHours: 18.5,
+				PRCount:      3,
+			},
+			{
+				WeekStart:    "2024-10-19",
+				WeekEnd:      "2024-10-26",
+				AverageHours: 22.0,
+				PRCount:      2,
+			},
+			{
+				WeekStart:    "2024-10-12",
+				WeekEnd:      "2024-10-19",
+				AverageHours: 30.0,
+				PRCount:      5,
+			},
+			{
+				WeekStart:    "2024-10-05",
+				WeekEnd:      "2024-10-12",
+				AverageHours: 25.5,
+				PRCount:      5,
+			},
+		},
+	}, nil
+}
+
+func (m *MockGitHubService) GetUserPRReviewComments(ctx context.Context, claims *auth.AuthClaims, period string) (*service.PRReviewCommentsResponse, error) {
+	if m.Error != nil {
+		return nil, m.Error
+	}
+	// Return a mock response
+	return &service.PRReviewCommentsResponse{
+		TotalComments: 42,
+		Period:        period,
+		From:          "2024-10-03T00:00:00Z",
+		To:            "2024-11-02T23:59:59Z",
+	}, nil
+}
+
+func (m *MockGitHubService) GetGitHubAsset(ctx context.Context, claims *auth.AuthClaims, assetURL string) ([]byte, string, error) {
+	if m.Error != nil {
+		return nil, "", m.Error
+	}
+	// Return a mock response
+	return []byte("mock asset content"), "application/octet-stream", nil
+}
+
+func (m *MockGitHubService) GetRepositoryContent(ctx context.Context, claims *auth.AuthClaims, owner, repo, path, ref string) (interface{}, error) {
+	if m.Error != nil {
+		return nil, m.Error
+	}
+	// Return a mock response
+	return map[string]interface{}{
+		"name":    "example.md",
+		"path":    path,
+		"content": "bW9jayBjb250ZW50", // base64 encoded "mock content"
+		"sha":     "abc123",
+	}, nil
+}
+
+func (m *MockGitHubService) UpdateRepositoryFile(ctx context.Context, claims *auth.AuthClaims, owner, repo, path, message, content, sha, branch string) (interface{}, error) {
+	if m.Error != nil {
+		return nil, m.Error
+	}
+	// Return a mock response
+	return map[string]interface{}{
+		"commit": map[string]interface{}{
+			"sha":     "def456",
+			"message": message,
+		},
+		"content": map[string]interface{}{
+			"name": path,
+			"sha":  "ghi789",
+		},
+	}, nil
+}
+
+// Implement UpdatePullRequestState to satisfy service.GitHubService
+func (m *MockGitHubService) UpdatePullRequestState(ctx context.Context, claims *auth.AuthClaims, owner, repo string, prNumber int, state string) (*service.PullRequest, error) {
+	if m.Error != nil {
+		return nil, m.Error
+	}
+	if state != "open" && state != "closed" {
+		return nil, apperrors.ErrInvalidStatus
+	}
+	return &service.PullRequest{
+		ID:     1,
+		Number: prNumber,
+		Title:  "Mock PR",
+	State:  state,
+		User:   service.GitHubUser{Login: "testuser", ID: 12345, AvatarURL: "https://avatars.githubusercontent.com/u/12345"},
+		Repo:   service.Repository{Name: repo, FullName: owner + "/" + repo, Owner: owner, Private: false},
+	}, nil
+}
+
+// Implement ClosePullRequest to satisfy service.GitHubServiceInterface
+func (m *MockGitHubService) ClosePullRequest(ctx context.Context, claims *auth.AuthClaims, owner, repo string, prNumber int, deleteBranch bool) (*service.PullRequest, error) {
+	if m.Error != nil {
+		return nil, m.Error
+	}
+	return &service.PullRequest{
+		ID:     1,
+		Number: prNumber,
+		Title:  "Closed PR",
+		State:  "closed",
+		User:   service.GitHubUser{Login: "testuser", ID: 12345, AvatarURL: "https://avatars.githubusercontent.com/u/12345"},
+		Repo:   service.Repository{Name: repo, FullName: owner + "/" + repo, Owner: owner, Private: false},
+	}, nil
+}
+
 // TestGetMyPullRequests_Success tests successful PR retrieval
 func (suite *GitHubHandlerTestSuite) TestGetMyPullRequests_Success() {
 	// Create mock service with successful response
@@ -101,11 +257,10 @@ func (suite *GitHubHandlerTestSuite) TestGetMyPullRequests_Success() {
 	suite.router.GET("/github/pull-requests", func(c *gin.Context) {
 		// Set mock auth claims in context
 		claims := &auth.AuthClaims{
-			UserID:      12345,
-			Username:    "testuser",
-			Email:       "test@example.com",
-			Provider:    "githubtools",
-			Environment: "development",
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
 		}
 		c.Set("auth_claims", claims)
 		handler.GetMyPullRequests(c)
@@ -159,11 +314,10 @@ func (suite *GitHubHandlerTestSuite) TestGetMyPullRequests_ServiceError() {
 
 	suite.router.GET("/github/pull-requests", func(c *gin.Context) {
 		claims := &auth.AuthClaims{
-			UserID:      12345,
-			Username:    "testuser",
-			Email:       "test@example.com",
-			Provider:    "githubtools",
-			Environment: "development",
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
 		}
 		c.Set("auth_claims", claims)
 		handler.GetMyPullRequests(c)
@@ -190,11 +344,10 @@ func (suite *GitHubHandlerTestSuite) TestGetMyPullRequests_RateLimitError() {
 
 	suite.router.GET("/github/pull-requests", func(c *gin.Context) {
 		claims := &auth.AuthClaims{
-			UserID:      12345,
-			Username:    "testuser",
-			Email:       "test@example.com",
-			Provider:    "githubtools",
-			Environment: "development",
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
 		}
 		c.Set("auth_claims", claims)
 		handler.GetMyPullRequests(c)
@@ -224,11 +377,10 @@ func (suite *GitHubHandlerTestSuite) TestGetMyPullRequests_WithQueryParameters()
 
 	suite.router.GET("/github/pull-requests", func(c *gin.Context) {
 		claims := &auth.AuthClaims{
-			UserID:      12345,
-			Username:    "testuser",
-			Email:       "test@example.com",
-			Provider:    "githubtools",
-			Environment: "development",
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
 		}
 		c.Set("auth_claims", claims)
 		handler.GetMyPullRequests(c)
@@ -299,11 +451,10 @@ func (suite *GitHubHandlerTestSuite) TestGetMyPullRequests_EmptyResponse() {
 
 	suite.router.GET("/github/pull-requests", func(c *gin.Context) {
 		claims := &auth.AuthClaims{
-			UserID:      12345,
-			Username:    "testuser",
-			Email:       "test@example.com",
-			Provider:    "githubtools",
-			Environment: "development",
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
 		}
 		c.Set("auth_claims", claims)
 		handler.GetMyPullRequests(c)
@@ -353,11 +504,10 @@ func (suite *GitHubHandlerTestSuite) TestGetMyPullRequests_MultiplePRs() {
 
 	suite.router.GET("/github/pull-requests", func(c *gin.Context) {
 		claims := &auth.AuthClaims{
-			UserID:      12345,
-			Username:    "testuser",
-			Email:       "test@example.com",
-			Provider:    "githubtools",
-			Environment: "development",
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
 		}
 		c.Set("auth_claims", claims)
 		handler.GetMyPullRequests(c)
@@ -388,11 +538,10 @@ func (suite *GitHubHandlerTestSuite) TestGetMyPullRequests_DefaultParameters() {
 
 	suite.router.GET("/github/pull-requests", func(c *gin.Context) {
 		claims := &auth.AuthClaims{
-			UserID:      12345,
-			Username:    "testuser",
-			Email:       "test@example.com",
-			Provider:    "githubtools",
-			Environment: "development",
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
 		}
 		c.Set("auth_claims", claims)
 		handler.GetMyPullRequests(c)
@@ -418,11 +567,10 @@ func (suite *GitHubHandlerTestSuite) TestGetMyPullRequests_InvalidPerPage() {
 
 	suite.router.GET("/github/pull-requests", func(c *gin.Context) {
 		claims := &auth.AuthClaims{
-			UserID:      12345,
-			Username:    "testuser",
-			Email:       "test@example.com",
-			Provider:    "githubtools",
-			Environment: "development",
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
 		}
 		c.Set("auth_claims", claims)
 		handler.GetMyPullRequests(c)
@@ -458,11 +606,10 @@ func (suite *GitHubHandlerTestSuite) TestGetMyPullRequests_InvalidPage() {
 
 	suite.router.GET("/github/pull-requests", func(c *gin.Context) {
 		claims := &auth.AuthClaims{
-			UserID:      12345,
-			Username:    "testuser",
-			Email:       "test@example.com",
-			Provider:    "githubtools",
-			Environment: "development",
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
 		}
 		c.Set("auth_claims", claims)
 		handler.GetMyPullRequests(c)
@@ -510,11 +657,10 @@ func (suite *GitHubHandlerTestSuite) TestGetMyPullRequests_DifferentProviders() 
 			router := gin.New()
 			router.GET("/github/pull-requests", func(c *gin.Context) {
 				claims := &auth.AuthClaims{
-					UserID:      12345,
-					Username:    "testuser",
-					Email:       "test@example.com",
-					Provider:    provider,
-					Environment: "development",
+					UserID:   12345,
+					Username: "testuser",
+					Email:    "test@example.com",
+					Provider: provider,
 				}
 				c.Set("auth_claims", claims)
 				handler.GetMyPullRequests(c)
@@ -536,11 +682,10 @@ func (suite *GitHubHandlerTestSuite) TestGetUserTotalContributions_Success() {
 
 	suite.router.GET("/github/contributions", func(c *gin.Context) {
 		claims := &auth.AuthClaims{
-			UserID:      12345,
-			Username:    "testuser",
-			Email:       "test@example.com",
-			Provider:    "githubtools",
-			Environment: "development",
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
 		}
 		c.Set("auth_claims", claims)
 		handler.GetUserTotalContributions(c)
@@ -568,11 +713,10 @@ func (suite *GitHubHandlerTestSuite) TestGetUserTotalContributions_DefaultPeriod
 
 	suite.router.GET("/github/contributions", func(c *gin.Context) {
 		claims := &auth.AuthClaims{
-			UserID:      12345,
-			Username:    "testuser",
-			Email:       "test@example.com",
-			Provider:    "githubtools",
-			Environment: "development",
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
 		}
 		c.Set("auth_claims", claims)
 		handler.GetUserTotalContributions(c)
@@ -637,17 +781,16 @@ func (suite *GitHubHandlerTestSuite) TestGetUserTotalContributions_InvalidClaims
 // TestGetUserTotalContributions_InvalidPeriod tests invalid period format
 func (suite *GitHubHandlerTestSuite) TestGetUserTotalContributions_InvalidPeriod() {
 	mockService := &MockGitHubService{
-		Error: fmt.Errorf("invalid period format: period must be in format '<number>d' (e.g., '30d', '90d', '365d')"),
+		Error: fmt.Errorf("%w: period must be in format '<number>d' (e.g., '30d', '90d', '365d')", apperrors.ErrInvalidPeriodFormat),
 	}
 	handler := handlers.NewGitHubHandler(mockService)
 
 	suite.router.GET("/github/contributions", func(c *gin.Context) {
 		claims := &auth.AuthClaims{
-			UserID:      12345,
-			Username:    "testuser",
-			Email:       "test@example.com",
-			Provider:    "githubtools",
-			Environment: "development",
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
 		}
 		c.Set("auth_claims", claims)
 		handler.GetUserTotalContributions(c)
@@ -680,11 +823,10 @@ func (suite *GitHubHandlerTestSuite) TestGetUserTotalContributions_RateLimitErro
 
 	suite.router.GET("/github/contributions", func(c *gin.Context) {
 		claims := &auth.AuthClaims{
-			UserID:      12345,
-			Username:    "testuser",
-			Email:       "test@example.com",
-			Provider:    "githubtools",
-			Environment: "development",
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
 		}
 		c.Set("auth_claims", claims)
 		handler.GetUserTotalContributions(c)
@@ -711,11 +853,10 @@ func (suite *GitHubHandlerTestSuite) TestGetUserTotalContributions_ServiceError(
 
 	suite.router.GET("/github/contributions", func(c *gin.Context) {
 		claims := &auth.AuthClaims{
-			UserID:      12345,
-			Username:    "testuser",
-			Email:       "test@example.com",
-			Provider:    "githubtools",
-			Environment: "development",
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
 		}
 		c.Set("auth_claims", claims)
 		handler.GetUserTotalContributions(c)
@@ -740,11 +881,10 @@ func (suite *GitHubHandlerTestSuite) TestGetUserTotalContributions_ValidPeriods(
 
 	suite.router.GET("/github/contributions", func(c *gin.Context) {
 		claims := &auth.AuthClaims{
-			UserID:      12345,
-			Username:    "testuser",
-			Email:       "test@example.com",
-			Provider:    "githubtools",
-			Environment: "development",
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
 		}
 		c.Set("auth_claims", claims)
 		handler.GetUserTotalContributions(c)
@@ -781,11 +921,10 @@ func (suite *GitHubHandlerTestSuite) TestGetUserTotalContributions_DifferentProv
 			router := gin.New()
 			router.GET("/github/contributions", func(c *gin.Context) {
 				claims := &auth.AuthClaims{
-					UserID:      12345,
-					Username:    "testuser",
-					Email:       "test@example.com",
-					Provider:    provider,
-					Environment: "development",
+					UserID:   12345,
+					Username: "testuser",
+					Email:    "test@example.com",
+					Provider: provider,
 				}
 				c.Set("auth_claims", claims)
 				handler.GetUserTotalContributions(c)
@@ -798,6 +937,438 @@ func (suite *GitHubHandlerTestSuite) TestGetUserTotalContributions_DifferentProv
 			assert.Equal(t, http.StatusOK, w.Code)
 		})
 	}
+}
+
+// TestGetContributionsHeatmap_Success tests successful heatmap retrieval
+func (suite *GitHubHandlerTestSuite) TestGetContributionsHeatmap_Success() {
+	mockService := &MockGitHubService{}
+	handler := handlers.NewGitHubHandler(mockService)
+
+	suite.router.GET("/github/:provider/heatmap", func(c *gin.Context) {
+		claims := &auth.AuthClaims{
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
+		}
+		c.Set("auth_claims", claims)
+		handler.GetContributionsHeatmap(c)
+	})
+
+	req, _ := http.NewRequest(http.MethodGet, "/github/githubtools/heatmap", nil)
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusOK, w.Code)
+
+	var response service.ContributionsHeatmapResponse
+	err := json.Unmarshal(w.Body.Bytes(), &response)
+	assert.NoError(suite.T(), err)
+	assert.Equal(suite.T(), 1234, response.TotalContributions)
+	assert.Equal(suite.T(), "2024-10-30T00:00:00Z", response.From)
+	assert.Equal(suite.T(), "2025-10-30T23:59:59Z", response.To)
+	assert.Len(suite.T(), response.Weeks, 1)
+	assert.Equal(suite.T(), "2024-10-27", response.Weeks[0].FirstDay)
+	assert.Len(suite.T(), response.Weeks[0].ContributionDays, 2)
+}
+
+// TestGetContributionsHeatmap_WithPeriod tests heatmap with period parameter
+func (suite *GitHubHandlerTestSuite) TestGetContributionsHeatmap_WithPeriod() {
+	mockService := &MockGitHubService{}
+	handler := handlers.NewGitHubHandler(mockService)
+
+	suite.router.GET("/github/:provider/heatmap", func(c *gin.Context) {
+		claims := &auth.AuthClaims{
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
+		}
+		c.Set("auth_claims", claims)
+		handler.GetContributionsHeatmap(c)
+	})
+
+	req, _ := http.NewRequest(http.MethodGet, "/github/githubtools/heatmap?period=90d", nil)
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusOK, w.Code)
+
+	var response service.ContributionsHeatmapResponse
+	err := json.Unmarshal(w.Body.Bytes(), &response)
+	assert.NoError(suite.T(), err)
+	assert.NotNil(suite.T(), response)
+}
+
+// TestGetContributionsHeatmap_NoAuthClaims tests missing auth claims
+func (suite *GitHubHandlerTestSuite) TestGetContributionsHeatmap_NoAuthClaims() {
+	mockService := &MockGitHubService{}
+	handler := handlers.NewGitHubHandler(mockService)
+
+	suite.router.GET("/github/:provider/heatmap", handler.GetContributionsHeatmap)
+
+	req, _ := http.NewRequest(http.MethodGet, "/github/githubtools/heatmap", nil)
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusUnauthorized, w.Code)
+
+	var response map[string]interface{}
+	err := json.Unmarshal(w.Body.Bytes(), &response)
+	assert.NoError(suite.T(), err)
+	assert.Contains(suite.T(), response["error"], "Authentication required")
+}
+
+// TestGetContributionsHeatmap_ProviderMismatch tests provider mismatch
+func (suite *GitHubHandlerTestSuite) TestGetContributionsHeatmap_ProviderMismatch() {
+	mockService := &MockGitHubService{}
+	handler := handlers.NewGitHubHandler(mockService)
+
+	suite.router.GET("/github/:provider/heatmap", func(c *gin.Context) {
+		claims := &auth.AuthClaims{
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools", // User is authenticated with githubtools
+		}
+		c.Set("auth_claims", claims)
+		handler.GetContributionsHeatmap(c)
+	})
+
+	// But requesting data for githubwdf
+	req, _ := http.NewRequest(http.MethodGet, "/github/githubwdf/heatmap", nil)
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusBadRequest, w.Code)
+
+	var response map[string]interface{}
+	err := json.Unmarshal(w.Body.Bytes(), &response)
+	assert.NoError(suite.T(), err)
+	assert.Contains(suite.T(), response["error"], "does not match")
+}
+
+// TestGetContributionsHeatmap_ServiceError tests service error handling
+func (suite *GitHubHandlerTestSuite) TestGetContributionsHeatmap_ServiceError() {
+	mockService := &MockGitHubService{
+		Error: fmt.Errorf("service error"),
+	}
+	handler := handlers.NewGitHubHandler(mockService)
+
+	suite.router.GET("/github/:provider/heatmap", func(c *gin.Context) {
+		claims := &auth.AuthClaims{
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
+		}
+		c.Set("auth_claims", claims)
+		handler.GetContributionsHeatmap(c)
+	})
+
+	req, _ := http.NewRequest(http.MethodGet, "/github/githubtools/heatmap", nil)
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusBadGateway, w.Code)
+}
+
+// TestGetContributionsHeatmap_RateLimitExceeded tests rate limit error
+func (suite *GitHubHandlerTestSuite) TestGetContributionsHeatmap_RateLimitExceeded() {
+	mockService := &MockGitHubService{
+		Error: apperrors.ErrGitHubAPIRateLimitExceeded,
+	}
+	handler := handlers.NewGitHubHandler(mockService)
+
+	suite.router.GET("/github/:provider/heatmap", func(c *gin.Context) {
+		claims := &auth.AuthClaims{
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
+		}
+		c.Set("auth_claims", claims)
+		handler.GetContributionsHeatmap(c)
+	})
+
+	req, _ := http.NewRequest(http.MethodGet, "/github/githubtools/heatmap", nil)
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusTooManyRequests, w.Code)
+}
+
+// TestGetContributionsHeatmap_InvalidPeriod tests invalid period format
+func (suite *GitHubHandlerTestSuite) TestGetContributionsHeatmap_InvalidPeriod() {
+	mockService := &MockGitHubService{
+		Error: fmt.Errorf("%w: period must be in format '<number>d'", apperrors.ErrInvalidPeriodFormat),
+	}
+	handler := handlers.NewGitHubHandler(mockService)
+
+	suite.router.GET("/github/:provider/heatmap", func(c *gin.Context) {
+		claims := &auth.AuthClaims{
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
+		}
+		c.Set("auth_claims", claims)
+		handler.GetContributionsHeatmap(c)
+	})
+
+	req, _ := http.NewRequest(http.MethodGet, "/github/githubtools/heatmap?period=invalid", nil)
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusBadRequest, w.Code)
+}
+
+// TestGetContributionsHeatmap_ProviderNotConfigured tests provider not configured error
+func (suite *GitHubHandlerTestSuite) TestGetContributionsHeatmap_ProviderNotConfigured() {
+	mockService := &MockGitHubService{
+		Error: fmt.Errorf("%w: provider 'invalid'. Please check available providers in auth.yaml", apperrors.ErrProviderNotConfigured),
+	}
+	handler := handlers.NewGitHubHandler(mockService)
+
+	suite.router.GET("/github/:provider/heatmap", func(c *gin.Context) {
+		claims := &auth.AuthClaims{
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "invalid",
+		}
+		c.Set("auth_claims", claims)
+		handler.GetContributionsHeatmap(c)
+	})
+
+	req, _ := http.NewRequest(http.MethodGet, "/github/invalid/heatmap", nil)
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusBadRequest, w.Code)
+
+	var response map[string]interface{}
+	err := json.Unmarshal(w.Body.Bytes(), &response)
+	assert.NoError(suite.T(), err)
+	assert.Contains(suite.T(), response["error"], "is not configured")
+}
+
+// TestGetAveragePRMergeTime_Success tests successful average PR merge time retrieval
+func (suite *GitHubHandlerTestSuite) TestGetAveragePRMergeTime_Success() {
+	mockService := &MockGitHubService{}
+	handler := handlers.NewGitHubHandler(mockService)
+
+	suite.router.GET("/github/average-pr-time", func(c *gin.Context) {
+		claims := &auth.AuthClaims{
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
+		}
+		c.Set("auth_claims", claims)
+		handler.GetAveragePRMergeTime(c)
+	})
+
+	req, _ := http.NewRequest(http.MethodGet, "/github/average-pr-time", nil)
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusOK, w.Code)
+
+	var response service.AveragePRMergeTimeResponse
+	err := json.Unmarshal(w.Body.Bytes(), &response)
+	assert.NoError(suite.T(), err)
+	assert.Equal(suite.T(), 24.5, response.AveragePRMergeTimeHours)
+	assert.Equal(suite.T(), 15, response.PRCount)
+	assert.Equal(suite.T(), "2024-10-03T00:00:00Z", response.From)
+	assert.Equal(suite.T(), "2024-11-02T23:59:59Z", response.To)
+	assert.Len(suite.T(), response.TimeSeries, 4)
+}
+
+// TestGetAveragePRMergeTime_WithPeriod tests average PR time with period parameter
+func (suite *GitHubHandlerTestSuite) TestGetAveragePRMergeTime_WithPeriod() {
+	mockService := &MockGitHubService{}
+	handler := handlers.NewGitHubHandler(mockService)
+
+	suite.router.GET("/github/average-pr-time", func(c *gin.Context) {
+		claims := &auth.AuthClaims{
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
+		}
+		c.Set("auth_claims", claims)
+		handler.GetAveragePRMergeTime(c)
+	})
+
+	req, _ := http.NewRequest(http.MethodGet, "/github/average-pr-time?period=90d", nil)
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusOK, w.Code)
+
+	var response service.AveragePRMergeTimeResponse
+	err := json.Unmarshal(w.Body.Bytes(), &response)
+	assert.NoError(suite.T(), err)
+	assert.NotNil(suite.T(), response)
+	assert.Equal(suite.T(), "90d", response.Period)
+}
+
+// TestGetAveragePRMergeTime_NoAuthClaims tests missing auth claims
+func (suite *GitHubHandlerTestSuite) TestGetAveragePRMergeTime_NoAuthClaims() {
+	mockService := &MockGitHubService{}
+	handler := handlers.NewGitHubHandler(mockService)
+
+	suite.router.GET("/github/average-pr-time", handler.GetAveragePRMergeTime)
+
+	req, _ := http.NewRequest(http.MethodGet, "/github/average-pr-time", nil)
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusUnauthorized, w.Code)
+
+	var response map[string]interface{}
+	err := json.Unmarshal(w.Body.Bytes(), &response)
+	assert.NoError(suite.T(), err)
+	assert.Equal(suite.T(), "Authentication required", response["error"])
+}
+
+// TestGetAveragePRMergeTime_ServiceError tests service error handling
+func (suite *GitHubHandlerTestSuite) TestGetAveragePRMergeTime_ServiceError() {
+	mockService := &MockGitHubService{
+		Error: fmt.Errorf("GitHub API error"),
+	}
+	handler := handlers.NewGitHubHandler(mockService)
+
+	suite.router.GET("/github/average-pr-time", func(c *gin.Context) {
+		claims := &auth.AuthClaims{
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
+		}
+		c.Set("auth_claims", claims)
+		handler.GetAveragePRMergeTime(c)
+	})
+
+	req, _ := http.NewRequest(http.MethodGet, "/github/average-pr-time", nil)
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusBadGateway, w.Code)
+}
+
+// TestGetAveragePRMergeTime_RateLimitExceeded tests rate limit error
+func (suite *GitHubHandlerTestSuite) TestGetAveragePRMergeTime_RateLimitExceeded() {
+	mockService := &MockGitHubService{
+		Error: apperrors.ErrGitHubAPIRateLimitExceeded,
+	}
+	handler := handlers.NewGitHubHandler(mockService)
+
+	suite.router.GET("/github/average-pr-time", func(c *gin.Context) {
+		claims := &auth.AuthClaims{
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
+		}
+		c.Set("auth_claims", claims)
+		handler.GetAveragePRMergeTime(c)
+	})
+
+	req, _ := http.NewRequest(http.MethodGet, "/github/average-pr-time", nil)
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusTooManyRequests, w.Code)
+}
+
+// TestGetAveragePRMergeTime_InvalidPeriod tests invalid period format
+func (suite *GitHubHandlerTestSuite) TestGetAveragePRMergeTime_InvalidPeriod() {
+	mockService := &MockGitHubService{
+		Error: apperrors.ErrInvalidPeriodFormat,
+	}
+	handler := handlers.NewGitHubHandler(mockService)
+
+	suite.router.GET("/github/average-pr-time", func(c *gin.Context) {
+		claims := &auth.AuthClaims{
+			UserID:   12345,
+			Username: "testuser",
+			Email:    "test@example.com",
+			Provider: "githubtools",
+		}
+		c.Set("auth_claims", claims)
+		handler.GetAveragePRMergeTime(c)
+	})
+
+	req, _ := http.NewRequest(http.MethodGet, "/github/average-pr-time?period=invalid", nil)
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusBadRequest, w.Code)
+}
+
+ // ClosePullRequest handler tests
+
+func (suite *GitHubHandlerTestSuite) TestClosePR_Success() {
+	mockService := &MockGitHubService{}
+	handler := handlers.NewGitHubHandler(mockService)
+
+	// Route for ClosePullRequest
+	suite.router.PATCH("/github/pull-requests/:pr_number", func(c *gin.Context) {
+		claims := &auth.AuthClaims{UserID: 12345, Provider: "githubtools"}
+		c.Set("auth_claims", claims)
+		handler.ClosePullRequest(c)
+	})
+
+	// Prepare request
+	body := map[string]interface{}{
+		"owner":         "owner",
+		"repo":          "repo",
+		"delete_branch": false,
+	}
+	payload, _ := json.Marshal(body)
+
+	req, _ := http.NewRequest(http.MethodPatch, "/github/pull-requests/42", bytes.NewBuffer(payload))
+	req.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusOK, w.Code)
+
+	var pr service.PullRequest
+	err := json.Unmarshal(w.Body.Bytes(), &pr)
+	assert.NoError(suite.T(), err)
+	assert.Equal(suite.T(), "closed", pr.State)
+	assert.Equal(suite.T(), 42, pr.Number)
+	assert.Equal(suite.T(), "owner/repo", pr.Repo.FullName)
+}
+
+func (suite *GitHubHandlerTestSuite) TestClosePR_NotFound() {
+	mockService := &MockGitHubService{Error: apperrors.NewNotFoundError("pull request")}
+	handler := handlers.NewGitHubHandler(mockService)
+
+	// Route for ClosePullRequest
+	suite.router.PATCH("/github/pull-requests/:pr_number", func(c *gin.Context) {
+		claims := &auth.AuthClaims{UserID: 12345, Provider: "githubtools"}
+		c.Set("auth_claims", claims)
+		handler.ClosePullRequest(c)
+	})
+
+	// Prepare request
+	body := map[string]interface{}{
+		"owner":         "owner",
+		"repo":          "repo",
+		"delete_branch": false,
+	}
+	payload, _ := json.Marshal(body)
+
+	req, _ := http.NewRequest(http.MethodPatch, "/github/pull-requests/99", bytes.NewBuffer(payload))
+	req.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusNotFound, w.Code)
 }
 
 // Run the test suite

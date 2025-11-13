@@ -1,9 +1,9 @@
 package handlers
 
 import (
+	"encoding/json"
 	"errors"
 	"net/http"
-	"strconv"
 
 	apperrors "developer-portal-backend/internal/errors"
 	"developer-portal-backend/internal/service"
@@ -26,483 +26,117 @@ func NewComponentHandler(componentService *service.ComponentService, teamService
 	}
 }
 
-// CreateComponent handles POST /components
-// @Summary Create a new component
-// @Description Create a new component within an organization
-// @Tags components
-// @Accept json
-// @Produce json
-// @Param component body service.CreateComponentRequest true "Component data"
-// @Success 201 {object} service.ComponentResponse "Successfully created component"
-// @Failure 400 {object} map[string]interface{} "Invalid request body"
-// @Failure 404 {object} map[string]interface{} "Organization not found"
-// @Failure 409 {object} map[string]interface{} "Component already exists"
-// @Failure 500 {object} map[string]interface{} "Internal server error"
-// @Security BearerAuth
-// @Router /components [post]
-func (h *ComponentHandler) CreateComponent(c *gin.Context) {
-	var req service.CreateComponentRequest
-	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	component, err := h.componentService.Create(&req)
-	if err != nil {
-		if errors.Is(err, apperrors.ErrOrganizationNotFound) {
-			c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
-			return
-		}
-		if errors.Is(err, apperrors.ErrComponentExists) {
-			c.JSON(http.StatusConflict, gin.H{"error": err.Error()})
-			return
-		}
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusCreated, component)
-}
-
-// GetComponent handles GET /components/:id
-// @Summary Get component by ID
-// @Description Get a specific component by its UUID
-// @Tags components
-// @Accept json
-// @Produce json
-// @Param id path string true "Component ID (UUID)"
-// @Success 200 {object} service.ComponentResponse "Successfully retrieved component"
-// @Failure 400 {object} map[string]interface{} "Invalid component ID"
-// @Failure 404 {object} map[string]interface{} "Component not found"
-// @Failure 500 {object} map[string]interface{} "Internal server error"
-// @Security BearerAuth
-// @Router /components/{id} [get]
-func (h *ComponentHandler) GetComponent(c *gin.Context) {
-	idStr := c.Param("id")
-	id, err := uuid.Parse(idStr)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid component ID"})
-		return
-	}
-
-	component, err := h.componentService.GetByID(id)
-	if err != nil {
-		if errors.Is(err, apperrors.ErrComponentNotFound) {
-			c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
-			return
-		}
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusOK, component)
-}
-
-// GetComponentByName handles GET /components/by-name/:name (requires organization_id parameter)
-// @Summary Get component by name
-// @Description Get a component by its name within a specific organization
-// @Tags components
-// @Accept json
-// @Produce json
-// @Param name path string true "Component name"
-// @Param organization_id query string true "Organization ID (UUID)"
-// @Success 200 {object} service.ComponentResponse "Successfully retrieved component"
-// @Failure 400 {object} map[string]interface{} "Invalid parameters"
-// @Failure 404 {object} map[string]interface{} "Component not found"
-// @Failure 500 {object} map[string]interface{} "Internal server error"
-// @Security BearerAuth
-// @Router /components/by-name/{name} [get]
-func (h *ComponentHandler) GetComponentByName(c *gin.Context) {
-	componentName := c.Param("name")
-	organizationIDStr := c.Query("organization_id")
-
-	if organizationIDStr == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "organization_id parameter is required"})
-		return
-	}
-
-	organizationID, err := uuid.Parse(organizationIDStr)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid organization ID"})
-		return
-	}
-
-	component, err := h.componentService.GetByName(organizationID, componentName)
-	if err != nil {
-		if errors.Is(err, apperrors.ErrComponentNotFound) {
-			c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
-			return
-		}
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusOK, component)
-}
-
-// UpdateComponent handles PUT /components/:id
-// @Summary Update component
-// @Description Update an existing component by ID
-// @Tags components
-// @Accept json
-// @Produce json
-// @Param id path string true "Component ID (UUID)"
-// @Param component body service.UpdateComponentRequest true "Updated component data"
-// @Success 200 {object} service.ComponentResponse "Successfully updated component"
-// @Failure 400 {object} map[string]interface{} "Invalid request"
-// @Failure 404 {object} map[string]interface{} "Component not found"
-// @Failure 500 {object} map[string]interface{} "Internal server error"
-// @Security BearerAuth
-// @Router /components/{id} [put]
-func (h *ComponentHandler) UpdateComponent(c *gin.Context) {
-	idStr := c.Param("id")
-	id, err := uuid.Parse(idStr)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid component ID"})
-		return
-	}
-
-	var req service.UpdateComponentRequest
-	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	component, err := h.componentService.Update(id, &req)
-	if err != nil {
-		if errors.Is(err, apperrors.ErrComponentNotFound) {
-			c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
-			return
-		}
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusOK, component)
-}
-
-// DeleteComponent handles DELETE /components/:id
-// @Summary Delete component
-// @Description Delete a component by ID
-// @Tags components
-// @Accept json
-// @Produce json
-// @Param id path string true "Component ID (UUID)"
-// @Success 204 "Successfully deleted component"
-// @Failure 400 {object} map[string]interface{} "Invalid component ID"
-// @Failure 404 {object} map[string]interface{} "Component not found"
-// @Failure 500 {object} map[string]interface{} "Internal server error"
-// @Security BearerAuth
-// @Router /components/{id} [delete]
-func (h *ComponentHandler) DeleteComponent(c *gin.Context) {
-	idStr := c.Param("id")
-	id, err := uuid.Parse(idStr)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid component ID"})
-		return
-	}
-
-	if err := h.componentService.Delete(id); err != nil {
-		if errors.Is(err, apperrors.ErrComponentNotFound) {
-			c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
-			return
-		}
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusNoContent, nil)
-}
-
-// ListComponents handles GET /components (requires organization_id parameter)
+// ListComponents handles GET /components
 // @Summary List components
-// @Description Get all components in an organization with optional search and pagination
+// @Description List components filtered by either team-id or project-name. Returns an array of minimal component views. One of team-id or project-name is required.
 // @Tags components
 // @Accept json
 // @Produce json
-// @Param organization_id query string true "Organization ID (UUID)"
-// @Param search query string false "Search term for component name or description"
-// @Param page query int false "Page number" default(1)
-// @Param page_size query int false "Number of items per page" default(20)
-// @Success 200 {object} service.ComponentListResponse "Successfully retrieved components"
-// @Failure 400 {object} map[string]interface{} "Invalid parameters"
-// @Failure 404 {object} map[string]interface{} "Organization not found"
+// @Param team-id query string false "Team ID (UUID) to filter by owner_id"
+// @Param project-name query string false "Project name"
+// @Success 200 {array} object "Successfully retrieved components"
+// @Failure 400 {object} map[string]interface{} "team-id or project-name parameter is required"
 // @Failure 500 {object} map[string]interface{} "Internal server error"
 // @Security BearerAuth
 // @Router /components [get]
 func (h *ComponentHandler) ListComponents(c *gin.Context) {
-	pageStr := c.DefaultQuery("page", "1")
-	pageSizeStr := c.DefaultQuery("page_size", "20")
-	search := c.Query("search")
-	organizationIDStr := c.Query("organization_id")
+	projectName := c.Query("project-name")
 
-	if organizationIDStr == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "organization_id parameter is required"})
-		return
-	}
-
-	organizationID, err := uuid.Parse(organizationIDStr)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid organization ID"})
-		return
-	}
-
-	page, err := strconv.Atoi(pageStr)
-	if err != nil || page < 1 {
-		page = 1
-	}
-
-	pageSize, err := strconv.Atoi(pageSizeStr)
-	if err != nil || pageSize < 1 || pageSize > 100 {
-		pageSize = 20
-	}
-
-	var components *service.ComponentListResponse
-	if search != "" {
-		components, err = h.componentService.Search(organizationID, search, page, pageSize)
-	} else {
-		components, err = h.componentService.GetByOrganization(organizationID, page, pageSize)
-	}
-
-	if err != nil {
-		if errors.Is(err, apperrors.ErrOrganizationNotFound) {
-			c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+	// If team-id is provided, return components owned by that team (uses pagination)
+	teamIDStr := c.Query("team-id")
+	if teamIDStr != "" {
+		teamID, err := uuid.Parse(teamIDStr)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "invalid team ID"})
 			return
 		}
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusOK, components)
-}
-
-// GetComponentsByOrganization handles GET /organizations/:orgId/components
-func (h *ComponentHandler) GetComponentsByOrganization(c *gin.Context) {
-	orgIDStr := c.Param("orgId")
-	orgID, err := uuid.Parse(orgIDStr)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid organization ID"})
-		return
-	}
-
-	pageStr := c.DefaultQuery("page", "1")
-	pageSizeStr := c.DefaultQuery("page_size", "20")
-
-	page, err := strconv.Atoi(pageStr)
-	if err != nil || page < 1 {
-		page = 1
-	}
-
-	pageSize, err := strconv.Atoi(pageSizeStr)
-	if err != nil || pageSize < 1 || pageSize > 100 {
-		pageSize = 20
-	}
-
-	components, err := h.componentService.GetByOrganization(orgID, page, pageSize)
-	if err != nil {
-		if errors.Is(err, apperrors.ErrOrganizationNotFound) {
-			c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		components, _, err := h.teamService.GetTeamComponentsByID(teamID, 1, 1000000)
+		if err != nil {
+			if errors.Is(err, apperrors.ErrTeamNotFound) {
+				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+				return
+			}
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		// Build minimal view items with project info (same fields as project-name view plus project_id and project_title)
+		items := make([]gin.H, len(components))
+		for i, c := range components {
+			// Extract qos, sonar, github from metadata if present
+			var qos, sonar, github string
+			if len(c.Metadata) > 0 {
+				var meta map[string]interface{}
+				if err := json.Unmarshal(c.Metadata, &meta); err == nil {
+					// qos from metadata.ci.qos
+					if ciRaw, ok := meta["ci"]; ok {
+						if ciMap, ok := ciRaw.(map[string]interface{}); ok {
+							if qosRaw, ok := ciMap["qos"]; ok {
+								if qosStr, ok := qosRaw.(string); ok {
+									qos = qosStr
+								}
+							}
+						}
+					}
+					// sonar from metadata.sonar.project_id
+					if sonarRaw, ok := meta["sonar"]; ok {
+						if sonarMap, ok := sonarRaw.(map[string]interface{}); ok {
+							if pidRaw, ok := sonarMap["project_id"]; ok {
+								if pidStr, ok := pidRaw.(string); ok {
+									sonar = "https://sonar.tools.sap/dashboard?id=" + pidStr
+								}
+							}
+						}
+					}
+					// github from metadata.github.url
+					if ghRaw, ok := meta["github"]; ok {
+						if ghMap, ok := ghRaw.(map[string]interface{}); ok {
+							if urlRaw, ok := ghMap["url"]; ok {
+								if urlStr, ok := urlRaw.(string); ok {
+									github = urlStr
+								}
+							}
+						}
+					}
+				}
+			}
+			// Fetch project title (non-fatal if not found)
+			projectTitle := ""
+			if title, err := h.componentService.GetProjectTitleByID(c.ProjectID); err == nil {
+				projectTitle = title
+			}
+
+			items[i] = gin.H{
+				"id":            c.ID,
+				"owner_id":      c.OwnerID,
+				"name":          c.Name,
+				"title":         c.Title,
+				"description":   c.Description,
+				"qos":           qos,
+				"sonar":         sonar,
+				"github":        github,
+				"project_id":    c.ProjectID,
+				"project_title": projectTitle,
+			}
+		}
+		c.JSON(http.StatusOK, items)
 		return
 	}
 
-	c.JSON(http.StatusOK, components)
-}
-
-// GetComponentWithOwnerships handles GET /components/:id/ownerships
-func (h *ComponentHandler) GetComponentWithOwnerships(c *gin.Context) {
-	idStr := c.Param("id")
-	id, err := uuid.Parse(idStr)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid component ID"})
-		return
-	}
-
-	component, err := h.componentService.GetWithTeamOwnerships(id)
-	if err != nil {
-		if errors.Is(err, apperrors.ErrComponentNotFound) {
-			c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+	// If project-name is provided, return ALL components for the project (unpaginated minimal view) and ignore organization_id requirement
+	if projectName != "" {
+		views, err := h.componentService.GetByProjectNameAllView(projectName)
+		if err != nil {
+			if errors.Is(err, apperrors.ErrProjectNotFound) {
+				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+				return
+			}
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusOK, views)
 		return
 	}
 
-	c.JSON(http.StatusOK, component)
-}
-
-// GetComponentWithDeployments handles GET /components/:id/deployments
-func (h *ComponentHandler) GetComponentWithDeployments(c *gin.Context) {
-	idStr := c.Param("id")
-	id, err := uuid.Parse(idStr)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid component ID"})
-		return
-	}
-
-	component, err := h.componentService.GetWithDeployments(id)
-	if err != nil {
-		if errors.Is(err, apperrors.ErrComponentNotFound) {
-			c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
-			return
-		}
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusOK, component)
-}
-
-// GetComponentWithProjects handles GET /components/:id/projects
-func (h *ComponentHandler) GetComponentWithProjects(c *gin.Context) {
-	idStr := c.Param("id")
-	id, err := uuid.Parse(idStr)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid component ID"})
-		return
-	}
-
-	component, err := h.componentService.GetWithProjects(id)
-	if err != nil {
-		if errors.Is(err, apperrors.ErrComponentNotFound) {
-			c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
-			return
-		}
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusOK, component)
-}
-
-// GetComponentWithFullDetails handles GET /components/:id/details
-func (h *ComponentHandler) GetComponentWithFullDetails(c *gin.Context) {
-	idStr := c.Param("id")
-	id, err := uuid.Parse(idStr)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid component ID"})
-		return
-	}
-
-	component, err := h.componentService.GetWithFullDetails(id)
-	if err != nil {
-		if errors.Is(err, apperrors.ErrComponentNotFound) {
-			c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
-			return
-		}
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusOK, component)
-}
-
-// GetComponentsByTeamName handles GET /components/by-team/:teamName (requires organization_id parameter)
-// DEPRECATED: Use GET /components/by-team/:id instead
-func (h *ComponentHandler) GetComponentsByTeamName(c *gin.Context) {
-	teamName := c.Param("teamName")
-	organizationIDStr := c.Query("organization_id")
-
-	if organizationIDStr == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "organization_id parameter is required"})
-		return
-	}
-
-	organizationID, err := uuid.Parse(organizationIDStr)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid organization ID"})
-		return
-	}
-
-	pageStr := c.DefaultQuery("page", "1")
-	pageSizeStr := c.DefaultQuery("page_size", "20")
-
-	page, err := strconv.Atoi(pageStr)
-	if err != nil || page < 1 {
-		page = 1
-	}
-
-	pageSize, err := strconv.Atoi(pageSizeStr)
-	if err != nil || pageSize < 1 || pageSize > 100 {
-		pageSize = 20
-	}
-
-	components, total, err := h.teamService.GetTeamComponentsByName(organizationID, teamName, page, pageSize)
-	if err != nil {
-		if errors.Is(err, apperrors.ErrTeamNotFound) {
-			c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
-			return
-		}
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-
-	response := gin.H{
-		"components": components,
-		"total":      total,
-		"page":       page,
-		"page_size":  pageSize,
-	}
-
-	c.JSON(http.StatusOK, response)
-}
-
-// GetComponentsByTeamID handles GET /components/by-team/:id
-// @Summary Get components by team ID
-// @Description Get all components owned by a team identified by ID. This is a cleaner endpoint that uses team ID instead of name
-// @Tags components
-// @Accept json
-// @Produce json
-// @Param id path string true "Team ID (UUID)"
-// @Param page query int false "Page number" default(1)
-// @Param page_size query int false "Number of items per page" default(20)
-// @Success 200 {object} map[string]interface{} "Successfully retrieved components"
-// @Failure 400 {object} map[string]interface{} "Invalid parameters"
-// @Failure 404 {object} map[string]interface{} "Team not found"
-// @Failure 500 {object} map[string]interface{} "Internal server error"
-// @Security BearerAuth
-// @Router /components/by-team/{id} [get]
-func (h *ComponentHandler) GetComponentsByTeamID(c *gin.Context) {
-	idStr := c.Param("id")
-	id, err := uuid.Parse(idStr)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid team ID"})
-		return
-	}
-
-	pageStr := c.DefaultQuery("page", "1")
-	pageSizeStr := c.DefaultQuery("page_size", "20")
-
-	page, err := strconv.Atoi(pageStr)
-	if err != nil || page < 1 {
-		page = 1
-	}
-
-	pageSize, err := strconv.Atoi(pageSizeStr)
-	if err != nil || pageSize < 1 || pageSize > 100 {
-		pageSize = 20
-	}
-
-	components, total, err := h.teamService.GetTeamComponentsByID(id, page, pageSize)
-	if err != nil {
-		if errors.Is(err, apperrors.ErrTeamNotFound) {
-			c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
-			return
-		}
-		// Log the full error for debugging
-		c.Error(err) // This adds the error to Gin's error context for logging middleware
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-
-	response := gin.H{
-		"components": components,
-		"total":      total,
-		"page":       page,
-		"page_size":  pageSize,
-	}
-
-	c.JSON(http.StatusOK, response)
+	c.JSON(http.StatusBadRequest, gin.H{"error": "team-id or project-name parameter is required"})
+	return
 }

@@ -1,266 +1,207 @@
 teams:
-- name: team-project-managers
-  group_name: group-gitit
-  display_name: Team Project Managers
-  description: Team Project Managers
-  status: active
-  links: []
-  metadata:
-    email: DL_62DFA8E0EC3CA802990F316F@global.corp.sap
-    picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Fluffy&backgroundType=solid,gradientLinear&backgroundColor=ffd5dc,b6e3f4
-    parent: group-gitit
-    owner: ''
-    annotations:
-      grafana/overview-dashboard: ''
-      backstage.io/techdocs-ref: ''
-      backstage.io/source-location: ''
-      jira/team: ''
-      jira/project-key: SAPBTPCFS
-      jira/component: ''
-      jira/board-id: ''
-      splunk.com/on-call-team: ''
-      splunk.com/on-call-routing-key: ''
-      jenkins.io/job-full-name: ''
-- name: team-eyal
-  group_name: group-yuval
-  display_name: CFS DevOps
-  description: CFS DevOps
-  status: active
-  links:
-  - url: https://github.tools.sap/cfs-devops
-    title: cfs-devops
-    icon: github
-  - url: https://github.wdf.sap.corp/CF-PROVISIONING
-    title: CF-PROVISIONING
-    icon: github
-  - url: https://pages.github.tools.sap/cfs-devops/devops-docs/
-    title: DevOps Docs
-    icon: docs
-  metadata:
-    email: DL_5E495157E4925702806DF3C9@global.corp.sap
-    picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Abby&backgroundType=solid,gradientLinear&backgroundColor=ffd5dc,b6e3f4
-    parent: group-yuval
-    owner: user:default/I067398
-    annotations:
-      grafana/overview-dashboard: ''
-      backstage.io/techdocs-ref: ''
-      backstage.io/source-location: ''
-      jira/team: TeamEyal
-      jira/project-key: SAPBTPCFS
-      jira/component: DevOps
-      jira/board-id: '32641'
-      splunk.com/on-call-team: ''
-      splunk.com/on-call-routing-key: ''
-      jenkins.io/job-full-name: ''
-- name: team-zohar
-  group_name: group-eran
-  display_name: Team Zohar
-  description: Team Zohar
-  status: active
-  links:
-  - url: https://github.wdf.sap.corp/cp-cfs-services
-    title: cp-cfs-services
-    icon: github
-  - url: https://github.tools.sap/atom-cfs
-    title: atom-cfs
-    icon: github
-  metadata:
-    email: DL_54A54058FD84A039F4000037@global.corp.sap
-    picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Fluffy&backgroundType=solid,gradientLinear&backgroundColor=ffd5dc,b6e3f4
-    parent: group-eran
-    owner: user:default/I028516
-    annotations:
-      grafana/overview-dashboard: https://fourkeys-grafana-dashboard-rhvzft4seq-ey.a.run.app/d/adoyhae5m9fcwe3344/ci-cd-teams-dashboard?orgId=1&var-Teams=TeamZohar&kiosk
-      backstage.io/techdocs-ref: ''
-      backstage.io/source-location: ''
-      jira/team: TeamZohar
-      jira/project-key: SAPBTPCFS
-      jira/component: ''
-      jira/board-id: '38757'
-      splunk.com/on-call-team: ''
-      splunk.com/on-call-routing-key: ''
-      jenkins.io/job-full-name: ''
 - name: team-coe
   group_name: group-yuval
-  display_name: Team COE
-  description: Team COE
-  status: active
-  links:
-  - url: https://github.tools.sap/btp-monitoring
-    title: btp-monitoring
-    icon: github
-  - url: https://github.tools.sap/atom-cfs
-    title: atom-cfs
-    icon: github
+  title: Team COE
+  description: Team Centre Of Excellence
+  email: DL_6140532F6B2CE90282025A86@global.corp.sap
+  picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Abby&backgroundType=solid,gradientLinear&backgroundColor=ffd5dc,b6e3f4
+  owner: I045198
   metadata:
-    email: DL_6140532F6B2CE90282025A86@global.corp.sap
-    picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Abby&backgroundType=solid,gradientLinear&backgroundColor=ffd5dc,b6e3f4
-    parent: group-yuval
-    owner: user:default/I045198
-    annotations:
-      grafana/overview-dashboard: https://fourkeys-grafana-dashboard-rhvzft4seq-ey.a.run.app/d/adoyhae5m9fcwe3344/ci-cd-teams-dashboard?orgId=1&var-Teams=TeamCOE&kiosk
-      backstage.io/techdocs-ref: ''
-      backstage.io/source-location: ''
-      jira/team: TeamCOE
-      jira/project-key: SAPBTPCFS
-      jira/component: COE
-      jira/board-id: '30372'
-      splunk.com/on-call-team: ''
-      splunk.com/on-call-routing-key: ''
-      jenkins.io/job-full-name: ''
+    color: '#3b82f6'
+    jira:
+      team: TeamCOE
+      project-key: SAPBTPCFS
+      components:
+        - COE
+      board-id: '30372'
+- name: team-eyal
+  group_name: group-yuval
+  title: Team DevOps
+  description: CFS DevOps Team
+  owner: I067398
+  email: DL_5E495157E4925702806DF3C9@global.corp.sap
+  picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Abby&backgroundType=solid,gradientLinear&backgroundColor=ffd5dc,b6e3f4
+  metadata:
+    color: '#10b981'
+- name: team-yaron
+  group_name: group-ofra
+  title: Team Ofra
+  description: Team of Ofra group
+  owner: I034984
+  email: DL_5950FDE75F99B7C30F00013A@global.corp.sap
+  picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Abby&backgroundType=solid,gradientLinear&backgroundColor=ffd5dc,b6e3f4
+  metadata:
+    color: '#f59e0b'
 - name: team-yael
   group_name: group-adi
-  display_name: Team Yael (Service Manager Team)
+  title: Team Yael
   description: Team Yael (Service Manager Team)
-  status: active
-  links:
-  - url: https://github.tools.sap/atom-cfs
-    title: atom-cfs
-    icon: github
-  - url: https://github.wdf.sap.corp/SvcManager
-    title: SvcManager
-    icon: github
+  email: DL_53578F29FD84A02032000069@global.corp.sap
+  picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Fluffy&backgroundType=solid,gradientLinear&backgroundColor=ffd5dc,b6e3f4
+  owner: I040222
   metadata:
-    email: DL_53578F29FD84A02032000069@global.corp.sap
-    picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Fluffy&backgroundType=solid,gradientLinear&backgroundColor=ffd5dc,b6e3f4
-    parent: group-adi
-    owner: user:default/I040222
-    annotations:
-      grafana/overview-dashboard: https://fourkeys-grafana-dashboard-rhvzft4seq-ey.a.run.app/d/adoyhae5m9fcwe3344/ci-cd-teams-dashboard?orgId=1&var-Teams=TeamYael&kiosk
-      backstage.io/techdocs-ref: ''
-      backstage.io/source-location: ''
-      jira/team: TeamYael
-      jira/project-key: SAPBTPCFS
-      jira/component: ''
-      jira/board-id: '30971'
-      splunk.com/on-call-team: ''
-      splunk.com/on-call-routing-key: ''
-      jenkins.io/job-full-name: ''
-- name: team-alex
-  group_name: group-ronny
-  display_name: Team Alex
-  description: Team Alex
-  status: active
-  links:
-  - url: https://github.tools.sap/resource-manager
-    title: resource-manager
-    icon: github
+    color: '#ef4444'
+    jira:
+      team: TeamYael
+      components:
+        - BTP Bridge Operator
+        - Service Manager
+      board-id: '30971'
+- name: team-sasha
+  group_name: group-adi
+  title: Team Sasha
+  description: Team Sasha (Frontend Team)
+  email: DL_59815AE77BCF84BF9E00004E@global.corp.sap
+  picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Loki&backgroundType=gradientLinear&backgroundColor=b6e3f4,ffd5dc,ffdfbf,c0aede
+  owner: I074932
   metadata:
-    email: DL_60F9583281460A027ECBDD6F@global.corp.sap
-    picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Fluffy&backgroundType=solid,gradientLinear&backgroundColor=ffd5dc,b6e3f4
-    parent: group-ronny
-    owner: user:default/I071873
-    annotations:
-      grafana/overview-dashboard: https://fourkeys-grafana-dashboard-rhvzft4seq-ey.a.run.app/d/adoyhae5m9fcwe3344/ci-cd-teams-dashboard?orgId=1&var-Teams=TeamAlex&kiosk
-      backstage.io/techdocs-ref: ''
-      backstage.io/source-location: ''
-      jira/team: TeamAlex
-      jira/project-key: SAPBTPCFS
-      jira/component: ''
-      jira/board-id: '30345'
-      splunk.com/on-call-team: ''
-      splunk.com/on-call-routing-key: ''
-      jenkins.io/job-full-name: ''
+    color: '#8b5cf6'
+    jira:
+      components:
+        - Unified Services Frontend
+        - Unified Cloud Automation
+      board-id: '35706'
 - name: team-naomi
   group_name: group-adi
-  display_name: Team Naomi (Frontend Team)
-  description: Team Naomi (Frontend Team)
-  status: active
-  links:
-  - url: https://github.wdf.sap.corp/cp-cfs-services
-    title: cp-cfs-services
-    icon: github
+  title: Team Naomi
+  description: Team Naomi (USRV Frontend Team)
+  email: DL_6723E50FCB3E1401367EA658@global.corp.sap
+  picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Loki&backgroundType=gradientLinear&backgroundColor=b6e3f4,ffd5dc,ffdfbf,c0aede
+  owner: I345292
   metadata:
-    email: DL_59815AE77BCF84BF9E00004E@global.corp.sap
-    picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Loki&backgroundType=gradientLinear&backgroundColor=b6e3f4,ffd5dc,ffdfbf,c0aede
-    parent: group-adi
-    owner: user:default/I345292
-    annotations:
-      grafana/overview-dashboard: https://fourkeys-grafana-dashboard-rhvzft4seq-ey.a.run.app/d/adoyhae5m9fcwe3344/ci-cd-teams-dashboard?orgId=1&var-Teams=TeamNaomi&kiosk
-      backstage.io/techdocs-ref: ''
-      backstage.io/source-location: ''
-      jira/team: TeamNaomi
-      jira/project-key: SAPBTPCFS
-      jira/component: ''
-      jira/board-id: '35706'
-      splunk.com/on-call-team: ''
-      splunk.com/on-call-routing-key: ''
-      jenkins.io/job-full-name: ''
-- name: team-avihai
-  group_name: group-ronny
-  display_name: Team Avihai
-  description: Team Avihai
-  status: active
-  links:
-  - url: https://github.wdf.sap.corp/cp-cfs-services
-    title: cp-cfs-services
-    icon: github
-  - url: https://github.tools.sap/atom-cfs
-    title: atom-cfs
-    icon: github
+    color: '#ec4899'
+    jira:
+      team: TeamNaomi
+      components:
+        - Unified Services Frontend
+        - Unified Cloud Automation
+      board-id: '35706'
+- name: team-zohar
+  group_name: group-eran
+  title: Team Zohar
+  description: Team Zohar
+  email: DL_54A54058FD84A039F4000037@global.corp.sap
+  picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Fluffy&backgroundType=solid,gradientLinear&backgroundColor=ffd5dc,b6e3f4
+  owner: I028516
   metadata:
-    email: DL_5A5DDA147BCF84397900001E@global.corp.sap
-    picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Fluffy&backgroundType=solid,gradientLinear&backgroundColor=ffd5dc,b6e3f4
-    parent: group-ronny
-    owner: user:default/I029927
-    annotations:
-      grafana/overview-dashboard: https://fourkeys-grafana-dashboard-rhvzft4seq-ey.a.run.app/d/adoyhae5m9fcwe3344/ci-cd-teams-dashboard?orgId=1&var-Teams=TeamAvihai&kiosk
-      backstage.io/techdocs-ref: ''
-      backstage.io/source-location: ''
-      jira/team: TeamAvihai
-      jira/project-key: SAPBTPCFS
-      jira/component: ''
-      jira/board-id: '30346'
-      splunk.com/on-call-team: ''
-      splunk.com/on-call-routing-key: ''
-      jenkins.io/job-full-name: ''
-- name: team-product
-  group_name: group-product
-  display_name: Product Owners Team
-  description: Product Owners Team
-  status: active
-  links: []
-  metadata:
-    email: DL_5326A171FD84A029970006DF@global.corp.sap
-    picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Fluffy&backgroundType=solid,gradientLinear&backgroundColor=ffd5dc,b6e3f4
-    parent: group-product
-    owner: ''
-    annotations:
-      grafana/overview-dashboard: ''
-      backstage.io/techdocs-ref: ''
-      backstage.io/source-location: ''
-      jira/team: ''
-      jira/project-key: ''
-      jira/component: ''
-      jira/board-id: ''
-      splunk.com/on-call-team: ''
-      splunk.com/on-call-routing-key: ''
-      jenkins.io/job-full-name: ''
+    color: '#14b8a6'
+    jira:
+      team: TeamZohar
+      components:
+        - Unified Commercial Integration
+        - Health Check
+      board-id: '38757'
 - name: team-lior
   group_name: group-eran
-  display_name: Team Lior
+  title: Team Lior
   description: Team Lior
-  status: active
-  links:
-  - url: https://github.wdf.sap.corp/cp-cfs-services
-    title: cp-cfs-services
-    icon: github
-  - url: https://github.tools.sap/atom-cfs
-    title: atom-cfs
-    icon: github
+  email: DL_619354194DB243027DDF58FC@global.corp.sap
+  picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Bailey&backgroundType=gradientLinear&backgroundColor=b6e3f4,ffd5dc,ffdfbf,c0aede
+  owner: I538970
   metadata:
-    email: DL_619354194DB243027DDF58FC@global.corp.sap
-    picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Bailey&backgroundType=gradientLinear&backgroundColor=b6e3f4,ffd5dc,ffdfbf,c0aede
-    parent: group-eran
-    owner: user:default/I538970
-    annotations:
-      grafana/overview-dashboard: https://fourkeys-grafana-dashboard-rhvzft4seq-ey.a.run.app/d/adoyhae5m9fcwe3344/ci-cd-teams-dashboard?orgId=1&var-Teams=TeamLior&kiosk
-      backstage.io/techdocs-ref: ''
-      backstage.io/source-location: ''
-      jira/team: TeamLior
-      jira/project-key: SAPBTPCFS
-      jira/component: ''
-      jira/board-id: '39571'
-      splunk.com/on-call-team: ''
-      splunk.com/on-call-routing-key: ''
-      jenkins.io/job-full-name: ''
+    color: '#06b6d4'
+    jira:
+      team: TeamLior
+      components:
+        - Unified Provider Cockpit
+        - Cloud Automation
+      board-id: '39571'
+- name: team-avihai
+  group_name: group-ronny
+  title: Team Avihai
+  description: Team Avihai
+  email: DL_5A5DDA147BCF84397900001E@global.corp.sap
+  picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Fluffy&backgroundType=solid,gradientLinear&backgroundColor=ffd5dc,b6e3f4
+  owner: I029927
+  metadata:
+    color: '#f97316'
+    jira:
+      team: TeamAvihai
+      components:
+        - BTP Solution Operator
+        - Unified Cloud Automation
+      board-id: '30346'
+- name: team-alex
+  group_name: group-ronny
+  title: Team Alex
+  description: Team Alex
+  email: DL_60F9583281460A027ECBDD6F@global.corp.sap
+  picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Fluffy&backgroundType=solid,gradientLinear&backgroundColor=ffd5dc,b6e3f4
+  owner: I071873
+  metadata:
+    color: '#6366f1'
+    jira:
+      team: TeamAlex
+      components:
+        - Unified Resource Manager API
+        - Unified Resource Manager Studio
+      board-id: '30345'
+- name: team-eli
+  group_name: group-eli
+  title: Team Eli
+  description: Team Eli
+  email: DL_67CEBB090EBDAA01365152C0@global.corp.sap
+  picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Fluffy&backgroundType=solid,gradientLinear&backgroundColor=ffd5dc,b6e3f4
+  owner: I048704
+  metadata:
+    color: '#a855f7'
+    jira:
+      team: TeamAlex
+      components:
+        - Unified Resource Manager API
+        - Unified Resource Manager Studio
+      board-id: '30345'
+- name: team-ua
+  group_name: group-cfs
+  title: Team UA
+  description: Team User Assistance
+  email: DL_5961EE935F99B75E3B000082@global.corp.sap
+  owner: I033872
+  picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Bailey&backgroundType=gradientLinear&backgroundColor=b6e3f4,ffd5dc,ffdfbf,c0aede
+  metadata:
+    color: '#84cc16'
+- name: team-ux
+  group_name: group-cfs
+  title: Team UX
+  description: Team User Experience
+  email: DL_5BB46CFF5F99B77B30000003@global.corp.sap
+  owner: I033872
+  picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Bailey&backgroundType=gradientLinear&backgroundColor=b6e3f4,ffd5dc,ffdfbf,c0aede
+  metadata:
+    color: '#eab308'
+- name: team-pm
+  group_name: group-cfs
+  title: Team PM
+  description: Team Product Management
+  email: DL_62DFA8E0EC3CA802990F316F@global.corp.sap
+  owner: I056930
+  picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Bailey&backgroundType=gradientLinear&backgroundColor=b6e3f4,ffd5dc,ffdfbf,c0aede
+  metadata:
+    color: '#f43f5e'
+- name: team-po
+  group_name: group-cfs
+  title: Team PO
+  description: Team Product Owners
+  email: DL_5326A171FD84A029970006DF@global.corp.sap
+  owner: I033872
+  picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Bailey&backgroundType=gradientLinear&backgroundColor=b6e3f4,ffd5dc,ffdfbf,c0aede
+  metadata:
+    color: '#d946ef'
+- name: team-architects
+  group_name: group-cfs
+  title: Team Architects
+  description: Team Architects
+  email: DL_5951E2A77BCF8422D00001EB@global.corp.sap
+  owner: I022021
+  picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Bailey&backgroundType=gradientLinear&backgroundColor=b6e3f4,ffd5dc,ffdfbf,c0aede
+  metadata:
+    color: '#0ea5e9'
+- name: team-developer-portal-technical
+  group_name: group-yuval
+  title: Developer Portal Technical Team
+  description: Developer Portal Technical Team
+  email: DL_6140532F6B2CE90282025A86@global.corp.sap
+  owner: I572719
+  picture_url: https://api.dicebear.com/7.x/identicon/svg?seed=Abby&backgroundType=solid,gradientLinear&backgroundColor=ffd5dc,b6e3f4
+  metadata:
+    color: '#22c55e'

@@ -11,7 +11,7 @@ import (
 
 // GitHubClient wraps the GitHub API client with authentication support
 type GitHubClient struct {
-	config *EnvironmentConfig
+	config *ProviderConfig
 	client *github.Client
 }
 
@@ -26,7 +26,7 @@ type UserProfile struct {
 }
 
 // NewGitHubClient creates a new GitHub API client
-func NewGitHubClient(config *EnvironmentConfig) *GitHubClient {
+func NewGitHubClient(config *ProviderConfig) *GitHubClient {
 	var client *github.Client
 
 	if config.EnterpriseBaseURL != "" {
@@ -120,14 +120,12 @@ func (c *GitHubClient) GetOAuth2Config(redirectURL string) *oauth2.Config {
 			AuthURL:  fmt.Sprintf("%s/login/oauth/authorize", c.config.EnterpriseBaseURL),
 			TokenURL: fmt.Sprintf("%s/login/oauth/access_token", c.config.EnterpriseBaseURL),
 		}
-		fmt.Printf("DEBUG: Using GitHub Enterprise endpoints - AuthURL: %s\n", endpoint.AuthURL)
 	} else {
 		// GitHub.com endpoints
 		endpoint = oauth2.Endpoint{
 			AuthURL:  "https://github.com/login/oauth/authorize",
 			TokenURL: "https://github.com/login/oauth/access_token",
 		}
-		fmt.Printf("DEBUG: Using GitHub.com endpoints - AuthURL: %s\n", endpoint.AuthURL)
 	}
 
 	return &oauth2.Config{

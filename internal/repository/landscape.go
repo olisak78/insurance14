@@ -32,92 +32,80 @@ func (r *LandscapeRepository) GetByID(id uuid.UUID) (*models.Landscape, error) {
 	return &landscape, nil
 }
 
-// GetByName retrieves a landscape by name within an organization
-func (r *LandscapeRepository) GetByName(orgID uuid.UUID, name string) (*models.Landscape, error) {
+// GetByName retrieves a landscape by name
+func (r *LandscapeRepository) GetByName(name string) (*models.Landscape, error) {
+	// New model has no organization scope; filter by name only
 	var landscape models.Landscape
-	err := r.db.First(&landscape, "organization_id = ? AND name = ?", orgID, name).Error
+	err := r.db.First(&landscape, "name = ?", name).Error
 	if err != nil {
 		return nil, err
 	}
 	return &landscape, nil
 }
 
-// GetByOrganizationID retrieves all landscapes for an organization with pagination
+// GetByOrganizationID retrieves landscapes with pagination
 func (r *LandscapeRepository) GetByOrganizationID(orgID uuid.UUID, limit, offset int) ([]models.Landscape, int64, error) {
+	// New model has no organization scope; return all landscapes paginated
 	var landscapes []models.Landscape
 	var total int64
 
-	// Get total count
-	if err := r.db.Model(&models.Landscape{}).Where("organization_id = ?", orgID).Count(&total).Error; err != nil {
+	if err := r.db.Model(&models.Landscape{}).Count(&total).Error; err != nil {
 		return nil, 0, err
 	}
 
-	// Get paginated results
-	err := r.db.Where("organization_id = ?", orgID).Limit(limit).Offset(offset).Find(&landscapes).Error
-	if err != nil {
+	if err := r.db.Model(&models.Landscape{}).Limit(limit).Offset(offset).Find(&landscapes).Error; err != nil {
 		return nil, 0, err
 	}
 
 	return landscapes, total, nil
 }
 
-// GetByType retrieves all landscapes of a specific type in an organization
-func (r *LandscapeRepository) GetByType(orgID uuid.UUID, landscapeType models.LandscapeType, limit, offset int) ([]models.Landscape, int64, error) {
+// GetByType retrieves all landscapes of a specific environment
+func (r *LandscapeRepository) GetByType(orgID uuid.UUID, landscapeType string, limit, offset int) ([]models.Landscape, int64, error) {
 	var landscapes []models.Landscape
 	var total int64
 
-	query := r.db.Model(&models.Landscape{}).Where("organization_id = ? AND landscape_type = ?", orgID, landscapeType)
+	query := r.db.Model(&models.Landscape{}).Where("environment = ?", landscapeType)
 
-	// Get total count
 	if err := query.Count(&total).Error; err != nil {
 		return nil, 0, err
 	}
 
-	// Get paginated results
-	err := query.Limit(limit).Offset(offset).Find(&landscapes).Error
-	if err != nil {
+	if err := query.Limit(limit).Offset(offset).Find(&landscapes).Error; err != nil {
 		return nil, 0, err
 	}
 
 	return landscapes, total, nil
 }
 
-// GetByStatus retrieves all landscapes with a specific status in an organization
-func (r *LandscapeRepository) GetByStatus(orgID uuid.UUID, status models.LandscapeStatus, limit, offset int) ([]models.Landscape, int64, error) {
+// GetByStatus returns all landscapes (status not present in new model)
+func (r *LandscapeRepository) GetByStatus(status string, limit, offset int) ([]models.Landscape, int64, error) {
 	var landscapes []models.Landscape
 	var total int64
 
-	query := r.db.Model(&models.Landscape{}).Where("organization_id = ? AND status = ?", orgID, status)
+	query := r.db.Model(&models.Landscape{})
 
-	// Get total count
 	if err := query.Count(&total).Error; err != nil {
 		return nil, 0, err
 	}
 
-	// Get paginated results
-	err := query.Limit(limit).Offset(offset).Find(&landscapes).Error
-	if err != nil {
+	if err := query.Limit(limit).Offset(offset).Find(&landscapes).Error; err != nil {
 		return nil, 0, err
 	}
 
 	return landscapes, total, nil
 }
 
-// GetActiveLandscapes retrieves all active landscapes for an organization
-func (r *LandscapeRepository) GetActiveLandscapes(orgID uuid.UUID, limit, offset int) ([]models.Landscape, int64, error) {
+// GetActiveLandscapes returns all landscapes (no status column)
+func (r *LandscapeRepository) GetActiveLandscapes(limit, offset int) ([]models.Landscape, int64, error) {
 	var landscapes []models.Landscape
 	var total int64
 
-	query := r.db.Model(&models.Landscape{}).Where("organization_id = ? AND status = ?", orgID, models.LandscapeStatusActive)
-
-	// Get total count
-	if err := query.Count(&total).Error; err != nil {
+	if err := r.db.Model(&models.Landscape{}).Count(&total).Error; err != nil {
 		return nil, 0, err
 	}
 
-	// Get paginated results
-	err := query.Limit(limit).Offset(offset).Find(&landscapes).Error
-	if err != nil {
+	if err := r.db.Model(&models.Landscape{}).Limit(limit).Offset(offset).Find(&landscapes).Error; err != nil {
 		return nil, 0, err
 	}
 
@@ -134,137 +122,60 @@ func (r *LandscapeRepository) Delete(id uuid.UUID) error {
 	return r.db.Delete(&models.Landscape{}, "id = ?", id).Error
 }
 
-// GetWithOrganization retrieves a landscape with organization details
+/* GetWithOrganization returns the landscape (no organization relation in new model) */
 func (r *LandscapeRepository) GetWithOrganization(id uuid.UUID) (*models.Landscape, error) {
-	var landscape models.Landscape
-	err := r.db.Preload("Organization").First(&landscape, "id = ?", id).Error
-	if err != nil {
-		return nil, err
-	}
-	return &landscape, nil
+	return r.GetByID(id)
 }
 
-// GetWithProjects retrieves a landscape with all its projects
+// GetWithProjects returns the landscape (project relation is via ProjectID field)
 func (r *LandscapeRepository) GetWithProjects(id uuid.UUID) (*models.Landscape, error) {
-	var landscape models.Landscape
-	err := r.db.Preload("Projects").First(&landscape, "id = ?", id).Error
-	if err != nil {
-		return nil, err
-	}
-	return &landscape, nil
+	return r.GetByID(id)
 }
 
-// GetWithComponentDeployments retrieves a landscape with all component deployments
+// GetWithComponentDeployments returns the landscape (no direct preload on new model struct)
 func (r *LandscapeRepository) GetWithComponentDeployments(id uuid.UUID) (*models.Landscape, error) {
-	var landscape models.Landscape
-	err := r.db.Preload("ComponentDeployments").Preload("ComponentDeployments.Component").First(&landscape, "id = ?", id).Error
-	if err != nil {
-		return nil, err
-	}
-	return &landscape, nil
+	return r.GetByID(id)
 }
 
-// GetWithFullDetails retrieves a landscape with all relationships
+// GetWithFullDetails returns the landscape (no additional relations on new model struct)
 func (r *LandscapeRepository) GetWithFullDetails(id uuid.UUID) (*models.Landscape, error) {
-	var landscape models.Landscape
-	err := r.db.
-		Preload("Organization").
-		Preload("Projects").
-		Preload("ComponentDeployments").
-		Preload("ComponentDeployments.Component").
-		First(&landscape, "id = ?", id).Error
-	if err != nil {
-		return nil, err
-	}
-	return &landscape, nil
+	return r.GetByID(id)
 }
 
-// SetStatus sets the status of a landscape
-func (r *LandscapeRepository) SetStatus(landscapeID uuid.UUID, status models.LandscapeStatus) error {
-	return r.db.Model(&models.Landscape{}).Where("id = ?", landscapeID).Update("status", status).Error
+// SetStatus is a no-op (status not present in new model)
+func (r *LandscapeRepository) SetStatus(landscapeID uuid.UUID, status string) error {
+	return nil
 }
 
-// Search searches for landscapes by name or description
-func (r *LandscapeRepository) Search(orgID uuid.UUID, query string, limit, offset int) ([]models.Landscape, int64, error) {
+// Search searches for landscapes by name, title, or description
+func (r *LandscapeRepository) Search(orgID uuid.UUID, q string, limit, offset int) ([]models.Landscape, int64, error) {
 	var landscapes []models.Landscape
 	var total int64
 
-	searchQuery := r.db.Model(&models.Landscape{}).Where("organization_id = ? AND (name ILIKE ? OR description ILIKE ?)", orgID, "%"+query+"%", "%"+query+"%")
+	searchQuery := r.db.Model(&models.Landscape{}).
+		Where("(name ILIKE ? OR title ILIKE ? OR description ILIKE ?)", "%"+q+"%", "%"+q+"%", "%"+q+"%")
 
-	// Get total count
 	if err := searchQuery.Count(&total).Error; err != nil {
 		return nil, 0, err
 	}
 
-	// Get paginated results
-	err := searchQuery.Limit(limit).Offset(offset).Find(&landscapes).Error
-	if err != nil {
+	if err := searchQuery.Limit(limit).Offset(offset).Find(&landscapes).Error; err != nil {
 		return nil, 0, err
 	}
 
 	return landscapes, total, nil
 }
 
-// GetProjectCount returns the number of projects using a landscape
+// GetProjectCount returns the number of projects using a landscape (1 if ProjectID set)
 func (r *LandscapeRepository) GetProjectCount(landscapeID uuid.UUID) (int64, error) {
-	var count int64
-	err := r.db.Model(&models.ProjectLandscape{}).Where("landscape_id = ?", landscapeID).Count(&count).Error
-	return count, err
-}
-
-// GetDeploymentCount returns the number of component deployments in a landscape
-func (r *LandscapeRepository) GetDeploymentCount(landscapeID uuid.UUID) (int64, error) {
-	var count int64
-	err := r.db.Model(&models.ComponentDeployment{}).Where("landscape_id = ?", landscapeID).Count(&count).Error
-	return count, err
-}
-
-// GetLandscapesWithCounts retrieves landscapes with their project and deployment counts
-func (r *LandscapeRepository) GetLandscapesWithCounts(orgID uuid.UUID, limit, offset int) ([]map[string]interface{}, int64, error) {
-	var landscapes []models.Landscape
-	var total int64
-	var results []map[string]interface{}
-
-	// Get total count
-	if err := r.db.Model(&models.Landscape{}).Where("organization_id = ?", orgID).Count(&total).Error; err != nil {
-		return nil, 0, err
+	var l models.Landscape
+	if err := r.db.Select("project_id").First(&l, "id = ?", landscapeID).Error; err != nil {
+		return 0, err
 	}
-
-	// Get landscapes with counts
-	err := r.db.Raw(`
-		SELECT l.*, 
-			COUNT(DISTINCT pl.project_id) as project_count,
-			COUNT(DISTINCT cd.id) as deployment_count
-		FROM landscapes l
-		LEFT JOIN project_landscapes pl ON l.id = pl.landscape_id
-		LEFT JOIN component_deployments cd ON l.id = cd.landscape_id
-		WHERE l.organization_id = ?
-		GROUP BY l.id
-		ORDER BY l.created_at DESC
-		LIMIT ? OFFSET ?
-	`, orgID, limit, offset).Scan(&landscapes).Error
-
-	if err != nil {
-		return nil, 0, err
+	if l.ProjectID == uuid.Nil {
+		return 0, nil
 	}
-
-	// Convert to map format for easier JSON handling
-	for _, landscape := range landscapes {
-		landscapeMap := map[string]interface{}{
-			"id":              landscape.ID,
-			"name":            landscape.Name,
-			"display_name":    landscape.DisplayName,
-			"description":     landscape.Description,
-			"landscape_type":  landscape.LandscapeType,
-			"status":          landscape.Status,
-			"organization_id": landscape.OrganizationID,
-			"created_at":      landscape.CreatedAt,
-			"updated_at":      landscape.UpdatedAt,
-		}
-		results = append(results, landscapeMap)
-	}
-
-	return results, total, nil
+	return 1, nil
 }
 
 // CheckLandscapeExists checks if a landscape exists by ID
@@ -274,9 +185,9 @@ func (r *LandscapeRepository) CheckLandscapeExists(id uuid.UUID) (bool, error) {
 	return count > 0, err
 }
 
-// CheckLandscapeNameExists checks if a landscape name exists within an organization
+// CheckLandscapeNameExists checks if a landscape name exists (ignores organization scope)
 func (r *LandscapeRepository) CheckLandscapeNameExists(orgID uuid.UUID, name string, excludeID *uuid.UUID) (bool, error) {
-	query := r.db.Model(&models.Landscape{}).Where("organization_id = ? AND name = ?", orgID, name)
+	query := r.db.Model(&models.Landscape{}).Where("name = ?", name)
 	if excludeID != nil {
 		query = query.Where("id != ?", *excludeID)
 	}
@@ -286,80 +197,68 @@ func (r *LandscapeRepository) CheckLandscapeNameExists(orgID uuid.UUID, name str
 	return count > 0, err
 }
 
-// GetLandscapesByProjectID retrieves all landscapes used by a specific project
+// GetLandscapesByProjectID retrieves all landscapes for a specific project
 func (r *LandscapeRepository) GetLandscapesByProjectID(projectID uuid.UUID, limit, offset int) ([]models.Landscape, int64, error) {
 	var landscapes []models.Landscape
 	var total int64
 
-	// Get total count
-	subQuery := r.db.Model(&models.ProjectLandscape{}).Select("landscape_id").Where("project_id = ?", projectID)
-	if err := r.db.Model(&models.Landscape{}).Where("id IN (?)", subQuery).Count(&total).Error; err != nil {
+	if err := r.db.Model(&models.Landscape{}).Where("project_id = ?", projectID).Count(&total).Error; err != nil {
 		return nil, 0, err
 	}
 
-	// Get paginated results
-	err := r.db.Where("id IN (?)", subQuery).Limit(limit).Offset(offset).Find(&landscapes).Error
-	if err != nil {
+	if err := r.db.Where("project_id = ?", projectID).Limit(limit).Offset(offset).Find(&landscapes).Error; err != nil {
 		return nil, 0, err
 	}
 
 	return landscapes, total, nil
 }
 
-// GetLandscapesByTypeAndStatus retrieves landscapes by type and status
-func (r *LandscapeRepository) GetLandscapesByTypeAndStatus(orgID uuid.UUID, landscapeType models.LandscapeType, status models.LandscapeStatus, limit, offset int) ([]models.Landscape, int64, error) {
+// GetLandscapesByTypeAndStatus retrieves landscapes by environment (status ignored)
+func (r *LandscapeRepository) GetLandscapesByTypeAndStatus(orgID uuid.UUID, landscapeType string, status string, limit, offset int) ([]models.Landscape, int64, error) {
 	var landscapes []models.Landscape
 	var total int64
 
-	query := r.db.Model(&models.Landscape{}).Where("organization_id = ? AND landscape_type = ? AND status = ?", orgID, landscapeType, status)
+	query := r.db.Model(&models.Landscape{}).Where("environment = ?", landscapeType)
 
-	// Get total count
 	if err := query.Count(&total).Error; err != nil {
 		return nil, 0, err
 	}
 
-	// Get paginated results
-	err := query.Limit(limit).Offset(offset).Find(&landscapes).Error
-	if err != nil {
+	if err := query.Limit(limit).Offset(offset).Find(&landscapes).Error; err != nil {
 		return nil, 0, err
 	}
 
 	return landscapes, total, nil
 }
 
-// GetLandscapesByEnvironment retrieves landscapes by environment (from metadata)
+// GetLandscapesByEnvironment retrieves landscapes by environment
 func (r *LandscapeRepository) GetLandscapesByEnvironment(orgID uuid.UUID, environment string, limit, offset int) ([]models.Landscape, int64, error) {
 	var landscapes []models.Landscape
 	var total int64
 
-	// Search in JSONB field for environment
-	query := r.db.Model(&models.Landscape{}).Where("organization_id = ? AND metadata->'environment' = ?", orgID, `"`+environment+`"`)
+	query := r.db.Model(&models.Landscape{}).Where("environment = ?", environment)
 
-	// Get total count
 	if err := query.Count(&total).Error; err != nil {
 		return nil, 0, err
 	}
 
-	// Get paginated results
-	err := query.Limit(limit).Offset(offset).Find(&landscapes).Error
-	if err != nil {
+	if err := query.Limit(limit).Offset(offset).Find(&landscapes).Error; err != nil {
 		return nil, 0, err
 	}
 
 	return landscapes, total, nil
 }
 
-// GetProductionLandscapes retrieves all production landscapes
+// Convenience helpers by environment
+
 func (r *LandscapeRepository) GetProductionLandscapes(orgID uuid.UUID, limit, offset int) ([]models.Landscape, int64, error) {
 	return r.GetLandscapesByEnvironment(orgID, "production", limit, offset)
 }
 
-// GetDevelopmentLandscapes retrieves all development landscapes
 func (r *LandscapeRepository) GetDevelopmentLandscapes(orgID uuid.UUID, limit, offset int) ([]models.Landscape, int64, error) {
 	return r.GetLandscapesByEnvironment(orgID, "development", limit, offset)
 }
 
-// GetStagingLandscapes retrieves all staging landscapes
 func (r *LandscapeRepository) GetStagingLandscapes(orgID uuid.UUID, limit, offset int) ([]models.Landscape, int64, error) {
 	return r.GetLandscapesByEnvironment(orgID, "staging", limit, offset)
 }

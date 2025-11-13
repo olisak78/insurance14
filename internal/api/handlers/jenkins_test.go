@@ -10,6 +10,7 @@ import (
 	"testing"
 
 	"developer-portal-backend/internal/api/handlers"
+	"developer-portal-backend/internal/service"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
@@ -35,8 +36,10 @@ func (suite *JenkinsHandlerTestSuite) TearDownTest() {
 
 // MockJenkinsService is a mock implementation for testing
 type MockJenkinsService struct {
-	GetJobParametersFunc func(ctx context.Context, jaasName, jobName string) (interface{}, error)
-	TriggerJobFunc       func(ctx context.Context, jaasName, jobName string, parameters map[string]string) error
+	GetJobParametersFunc    func(ctx context.Context, jaasName, jobName string) (interface{}, error)
+	TriggerJobFunc          func(ctx context.Context, jaasName, jobName string, parameters map[string]string) (*service.JenkinsTriggerResult, error)
+	GetQueueItemStatusFunc  func(ctx context.Context, jaasName, queueItemID string) (*service.JenkinsQueueStatusResult, error)
+	GetBuildStatusFunc      func(ctx context.Context, jaasName, jobName string, buildNumber int) (*service.JenkinsBuildStatusResult, error)
 }
 
 func (m *MockJenkinsService) GetJobParameters(ctx context.Context, jaasName, jobName string) (interface{}, error) {
@@ -46,11 +49,25 @@ func (m *MockJenkinsService) GetJobParameters(ctx context.Context, jaasName, job
 	return nil, fmt.Errorf("not implemented")
 }
 
-func (m *MockJenkinsService) TriggerJob(ctx context.Context, jaasName, jobName string, parameters map[string]string) error {
+func (m *MockJenkinsService) TriggerJob(ctx context.Context, jaasName, jobName string, parameters map[string]string) (*service.JenkinsTriggerResult, error) {
 	if m.TriggerJobFunc != nil {
 		return m.TriggerJobFunc(ctx, jaasName, jobName, parameters)
 	}
-	return fmt.Errorf("not implemented")
+	return nil, fmt.Errorf("not implemented")
+}
+
+func (m *MockJenkinsService) GetQueueItemStatus(ctx context.Context, jaasName, queueItemID string) (*service.JenkinsQueueStatusResult, error) {
+	if m.GetQueueItemStatusFunc != nil {
+		return m.GetQueueItemStatusFunc(ctx, jaasName, queueItemID)
+	}
+	return nil, fmt.Errorf("not implemented")
+}
+
+func (m *MockJenkinsService) GetBuildStatus(ctx context.Context, jaasName, jobName string, buildNumber int) (*service.JenkinsBuildStatusResult, error) {
+	if m.GetBuildStatusFunc != nil {
+		return m.GetBuildStatusFunc(ctx, jaasName, jobName, buildNumber)
+	}
+	return nil, fmt.Errorf("not implemented")
 }
 
 // TestGetJobParameters_Success tests successful parameter retrieval
@@ -173,12 +190,20 @@ func (suite *JenkinsHandlerTestSuite) TestGetJobParameters_JenkinsNotFound() {
 // TestTriggerJob_Success tests successful job triggering
 func (suite *JenkinsHandlerTestSuite) TestTriggerJob_Success() {
 	mockService := &MockJenkinsService{
-		TriggerJobFunc: func(ctx context.Context, jaasName, jobName string, parameters map[string]string) error {
+		TriggerJobFunc: func(ctx context.Context, jaasName, jobName string, parameters map[string]string) (*service.JenkinsTriggerResult, error) {
 			assert.Equal(suite.T(), "cfsmc", jaasName)
 			assert.Equal(suite.T(), "test-job", jobName)
 			assert.Equal(suite.T(), "main", parameters["BRANCH"])
 			assert.Equal(suite.T(), "staging", parameters["ENVIRONMENT"])
-			return nil
+			return &service.JenkinsTriggerResult{
+				Status:      "queued",
+				Message:     "Job successfully queued in Jenkins",
+				QueueURL:    "https://cfsmc.jaas-gcp.cloud.sap.corp/queue/item/12345/",
+				QueueItemID: "12345",
+				BaseJobURL:  "https://cfsmc.jaas-gcp.cloud.sap.corp/job/test-job",
+				JobName:     "test-job",
+				JaasName:    "cfsmc",
+			}, nil
 		},
 	}
 
@@ -198,20 +223,29 @@ func (suite *JenkinsHandlerTestSuite) TestTriggerJob_Success() {
 
 	assert.Equal(suite.T(), http.StatusOK, w.Code)
 
-	var response map[string]interface{}
+	var response handlers.JenkinsTriggerResponse
 	err := json.Unmarshal(w.Body.Bytes(), &response)
 	assert.NoError(suite.T(), err)
-	assert.Equal(suite.T(), "job triggered successfully", response["message"])
+	assert.Equal(suite.T(), "queued", response.Status)
+	assert.Equal(suite.T(), "Job successfully queued in Jenkins", response.Message)
+	assert.Equal(suite.T(), "12345", response.QueueItemID)
+	assert.Equal(suite.T(), "test-job", response.JobName)
+	assert.Equal(suite.T(), "cfsmc", response.JaasName)
 }
 
 // TestTriggerJob_WithoutParameters tests triggering without parameters
 func (suite *JenkinsHandlerTestSuite) TestTriggerJob_WithoutParameters() {
 	mockService := &MockJenkinsService{
-		TriggerJobFunc: func(ctx context.Context, jaasName, jobName string, parameters map[string]string) error {
+		TriggerJobFunc: func(ctx context.Context, jaasName, jobName string, parameters map[string]string) (*service.JenkinsTriggerResult, error) {
 			assert.Equal(suite.T(), "cfsmc", jaasName)
 			assert.Equal(suite.T(), "test-job", jobName)
 			assert.Empty(suite.T(), parameters)
-			return nil
+			return &service.JenkinsTriggerResult{
+				Status:   "queued",
+				Message:  "Job successfully queued in Jenkins",
+				JobName:  "test-job",
+				JaasName: "cfsmc",
+			}, nil
 		},
 	}
 
@@ -229,9 +263,14 @@ func (suite *JenkinsHandlerTestSuite) TestTriggerJob_WithoutParameters() {
 // TestTriggerJob_EmptyParameters tests triggering with empty parameter object
 func (suite *JenkinsHandlerTestSuite) TestTriggerJob_EmptyParameters() {
 	mockService := &MockJenkinsService{
-		TriggerJobFunc: func(ctx context.Context, jaasName, jobName string, parameters map[string]string) error {
+		TriggerJobFunc: func(ctx context.Context, jaasName, jobName string, parameters map[string]string) (*service.JenkinsTriggerResult, error) {
 			assert.Empty(suite.T(), parameters)
-			return nil
+			return &service.JenkinsTriggerResult{
+				Status:   "queued",
+				Message:  "Job successfully queued in Jenkins",
+				JobName:  "test-job",
+				JaasName: "cfsmc",
+			}, nil
 		},
 	}
 
@@ -252,8 +291,8 @@ func (suite *JenkinsHandlerTestSuite) TestTriggerJob_EmptyParameters() {
 // TestTriggerJob_ServiceError tests service error handling
 func (suite *JenkinsHandlerTestSuite) TestTriggerJob_ServiceError() {
 	mockService := &MockJenkinsService{
-		TriggerJobFunc: func(ctx context.Context, jaasName, jobName string, parameters map[string]string) error {
-			return fmt.Errorf("jenkins credentials not found")
+		TriggerJobFunc: func(ctx context.Context, jaasName, jobName string, parameters map[string]string) (*service.JenkinsTriggerResult, error) {
+			return nil, fmt.Errorf("jenkins credentials not found")
 		},
 	}
 
@@ -275,10 +314,15 @@ func (suite *JenkinsHandlerTestSuite) TestTriggerJob_ServiceError() {
 // TestTriggerJob_InvalidJSON tests invalid JSON in request body
 func (suite *JenkinsHandlerTestSuite) TestTriggerJob_InvalidJSON() {
 	mockService := &MockJenkinsService{
-		TriggerJobFunc: func(ctx context.Context, jaasName, jobName string, parameters map[string]string) error {
+		TriggerJobFunc: func(ctx context.Context, jaasName, jobName string, parameters map[string]string) (*service.JenkinsTriggerResult, error) {
 			// Should still be called with empty parameters
 			assert.Empty(suite.T(), parameters)
-			return nil
+			return &service.JenkinsTriggerResult{
+				Status:   "queued",
+				Message:  "Job successfully queued in Jenkins",
+				JobName:  "test-job",
+				JaasName: "cfsmc",
+			}, nil
 		},
 	}
 
@@ -399,11 +443,16 @@ func (suite *JenkinsHandlerTestSuite) TestGetJobParameters_DifferentJobNames() {
 // TestTriggerJob_MultipleParameters tests triggering with multiple parameters
 func (suite *JenkinsHandlerTestSuite) TestTriggerJob_MultipleParameters() {
 	mockService := &MockJenkinsService{
-		TriggerJobFunc: func(ctx context.Context, jaasName, jobName string, parameters map[string]string) error {
+		TriggerJobFunc: func(ctx context.Context, jaasName, jobName string, parameters map[string]string) (*service.JenkinsTriggerResult, error) {
 			assert.Len(suite.T(), parameters, 5)
 			assert.Equal(suite.T(), "value1", parameters["PARAM1"])
 			assert.Equal(suite.T(), "value2", parameters["PARAM2"])
-			return nil
+			return &service.JenkinsTriggerResult{
+				Status:   "queued",
+				Message:  "Job successfully queued in Jenkins",
+				JobName:  "test-job",
+				JaasName: "cfsmc",
+			}, nil
 		},
 	}
 
@@ -430,10 +479,15 @@ func (suite *JenkinsHandlerTestSuite) TestTriggerJob_MultipleParameters() {
 // TestTriggerJob_SpecialCharactersInParameters tests special characters in parameter values
 func (suite *JenkinsHandlerTestSuite) TestTriggerJob_SpecialCharactersInParameters() {
 	mockService := &MockJenkinsService{
-		TriggerJobFunc: func(ctx context.Context, jaasName, jobName string, parameters map[string]string) error {
+		TriggerJobFunc: func(ctx context.Context, jaasName, jobName string, parameters map[string]string) (*service.JenkinsTriggerResult, error) {
 			assert.Equal(suite.T(), "value with spaces", parameters["PARAM1"])
 			assert.Equal(suite.T(), "value@#$%", parameters["PARAM2"])
-			return nil
+			return &service.JenkinsTriggerResult{
+				Status:   "queued",
+				Message:  "Job successfully queued in Jenkins",
+				JobName:  "test-job",
+				JaasName: "cfsmc",
+			}, nil
 		},
 	}
 
@@ -443,6 +497,83 @@ func (suite *JenkinsHandlerTestSuite) TestTriggerJob_SpecialCharactersInParamete
 	requestBody := map[string]string{
 		"PARAM1": "value with spaces",
 		"PARAM2": "value@#$%",
+	}
+	bodyBytes, _ := json.Marshal(requestBody)
+
+	req, _ := http.NewRequest(http.MethodPost, "/self-service/jenkins/cfsmc/test-job/trigger", bytes.NewBuffer(bodyBytes))
+	req.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusOK, w.Code)
+}
+
+// TestTriggerJob_MixedParameterTypes tests triggering with mixed value types (string, bool, number)
+func (suite *JenkinsHandlerTestSuite) TestTriggerJob_MixedParameterTypes() {
+	mockService := &MockJenkinsService{
+		TriggerJobFunc: func(ctx context.Context, jaasName, jobName string, parameters map[string]string) (*service.JenkinsTriggerResult, error) {
+			// Verify all types are converted to strings
+			assert.Equal(suite.T(), "I572719", parameters["ClusterName"])
+			assert.Equal(suite.T(), "", parameters["DELETE_CLUSTER"])
+			assert.Equal(suite.T(), "true", parameters["FETCH_STAGING_VERSION"])
+			assert.Equal(suite.T(), "DEPLOY_CLUSTER", parameters["DEPLOYMENT_OPTION"])
+			assert.Equal(suite.T(), "None", parameters["GIT_ORG_REPO"])
+			assert.Equal(suite.T(), "", parameters["DEPLOY_PERFORMANCE_MONITORING"])
+			return &service.JenkinsTriggerResult{
+				Status:   "queued",
+				Message:  "Job successfully queued in Jenkins",
+				JobName:  "test-job",
+				JaasName: "cfsmc",
+			}, nil
+		},
+	}
+
+	handler := handlers.NewJenkinsHandler(mockService)
+	suite.router.POST("/self-service/jenkins/:jaasName/:jobName/trigger", handler.TriggerJob)
+
+	// Send mixed types: string, bool, empty string
+	requestBody := map[string]interface{}{
+		"ClusterName":                  "I572719",
+		"DELETE_CLUSTER":               "",
+		"FETCH_STAGING_VERSION":        true, // Boolean
+		"DEPLOYMENT_OPTION":            "DEPLOY_CLUSTER",
+		"GIT_ORG_REPO":                 "None",
+		"DEPLOY_PERFORMANCE_MONITORING": "",
+	}
+	bodyBytes, _ := json.Marshal(requestBody)
+
+	req, _ := http.NewRequest(http.MethodPost, "/self-service/jenkins/cfsmc/test-job/trigger", bytes.NewBuffer(bodyBytes))
+	req.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusOK, w.Code)
+}
+
+// TestTriggerJob_NumericParameters tests triggering with numeric values
+func (suite *JenkinsHandlerTestSuite) TestTriggerJob_NumericParameters() {
+	mockService := &MockJenkinsService{
+		TriggerJobFunc: func(ctx context.Context, jaasName, jobName string, parameters map[string]string) (*service.JenkinsTriggerResult, error) {
+			// Verify numbers are converted to strings
+			assert.Equal(suite.T(), "42", parameters["INTEGER_PARAM"])
+			assert.Equal(suite.T(), "3.14", parameters["FLOAT_PARAM"])
+			assert.Equal(suite.T(), "false", parameters["BOOL_PARAM"])
+			return &service.JenkinsTriggerResult{
+				Status:   "queued",
+				Message:  "Job successfully queued in Jenkins",
+				JobName:  "test-job",
+				JaasName: "cfsmc",
+			}, nil
+		},
+	}
+
+	handler := handlers.NewJenkinsHandler(mockService)
+	suite.router.POST("/self-service/jenkins/:jaasName/:jobName/trigger", handler.TriggerJob)
+
+	requestBody := map[string]interface{}{
+		"INTEGER_PARAM": 42,
+		"FLOAT_PARAM":   3.14,
+		"BOOL_PARAM":    false,
 	}
 	bodyBytes, _ := json.Marshal(requestBody)
 
@@ -526,6 +657,193 @@ func (suite *JenkinsHandlerTestSuite) TestGetJobParameters_EmptyResponse() {
 	var response map[string]interface{}
 	err := json.Unmarshal(w.Body.Bytes(), &response)
 	assert.NoError(suite.T(), err)
+}
+
+// TestGetQueueItemStatus_Success tests successful queue status retrieval
+func (suite *JenkinsHandlerTestSuite) TestGetQueueItemStatus_Success() {
+	buildNum := 123
+	mockService := &MockJenkinsService{
+		GetQueueItemStatusFunc: func(ctx context.Context, jaasName, queueItemID string) (*service.JenkinsQueueStatusResult, error) {
+			assert.Equal(suite.T(), "cfsmc", jaasName)
+			assert.Equal(suite.T(), "12345", queueItemID)
+			return &service.JenkinsQueueStatusResult{
+				Status:       "queued",
+				BuildNumber:  &buildNum,
+				BuildURL:     "https://cfsmc.jaas-gcp.cloud.sap.corp/job/test-job/123/",
+				QueuedReason: "Waiting for executor",
+				WaitTime:     45,
+			}, nil
+		},
+	}
+
+	handler := handlers.NewJenkinsHandler(mockService)
+	suite.router.GET("/self-service/jenkins/:jaasName/queue/:queueItemId/status", handler.GetQueueItemStatus)
+
+	req, _ := http.NewRequest(http.MethodGet, "/self-service/jenkins/cfsmc/queue/12345/status", nil)
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusOK, w.Code)
+
+	var response handlers.JenkinsQueueStatusResponse
+	err := json.Unmarshal(w.Body.Bytes(), &response)
+	assert.NoError(suite.T(), err)
+	assert.Equal(suite.T(), "queued", response.Status)
+	assert.NotNil(suite.T(), response.BuildNumber)
+	assert.Equal(suite.T(), buildNum, *response.BuildNumber)
+	assert.Equal(suite.T(), "Waiting for executor", response.QueuedReason)
+	assert.Equal(suite.T(), 45, response.WaitTime)
+}
+
+// TestGetQueueItemStatus_NotFound tests queue item not found
+func (suite *JenkinsHandlerTestSuite) TestGetQueueItemStatus_NotFound() {
+	mockService := &MockJenkinsService{
+		GetQueueItemStatusFunc: func(ctx context.Context, jaasName, queueItemID string) (*service.JenkinsQueueStatusResult, error) {
+			return nil, fmt.Errorf("jenkins queue item not found: queue item 99999")
+		},
+	}
+
+	handler := handlers.NewJenkinsHandler(mockService)
+	suite.router.GET("/self-service/jenkins/:jaasName/queue/:queueItemId/status", handler.GetQueueItemStatus)
+
+	req, _ := http.NewRequest(http.MethodGet, "/self-service/jenkins/cfsmc/queue/99999/status", nil)
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusNotFound, w.Code)
+}
+
+// TestGetQueueItemStatus_ServiceError tests service error handling
+func (suite *JenkinsHandlerTestSuite) TestGetQueueItemStatus_ServiceError() {
+	mockService := &MockJenkinsService{
+		GetQueueItemStatusFunc: func(ctx context.Context, jaasName, queueItemID string) (*service.JenkinsQueueStatusResult, error) {
+			return nil, fmt.Errorf("service error")
+		},
+	}
+
+	handler := handlers.NewJenkinsHandler(mockService)
+	suite.router.GET("/self-service/jenkins/:jaasName/queue/:queueItemId/status", handler.GetQueueItemStatus)
+
+	req, _ := http.NewRequest(http.MethodGet, "/self-service/jenkins/cfsmc/queue/12345/status", nil)
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusBadGateway, w.Code)
+}
+
+// TestGetBuildStatus_Success tests successful build status retrieval
+func (suite *JenkinsHandlerTestSuite) TestGetBuildStatus_Success() {
+	mockService := &MockJenkinsService{
+		GetBuildStatusFunc: func(ctx context.Context, jaasName, jobName string, buildNumber int) (*service.JenkinsBuildStatusResult, error) {
+			assert.Equal(suite.T(), "cfsmc", jaasName)
+			assert.Equal(suite.T(), "test-job", jobName)
+			assert.Equal(suite.T(), 42, buildNumber)
+			return &service.JenkinsBuildStatusResult{
+				Status:   "success",
+				Result:   "SUCCESS",
+				Building: false,
+				Duration: 120000, // milliseconds
+				BuildURL: "https://cfsmc.jaas-gcp.cloud.sap.corp/job/test-job/42/",
+			}, nil
+		},
+	}
+
+	handler := handlers.NewJenkinsHandler(mockService)
+	suite.router.GET("/self-service/jenkins/:jaasName/:jobName/:buildNumber/status", handler.GetBuildStatus)
+
+	req, _ := http.NewRequest(http.MethodGet, "/self-service/jenkins/cfsmc/test-job/42/status", nil)
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusOK, w.Code)
+
+	var response handlers.JenkinsBuildStatusResponse
+	err := json.Unmarshal(w.Body.Bytes(), &response)
+	assert.NoError(suite.T(), err)
+	assert.Equal(suite.T(), "success", response.Status)
+	assert.Equal(suite.T(), "SUCCESS", response.Result)
+	assert.False(suite.T(), response.Building)
+	assert.Equal(suite.T(), 120, response.Duration) // converted to seconds
+	assert.Contains(suite.T(), response.BuildURL, "/job/test-job/42/")
+}
+
+// TestGetBuildStatus_Running tests running build
+func (suite *JenkinsHandlerTestSuite) TestGetBuildStatus_Running() {
+	mockService := &MockJenkinsService{
+		GetBuildStatusFunc: func(ctx context.Context, jaasName, jobName string, buildNumber int) (*service.JenkinsBuildStatusResult, error) {
+			return &service.JenkinsBuildStatusResult{
+				Status:   "running",
+				Result:   "",
+				Building: true,
+				Duration: 0,
+				BuildURL: "https://cfsmc.jaas-gcp.cloud.sap.corp/job/test-job/42/",
+			}, nil
+		},
+	}
+
+	handler := handlers.NewJenkinsHandler(mockService)
+	suite.router.GET("/self-service/jenkins/:jaasName/:jobName/:buildNumber/status", handler.GetBuildStatus)
+
+	req, _ := http.NewRequest(http.MethodGet, "/self-service/jenkins/cfsmc/test-job/42/status", nil)
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusOK, w.Code)
+
+	var response handlers.JenkinsBuildStatusResponse
+	err := json.Unmarshal(w.Body.Bytes(), &response)
+	assert.NoError(suite.T(), err)
+	assert.Equal(suite.T(), "running", response.Status)
+	assert.True(suite.T(), response.Building)
+}
+
+// TestGetBuildStatus_InvalidBuildNumber tests invalid build number
+func (suite *JenkinsHandlerTestSuite) TestGetBuildStatus_InvalidBuildNumber() {
+	mockService := &MockJenkinsService{}
+	handler := handlers.NewJenkinsHandler(mockService)
+	suite.router.GET("/self-service/jenkins/:jaasName/:jobName/:buildNumber/status", handler.GetBuildStatus)
+
+	req, _ := http.NewRequest(http.MethodGet, "/self-service/jenkins/cfsmc/test-job/invalid/status", nil)
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusBadRequest, w.Code)
+}
+
+// TestGetBuildStatus_NotFound tests build not found
+func (suite *JenkinsHandlerTestSuite) TestGetBuildStatus_NotFound() {
+	mockService := &MockJenkinsService{
+		GetBuildStatusFunc: func(ctx context.Context, jaasName, jobName string, buildNumber int) (*service.JenkinsBuildStatusResult, error) {
+			return nil, fmt.Errorf("jenkins build not found: job test-job build #99999")
+		},
+	}
+
+	handler := handlers.NewJenkinsHandler(mockService)
+	suite.router.GET("/self-service/jenkins/:jaasName/:jobName/:buildNumber/status", handler.GetBuildStatus)
+
+	req, _ := http.NewRequest(http.MethodGet, "/self-service/jenkins/cfsmc/test-job/99999/status", nil)
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusNotFound, w.Code)
+}
+
+// TestGetBuildStatus_ServiceError tests service error handling
+func (suite *JenkinsHandlerTestSuite) TestGetBuildStatus_ServiceError() {
+	mockService := &MockJenkinsService{
+		GetBuildStatusFunc: func(ctx context.Context, jaasName, jobName string, buildNumber int) (*service.JenkinsBuildStatusResult, error) {
+			return nil, fmt.Errorf("service error")
+		},
+	}
+
+	handler := handlers.NewJenkinsHandler(mockService)
+	suite.router.GET("/self-service/jenkins/:jaasName/:jobName/:buildNumber/status", handler.GetBuildStatus)
+
+	req, _ := http.NewRequest(http.MethodGet, "/self-service/jenkins/cfsmc/test-job/42/status", nil)
+	w := httptest.NewRecorder()
+	suite.router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusBadGateway, w.Code)
 }
 
 // Run the test suite

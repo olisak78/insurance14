@@ -54,7 +54,6 @@ func NewAuthHandler(service *AuthService) *AuthHandler {
 // @Router /api/auth/{provider}/start [get]
 func (h *AuthHandler) Start(c *gin.Context) {
 	provider := c.Param("provider")
-	env := c.DefaultQuery("env", "")
 
 	// Validate provider
 	if provider == "" {
@@ -75,14 +74,8 @@ func (h *AuthHandler) Start(c *gin.Context) {
 		return
 	}
 
-	// Persist/encode env alongside state (so callback can recover env if needed)
-	stateWithEnv := state
-	if env != "" {
-		stateWithEnv = state + ":" + env
-	}
-
 	// Get authorization URL
-	authURL, err := h.service.GetAuthURL(provider, env, stateWithEnv)
+	authURL, err := h.service.GetAuthURL(provider, state)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate authorization URL", "details": err.Error()})
 		return
@@ -113,7 +106,6 @@ func (h *AuthHandler) HandlerFrame(c *gin.Context) {
 	code := c.Query("code")
 	state := c.Query("state")
 	errorParam := c.Query("error")
-	env := c.DefaultQuery("env", "")
 
 	// OAuth errors from provider
 	if errorParam != "" {
@@ -143,20 +135,8 @@ func (h *AuthHandler) HandlerFrame(c *gin.Context) {
 		return
 	}
 
-	// Extract environment from state if present
-	actualState := state
-	stateEnv := ""
-	if strings.Contains(state, ":") {
-		parts := strings.SplitN(state, ":", 2)
-		actualState = parts[0]
-		stateEnv = parts[1]
-	}
-	if env == "" && stateEnv != "" {
-		env = stateEnv
-	}
-
 	// Service callback – may return various shapes; we'll normalize in JS
-	serviceResp, err := h.service.HandleCallback(c.Request.Context(), provider, env, code, actualState)
+	serviceResp, err := h.service.HandleCallback(c.Request.Context(), provider, code, state)
 	if err != nil {
 		errorHTML := `<!doctype html><html><body><script>
 (function(){
@@ -269,7 +249,7 @@ func (h *AuthHandler) Refresh(c *gin.Context) {
 						MemberID: h.service.GetMemberIDByEmail(claims.Email),
 					}
 
-					newJWT, err := h.service.GenerateJWT(userProfile, claims.Provider, claims.Environment)
+					newJWT, err := h.service.GenerateJWT(userProfile, claims.Provider)
 					if err == nil {
 						profileResponse := gin.H{
 							"login":     claims.Username,
@@ -310,7 +290,7 @@ func (h *AuthHandler) Refresh(c *gin.Context) {
 					MemberID: h.service.GetMemberIDByEmail(claims.Email),
 				}
 
-				newJWT, err := h.service.GenerateJWT(userProfile, claims.Provider, claims.Environment)
+				newJWT, err := h.service.GenerateJWT(userProfile, claims.Provider)
 				if err == nil {
 					profileResponse := gin.H{
 						"login":     claims.Username,
@@ -458,10 +438,61 @@ func (h *AuthHandler) Logout(c *gin.Context) {
 		return
 	}
 
+	// Clear all session cookies by setting MaxAge=-1
+	// This sends Set-Cookie headers that delete the cookies
+	c.SetCookie("auth_token", "", -1, "/", "", false, true)
+	c.SetCookie("refresh_token", "", -1, "/", "", false, true)
+	c.SetCookie("user_profile", "", -1, "/", "", false, false)
+
 	if err := h.service.Logout(); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Logout failed", "details": err.Error()})
 		return
 	}
+
+	// Clear all authentication cookies
+	// Clear auth_token (access token)
+	c.SetCookie(
+		"auth_token",
+		"",
+		-1, // MaxAge < 0 means delete the cookie
+		"/",
+		"",
+		false,
+		true, // HttpOnly
+	)
+
+	// Clear refresh_token
+	c.SetCookie(
+		"refresh_token",
+		"",
+		-1,
+		"/",
+		"",
+		false,
+		true, // HttpOnly
+	)
+
+	// Clear backstage-refresh-token (if exists)
+	c.SetCookie(
+		"backstage-refresh-token",
+		"",
+		-1,
+		"/",
+		"",
+		false,
+		true, // HttpOnly
+	)
+
+	// Clear user_profile (not httpOnly, so JS can read)
+	c.SetCookie(
+		"user_profile",
+		"",
+		-1,
+		"/",
+		"",
+		false,
+		false,
+	)
 
 	c.JSON(http.StatusOK, gin.H{"message": "Logged out successfully"})
 }

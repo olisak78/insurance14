@@ -24,7 +24,7 @@ type JiraService struct {
 	httpClient *http.Client
 
 	// Personal Access Token (PAT) management
-	patToken string
+	patToken  string
 	patExpiry time.Time
 	tokenMu   sync.Mutex
 
@@ -36,12 +36,15 @@ type JiraService struct {
  * NewJiraService creates a new Jira service
  */
 func NewJiraService(cfg *config.Config) *JiraService {
-	hostname, _ := os.Hostname()
-	if hostname == "" {
-		hostname = "unknown-host"
+	// PAT name is environment-scoped: "DeveloperPortal-<env>"
+	envName := strings.TrimSpace(os.Getenv("DEPLOY_ENVIRONMENT"))
+	if envName == "" {
+		envName = strings.TrimSpace(os.Getenv("USER"))
 	}
-	name := fmt.Sprintf("DeveloperPortal-%s", hostname)
-	name = strings.ReplaceAll(name, " ", "-")
+
+	name := fmt.Sprintf("DeveloperPortal-%s", envName)
+	// Print to console for visibility
+	//log.Printf("Jira PAT name configured: %s", name)
 
 	return &JiraService{
 		cfg:        cfg,
@@ -59,8 +62,8 @@ type patTokenResponse struct {
 	RawToken   string `json:"rawToken"`
 }
 
-// InitializePATOnStartup checks for an existing PAT with the fixed name and deletes it before creating a new one.
-// This should be called once on server startup to avoid hitting PAT limits and to ensure a clean token lifecycle.
+// InitializePATOnStartup deletes any existing PAT(s) with the fixed name and then creates a new one unconditionally.
+// This should be called once on server startup to ensure a clean token lifecycle.
 func (s *JiraService) InitializePATOnStartup() error {
 	// Parse base URL from config (same handling as in searchIssues)
 	base := s.cfg.JiraDomain
@@ -75,28 +78,27 @@ func (s *JiraService) InitializePATOnStartup() error {
 		return fmt.Errorf("invalid jira domain URL '%s': %w", base, err)
 	}
 
-	// Attempt cleanup and log outcome
-	found, err := s.cleanupExistingPAT(baseURL)
+	// Cleanup any existing PAT(s) and always create a fresh one
+	_, _, err = s.cleanupExistingPAT(baseURL)
 	if err != nil {
 		log.Printf("Jira PAT cleanup error for name=%s: %v", s.patName, err)
-	} else if found {
-		log.Printf("Jira PAT with name=%s was found and deleted", s.patName)
-	} else {
-		log.Printf("No existing Jira PAT found with name=%s", s.patName)
 	}
 
-	// Create new PAT
 	return s.createPAT(baseURL)
 }
 
-// cleanupExistingPAT finds a PAT by name and deletes it if present.
-// Returns true if a matching token was found and deleted.
-func (s *JiraService) cleanupExistingPAT(baseURL *url.URL) (bool, error) {
+/*
+cleanupExistingPAT finds PAT(s) by name and deletes all of them unconditionally.
+Returns:
+  - found:   whether a matching token with the fixed name exists
+  - deleted: whether we deleted at least one matching token
+*/
+func (s *JiraService) cleanupExistingPAT(baseURL *url.URL) (bool, bool, error) {
 	// GET all PATs
 	listURL := baseURL.String() + "/rest/pat/latest/tokens"
 	req, err := http.NewRequest(http.MethodGet, listURL, nil)
 	if err != nil {
-		return false, fmt.Errorf("failed to create PAT list request: %w", err)
+		return false, false, fmt.Errorf("failed to create PAT list request: %w", err)
 	}
 	cred := base64.StdEncoding.EncodeToString([]byte(s.cfg.JiraUser + ":" + s.cfg.JiraPassword))
 	req.Header.Set("Authorization", "Basic "+cred)
@@ -104,66 +106,59 @@ func (s *JiraService) cleanupExistingPAT(baseURL *url.URL) (bool, error) {
 
 	resp, err := s.httpClient.Do(req)
 	if err != nil {
-		return false, fmt.Errorf("jira PAT list request failed: %w", err)
+		return false, false, fmt.Errorf("jira PAT list request failed: %w", err)
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
 		body, _ := io.ReadAll(resp.Body)
-		return false, fmt.Errorf("jira PAT list failed: status=%d body=%s", resp.StatusCode, string(body))
+		return false, false, fmt.Errorf("jira PAT list failed: status=%d body=%s", resp.StatusCode, string(body))
 	}
 
 	// Decode array of PATs
- var tokens []patTokenResponse
+	var tokens []patTokenResponse
 	if err := json.NewDecoder(resp.Body).Decode(&tokens); err != nil {
-		return false, fmt.Errorf("failed to decode PAT list: %w", err)
+		return false, false, fmt.Errorf("failed to decode PAT list: %w", err)
 	}
 
+	found := false
+	deletedAny := false
 	for _, tok := range tokens {
 		if tok.Name == s.patName {
-			// DELETE the token by id
+			found = true
+
+			// DELETE the token by id unconditionally
 			delURL := fmt.Sprintf("%s/rest/pat/latest/tokens/%d", baseURL.String(), tok.ID)
 			delReq, err := http.NewRequest(http.MethodDelete, delURL, nil)
 			if err != nil {
-				return true, fmt.Errorf("failed to create PAT delete request: %w", err)
+				return found, deletedAny, fmt.Errorf("failed to create PAT delete request: %w", err)
 			}
 			delReq.Header.Set("Authorization", "Basic "+cred)
 			delReq.Header.Set("Accept", "application/json")
 
 			delResp, err := s.httpClient.Do(delReq)
 			if err != nil {
-				return true, fmt.Errorf("jira PAT delete request failed: %w", err)
+				return found, deletedAny, fmt.Errorf("jira PAT delete request failed: %w", err)
 			}
 			defer delResp.Body.Close()
 
 			if delResp.StatusCode < 200 || delResp.StatusCode >= 300 {
 				body, _ := io.ReadAll(delResp.Body)
-				return true, fmt.Errorf("jira PAT delete failed: status=%d body=%s", delResp.StatusCode, string(body))
+				return found, deletedAny, fmt.Errorf("jira PAT delete failed: status=%d body=%s", delResp.StatusCode, string(body))
+			} else {
+				log.Printf("Jira PAT '%s' was found and deleted", s.patName)
 			}
-			return true, nil
+			deletedAny = true
 		}
 	}
 
-	return false, nil
-}
-
-// ensurePAT makes sure a valid PAT exists and is not expiring within one week.
-// If no token exists or it's near expiration, it will create a new PAT using Basic auth.
-func (s *JiraService) ensurePAT(baseURL *url.URL) error {
-	s.tokenMu.Lock()
-	defer s.tokenMu.Unlock()
-
-	// Renew if token missing or will expire within 7 days spare window
-	if s.patToken != "" && time.Now().Before(s.patExpiry.Add(-7*24*time.Hour)) {
-		return nil
-	}
-
-	return s.createPAT(baseURL)
+	return found, deletedAny, nil
 }
 
 // createPAT creates a new Personal Access Token via Jira PAT endpoint using Basic auth.
 func (s *JiraService) createPAT(baseURL *url.URL) error {
 	if s.cfg.JiraUser == "" || s.cfg.JiraPassword == "" {
+		log.Printf("ERROR: Jira credentials missing - user=%s password_set=%v", s.cfg.JiraUser, s.cfg.JiraPassword != "")
 		return apperrors.ErrJiraConfigMissing
 	}
 
@@ -197,12 +192,14 @@ func (s *JiraService) createPAT(baseURL *url.URL) error {
 
 	resp, err := s.httpClient.Do(req)
 	if err != nil {
+		log.Printf("ERROR: Jira PAT HTTP request failed: %v", err)
 		return fmt.Errorf("jira PAT request failed: %w", err)
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
 		body, _ := io.ReadAll(resp.Body)
+		log.Printf("ERROR: Jira PAT creation failed: status=%d body=%s", resp.StatusCode, string(body))
 		return fmt.Errorf("jira PAT creation failed: status=%d body=%s", resp.StatusCode, string(body))
 	}
 
@@ -224,8 +221,8 @@ func (s *JiraService) createPAT(baseURL *url.URL) error {
 
 	s.patToken = patResp.RawToken
 	s.patExpiry = expiry
+	log.Printf("Jira PAT '%s' was created successfully. Expiration: %s", patResp.Name, patResp.ExpiringAt)
 
-	log.Printf("Jira PAT created: name=%s expires=%s", patResp.Name, patResp.ExpiringAt)
 	return nil
 }
 
@@ -256,6 +253,38 @@ type JiraIssueFields struct {
 	Description string          `json:"description,omitempty"`
 	Labels      []string        `json:"labels,omitempty"`
 	Components  []JiraComponent `json:"components,omitempty"`
+	Parent      *JiraParent     `json:"parent,omitempty"`
+	Subtasks    []JiraSubtask   `json:"subtasks,omitempty"`
+}
+
+// JiraParent represents the parent issue of a subtask
+type JiraParent struct {
+	ID     string        `json:"id"`
+	Key    string        `json:"key"`
+	Fields JiraParentFields `json:"fields"`
+}
+
+// JiraParentFields represents basic fields of a parent issue
+type JiraParentFields struct {
+	Summary   string        `json:"summary"`
+	Status    JiraStatus    `json:"status"`
+	IssueType JiraIssueType `json:"issuetype"`
+	Priority  JiraPriority  `json:"priority"`
+}
+
+// JiraSubtask represents a subtask of an issue
+type JiraSubtask struct {
+	ID     string              `json:"id"`
+	Key    string              `json:"key"`
+	Fields JiraSubtaskFields   `json:"fields"`
+}
+
+// JiraSubtaskFields represents basic fields of a subtask
+type JiraSubtaskFields struct {
+	Summary   string        `json:"summary"`
+	Status    JiraStatus    `json:"status"`
+	IssueType JiraIssueType `json:"issuetype"`
+	Priority  JiraPriority  `json:"priority"`
 }
 
 // JiraStatus represents the status of a Jira issue
@@ -444,8 +473,8 @@ func (s *JiraService) buildJQL(filters JiraIssueFilters) (string, error) {
 	}
 
 	// Check if we have any search criteria at all
-	if filters.Project == "" && filters.Status == "" && filters.Team == "" && filters.User == "" && 
-	   filters.Assignee == "" && filters.Type == "" && filters.Summary == "" && filters.Key == "" {
+	if filters.Project == "" && filters.Status == "" && filters.Team == "" && filters.User == "" &&
+		filters.Assignee == "" && filters.Type == "" && filters.Summary == "" && filters.Key == "" {
 		return "", fmt.Errorf("at least one search criterion must be provided (project, status, team, user, assignee, type, summary, or key)")
 	}
 
@@ -548,7 +577,7 @@ func (s *JiraService) searchIssues(jql string, filters JiraIssueFilters, countOn
 		values.Set("startAt", fmt.Sprintf("%d", startAt))
 
 		// Optimize field selection for better performance
-		values.Set("fields", "key,summary,status,issuetype,priority,assignee,created,updated")
+		values.Set("fields", "key,summary,status,issuetype,priority,assignee,created,updated,parent,subtasks")
 	}
 
 	// Construct the full URL safely
@@ -567,29 +596,32 @@ func (s *JiraService) searchIssues(jql string, filters JiraIssueFilters, countOn
 		return nil, fmt.Errorf("failed to create HTTP request: %w", err)
 	}
 
-	// Ensure PAT exists and is valid (renew if expiring within 7 days)
-	if err := s.ensurePAT(baseURL); err != nil {
-		return nil, fmt.Errorf("failed to ensure Jira PAT: %w", err)
+	// Use startup-created PAT if present; otherwise use Basic auth (no on-demand PAT creation)
+	if s.patToken != "" {
+		req.Header.Set("Authorization", "Bearer "+s.patToken)
+	} else {
+		cred := base64.StdEncoding.EncodeToString([]byte(s.cfg.JiraUser + ":" + s.cfg.JiraPassword))
+		req.Header.Set("Authorization", "Basic "+cred)
 	}
-
-	// Use PAT as Bearer token for Jira interactions
-	req.Header.Set("Authorization", "Bearer "+s.patToken)
 	req.Header.Set("Accept", "application/json")
 
 	resp, err := s.httpClient.Do(req)
 	if err != nil {
+		log.Printf("ERROR: Jira HTTP request failed: %v", err)
 		return nil, err
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
 		body, _ := io.ReadAll(resp.Body)
+		log.Printf("ERROR: Jira API request failed: status=%d url=%s body=%s", resp.StatusCode, fullURL, string(body))
 		return nil, fmt.Errorf("jira search failed: status=%d body=%s", resp.StatusCode, string(body))
 	}
 
 	var parsed jiraSearchResponse
 	dec := json.NewDecoder(resp.Body)
 	if err := dec.Decode(&parsed); err != nil {
+		log.Printf("ERROR: Failed to decode Jira response: %v", err)
 		return nil, err
 	}
 

@@ -122,9 +122,7 @@ func (s *BaseTestSuite) CleanTestDB() {
 		return
 	}
 	tables := []string{
-		"outage_call_assignees",
 		"team_component_ownerships",
-		"team_leaderships",
 		"project_landscapes",
 		"project_components",
 		"component_deployments",

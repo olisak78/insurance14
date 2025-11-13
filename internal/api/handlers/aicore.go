@@ -1,9 +1,11 @@
 package handlers
 
 import (
+	"mime/multipart"
 	"net/http"
 
 	"developer-portal-backend/internal/errors"
+	"developer-portal-backend/internal/logger"
 	"developer-portal-backend/internal/service"
 
 	"github.com/gin-gonic/gin"
@@ -56,6 +58,8 @@ func (h *AICoreHandler) handleAICoreError(c *gin.Context, err error) {
 func (h *AICoreHandler) GetDeployments(c *gin.Context) {
 	deployments, err := h.aicoreService.GetDeployments(c)
 	if err != nil {
+		logger.FromGinContext(c).WithField("handler", "GetDeployments").
+			Errorf("AI Core: GetDeployments failed: %v", err)
 		h.handleAICoreError(c, err)
 		return
 	}
@@ -80,12 +84,18 @@ func (h *AICoreHandler) GetDeployments(c *gin.Context) {
 func (h *AICoreHandler) GetModels(c *gin.Context) {
 	scenarioID := c.Query("scenarioId")
 	if scenarioID == "" {
+		logger.FromGinContext(c).WithField("handler", "GetModels").
+			Warn("AI Core: Missing required scenarioId parameter")
 		c.JSON(http.StatusBadRequest, gin.H{"error": "scenarioId query parameter is required"})
 		return
 	}
 
 	models, err := h.aicoreService.GetModels(c, scenarioID)
 	if err != nil {
+		logger.FromGinContext(c).WithFields(map[string]interface{}{
+			"handler":     "GetModels",
+			"scenario_id": scenarioID,
+		}).Errorf("AI Core: GetModels failed: %v", err)
 		h.handleAICoreError(c, err)
 		return
 	}
@@ -154,11 +164,11 @@ func (h *AICoreHandler) CreateConfiguration(c *gin.Context) {
 
 // CreateDeployment handles POST /ai-core/deployments
 // @Summary Create AI Core deployment
-// @Description Create a new deployment in AI Core using a configuration
+// @Description Create a new deployment in AI Core using either an existing configuration ID or by creating a new configuration first
 // @Tags ai-core
 // @Accept json
 // @Produce json
-// @Param deployment body service.AICoreDeploymentRequest true "Deployment data"
+// @Param deployment body service.AICoreDeploymentRequest true "Deployment data - either configurationId or configurationRequest must be provided"
 // @Success 202 {object} service.AICoreDeploymentResponse "Successfully scheduled deployment"
 // @Failure 400 {object} map[string]interface{} "Invalid request body"
 // @Failure 401 {object} map[string]interface{} "Unauthorized"
@@ -169,18 +179,40 @@ func (h *AICoreHandler) CreateConfiguration(c *gin.Context) {
 func (h *AICoreHandler) CreateDeployment(c *gin.Context) {
 	var req service.AICoreDeploymentRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
+		logger.FromGinContext(c).WithFields(map[string]interface{}{
+			"handler": "CreateDeployment",
+			"error":   err.Error(),
+		}).Warn("AI Core: Invalid request body")
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	// Validate the request
-	if err := h.validator.Struct(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	// Validate that either configurationId or configurationRequest is provided, but not both
+	if req.ConfigurationID == nil && req.ConfigurationRequest == nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Either configurationId or configurationRequest must be provided"})
 		return
+	}
+	if req.ConfigurationID != nil && req.ConfigurationRequest != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "ConfigurationId and configurationRequest cannot both be provided"})
+		return
+	}
+
+	// If configurationRequest is provided, validate its required fields
+	if req.ConfigurationRequest != nil {
+		if err := h.validator.Struct(req.ConfigurationRequest); err != nil {
+			logger.FromGinContext(c).WithFields(map[string]interface{}{
+				"handler": "CreateDeployment",
+				"error":   err.Error(),
+			}).Warn("AI Core: Configuration request validation failed")
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
 	}
 
 	deployment, err := h.aicoreService.CreateDeployment(c, &req)
 	if err != nil {
+		logger.FromGinContext(c).WithField("handler", "CreateDeployment").
+			Errorf("AI Core: CreateDeployment failed: %v", err)
 		h.handleAICoreError(c, err)
 		return
 	}
@@ -230,6 +262,27 @@ func (h *AICoreHandler) UpdateDeployment(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusAccepted, response)
+}
+
+// GetMe handles GET /ai-core/me
+// @Summary Get AI Core user context
+// @Description Returns current username and AI instances derived from metadata and team role
+// @Tags ai-core
+// @Accept json
+// @Produce json
+// @Success 200 {object} service.AICoreMeResponse "Successfully retrieved AI Core user context"
+// @Failure 401 {object} map[string]interface{} "Unauthorized"
+// @Failure 403 {object} map[string]interface{} "Forbidden"
+// @Failure 500 {object} map[string]interface{} "Internal server error"
+// @Security BearerAuth
+// @Router /ai-core/me [get]
+func (h *AICoreHandler) GetMe(c *gin.Context) {
+	resp, err := h.aicoreService.GetMe(c)
+	if err != nil {
+		h.handleAICoreError(c, err)
+		return
+	}
+	c.JSON(http.StatusOK, resp)
 }
 
 // GetDeploymentDetails handles GET /ai-core/deployments/{deploymentId}
@@ -292,4 +345,155 @@ func (h *AICoreHandler) DeleteDeployment(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusAccepted, response)
+}
+
+// ChatInference handles POST /ai-core/chat/inference
+// @Summary Chat inference with AI Core deployed model
+// @Description Send chat messages to a deployed model and get AI responses (supports streaming)
+// @Tags ai-core
+// @Accept json
+// @Produce json
+// @Produce text/event-stream
+// @Param request body service.AICoreInferenceRequest true "Chat inference request"
+// @Success 200 {object} service.AICoreInferenceResponse "Successfully received inference response"
+// @Failure 400 {object} map[string]interface{} "Invalid request body"
+// @Failure 401 {object} map[string]interface{} "Unauthorized"
+// @Failure 403 {object} map[string]interface{} "User not assigned to team or team credentials not found"
+// @Failure 404 {object} map[string]interface{} "Deployment not found"
+// @Failure 500 {object} map[string]interface{} "Internal server error"
+// @Security BearerAuth
+// @Router /ai-core/chat/inference [post]
+func (h *AICoreHandler) ChatInference(c *gin.Context) {
+	var req service.AICoreInferenceRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	// Validate the request
+	if err := h.validator.Struct(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	// If streaming is requested, use Server-Sent Events (SSE)
+	if req.Stream {
+		h.streamChatInference(c, &req)
+		return
+	}
+
+	// Non-streaming response
+	response, err := h.aicoreService.ChatInference(c, &req)
+	if err != nil {
+		h.handleAICoreError(c, err)
+		return
+	}
+
+	c.JSON(http.StatusOK, response)
+}
+
+// streamChatInference handles streaming responses using Server-Sent Events (SSE)
+func (h *AICoreHandler) streamChatInference(c *gin.Context, req *service.AICoreInferenceRequest) {
+	// Set headers for SSE
+	c.Header("Content-Type", "text/event-stream")
+	c.Header("Cache-Control", "no-cache")
+	c.Header("Connection", "keep-alive")
+	c.Header("X-Accel-Buffering", "no") // Disable nginx buffering
+
+	// Use the service to stream the response
+	err := h.aicoreService.ChatInferenceStream(c, req, c.Writer)
+	if err != nil {
+		// For streaming errors, we need to send an error event
+		logger.FromGinContext(c).WithField("handler", "streamChatInference").
+			Errorf("AI Core: Streaming inference failed: %v", err)
+		// Send error as SSE event
+		c.SSEvent("error", gin.H{"error": err.Error()})
+	}
+}
+
+// UploadAttachment handles POST /ai-core/upload
+// @Summary Upload file attachments for AI inference
+// @Description Upload multiple files for use in multimodal AI requests (combined max 5MB)
+// @Tags ai-core
+// @Accept multipart/form-data
+// @Produce json
+// @Param files formData file true "Files to upload (multiple allowed)"
+// @Success 200 {object} map[string]interface{} "Successfully uploaded files"
+// @Failure 400 {object} map[string]interface{} "Invalid files or size"
+// @Failure 401 {object} map[string]interface{} "Unauthorized"
+// @Failure 500 {object} map[string]interface{} "Internal server error"
+// @Security BearerAuth
+// @Router /ai-core/upload [post]
+func (h *AICoreHandler) UploadAttachment(c *gin.Context) {
+	// Maximum combined size for all files: 5MB
+	const maxTotalSize = 5 << 20 // 5 MB
+
+	// Parse multipart form with the size limit
+	if err := c.Request.ParseMultipartForm(maxTotalSize); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Files too large or invalid form data. Combined size limit is 5MB."})
+		return
+	}
+
+	// Get the multipart form
+	form := c.Request.MultipartForm
+	if form == nil || form.File == nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "No files provided"})
+		return
+	}
+
+	// Get all files from the form (supports both "file" and "files" field names)
+	var fileHeaders []*multipart.FileHeader
+	if files, ok := form.File["files"]; ok {
+		fileHeaders = append(fileHeaders, files...)
+	}
+	if file, ok := form.File["file"]; ok {
+		fileHeaders = append(fileHeaders, file...)
+	}
+
+	if len(fileHeaders) == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "No files provided"})
+		return
+	}
+
+	// Calculate combined size
+	var totalSize int64
+	for _, header := range fileHeaders {
+		totalSize += header.Size
+	}
+
+	if totalSize > maxTotalSize {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error":     "Combined file size exceeds 5MB limit",
+			"totalSize": totalSize,
+			"maxSize":   maxTotalSize,
+		})
+		return
+	}
+
+	// Process all files
+	uploadedFiles := make([]map[string]interface{}, 0, len(fileHeaders))
+
+	for _, header := range fileHeaders {
+		file, err := header.Open()
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to open file: " + header.Filename})
+			return
+		}
+		defer file.Close() // Ensure file is always closed
+
+		// Process the upload using the service
+		response, err := h.aicoreService.UploadAttachment(c, file, header)
+		if err != nil {
+			h.handleAICoreError(c, err)
+			return
+		}
+
+		uploadedFiles = append(uploadedFiles, response)
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"files":     uploadedFiles,
+		"count":     len(uploadedFiles),
+		"totalSize": totalSize,
+	})
 }

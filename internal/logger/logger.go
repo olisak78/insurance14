@@ -3,6 +3,7 @@ package logger
 import (
 	"context"
 
+	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 )
 
@@ -16,6 +17,35 @@ func New() *Logger {
 	return &Logger{
 		Entry: logrus.NewEntry(logrus.StandardLogger()),
 	}
+}
+
+// FromGinContext creates a logger with request context from gin.Context
+// Includes: user_email, user_id, request_id, client_ip, method
+func FromGinContext(c *gin.Context) *Logger {
+	fields := make(map[string]interface{})
+
+	// Add user email if available
+	if email, exists := c.Get("email"); exists {
+		fields["user_email"] = email
+	}
+
+	// Add user ID if available
+	if userID, exists := c.Get("user_id"); exists {
+		fields["user_id"] = userID
+	}
+
+	// Add request ID if available
+	if requestID, exists := c.Get("request_id"); exists {
+		fields["request_id"] = requestID
+	}
+
+	// Add client IP
+	fields["client_ip"] = c.ClientIP()
+
+	// Add HTTP method
+	fields["method"] = c.Request.Method
+
+	return New().WithFields(fields)
 }
 
 // WithContext creates a logger with user context information

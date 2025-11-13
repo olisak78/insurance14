@@ -35,7 +35,7 @@ func (r *GroupRepository) GetByID(id uuid.UUID) (*models.Group, error) {
 // GetByName retrieves a group by name within an organization
 func (r *GroupRepository) GetByName(orgID uuid.UUID, name string) (*models.Group, error) {
 	var group models.Group
-	err := r.db.First(&group, "organization_id = ? AND name = ?", orgID, name).Error
+	err := r.db.First(&group, "org_id = ? AND name = ?", orgID, name).Error
 	if err != nil {
 		return nil, err
 	}
@@ -48,12 +48,12 @@ func (r *GroupRepository) GetByOrganizationID(orgID uuid.UUID, limit, offset int
 	var total int64
 
 	// Get total count
-	if err := r.db.Model(&models.Group{}).Where("organization_id = ?", orgID).Count(&total).Error; err != nil {
+	if err := r.db.Model(&models.Group{}).Where("org_id = ?", orgID).Count(&total).Error; err != nil {
 		return nil, 0, err
 	}
 
 	// Get paginated results
-	err := r.db.Where("organization_id = ?", orgID).Limit(limit).Offset(offset).Find(&groups).Error
+	err := r.db.Where("org_id = ?", orgID).Limit(limit).Offset(offset).Find(&groups).Error
 	if err != nil {
 		return nil, 0, err
 	}
@@ -98,7 +98,7 @@ func (r *GroupRepository) Search(organizationID uuid.UUID, query string, limit, 
 
 	// Build search query
 	searchQuery := "%" + query + "%"
-	whereClause := "organization_id = ? AND (name ILIKE ? OR display_name ILIKE ? OR description ILIKE ?)"
+	whereClause := "org_id = ? AND (name ILIKE ? OR title ILIKE ? OR description ILIKE ?)"
 
 	// Get total count
 	if err := r.db.Model(&models.Group{}).Where(whereClause, organizationID, searchQuery, searchQuery, searchQuery).Count(&total).Error; err != nil {

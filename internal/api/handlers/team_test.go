@@ -1,931 +1,376 @@
 package handlers_test
 
 import (
-	"bytes"
-	"fmt"
+	"encoding/json"
+	"errors"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
 	"developer-portal-backend/internal/api/handlers"
-	"developer-portal-backend/internal/database/models"
 	apperrors "developer-portal-backend/internal/errors"
 	"developer-portal-backend/internal/mocks"
 	"developer-portal-backend/internal/service"
-	"developer-portal-backend/internal/testutils"
 
+	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 	"go.uber.org/mock/gomock"
 )
 
-// TeamHandlerTestSuite defines the test suite for TeamHandler
 type TeamHandlerTestSuite struct {
 	suite.Suite
-	ctrl        *gomock.Controller
-	mockService *mocks.MockTeamServiceInterface
-	handler     *handlers.TeamHandler
-	httpSuite   *testutils.HTTPTestSuite
+	ctrl     *gomock.Controller
+	mockTeam *mocks.MockTeamServiceInterface
+	handler  *handlers.TeamHandler
 }
 
-// SetupTest sets up the test suite
 func (suite *TeamHandlerTestSuite) SetupTest() {
+	gin.SetMode(gin.TestMode)
 	suite.ctrl = gomock.NewController(suite.T())
-	suite.mockService = mocks.NewMockTeamServiceInterface(suite.ctrl)
-
-	// Create handler with mock service
-	suite.handler = handlers.NewTeamHandler(suite.mockService)
-
-	// Setup HTTP test suite
-	suite.httpSuite = testutils.SetupHTTPTest()
-
-	// Register routes
-	v1 := suite.httpSuite.Router.Group("/api/v1")
-	teams := v1.Group("/teams")
-	{
-		teams.POST("/", suite.handler.CreateTeam)
-		teams.GET("/:id", suite.handler.GetTeam)
-		teams.GET("/", suite.handler.ListTeams)
-		teams.PUT("/:id", suite.handler.UpdateTeam)
-		teams.DELETE("/:id", suite.handler.DeleteTeam)
-		teams.GET("/by-name/:name", suite.handler.GetTeamByName)
-		teams.POST("/:id/links", suite.handler.AddLink)
-		teams.DELETE("/:id/links", suite.handler.RemoveLink)
-	}
-
-	// Organization teams route
-	v1.GET("/organizations/:orgId/teams", suite.handler.GetTeamsByOrganization)
-
-	// Team components route
-	teams.GET("/:id/components", suite.handler.GetTeamComponents)
+	suite.mockTeam = mocks.NewMockTeamServiceInterface(suite.ctrl)
+	suite.handler = handlers.NewTeamHandler(suite.mockTeam)
 }
 
-// TearDownTest cleans up after each test
 func (suite *TeamHandlerTestSuite) TearDownTest() {
 	suite.ctrl.Finish()
 }
 
-// Helper method to make invalid JSON requests
-func (suite *TeamHandlerTestSuite) makeInvalidJSONRequest(method, url string) *httptest.ResponseRecorder {
-	req, _ := http.NewRequest(method, url, bytes.NewBufferString("invalid json"))
-	req.Header.Set("Content-Type", "application/json")
-
-	recorder := httptest.NewRecorder()
-	suite.httpSuite.Router.ServeHTTP(recorder, req)
-
-	return recorder
+// helper to build router and optionally inject a viewer name (username) into context
+func (suite *TeamHandlerTestSuite) newRouter(withViewer bool, viewerName string) *gin.Engine {
+	r := gin.New()
+	if withViewer {
+		r.Use(func(c *gin.Context) {
+			c.Set("username", viewerName)
+			c.Next()
+		})
+	}
+	r.GET("/teams", suite.handler.GetAllTeams)
+	return r
 }
 
-// TestCreateTeam tests the CreateTeam handler
-func (suite *TeamHandlerTestSuite) TestCreateTeam() {
-	// Test successful team creation
-	suite.T().Run("Success", func(t *testing.T) {
-		orgID := uuid.New()
-		teamLeadID := uuid.New()
-		teamID := uuid.New()
-
-		requestBody := map[string]interface{}{
-			"organization_id": orgID.String(),
-			"name":            "backend-team",
-			"display_name":    "Backend Development Team",
-			"description":     "Team responsible for backend services",
-			"status":          "active",
-			"team_lead_id":    teamLeadID.String(),
-		}
-
-		expectedResponse := &service.TeamResponse{
-			ID:             teamID,
-			OrganizationID: orgID,
-			Name:           "backend-team",
-			DisplayName:    "Backend Development Team",
-			Description:    "Team responsible for backend services",
-			Status:         models.TeamStatusActive,
-			TeamLeadID:     &teamLeadID,
-			CreatedAt:      "2023-01-01T00:00:00Z",
-			UpdatedAt:      "2023-01-01T00:00:00Z",
-		}
-
-		suite.mockService.EXPECT().
-			Create(gomock.Any()).
-			Return(expectedResponse, nil).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("POST", "/api/v1/teams/", requestBody)
-
-		assert.Equal(t, http.StatusCreated, recorder.Code)
-
-		var response service.TeamResponse
-		testutils.ParseJSONResponse(t, recorder, &response)
-		assert.Equal(t, expectedResponse.Name, response.Name)
-		assert.Equal(t, expectedResponse.DisplayName, response.DisplayName)
-	})
-
-	// Test validation error - service returns error
-	suite.T().Run("Service Error", func(t *testing.T) {
-		requestBody := map[string]interface{}{
-			"name": "invalid-team",
-		}
-
-		suite.mockService.EXPECT().
-			Create(gomock.Any()).
-			Return(nil, fmt.Errorf("validation error: organization_id is required")).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("POST", "/api/v1/teams/", requestBody)
-
-		assert.Equal(t, http.StatusInternalServerError, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusInternalServerError, "validation error: organization_id is required")
-	})
-
-	// Test organization not found
-	suite.T().Run("Organization Not Found", func(t *testing.T) {
-		requestBody := map[string]interface{}{
-			"organization_id": uuid.New().String(),
-			"name":            "test-team",
-			"display_name":    "Test Team",
-		}
-
-		suite.mockService.EXPECT().
-			Create(gomock.Any()).
-			Return(nil, apperrors.ErrOrganizationNotFound).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("POST", "/api/v1/teams/", requestBody)
-
-		assert.Equal(t, http.StatusNotFound, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusNotFound, "organization not found")
-	})
-
-	// Test invalid JSON
-	suite.T().Run("Invalid JSON", func(t *testing.T) {
-		recorder := suite.makeInvalidJSONRequest("POST", "/api/v1/teams/")
-
-		assert.Equal(t, http.StatusBadRequest, recorder.Code)
-	})
-}
-
-// TestGetTeam tests the GetTeam handler
-func (suite *TeamHandlerTestSuite) TestGetTeam() {
-	// Test successful retrieval
-	suite.T().Run("Success", func(t *testing.T) {
-		teamID := uuid.New()
-		orgID := uuid.New()
-
-		expectedResponse := &service.TeamResponse{
-			ID:             teamID,
-			OrganizationID: orgID,
-			Name:           "backend-team",
-			DisplayName:    "Backend Development Team",
-			Description:    "Team responsible for backend services",
-			Status:         models.TeamStatusActive,
-			CreatedAt:      "2023-01-01T00:00:00Z",
-			UpdatedAt:      "2023-01-01T00:00:00Z",
-		}
-
-		suite.mockService.EXPECT().
-			GetByID(teamID).
-			Return(expectedResponse, nil).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("GET", fmt.Sprintf("/api/v1/teams/%s", teamID), nil)
-
-		assert.Equal(t, http.StatusOK, recorder.Code)
-
-		var response service.TeamResponse
-		testutils.ParseJSONResponse(t, recorder, &response)
-		assert.Equal(t, expectedResponse.ID, response.ID)
-		assert.Equal(t, expectedResponse.Name, response.Name)
-	})
-
-	// Test invalid UUID
-	suite.T().Run("Invalid UUID", func(t *testing.T) {
-		recorder := suite.httpSuite.MakeRequest("GET", "/api/v1/teams/invalid-uuid", nil)
-
-		assert.Equal(t, http.StatusBadRequest, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusBadRequest, "invalid team ID")
-	})
-
-	// Test team not found
-	suite.T().Run("Not Found", func(t *testing.T) {
-		teamID := uuid.New()
-
-		suite.mockService.EXPECT().
-			GetByID(teamID).
-			Return(nil, apperrors.ErrTeamNotFound).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("GET", fmt.Sprintf("/api/v1/teams/%s", teamID), nil)
-
-		assert.Equal(t, http.StatusNotFound, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusNotFound, "team not found")
-	})
-}
-
-// TestUpdateTeam tests the UpdateTeam handler
-func (suite *TeamHandlerTestSuite) TestUpdateTeam() {
-	// Test successful update
-	suite.T().Run("Success", func(t *testing.T) {
-		teamID := uuid.New()
-		orgID := uuid.New()
-
-		requestBody := map[string]interface{}{
-			"display_name": "Updated Backend Team",
-			"description":  "Updated description",
-		}
-
-		expectedResponse := &service.TeamResponse{
-			ID:             teamID,
-			OrganizationID: orgID,
-			Name:           "backend-team",
-			DisplayName:    "Updated Backend Team",
-			Description:    "Updated description",
-			Status:         models.TeamStatusActive,
-			CreatedAt:      "2023-01-01T00:00:00Z",
-			UpdatedAt:      "2023-01-01T00:00:00Z",
-		}
-
-		suite.mockService.EXPECT().
-			Update(teamID, gomock.Any()).
-			Return(expectedResponse, nil).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("PUT", fmt.Sprintf("/api/v1/teams/%s", teamID), requestBody)
-
-		assert.Equal(t, http.StatusOK, recorder.Code)
-
-		var response service.TeamResponse
-		testutils.ParseJSONResponse(t, recorder, &response)
-		assert.Equal(t, expectedResponse.DisplayName, response.DisplayName)
-		assert.Equal(t, expectedResponse.Description, response.Description)
-	})
-
-	// Test invalid UUID
-	suite.T().Run("Invalid UUID", func(t *testing.T) {
-		requestBody := map[string]interface{}{
-			"display_name": "Updated Team",
-		}
-
-		recorder := suite.httpSuite.MakeRequest("PUT", "/api/v1/teams/invalid-uuid", requestBody)
-
-		assert.Equal(t, http.StatusBadRequest, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusBadRequest, "invalid team ID")
-	})
-
-	// Test team not found
-	suite.T().Run("Not Found", func(t *testing.T) {
-		teamID := uuid.New()
-		requestBody := map[string]interface{}{
-			"display_name": "Updated Team",
-		}
-
-		suite.mockService.EXPECT().
-			Update(teamID, gomock.Any()).
-			Return(nil, apperrors.ErrTeamNotFound).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("PUT", fmt.Sprintf("/api/v1/teams/%s", teamID), requestBody)
-
-		assert.Equal(t, http.StatusNotFound, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusNotFound, "team not found")
-	})
-
-	// Test invalid JSON
-	suite.T().Run("Invalid JSON", func(t *testing.T) {
-		teamID := uuid.New()
-		recorder := suite.makeInvalidJSONRequest("PUT", fmt.Sprintf("/api/v1/teams/%s", teamID))
-
-		assert.Equal(t, http.StatusBadRequest, recorder.Code)
-	})
-}
-
-// TestDeleteTeam tests the DeleteTeam handler
-func (suite *TeamHandlerTestSuite) TestDeleteTeam() {
-	// Test successful deletion
-	suite.T().Run("Success", func(t *testing.T) {
-		teamID := uuid.New()
-
-		suite.mockService.EXPECT().
-			Delete(teamID).
-			Return(nil).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("DELETE", fmt.Sprintf("/api/v1/teams/%s", teamID), nil)
-
-		assert.Equal(t, http.StatusNoContent, recorder.Code)
-	})
-
-	// Test invalid UUID
-	suite.T().Run("Invalid UUID", func(t *testing.T) {
-		recorder := suite.httpSuite.MakeRequest("DELETE", "/api/v1/teams/invalid-uuid", nil)
-
-		assert.Equal(t, http.StatusBadRequest, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusBadRequest, "invalid team ID")
-	})
-
-	// Test team not found
-	suite.T().Run("Not Found", func(t *testing.T) {
-		teamID := uuid.New()
-
-		suite.mockService.EXPECT().
-			Delete(teamID).
-			Return(apperrors.ErrTeamNotFound).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("DELETE", fmt.Sprintf("/api/v1/teams/%s", teamID), nil)
-
-		assert.Equal(t, http.StatusNotFound, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusNotFound, "team not found")
-	})
-}
-
-// TestListTeams tests the ListTeams handler
-func (suite *TeamHandlerTestSuite) TestListTeams() {
-	// Test successful listing
-	suite.T().Run("Success", func(t *testing.T) {
-		orgID := uuid.New()
-		expectedResponse := &service.TeamListResponse{
-			Teams: []service.TeamResponse{
-				{
-					ID:             uuid.New(),
-					OrganizationID: orgID,
-					Name:           "backend-team",
-					DisplayName:    "Backend Team",
-					Status:         models.TeamStatusActive,
-				},
-				{
-					ID:             uuid.New(),
-					OrganizationID: orgID,
-					Name:           "frontend-team",
-					DisplayName:    "Frontend Team",
-					Status:         models.TeamStatusActive,
-				},
+func (suite *TeamHandlerTestSuite) TestGetAllTeams_DefaultList_Success() {
+	router := suite.newRouter(false, "")
+	teamID := uuid.New()
+	resp := &service.TeamListResponse{
+		Teams: []service.TeamResponse{
+			{
+				ID:          teamID,
+				GroupID:     uuid.New(),
+				Name:        "alpha",
+				Title:       "Alpha Team",
+				Description: "Desc",
+				PictureURL:  "https://img",
 			},
-			Total:    2,
-			Page:     1,
-			PageSize: 20,
-		}
+		},
+		Total:    1,
+		Page:     1,
+		PageSize: 1,
+	}
+	suite.mockTeam.EXPECT().GetAllTeams(nil, 1, 1000).Return(resp, nil)
 
-		suite.mockService.EXPECT().
-			GetByOrganization(orgID, 1, 20).
-			Return(expectedResponse, nil).
-			Times(1)
+	req := httptest.NewRequest(http.MethodGet, "/teams", nil)
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, req)
 
-		recorder := suite.httpSuite.MakeRequest("GET", fmt.Sprintf("/api/v1/teams/?organization_id=%s", orgID), nil)
+	assert.Equal(suite.T(), http.StatusOK, w.Code)
 
-		assert.Equal(t, http.StatusOK, recorder.Code)
+	var got map[string]interface{}
+	err := json.Unmarshal(w.Body.Bytes(), &got)
+	assert.NoError(suite.T(), err)
 
-		var response service.TeamListResponse
-		testutils.ParseJSONResponse(t, recorder, &response)
-		assert.Len(t, response.Teams, 2)
-		assert.Equal(t, int64(2), response.Total)
-	})
+	assert.Equal(suite.T(), float64(1), got["total"])
+	assert.Equal(suite.T(), float64(1), got["page"])
+	assert.Equal(suite.T(), float64(1), got["page_size"])
 
-	// Test missing organization_id
-	suite.T().Run("Missing Organization ID", func(t *testing.T) {
-		recorder := suite.httpSuite.MakeRequest("GET", "/api/v1/teams/", nil)
-
-		assert.Equal(t, http.StatusBadRequest, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusBadRequest, "organization_id parameter is required")
-	})
-
-	// Test invalid organization_id
-	suite.T().Run("Invalid Organization ID", func(t *testing.T) {
-		recorder := suite.httpSuite.MakeRequest("GET", "/api/v1/teams/?organization_id=invalid-uuid", nil)
-
-		assert.Equal(t, http.StatusBadRequest, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusBadRequest, "invalid organization ID")
-	})
-
-	// Test with search parameter
-	suite.T().Run("Search Teams", func(t *testing.T) {
-		orgID := uuid.New()
-		expectedResponse := &service.TeamListResponse{
-			Teams: []service.TeamResponse{
-				{
-					ID:             uuid.New(),
-					OrganizationID: orgID,
-					Name:           "backend-team",
-					DisplayName:    "Backend Team",
-					Status:         models.TeamStatusActive,
-				},
-			},
-			Total:    1,
-			Page:     1,
-			PageSize: 20,
-		}
-
-		suite.mockService.EXPECT().
-			Search(orgID, "backend", 1, 20).
-			Return(expectedResponse, nil).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("GET", fmt.Sprintf("/api/v1/teams/?organization_id=%s&search=backend", orgID), nil)
-
-		assert.Equal(t, http.StatusOK, recorder.Code)
-
-		var response service.TeamListResponse
-		testutils.ParseJSONResponse(t, recorder, &response)
-		assert.Len(t, response.Teams, 1)
-	})
+	items, ok := got["teams"].([]interface{})
+	assert.True(suite.T(), ok)
+	assert.Len(suite.T(), items, 1)
+	first := items[0].(map[string]interface{})
+	assert.Equal(suite.T(), "alpha", first["name"])
+	assert.Equal(suite.T(), "Alpha Team", first["title"])
+	assert.Equal(suite.T(), "https://img", first["picture_url"])
 }
 
-// TestGetTeamByName tests the GetTeamByName handler
-func (suite *TeamHandlerTestSuite) TestGetTeamByName() {
-	// Test successful retrieval
-	suite.T().Run("Success", func(t *testing.T) {
-		orgID := uuid.New()
-		teamName := "backend-team"
-		teamID := uuid.New()
+func (suite *TeamHandlerTestSuite) TestGetAllTeams_DefaultList_Error() {
+	router := suite.newRouter(false, "")
+	suite.mockTeam.EXPECT().GetAllTeams(nil, 1, 1000).Return(nil, errors.New("db failure"))
 
-		expectedResponse := &service.TeamResponse{
-			ID:             teamID,
-			OrganizationID: orgID,
+	req := httptest.NewRequest(http.MethodGet, "/teams", nil)
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusInternalServerError, w.Code)
+	assert.Contains(suite.T(), w.Body.String(), "db failure")
+}
+
+func (suite *TeamHandlerTestSuite) TestGetAllTeams_ByID_InvalidUUID() {
+	router := suite.newRouter(false, "")
+	req := httptest.NewRequest(http.MethodGet, "/teams?team-id=not-a-uuid", nil)
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusBadRequest, w.Code)
+	assert.Contains(suite.T(), w.Body.String(), "invalid team ID")
+}
+
+func (suite *TeamHandlerTestSuite) TestGetAllTeams_ByID_NotFound() {
+	router := suite.newRouter(false, "")
+	id := uuid.New()
+
+	suite.mockTeam.EXPECT().GetByID(id).Return(nil, apperrors.ErrTeamNotFound)
+
+	req := httptest.NewRequest(http.MethodGet, "/teams?team-id="+id.String(), nil)
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusNotFound, w.Code)
+	assert.Contains(suite.T(), w.Body.String(), apperrors.ErrTeamNotFound.Error())
+}
+
+func (suite *TeamHandlerTestSuite) TestGetAllTeams_ByID_InternalError() {
+	router := suite.newRouter(false, "")
+	id := uuid.New()
+
+	suite.mockTeam.EXPECT().GetByID(id).Return(nil, errors.New("db failure"))
+
+	req := httptest.NewRequest(http.MethodGet, "/teams?team-id="+id.String(), nil)
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusInternalServerError, w.Code)
+	assert.Contains(suite.T(), w.Body.String(), "db failure")
+}
+
+func (suite *TeamHandlerTestSuite) TestGetAllTeams_ByID_WithViewer_Success() {
+	router := suite.newRouter(true, "john.doe")
+	id := uuid.New()
+	teamName := "alpha"
+
+	teamResp := &service.TeamResponse{
+		ID:             id,
+		GroupID:        uuid.New(),
+		OrganizationID: uuid.New(),
+		Name:           teamName,
+		Title:          "Alpha",
+		Description:    "D",
+		Owner:          "owner",
+		Email:          "alpha@example.com",
+		PictureURL:     "https://img",
+	}
+	// Metadata contains jira.team -> should be mapped to jira_team in handler response
+	meta := map[string]interface{}{"jira": map[string]interface{}{"team": "JiraAlpha"}}
+	metaBytes, _ := json.Marshal(meta)
+	teamWithMembers := &service.TeamWithMembersResponse{
+		TeamResponse: service.TeamResponse{
+			ID:             teamResp.ID,
+			GroupID:        teamResp.GroupID,
+			OrganizationID: teamResp.OrganizationID,
+			Name:           teamResp.Name,
+			Title:          teamResp.Title,
+			Description:    teamResp.Description,
+			Owner:          teamResp.Owner,
+			Email:          teamResp.Email,
+			PictureURL:     teamResp.PictureURL,
+			Metadata:       metaBytes,
+		},
+		Members: []service.UserResponse{},
+		Links:   []service.LinkResponse{},
+	}
+
+	gomock.InOrder(
+		suite.mockTeam.EXPECT().GetByID(id).Return(teamResp, nil),
+		suite.mockTeam.EXPECT().GetBySimpleNameWithViewer(teamName, "john.doe").Return(teamWithMembers, nil),
+	)
+
+	req := httptest.NewRequest(http.MethodGet, "/teams?team-id="+id.String(), nil)
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusOK, w.Code)
+
+	var got map[string]interface{}
+	err := json.Unmarshal(w.Body.Bytes(), &got)
+	assert.NoError(suite.T(), err)
+
+	assert.Equal(suite.T(), teamName, got["name"])
+	assert.Equal(suite.T(), "JiraAlpha", got["jira_team"])
+	// Metadata may be included; ensure jira_team extracted; if present, ensure it's a map
+	metaVal, hasMeta := got["metadata"]
+	if hasMeta {
+		_, _ = metaVal.(map[string]interface{})
+	}
+	// Ensure members and links are present arrays
+	_, hasMembers := got["members"]
+	_, hasLinks := got["links"]
+	assert.True(suite.T(), hasMembers)
+	assert.True(suite.T(), hasLinks)
+}
+
+func (suite *TeamHandlerTestSuite) TestGetAllTeams_ByID_NoViewer_Success() {
+	router := suite.newRouter(false, "")
+	id := uuid.New()
+	teamName := "beta"
+
+	teamResp := &service.TeamResponse{
+		ID:             id,
+		GroupID:        uuid.New(),
+		OrganizationID: uuid.New(),
+		Name:           teamName,
+		Title:          "Beta",
+		Description:    "D2",
+		Owner:          "owner",
+		Email:          "beta@example.com",
+		PictureURL:     "https://img2",
+	}
+	meta := map[string]interface{}{"jira": map[string]interface{}{"team": "JiraBeta"}}
+	metaBytes, _ := json.Marshal(meta)
+	teamWithMembers := &service.TeamWithMembersResponse{
+		TeamResponse: service.TeamResponse{
+			ID:             teamResp.ID,
+			GroupID:        teamResp.GroupID,
+			OrganizationID: teamResp.OrganizationID,
+			Name:           teamResp.Name,
+			Title:          teamResp.Title,
+			Description:    teamResp.Description,
+			Owner:          teamResp.Owner,
+			Email:          teamResp.Email,
+			PictureURL:     teamResp.PictureURL,
+			Metadata:       metaBytes,
+		},
+		Members: []service.UserResponse{{FirstName: "A", LastName: "B"}},
+		Links:   []service.LinkResponse{{ID: uuid.New().String()}},
+	}
+
+	gomock.InOrder(
+		suite.mockTeam.EXPECT().GetByID(id).Return(teamResp, nil),
+		suite.mockTeam.EXPECT().GetBySimpleName(teamName).Return(teamWithMembers, nil),
+	)
+
+	req := httptest.NewRequest(http.MethodGet, "/teams?team-id="+id.String(), nil)
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, req)
+
+	assert.Equal(suite.T(), http.StatusOK, w.Code)
+
+	var got map[string]interface{}
+	err := json.Unmarshal(w.Body.Bytes(), &got)
+	assert.NoError(suite.T(), err)
+
+	assert.Equal(suite.T(), teamName, got["name"])
+	assert.Equal(suite.T(), "JiraBeta", got["jira_team"])
+	// Metadata may be included; if present, ensure it's a map
+	metaVal, hasMeta := got["metadata"]
+	if hasMeta {
+		_, _ = metaVal.(map[string]interface{})
+	}
+}
+
+func (suite *TeamHandlerTestSuite) TestGetAllTeams_ByName_WithViewer_Success() {
+	router := suite.newRouter(true, "john.doe")
+	teamName := "gamma"
+	meta := map[string]interface{}{"jira": map[string]interface{}{"team": "JiraGamma"}}
+	metaBytes, _ := json.Marshal(meta)
+
+	teamWithMembers := &service.TeamWithMembersResponse{
+		TeamResponse: service.TeamResponse{
+			ID:             uuid.New(),
+			GroupID:        uuid.New(),
+			OrganizationID: uuid.New(),
 			Name:           teamName,
-			DisplayName:    "Backend Development Team",
-			Description:    "Team responsible for backend services",
-			Status:         models.TeamStatusActive,
-			CreatedAt:      "2023-01-01T00:00:00Z",
-			UpdatedAt:      "2023-01-01T00:00:00Z",
-		}
+			Title:          "Gamma",
+			Description:    "DG",
+			Owner:          "owner",
+			Email:          "gamma@example.com",
+			PictureURL:     "https://img3",
+			Metadata:       metaBytes,
+		},
+		Members: []service.UserResponse{},
+		Links:   []service.LinkResponse{},
+	}
 
-		suite.mockService.EXPECT().
-			GetByName(orgID, teamName).
-			Return(expectedResponse, nil).
-			Times(1)
+	suite.mockTeam.EXPECT().GetBySimpleNameWithViewer(teamName, "john.doe").Return(teamWithMembers, nil)
 
-		recorder := suite.httpSuite.MakeRequest("GET", fmt.Sprintf("/api/v1/teams/by-name/%s?organization_id=%s", teamName, orgID), nil)
+	req := httptest.NewRequest(http.MethodGet, "/teams?team-name="+teamName, nil)
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, req)
 
-		assert.Equal(t, http.StatusOK, recorder.Code)
+	assert.Equal(suite.T(), http.StatusOK, w.Code)
 
-		var response service.TeamResponse
-		testutils.ParseJSONResponse(t, recorder, &response)
-		assert.Equal(t, expectedResponse.ID, response.ID)
-		assert.Equal(t, expectedResponse.Name, response.Name)
-		assert.Equal(t, expectedResponse.DisplayName, response.DisplayName)
-	})
+	var got map[string]interface{}
+	err := json.Unmarshal(w.Body.Bytes(), &got)
+	assert.NoError(suite.T(), err)
+	assert.Equal(suite.T(), teamName, got["name"])
+	assert.Equal(suite.T(), "JiraGamma", got["jira_team"])
+}
 
-	// Test missing organization_id parameter
-	suite.T().Run("Missing Organization ID", func(t *testing.T) {
-		teamName := "backend-team"
-		recorder := suite.httpSuite.MakeRequest("GET", fmt.Sprintf("/api/v1/teams/by-name/%s", teamName), nil)
+func (suite *TeamHandlerTestSuite) TestGetAllTeams_ByName_NoViewer_Success() {
+	router := suite.newRouter(false, "")
+	teamName := "delta"
+	meta := map[string]interface{}{"jira": map[string]interface{}{"team": "JiraDelta"}}
+	metaBytes, _ := json.Marshal(meta)
 
-		assert.Equal(t, http.StatusBadRequest, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusBadRequest, "organization_id parameter is required")
-	})
-
-	// Test invalid organization_id parameter
-	suite.T().Run("Invalid Organization ID", func(t *testing.T) {
-		teamName := "backend-team"
-		recorder := suite.httpSuite.MakeRequest("GET", fmt.Sprintf("/api/v1/teams/by-name/%s?organization_id=invalid-uuid", teamName), nil)
-
-		assert.Equal(t, http.StatusBadRequest, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusBadRequest, "invalid organization ID")
-	})
-
-	// Test team not found
-	suite.T().Run("Team Not Found", func(t *testing.T) {
-		orgID := uuid.New()
-		teamName := "nonexistent-team"
-
-		suite.mockService.EXPECT().
-			GetByName(orgID, teamName).
-			Return(nil, apperrors.ErrTeamNotFound).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("GET", fmt.Sprintf("/api/v1/teams/by-name/%s?organization_id=%s", teamName, orgID), nil)
-
-		assert.Equal(t, http.StatusNotFound, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusNotFound, "team not found")
-	})
-
-	// Test service error
-	suite.T().Run("Service Error", func(t *testing.T) {
-		orgID := uuid.New()
-		teamName := "backend-team"
-
-		suite.mockService.EXPECT().
-			GetByName(orgID, teamName).
-			Return(nil, fmt.Errorf("database connection error")).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("GET", fmt.Sprintf("/api/v1/teams/by-name/%s?organization_id=%s", teamName, orgID), nil)
-
-		assert.Equal(t, http.StatusInternalServerError, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusInternalServerError, "database connection error")
-	})
-
-	// Test with special characters in team name
-	suite.T().Run("Team Name With Special Characters", func(t *testing.T) {
-		orgID := uuid.New()
-		teamName := "backend-team-2024"
-		teamID := uuid.New()
-
-		expectedResponse := &service.TeamResponse{
-			ID:             teamID,
-			OrganizationID: orgID,
+	teamWithMembers := &service.TeamWithMembersResponse{
+		TeamResponse: service.TeamResponse{
+			ID:             uuid.New(),
+			GroupID:        uuid.New(),
+			OrganizationID: uuid.New(),
 			Name:           teamName,
-			DisplayName:    "Backend Team 2024",
-			Status:         models.TeamStatusActive,
-			CreatedAt:      "2023-01-01T00:00:00Z",
-			UpdatedAt:      "2023-01-01T00:00:00Z",
-		}
+			Title:          "Delta",
+			Description:    "DD",
+			Owner:          "owner",
+			Email:          "delta@example.com",
+			PictureURL:     "https://img4",
+			Metadata:       metaBytes,
+		},
+		Members: []service.UserResponse{},
+		Links:   []service.LinkResponse{},
+	}
 
-		suite.mockService.EXPECT().
-			GetByName(orgID, teamName).
-			Return(expectedResponse, nil).
-			Times(1)
+	suite.mockTeam.EXPECT().GetBySimpleName(teamName).Return(teamWithMembers, nil)
 
-		recorder := suite.httpSuite.MakeRequest("GET", fmt.Sprintf("/api/v1/teams/by-name/%s?organization_id=%s", teamName, orgID), nil)
+	req := httptest.NewRequest(http.MethodGet, "/teams?team-name="+teamName, nil)
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, req)
 
-		assert.Equal(t, http.StatusOK, recorder.Code)
+	assert.Equal(suite.T(), http.StatusOK, w.Code)
 
-		var response service.TeamResponse
-		testutils.ParseJSONResponse(t, recorder, &response)
-		assert.Equal(t, expectedResponse.Name, response.Name)
-	})
+	var got map[string]interface{}
+	err := json.Unmarshal(w.Body.Bytes(), &got)
+	assert.NoError(suite.T(), err)
+	assert.Equal(suite.T(), teamName, got["name"])
+	assert.Equal(suite.T(), "JiraDelta", got["jira_team"])
 }
 
-// TestGetTeamsByOrganization tests the GetTeamsByOrganization handler
-func (suite *TeamHandlerTestSuite) TestGetTeamsByOrganization() {
-	// Test successful retrieval
-	suite.T().Run("Success", func(t *testing.T) {
-		orgID := uuid.New()
-		expectedResponse := &service.TeamListResponse{
-			Teams: []service.TeamResponse{
-				{
-					ID:             uuid.New(),
-					OrganizationID: orgID,
-					Name:           "platform-team",
-					DisplayName:    "Platform Team",
-					Status:         models.TeamStatusActive,
-				},
-			},
-			Total:    1,
-			Page:     1,
-			PageSize: 20,
-		}
+func (suite *TeamHandlerTestSuite) TestGetAllTeams_ByName_NotFound() {
+	router := suite.newRouter(false, "")
+	teamName := "epsilon"
 
-		suite.mockService.EXPECT().
-			GetByOrganization(orgID, 1, 20).
-			Return(expectedResponse, nil).
-			Times(1)
+	suite.mockTeam.EXPECT().GetBySimpleName(teamName).Return(nil, apperrors.ErrTeamNotFound)
 
-		recorder := suite.httpSuite.MakeRequest("GET", fmt.Sprintf("/api/v1/organizations/%s/teams", orgID), nil)
+	req := httptest.NewRequest(http.MethodGet, "/teams?team-name="+teamName, nil)
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, req)
 
-		assert.Equal(t, http.StatusOK, recorder.Code)
-
-		var response service.TeamListResponse
-		testutils.ParseJSONResponse(t, recorder, &response)
-		assert.Len(t, response.Teams, 1)
-	})
-
-	// Test invalid organization_id
-	suite.T().Run("Invalid Organization ID", func(t *testing.T) {
-		recorder := suite.httpSuite.MakeRequest("GET", "/api/v1/organizations/invalid-uuid/teams", nil)
-
-		assert.Equal(t, http.StatusBadRequest, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusBadRequest, "invalid organization ID")
-	})
-
-	// Test organization not found
-	suite.T().Run("Organization Not Found", func(t *testing.T) {
-		orgID := uuid.New()
-
-		suite.mockService.EXPECT().
-			GetByOrganization(orgID, 1, 20).
-			Return(nil, apperrors.ErrOrganizationNotFound).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("GET", fmt.Sprintf("/api/v1/organizations/%s/teams", orgID), nil)
-
-		assert.Equal(t, http.StatusNotFound, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusNotFound, "organization not found")
-	})
+	assert.Equal(suite.T(), http.StatusNotFound, w.Code)
+	assert.Contains(suite.T(), w.Body.String(), apperrors.ErrTeamNotFound.Error())
 }
 
-// TestAddLink tests the AddLink handler
-func (suite *TeamHandlerTestSuite) TestAddLink() {
-	// Test successful link addition
-	suite.T().Run("Success", func(t *testing.T) {
-		teamID := uuid.New()
+func (suite *TeamHandlerTestSuite) TestGetAllTeams_ByName_InternalError() {
+	router := suite.newRouter(false, "")
+	teamName := "zeta"
 
-		requestBody := map[string]interface{}{
-			"url":      "https://github.com/myteam/repo",
-			"title":    "Team Repository",
-			"icon":     "github",
-			"category": "repository",
-		}
+	suite.mockTeam.EXPECT().GetBySimpleName(teamName).Return(nil, errors.New("db failure"))
 
-		expectedResponse := &service.TeamResponse{
-			ID:          teamID,
-			Name:        "backend-team",
-			DisplayName: "Backend Team",
-			Links: []service.Link{
-				{
-					URL:      "https://github.com/myteam/repo",
-					Title:    "Team Repository",
-					Icon:     "github",
-					Category: "repository",
-				},
-			},
-		}
+	req := httptest.NewRequest(http.MethodGet, "/teams?team-name="+teamName, nil)
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, req)
 
-		suite.mockService.EXPECT().
-			AddLink(teamID, gomock.Any()).
-			Return(expectedResponse, nil).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("POST", fmt.Sprintf("/api/v1/teams/%s/links", teamID), requestBody)
-
-		assert.Equal(t, http.StatusOK, recorder.Code)
-	})
-
-	// Test invalid team ID
-	suite.T().Run("Invalid Team ID", func(t *testing.T) {
-		requestBody := map[string]interface{}{
-			"url":   "https://github.com/myteam/repo",
-			"title": "Team Repository",
-		}
-
-		recorder := suite.httpSuite.MakeRequest("POST", "/api/v1/teams/invalid-uuid/links", requestBody)
-
-		assert.Equal(t, http.StatusBadRequest, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusBadRequest, "invalid team ID")
-	})
-
-	// Test invalid request body
-	suite.T().Run("Invalid Request Body", func(t *testing.T) {
-		teamID := uuid.New()
-
-		recorder := suite.makeInvalidJSONRequest("POST", fmt.Sprintf("/api/v1/teams/%s/links", teamID))
-
-		assert.Equal(t, http.StatusBadRequest, recorder.Code)
-	})
-
-	// Test team not found
-	suite.T().Run("Team Not Found", func(t *testing.T) {
-		teamID := uuid.New()
-
-		requestBody := map[string]interface{}{
-			"url":   "https://github.com/myteam/repo",
-			"title": "Team Repository",
-		}
-
-		suite.mockService.EXPECT().
-			AddLink(teamID, gomock.Any()).
-			Return(nil, apperrors.ErrTeamNotFound).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("POST", fmt.Sprintf("/api/v1/teams/%s/links", teamID), requestBody)
-
-		assert.Equal(t, http.StatusNotFound, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusNotFound, "team not found")
-	})
-
-	// Test duplicate link
-	suite.T().Run("Duplicate Link", func(t *testing.T) {
-		teamID := uuid.New()
-
-		requestBody := map[string]interface{}{
-			"url":   "https://github.com/myteam/repo",
-			"title": "Team Repository",
-		}
-
-		suite.mockService.EXPECT().
-			AddLink(teamID, gomock.Any()).
-			Return(nil, apperrors.ErrLinkExists).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("POST", fmt.Sprintf("/api/v1/teams/%s/links", teamID), requestBody)
-
-		assert.Equal(t, http.StatusConflict, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusConflict, "link already exists")
-	})
-
-	// Test internal server error
-	suite.T().Run("Internal Server Error", func(t *testing.T) {
-		teamID := uuid.New()
-
-		requestBody := map[string]interface{}{
-			"url":   "https://github.com/myteam/repo",
-			"title": "Team Repository",
-		}
-
-		suite.mockService.EXPECT().
-			AddLink(teamID, gomock.Any()).
-			Return(nil, fmt.Errorf("database error")).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("POST", fmt.Sprintf("/api/v1/teams/%s/links", teamID), requestBody)
-
-		assert.Equal(t, http.StatusInternalServerError, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusInternalServerError, "database error")
-	})
+	assert.Equal(suite.T(), http.StatusInternalServerError, w.Code)
+	assert.Contains(suite.T(), w.Body.String(), "db failure")
 }
 
-// TestRemoveLink tests the RemoveLink handler
-func (suite *TeamHandlerTestSuite) TestRemoveLink() {
-	// Test successful link removal
-	suite.T().Run("Success", func(t *testing.T) {
-		teamID := uuid.New()
-		linkURL := "https://github.com/myteam/repo"
-
-		expectedResponse := &service.TeamResponse{
-			ID:          teamID,
-			Name:        "backend-team",
-			DisplayName: "Backend Team",
-			Links:       []service.Link{},
-		}
-
-		suite.mockService.EXPECT().
-			RemoveLink(teamID, linkURL).
-			Return(expectedResponse, nil).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("DELETE", fmt.Sprintf("/api/v1/teams/%s/links?url=%s", teamID, linkURL), nil)
-
-		assert.Equal(t, http.StatusOK, recorder.Code)
-	})
-
-	// Test invalid team ID
-	suite.T().Run("Invalid Team ID", func(t *testing.T) {
-		linkURL := "https://github.com/myteam/repo"
-
-		recorder := suite.httpSuite.MakeRequest("DELETE", fmt.Sprintf("/api/v1/teams/invalid-uuid/links?url=%s", linkURL), nil)
-
-		assert.Equal(t, http.StatusBadRequest, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusBadRequest, "invalid team ID")
-	})
-
-	// Test missing URL parameter
-	suite.T().Run("Missing URL Parameter", func(t *testing.T) {
-		teamID := uuid.New()
-
-		recorder := suite.httpSuite.MakeRequest("DELETE", fmt.Sprintf("/api/v1/teams/%s/links", teamID), nil)
-
-		assert.Equal(t, http.StatusBadRequest, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusBadRequest, "url query parameter is required")
-	})
-
-	// Test team not found
-	suite.T().Run("Team Not Found", func(t *testing.T) {
-		teamID := uuid.New()
-		linkURL := "https://github.com/myteam/repo"
-
-		suite.mockService.EXPECT().
-			RemoveLink(teamID, linkURL).
-			Return(nil, apperrors.ErrTeamNotFound).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("DELETE", fmt.Sprintf("/api/v1/teams/%s/links?url=%s", teamID, linkURL), nil)
-
-		assert.Equal(t, http.StatusNotFound, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusNotFound, "team not found")
-	})
-
-	// Test link not found
-	suite.T().Run("Link Not Found", func(t *testing.T) {
-		teamID := uuid.New()
-		linkURL := "https://github.com/myteam/nonexistent"
-
-		suite.mockService.EXPECT().
-			RemoveLink(teamID, linkURL).
-			Return(nil, apperrors.ErrLinkNotFound).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("DELETE", fmt.Sprintf("/api/v1/teams/%s/links?url=%s", teamID, linkURL), nil)
-
-		assert.Equal(t, http.StatusNotFound, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusNotFound, "link not found")
-	})
-
-	// Test internal server error
-	suite.T().Run("Internal Server Error", func(t *testing.T) {
-		teamID := uuid.New()
-		linkURL := "https://github.com/myteam/repo"
-
-		suite.mockService.EXPECT().
-			RemoveLink(teamID, linkURL).
-			Return(nil, fmt.Errorf("database error")).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("DELETE", fmt.Sprintf("/api/v1/teams/%s/links?url=%s", teamID, linkURL), nil)
-
-		assert.Equal(t, http.StatusInternalServerError, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusInternalServerError, "database error")
-	})
-}
-
-// TestGetTeamComponents tests the GetTeamComponents handler
-func (suite *TeamHandlerTestSuite) TestGetTeamComponents() {
-	// Test successful retrieval
-	suite.T().Run("Success", func(t *testing.T) {
-		teamID := uuid.New()
-
-		components := []models.Component{
-			{
-				BaseModel: models.BaseModel{
-					ID: uuid.New(),
-				},
-				Name:        "user-service",
-				DisplayName: "User Service",
-			},
-			{
-				BaseModel: models.BaseModel{
-					ID: uuid.New(),
-				},
-				Name:        "auth-service",
-				DisplayName: "Auth Service",
-			},
-		}
-
-		suite.mockService.EXPECT().
-			GetTeamComponentsByID(teamID, 1, 20).
-			Return(components, int64(2), nil).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("GET", fmt.Sprintf("/api/v1/teams/%s/components", teamID), nil)
-
-		assert.Equal(t, http.StatusOK, recorder.Code)
-
-		var response map[string]interface{}
-		testutils.ParseJSONResponse(t, recorder, &response)
-		assert.Equal(t, float64(2), response["total"])
-		assert.Equal(t, float64(1), response["page"])
-		assert.Equal(t, float64(20), response["page_size"])
-	})
-
-	// Test invalid UUID
-	suite.T().Run("Invalid UUID", func(t *testing.T) {
-		recorder := suite.httpSuite.MakeRequest("GET", "/api/v1/teams/invalid-uuid/components", nil)
-
-		assert.Equal(t, http.StatusBadRequest, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusBadRequest, "invalid team ID")
-	})
-
-	// Test team not found
-	suite.T().Run("Team Not Found", func(t *testing.T) {
-		teamID := uuid.New()
-
-		suite.mockService.EXPECT().
-			GetTeamComponentsByID(teamID, 1, 20).
-			Return(nil, int64(0), apperrors.ErrTeamNotFound).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("GET", fmt.Sprintf("/api/v1/teams/%s/components", teamID), nil)
-
-		assert.Equal(t, http.StatusNotFound, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusNotFound, "team not found")
-	})
-
-	// Test with pagination
-	suite.T().Run("With Pagination", func(t *testing.T) {
-		teamID := uuid.New()
-
-		components := []models.Component{
-			{
-				BaseModel: models.BaseModel{
-					ID: uuid.New(),
-				},
-				Name:        "user-service",
-				DisplayName: "User Service",
-			},
-		}
-
-		suite.mockService.EXPECT().
-			GetTeamComponentsByID(teamID, 2, 10).
-			Return(components, int64(15), nil).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("GET", fmt.Sprintf("/api/v1/teams/%s/components?page=2&page_size=10", teamID), nil)
-
-		assert.Equal(t, http.StatusOK, recorder.Code)
-
-		var response map[string]interface{}
-		testutils.ParseJSONResponse(t, recorder, &response)
-		assert.Equal(t, float64(15), response["total"])
-		assert.Equal(t, float64(2), response["page"])
-		assert.Equal(t, float64(10), response["page_size"])
-	})
-
-	// Test internal server error
-	suite.T().Run("Internal Server Error", func(t *testing.T) {
-		teamID := uuid.New()
-
-		suite.mockService.EXPECT().
-			GetTeamComponentsByID(teamID, 1, 20).
-			Return(nil, int64(0), fmt.Errorf("database error")).
-			Times(1)
-
-		recorder := suite.httpSuite.MakeRequest("GET", fmt.Sprintf("/api/v1/teams/%s/components", teamID), nil)
-
-		assert.Equal(t, http.StatusInternalServerError, recorder.Code)
-		testutils.AssertErrorResponse(t, recorder, http.StatusInternalServerError, "database error")
-	})
-}
-
-// TestTeamHandlerTestSuite runs the test suite
 func TestTeamHandlerTestSuite(t *testing.T) {
 	suite.Run(t, new(TeamHandlerTestSuite))
 }

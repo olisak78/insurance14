@@ -175,82 +175,82 @@ GITHUB_WDF_APP_CLIENT_SECRET=your_client_secret
 - `GET /health/ready` - Readiness check
 - `GET /health/live` - Liveness check
 
-### Organizations API (v1) - All endpoints require authentication
-- `GET /api/v1/organizations` - List organizations
-- `POST /api/v1/organizations` - Create organization
-- `GET /api/v1/organizations/:id` - Get organization
-- `PUT /api/v1/organizations/:id` - Update organization
-- `DELETE /api/v1/organizations/:id` - Delete organization
-- `GET /api/v1/organizations/:id/members` - Get org members
-- `GET /api/v1/organizations/:id/teams` - Get org teams
-- `GET /api/v1/organizations/:id/projects` - Get org projects
-- `GET /api/v1/organizations/:id/components` - Get org components
-- `GET /api/v1/organizations/:id/landscapes` - Get org landscapes
 
 ### Teams API (v1)
-- `GET /api/v1/teams` - Get all teams (optional organization_id param)
-- `POST /api/v1/teams` - Create team
-- `GET /api/v1/teams/:id` - Get team
-- `PUT /api/v1/teams/:id` - Update team
-- `DELETE /api/v1/teams/:id` - Delete team
-- `GET /api/v1/teams/:id/members` - Get team with members
-- `GET /api/v1/teams/:id/details` - Get team details
-- `POST /api/v1/teams/:id/links` - Add a link to a team
-- `DELETE /api/v1/teams/:id/links` - Remove a link from a team (requires url query param)
-- `GET /api/v1/teams/by-name/:name` - Get team by name (requires organization_id param)
-- `GET /api/v1/teams/by-name/:name/members` - Get team members by name
-- `GET /api/v1/teams/by-name/:name/components` - Get team components by name
+- `GET /api/v1/teams` - Get teams or a specific team using query parameters:
+  - `team-name` (string): returns a single team enriched with members and links
+  - `team-id` (UUID): returns a single team enriched with members and links
+  - no query: returns a list of teams (id, group_id, name, title, description, picture_url)
 
-### Members API (v1)
-- `GET /api/v1/members` - Get members (requires organization_id param)
-- `POST /api/v1/members` - Create member
-- `GET /api/v1/members/:id` - Get member
-- `PUT /api/v1/members/:id` - Update member
-- `POST /api/v1/members/:id/quick-links` - Add a quick link to a member
-- `DELETE /api/v1/members/:id/quick-links` - Remove a quick link from a member (requires url query param)
-- `DELETE /api/v1/members/:id` - Delete member
+### Users API (v1)
+- `GET /api/v1/users` - List users
+- `GET /api/v1/users/me` - Get current user
+- `GET /api/v1/users/search/new` - Search LDAP users
+- `POST /api/v1/users` - Create user
+- `PUT /api/v1/users` - Update user team
+- `GET /api/v1/users/:user_id` - Get user by user ID
+- `POST /api/v1/users/:user_id/favorites/:link_id` - Add a favorite link
+- `DELETE /api/v1/users/:user_id/favorites/:link_id` - Remove a favorite link
 
-### Projects API (v1)
-- `GET /api/v1/projects` - Get projects (requires organization_id param)
-- `POST /api/v1/projects` - Create project
-- `GET /api/v1/projects/:id` - Get project
-- `PUT /api/v1/projects/:id` - Update project
-- `DELETE /api/v1/projects/:id` - Delete project
-- `GET /api/v1/projects/:id/organization` - Get project with organization
-- `GET /api/v1/projects/:id/components` - Get project components
-- `GET /api/v1/projects/:id/landscapes` - Get project landscapes
-- `GET /api/v1/projects/status/:status` - Get projects by status
 
 ### Components API (v1)
-- `GET /api/v1/components` - List components
-- `POST /api/v1/components` - Create component
-- `GET /api/v1/components/:id` - Get component
-- `GET /api/v1/components/by-name/:name` - Get component by name
-- `PUT /api/v1/components/:id` - Update component
-- `DELETE /api/v1/components/:id` - Delete component
-- `GET /api/v1/components/:id/projects` - Get component projects
-- `GET /api/v1/components/:id/deployments` - Get component deployments
-- `GET /api/v1/components/:id/ownerships` - Get component ownerships
-- `GET /api/v1/components/:id/details` - Get component full details
+- `GET /api/v1/components` - List components filtered by either:
+  - `team-id` (UUID): components owned by the given team
+  - `project-name` (string): all components for the given project
+  One of `team-id` or `project-name` is required.
 
 ### Landscapes API (v1)
-- `GET /api/v1/landscapes` - List landscapes
-- `POST /api/v1/landscapes` - Create landscape
-- `GET /api/v1/landscapes/:id` - Get landscape
-- `PUT /api/v1/landscapes/:id` - Update landscape
-- `DELETE /api/v1/landscapes/:id` - Delete landscape
-- `GET /api/v1/landscapes/:id/projects` - Get landscape projects
-- `GET /api/v1/landscapes/:id/deployments` - Get landscape deployments
-- `GET /api/v1/landscapes/:id/details` - Get landscape details
-- `GET /api/v1/landscapes/environment/:environment` - Get landscapes by environment
+- `GET /api/v1/landscapes` - List landscapes by query parameters
 
-### Component Deployments API (v1)
-- `GET /api/v1/component-deployments` - List component deployments
-- `POST /api/v1/component-deployments` - Create component deployment
-- `GET /api/v1/component-deployments/:id` - Get component deployment
-- `PUT /api/v1/component-deployments/:id` - Update component deployment
-- `DELETE /api/v1/component-deployments/:id` - Delete component deployment
-- `GET /api/v1/component-deployments/:id/details` - Get deployment details
+### Documentations API (v1)
+- `POST /api/v1/documentations` - Create documentation
+- `GET /api/v1/documentations/:id` - Get documentation by ID
+- `PATCH /api/v1/documentations/:id` - Update documentation
+- `DELETE /api/v1/documentations/:id` - Delete documentation
+
+### Jira API (v1)
+- `GET /api/v1/jira/issues` - List issues (supports filters via query)
+- `GET /api/v1/jira/issues/me` - List my issues
+- `GET /api/v1/jira/issues/me/count` - Get my issues count
+
+### GitHub API (v1)
+- `GET /api/v1/github/pull-requests` - Get my open pull requests
+- `GET /api/v1/github/prs` - Alias for pull requests
+- `GET /api/v1/github/contributions` - Get user total contributions
+- `GET /api/v1/github/average-pr-time` - Get average PR merge time
+- `GET /api/v1/github/:provider/heatmap` - Get contributions heatmap
+- `GET /api/v1/github/repos/:owner/:repo/contents/*path` - Get repository content
+- `PUT /api/v1/github/repos/:owner/:repo/contents/*path` - Update repository file
+- `GET /api/v1/github/asset` - Proxy GitHub asset
+
+### AI Core API (v1)
+- `GET /api/v1/ai-core/deployments` - List AI Core deployments
+- `GET /api/v1/ai-core/deployments/:deploymentId` - Get deployment details
+- `GET /api/v1/ai-core/models` - List available models
+- `GET /api/v1/ai-core/me` - Get current AI Core user
+- `POST /api/v1/ai-core/configurations` - Create configuration
+- `POST /api/v1/ai-core/deployments` - Create deployment
+- `PATCH /api/v1/ai-core/deployments/:deploymentId` - Update deployment
+- `DELETE /api/v1/ai-core/deployments/:deploymentId` - Delete deployment
+- `POST /api/v1/ai-core/chat/inference` - Chat inference
+- `POST /api/v1/ai-core/upload` - Upload attachment
+
+### Sonar API (v1)
+- `GET /api/v1/sonar/measures` - Get Sonar measures for a component
+
+### Self-service Jenkins API (v1)
+- `GET /api/v1/self-service/jenkins/:jaasName/:jobName/parameters` - Get job parameters
+- `POST /api/v1/self-service/jenkins/:jaasName/:jobName/trigger` - Trigger job
+- `GET /api/v1/self-service/jenkins/:jaasName/queue/:queueItemId/status` - Get queue item status
+- `GET /api/v1/self-service/jenkins/:jaasName/:jobName/:buildNumber/status` - Get build status
+
+### Categories API (v1)
+- `GET /api/v1/categories` - List categories
+
+### Links API (v1)
+- `GET /api/v1/links` - List links (filter by owner)
+- `POST /api/v1/links` - Create link
+- `DELETE /api/v1/links/:id` - Delete link
 
 ### Example API Usage
 
@@ -258,28 +258,37 @@ GITHUB_WDF_APP_CLIENT_SECRET=your_client_secret
 # Health check
 curl http://localhost:7008/health
 
-# List organizations (requires authentication)
+# Get a specific team by name
 curl -H "Authorization: Bearer YOUR_JWT_TOKEN" \
-  http://localhost:7008/api/v1/organizations
+  "http://localhost:7008/api/v1/teams?team-name=platform-team"
 
-# Get teams for organization
+# Get a specific team by ID
 curl -H "Authorization: Bearer YOUR_JWT_TOKEN" \
-  "http://localhost:7008/api/v1/teams?organization_id=1"
+  "http://localhost:7008/api/v1/teams?team-id=00000000-0000-0000-0000-000000000000"
 
-# Create a new team
-curl -X POST http://localhost:7008/api/v1/teams \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Platform Team",
-    "description": "Core platform development team",
-    "organization_id": 1
-  }'
+# List components by team-id
+curl -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  "http://localhost:7008/api/v1/components?team-id=00000000-0000-0000-0000-000000000000"
+
+# List components by project-name
+curl -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  "http://localhost:7008/api/v1/components?project-name=my-project"
 ```
 
 ## 🧪 Testing
 
-### Quick Testing
+### Quick Testing (Recommended)
+```bash
+# Run all tests (excludes scripts directory)
+make test
+
+# Run tests with coverage
+make test-coverage
+```
+
+> **Note:** Always use `make test` instead of `go test ./...` directly, as the Makefile properly excludes the scripts directory.
+
+### Additional Testing
 ```bash
 # Run unit tests only (fast)
 make test-unit
@@ -350,7 +359,7 @@ The API is fully documented using Swagger/OpenAPI specifications.
 
 **Access Swagger UI:**
 - Start the server: `make run-dev` or `go run cmd/server/main.go`
-- Open: `http://localhost:7007/swagger/index.html`
+- Open: `http://localhost:7008/swagger/index.html`
 
 **Regenerate Documentation:**
 After adding or modifying API endpoint annotations in handlers, regenerate the docs:
@@ -518,33 +527,142 @@ HTTP Response ← Auth Middleware ← Handler ← Service ← Repository ← Dat
 
 ## 🚀 Production Deployment
 
-### Build for Production
+### Deployment Flow
+
+Follow these steps in order for a complete deployment:
+
+#### 1. Update the Chart Version
+Edit `charts/developer-portal-backend/Chart.yaml` and update the `appVersion` tag:
+```yaml
+appVersion: "1.0.8"  # Update to your new version
+```
+
+#### 2. Build Docker Images
+```bash
+make docker-build
+```
+This builds both the backend application and init-data Docker images with the version from Chart.yaml.
+
+#### 3. Push Images to Registry
+```bash
+make docker-push
+```
+Pushes both images to the Docker registry.
+
+#### 4. Deploy to Dev Environment
+**Important:** Make sure you're connected to the dev cluster first!
+```bash
+# Verify you're on the correct cluster
+kubectl config current-context
+
+# Deploy to dev
+make deploy-dev
+```
+
+#### 5. Deploy to Prod Environment
+**Important:** Make sure you're connected to the prod cluster first!
+```bash
+# Verify you're on the correct cluster
+kubectl config current-context
+
+# Deploy to prod
+make deploy-prod
+```
+
+### Quick Commands Summary
+```bash
+# Complete deployment workflow
+# 1. Update tag in charts/developer-portal-backend/Chart.yaml
+# 2. Build images
+make docker-build
+
+# 3. Push images
+make docker-push
+
+# 4. Connect to dev cluster, then deploy
+make deploy-dev
+
+# 5. Connect to prod cluster, then deploy
+make deploy-prod
+```
+
+### Environment-Specific GitHub OAuth
+
+The deployment supports separate GitHub OAuth apps for dev and prod environments:
+
+**Local Development** (no suffix):
+```bash
+export GITHUB_TOOLS_APP_CLIENT_ID=your-local-client-id
+export GITHUB_TOOLS_APP_CLIENT_SECRET=your-local-client-secret
+export GITHUB_WDF_APP_CLIENT_ID=your-local-wdf-id
+export GITHUB_WDF_APP_CLIENT_SECRET=your-local-wdf-secret
+```
+
+**Dev Cluster** (_DEV suffix):
+```bash
+export GITHUB_TOOLS_APP_CLIENT_ID_DEV=your-dev-client-id
+export GITHUB_TOOLS_APP_CLIENT_SECRET_DEV=your-dev-client-secret
+export GITHUB_WDF_APP_CLIENT_ID_DEV=your-dev-wdf-id
+export GITHUB_WDF_APP_CLIENT_SECRET_DEV=your-dev-wdf-secret
+```
+
+**Prod Cluster** (_PROD suffix):
+```bash
+export GITHUB_TOOLS_APP_CLIENT_ID_PROD=your-prod-client-id
+export GITHUB_TOOLS_APP_CLIENT_SECRET_PROD=your-prod-client-secret
+export GITHUB_WDF_APP_CLIENT_ID_PROD=your-prod-wdf-id
+export GITHUB_WDF_APP_CLIENT_SECRET_PROD=your-prod-wdf-secret
+```
+
+> **Note**: Copy `env.example` to `.env` and fill in all environment-specific variables.
+
+### Manual Build for Production
 ```bash
 # Build optimized binary
 make build-prod
 
-# Or build Docker image
-make docker-build
+# Or build Docker images manually
+make docker-build-backend TAG=1.0.7
+make docker-build-init-data TAG=1.0.7
 ```
 
 ### Environment Setup
 ```bash
-# Generate secure JWT secret
+# Generate secure secrets
 export JWT_SECRET=$(openssl rand -base64 32)
+export DB_PASSWORD=$(openssl rand -base64 32)
+export OAUTH_ENCRYPTION_KEY=$(openssl rand -base64 32)
 
 # Set production environment
 export ENVIRONMENT=production
 
-# Configure GitHub OAuth
-export GITHUB_TOOLS_APP_CLIENT_ID=your_production_client_id
-export GITHUB_TOOLS_APP_CLIENT_SECRET=your_production_client_secret
-
-# Set production database URL
-export DATABASE_URL=your_production_database_url
+# Configure all required variables (see env.example for full list)
+export LDAP_HOST=ldap.example.com
+export JIRA_DOMAIN=jira.example.com
+export SONAR_HOST=https://sonarqube.example.com
 
 # Restrict CORS origins
 export ALLOWED_ORIGINS=https://your-frontend-domain.com
 ```
+
+### Kubernetes Deployment
+
+Deploy to Kubernetes using the Helm chart:
+
+```bash
+# Dev environment
+cd charts/developer-portal-backend
+./deploy.sh dev
+
+# Prod environment
+./deploy.sh prod
+```
+
+The deploy script will:
+- Validate required environment variables
+- Map environment-specific GitHub OAuth credentials
+- Configure ingress hosts (dev: `dev.backend.*`, prod: `backend.*`)
+- Deploy using Helm with all configurations
 
 ## 🤝 Contributing
 

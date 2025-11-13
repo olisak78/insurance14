@@ -11,7 +11,7 @@ import (
 // GitHubAuthService defines the interface for auth service methods needed by GitHub service
 type GitHubAuthService interface {
 	GetGitHubAccessTokenFromClaims(claims *auth.AuthClaims) (string, error)
-	GetGitHubClient(provider, environment string) (*auth.GitHubClient, error)
+	GetGitHubClient(provider string) (*auth.GitHubClient, error)
 }
 
 // authServiceAdapter adapts auth.AuthService to implement GitHubAuthService interface
@@ -34,9 +34,9 @@ func (a *authServiceAdapter) GetGitHubAccessTokenFromClaims(claims *auth.AuthCla
 	return a.authService.GetGitHubAccessTokenFromClaims(claims)
 }
 
-func (a *authServiceAdapter) GetGitHubClient(provider, environment string) (*auth.GitHubClient, error) {
+func (a *authServiceAdapter) GetGitHubClient(provider string) (*auth.GitHubClient, error) {
 	if a.authService == nil {
 		return nil, fmt.Errorf("auth service is not initialized")
 	}
-	return a.authService.GetGitHubClient(provider, environment)
+	return a.authService.GetGitHubClient(provider)
 }

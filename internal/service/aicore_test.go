@@ -20,66 +20,119 @@ import (
 )
 
 // Mock implementations for testing
-type MockMemberRepository struct {
+type MockUserRepository struct {
 	mock.Mock
 }
 
-func (m *MockMemberRepository) GetByEmail(email string) (*models.Member, error) {
+func (m *MockUserRepository) Create(user *models.User) error {
+	args := m.Called(user)
+	return args.Error(0)
+}
+
+func (m *MockUserRepository) GetByID(id uuid.UUID) (*models.User, error) {
+	args := m.Called(id)
+	user, _ := args.Get(0).(*models.User)
+	return user, args.Error(1)
+}
+
+func (m *MockUserRepository) GetByEmail(email string) (*models.User, error) {
 	args := m.Called(email)
-	return args.Get(0).(*models.Member), args.Error(1)
+	user, _ := args.Get(0).(*models.User)
+	return user, args.Error(1)
 }
 
-func (m *MockMemberRepository) GetByID(id uuid.UUID) (*models.Member, error) {
+// Additional methods to satisfy repository.UserRepositoryInterface
+func (m *MockUserRepository) GetByName(name string) (*models.User, error) {
+	args := m.Called(name)
+	user, _ := args.Get(0).(*models.User)
+	return user, args.Error(1)
+}
+
+func (m *MockUserRepository) GetByUserID(userID string) (*models.User, error) {
+	args := m.Called(userID)
+	user, _ := args.Get(0).(*models.User)
+	return user, args.Error(1)
+}
+
+func (m *MockUserRepository) GetAll(limit, offset int) ([]models.User, int64, error) {
+	args := m.Called(limit, offset)
+	users, _ := args.Get(0).([]models.User)
+	total, _ := args.Get(1).(int64)
+	return users, total, args.Error(2)
+}
+
+func (m *MockUserRepository) GetByOrganizationID(organizationID uuid.UUID, limit, offset int) ([]models.User, int64, error) {
+	args := m.Called(organizationID, limit, offset)
+	users, _ := args.Get(0).([]models.User)
+	total, _ := args.Get(1).(int64)
+	return users, total, args.Error(2)
+}
+
+func (m *MockUserRepository) GetWithOrganization(id uuid.UUID) (*models.User, error) {
 	args := m.Called(id)
-	return args.Get(0).(*models.Member), args.Error(1)
+	user, _ := args.Get(0).(*models.User)
+	return user, args.Error(1)
 }
 
-func (m *MockMemberRepository) Create(member *models.Member) error {
+func (m *MockUserRepository) SearchByOrganization(orgID uuid.UUID, query string, limit, offset int) ([]models.User, int64, error) {
+	args := m.Called(orgID, query, limit, offset)
+	users, _ := args.Get(0).([]models.User)
+	total, _ := args.Get(1).(int64)
+	return users, total, args.Error(2)
+}
+
+func (m *MockUserRepository) SearchByNameOrTitleGlobal(query string, limit, offset int) ([]models.User, int64, error) {
+	args := m.Called(query, limit, offset)
+	users, _ := args.Get(0).([]models.User)
+	total, _ := args.Get(1).(int64)
+	return users, total, args.Error(2)
+}
+
+func (m *MockUserRepository) GetActiveByOrganization(orgID uuid.UUID, limit, offset int) ([]models.User, int64, error) {
+	args := m.Called(orgID, limit, offset)
+	users, _ := args.Get(0).([]models.User)
+	total, _ := args.Get(1).(int64)
+	return users, total, args.Error(2)
+}
+
+func (m *MockUserRepository) GetUserIDsByPrefix(prefix string) ([]string, error) {
+	args := m.Called(prefix)
+	ids, _ := args.Get(0).([]string)
+	return ids, args.Error(1)
+}
+
+func (m *MockUserRepository) GetExistingUserIDs(ids []string) ([]string, error) {
+	args := m.Called(ids)
+	existing, _ := args.Get(0).([]string)
+	return existing, args.Error(1)
+}
+
+func (m *MockUserRepository) Update(member *models.User) error {
 	args := m.Called(member)
 	return args.Error(0)
 }
 
-func (m *MockMemberRepository) Update(member *models.Member) error {
-	args := m.Called(member)
-	return args.Error(0)
-}
-
-func (m *MockMemberRepository) Delete(id uuid.UUID) error {
+func (m *MockUserRepository) Delete(id uuid.UUID) error {
 	args := m.Called(id)
 	return args.Error(0)
-}
-
-func (m *MockMemberRepository) GetByOrganizationID(organizationID uuid.UUID, limit, offset int) ([]models.Member, int64, error) {
-	args := m.Called(organizationID, limit, offset)
-	return args.Get(0).([]models.Member), args.Get(1).(int64), args.Error(2)
-}
-
-func (m *MockMemberRepository) SearchByOrganizationID(organizationID uuid.UUID, query string, limit, offset int) ([]models.Member, int64, error) {
-	args := m.Called(organizationID, query, limit, offset)
-	return args.Get(0).([]models.Member), args.Get(1).(int64), args.Error(2)
-}
-
-func (m *MockMemberRepository) GetActiveByOrganization(organizationID uuid.UUID, limit, offset int) ([]models.Member, int64, error) {
-	args := m.Called(organizationID, limit, offset)
-	return args.Get(0).([]models.Member), args.Get(1).(int64), args.Error(2)
-}
-
-func (m *MockMemberRepository) GetWithOrganization(id uuid.UUID) (*models.Member, error) {
-	args := m.Called(id)
-	return args.Get(0).(*models.Member), args.Error(1)
-}
-
-func (m *MockMemberRepository) SearchByOrganization(organizationID uuid.UUID, query string, limit, offset int) ([]models.Member, int64, error) {
-	args := m.Called(organizationID, query, limit, offset)
-	return args.Get(0).([]models.Member), args.Get(1).(int64), args.Error(2)
 }
 
 type MockTeamRepository struct {
 	mock.Mock
 }
 
+func (m *MockTeamRepository) Create(team *models.Team) error {
+	args := m.Called(team)
+	return args.Error(0)
+}
+
 func (m *MockTeamRepository) GetByID(id uuid.UUID) (*models.Team, error) {
 	args := m.Called(id)
+	return args.Get(0).(*models.Team), args.Error(1)
+}
+
+func (m *MockTeamRepository) GetByName(groupID uuid.UUID, name string) (*models.Team, error) {
+	args := m.Called(groupID, name)
 	return args.Get(0).(*models.Team), args.Error(1)
 }
 
@@ -93,29 +146,14 @@ func (m *MockTeamRepository) GetByGroupID(groupID uuid.UUID, limit, offset int) 
 	return args.Get(0).([]models.Team), args.Get(1).(int64), args.Error(2)
 }
 
-func (m *MockTeamRepository) Create(team *models.Team) error {
-	args := m.Called(team)
-	return args.Error(0)
+func (m *MockTeamRepository) GetAll() ([]models.Team, error) {
+	args := m.Called()
+	return args.Get(0).([]models.Team), args.Error(1)
 }
 
-func (m *MockTeamRepository) Update(team *models.Team) error {
-	args := m.Called(team)
-	return args.Error(0)
-}
-
-func (m *MockTeamRepository) Delete(id uuid.UUID) error {
-	args := m.Called(id)
-	return args.Error(0)
-}
-
-func (m *MockTeamRepository) GetByName(organizationID uuid.UUID, name string) (*models.Team, error) {
-	args := m.Called(organizationID, name)
+func (m *MockTeamRepository) GetByNameGlobal(name string) (*models.Team, error) {
+	args := m.Called(name)
 	return args.Get(0).(*models.Team), args.Error(1)
-}
-
-func (m *MockTeamRepository) SearchByOrganizationID(organizationID uuid.UUID, query string, limit, offset int) ([]models.Team, int64, error) {
-	args := m.Called(organizationID, query, limit, offset)
-	return args.Get(0).([]models.Team), args.Get(1).(int64), args.Error(2)
 }
 
 func (m *MockTeamRepository) GetWithMembers(id uuid.UUID) (*models.Team, error) {
@@ -138,14 +176,21 @@ func (m *MockTeamRepository) GetWithDutySchedules(id uuid.UUID) (*models.Team, e
 	return args.Get(0).(*models.Team), args.Error(1)
 }
 
-func (m *MockTeamRepository) GetTeamLead(id uuid.UUID) (*models.Team, error) {
-	args := m.Called(id)
-	return args.Get(0).(*models.Team), args.Error(1)
+func (m *MockTeamRepository) Update(team *models.Team) error {
+	args := m.Called(team)
+	return args.Error(0)
 }
 
-func (m *MockTeamRepository) GetTeamMembersByName(organizationID uuid.UUID, teamName string, limit, offset int) ([]models.Member, int64, error) {
+func (m *MockTeamRepository) Delete(id uuid.UUID) error {
+	args := m.Called(id)
+	return args.Error(0)
+}
+
+func (m *MockTeamRepository) GetTeamMembersByName(organizationID uuid.UUID, teamName string, limit, offset int) ([]models.User, int64, error) {
 	args := m.Called(organizationID, teamName, limit, offset)
-	return args.Get(0).([]models.Member), args.Get(1).(int64), args.Error(2)
+	users, _ := args.Get(0).([]models.User)
+	total, _ := args.Get(1).(int64)
+	return users, total, args.Error(2)
 }
 
 func (m *MockTeamRepository) GetTeamComponentsByID(id uuid.UUID, limit, offset int) ([]models.Component, int64, error) {
@@ -158,13 +203,13 @@ func (m *MockTeamRepository) GetTeamComponentsByName(organizationID uuid.UUID, t
 	return args.Get(0).([]models.Component), args.Get(1).(int64), args.Error(2)
 }
 
-func (m *MockTeamRepository) GetAll() ([]models.Team, error) {
-	args := m.Called()
-	return args.Get(0).([]models.Team), args.Error(1)
-}
-
 type MockGroupRepository struct {
 	mock.Mock
+}
+
+func (m *MockGroupRepository) Create(group *models.Group) error {
+	args := m.Called(group)
+	return args.Error(0)
 }
 
 func (m *MockGroupRepository) GetByID(id uuid.UUID) (*models.Group, error) {
@@ -172,9 +217,19 @@ func (m *MockGroupRepository) GetByID(id uuid.UUID) (*models.Group, error) {
 	return args.Get(0).(*models.Group), args.Error(1)
 }
 
-func (m *MockGroupRepository) Create(group *models.Group) error {
-	args := m.Called(group)
-	return args.Error(0)
+func (m *MockGroupRepository) GetByName(organizationID uuid.UUID, name string) (*models.Group, error) {
+	args := m.Called(organizationID, name)
+	return args.Get(0).(*models.Group), args.Error(1)
+}
+
+func (m *MockGroupRepository) GetByOrganizationID(organizationID uuid.UUID, limit, offset int) ([]models.Group, int64, error) {
+	args := m.Called(organizationID, limit, offset)
+	return args.Get(0).([]models.Group), args.Get(1).(int64), args.Error(2)
+}
+
+func (m *MockGroupRepository) Search(organizationID uuid.UUID, query string, limit, offset int) ([]models.Group, int64, error) {
+	args := m.Called(organizationID, query, limit, offset)
+	return args.Get(0).([]models.Group), args.Get(1).(int64), args.Error(2)
 }
 
 func (m *MockGroupRepository) Update(id uuid.UUID, updates map[string]interface{}) error {
@@ -187,21 +242,6 @@ func (m *MockGroupRepository) Delete(id uuid.UUID) error {
 	return args.Error(0)
 }
 
-func (m *MockGroupRepository) GetByOrganizationID(organizationID uuid.UUID, limit, offset int) ([]models.Group, int64, error) {
-	args := m.Called(organizationID, limit, offset)
-	return args.Get(0).([]models.Group), args.Get(1).(int64), args.Error(2)
-}
-
-func (m *MockGroupRepository) GetByName(organizationID uuid.UUID, name string) (*models.Group, error) {
-	args := m.Called(organizationID, name)
-	return args.Get(0).(*models.Group), args.Error(1)
-}
-
-func (m *MockGroupRepository) SearchByOrganizationID(organizationID uuid.UUID, query string, limit, offset int) ([]models.Group, int64, error) {
-	args := m.Called(organizationID, query, limit, offset)
-	return args.Get(0).([]models.Group), args.Get(1).(int64), args.Error(2)
-}
-
 func (m *MockGroupRepository) GetWithTeams(id uuid.UUID) (*models.Group, error) {
 	args := m.Called(id)
 	return args.Get(0).(*models.Group), args.Error(1)
@@ -212,29 +252,23 @@ func (m *MockGroupRepository) GetWithOrganization(id uuid.UUID) (*models.Group, 
 	return args.Get(0).(*models.Group), args.Error(1)
 }
 
-func (m *MockGroupRepository) Search(organizationID uuid.UUID, query string, limit, offset int) ([]models.Group, int64, error) {
-	args := m.Called(organizationID, query, limit, offset)
-	return args.Get(0).([]models.Group), args.Get(1).(int64), args.Error(2)
-}
-
 type AICoreServiceTestSuite struct {
 	suite.Suite
-	service    *AICoreService
-	memberRepo *MockMemberRepository
-	teamRepo   *MockTeamRepository
-	groupRepo  *MockGroupRepository
-	server     *httptest.Server
+	service   *AICoreService
+	userRepo  *MockUserRepository
+	teamRepo  *MockTeamRepository
+	groupRepo *MockGroupRepository
+	server    *httptest.Server
 }
 
 func (suite *AICoreServiceTestSuite) SetupTest() {
-	suite.memberRepo = new(MockMemberRepository)
+	suite.userRepo = new(MockUserRepository)
 	suite.teamRepo = new(MockTeamRepository)
 	suite.groupRepo = new(MockGroupRepository)
 
 	suite.service = &AICoreService{
-		memberRepo:  suite.memberRepo,
+		userRepo:    suite.userRepo,
 		teamRepo:    suite.teamRepo,
-		groupRepo:   suite.groupRepo,
 		credentials: make(map[string]*AICoreCredentials),
 		tokenCache:  make(map[string]*tokenCache),
 		httpClient: &http.Client{
@@ -257,7 +291,7 @@ func (suite *AICoreServiceTestSuite) setupMockServer(responses map[string]mockRe
 		if response, exists := responses[key]; exists {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(response.StatusCode)
-			w.Write([]byte(response.Body))
+			_, _ = w.Write([]byte(response.Body))
 		} else {
 			w.WriteHeader(http.StatusNotFound)
 		}
@@ -288,7 +322,7 @@ func (suite *AICoreServiceTestSuite) setupCredentials(teams []string) {
 	}
 
 	credentialsJSON, _ := json.Marshal(credentials)
-	os.Setenv("AI_CORE_CREDENTIALS", string(credentialsJSON))
+	_ = os.Setenv("AI_CORE_CREDENTIALS", string(credentialsJSON))
 
 	// Reset the service's credentials cache and once flag
 	suite.service.credentials = make(map[string]*AICoreCredentials)
@@ -309,18 +343,16 @@ func (suite *AICoreServiceTestSuite) createGinContext(email string) *gin.Context
 func (suite *AICoreServiceTestSuite) TestGetDeployments_TeamMember_Success() {
 	// Setup
 	email := "team.member@example.com"
-	orgID := uuid.New()
 	teamID := uuid.New()
 
-	member := &models.Member{
-		OrganizationID: orgID,
-		TeamID:         &teamID,
-		Role:           models.MemberRoleDeveloper,
+	member := &models.User{
+		TeamID:   &teamID,
+		TeamRole: models.TeamRoleMember,
 	}
 
 	team := &models.Team{
-		BaseModel: models.BaseModel{ID: teamID},
-		Name:      "team-alpha",
+		BaseModel: models.BaseModel{ID: teamID, Name: "team-alpha"},
+		Owner:     "team-alpha",
 	}
 
 	// Setup mock server responses
@@ -360,7 +392,7 @@ func (suite *AICoreServiceTestSuite) TestGetDeployments_TeamMember_Success() {
 	suite.setupCredentials([]string{"team-alpha"})
 
 	// Setup mocks
-	suite.memberRepo.On("GetByEmail", email).Return(member, nil)
+	suite.userRepo.On("GetByEmail", email).Return(member, nil)
 	suite.teamRepo.On("GetByID", teamID).Return(team, nil)
 
 	// Execute
@@ -381,21 +413,24 @@ func (suite *AICoreServiceTestSuite) TestGetDeployments_TeamMember_Success() {
 func (suite *AICoreServiceTestSuite) TestGetDeployments_GroupManager_Success() {
 	// Setup
 	email := "group.manager@example.com"
-	orgID := uuid.New()
 	groupID := uuid.New()
 	team1ID := uuid.New()
 	team2ID := uuid.New()
 
-	member := &models.Member{
-		OrganizationID: orgID,
-		GroupID:        &groupID,
-		TeamID:         nil,
-		Role:           models.MemberRoleManager,
+	metadata := map[string]interface{}{
+		"ai_core_member_of": []string{"team-alpha", "team-beta"},
+	}
+	metadataJSON, _ := json.Marshal(metadata)
+
+	member := &models.User{
+		TeamID:   nil,
+		TeamRole: models.TeamRoleManager,
+		Metadata: metadataJSON,
 	}
 
 	teams := []models.Team{
-		{BaseModel: models.BaseModel{ID: team1ID}, Name: "team-alpha"},
-		{BaseModel: models.BaseModel{ID: team2ID}, Name: "team-beta"},
+		{BaseModel: models.BaseModel{ID: team1ID, Name: "team-alpha"}, Owner: "team-alpha"},
+		{BaseModel: models.BaseModel{ID: team2ID, Name: "team-beta"}, Owner: "team-beta"},
 	}
 
 	// Setup mock server responses
@@ -426,7 +461,7 @@ func (suite *AICoreServiceTestSuite) TestGetDeployments_GroupManager_Success() {
 	suite.setupCredentials([]string{"team-alpha", "team-beta"})
 
 	// Setup mocks
-	suite.memberRepo.On("GetByEmail", email).Return(member, nil)
+	suite.userRepo.On("GetByEmail", email).Return(member, nil)
 	suite.teamRepo.On("GetByGroupID", groupID, 1000, 0).Return(teams, int64(2), nil)
 
 	// Execute
@@ -449,16 +484,20 @@ func (suite *AICoreServiceTestSuite) TestGetDeployments_OrganizationManager_Succ
 	team1ID := uuid.New()
 	team2ID := uuid.New()
 
-	member := &models.Member{
-		OrganizationID: orgID,
-		GroupID:        nil,
-		TeamID:         nil,
-		Role:           models.MemberRoleManager,
+	metadata := map[string]interface{}{
+		"ai_core_member_of": []string{"team-alpha", "team-beta"},
+	}
+	metadataJSON, _ := json.Marshal(metadata)
+
+	member := &models.User{
+		TeamID:   nil,
+		TeamRole: models.TeamRoleManager,
+		Metadata: metadataJSON,
 	}
 
 	teams := []models.Team{
-		{BaseModel: models.BaseModel{ID: team1ID}, Name: "team-alpha"},
-		{BaseModel: models.BaseModel{ID: team2ID}, Name: "team-beta"},
+		{BaseModel: models.BaseModel{ID: team1ID, Name: "team-alpha"}, Owner: "team-alpha"},
+		{BaseModel: models.BaseModel{ID: team2ID, Name: "team-beta"}, Owner: "team-beta"},
 	}
 
 	// Setup mock server responses
@@ -489,7 +528,7 @@ func (suite *AICoreServiceTestSuite) TestGetDeployments_OrganizationManager_Succ
 	suite.setupCredentials([]string{"team-alpha", "team-beta"})
 
 	// Setup mocks
-	suite.memberRepo.On("GetByEmail", email).Return(member, nil)
+	suite.userRepo.On("GetByEmail", email).Return(member, nil)
 	suite.teamRepo.On("GetByOrganizationID", orgID, 1000, 0).Return(teams, int64(2), nil)
 
 	// Execute
@@ -506,23 +545,26 @@ func (suite *AICoreServiceTestSuite) TestGetDeployments_OrganizationManager_Succ
 func (suite *AICoreServiceTestSuite) TestGetDeployments_PartialCredentials_Success() {
 	// Setup - Group manager with 3 teams, but only 2 have AI Core credentials
 	email := "group.manager@example.com"
-	orgID := uuid.New()
 	groupID := uuid.New()
 	team1ID := uuid.New()
 	team2ID := uuid.New()
 	team3ID := uuid.New()
 
-	member := &models.Member{
-		OrganizationID: orgID,
-		GroupID:        &groupID,
-		TeamID:         nil,
-		Role:           models.MemberRoleManager,
+	metadata := map[string]interface{}{
+		"ai_core_member_of": []string{"team-alpha", "team-beta"},
+	}
+	metadataJSON, _ := json.Marshal(metadata)
+
+	member := &models.User{
+		TeamID:   nil,
+		TeamRole: models.TeamRoleManager,
+		Metadata: metadataJSON,
 	}
 
 	teams := []models.Team{
-		{BaseModel: models.BaseModel{ID: team1ID}, Name: "team-alpha"}, // Has credentials
-		{BaseModel: models.BaseModel{ID: team2ID}, Name: "team-beta"},  // Has credentials
-		{BaseModel: models.BaseModel{ID: team3ID}, Name: "team-gamma"}, // No credentials
+		{BaseModel: models.BaseModel{ID: team1ID, Name: "team-alpha"}, Owner: "team-alpha"}, // Has credentials
+		{BaseModel: models.BaseModel{ID: team2ID, Name: "team-beta"}, Owner: "team-beta"},   // Has credentials
+		{BaseModel: models.BaseModel{ID: team3ID, Name: "team-gamma"}, Owner: "team-gamma"}, // No credentials
 	}
 
 	// Setup mock server responses
@@ -554,7 +596,7 @@ func (suite *AICoreServiceTestSuite) TestGetDeployments_PartialCredentials_Succe
 	suite.setupCredentials([]string{"team-alpha", "team-beta"})
 
 	// Setup mocks
-	suite.memberRepo.On("GetByEmail", email).Return(member, nil)
+	suite.userRepo.On("GetByEmail", email).Return(member, nil)
 	suite.teamRepo.On("GetByGroupID", groupID, 1000, 0).Return(teams, int64(3), nil)
 
 	// Execute
@@ -579,25 +621,23 @@ func (suite *AICoreServiceTestSuite) TestGetDeployments_PartialCredentials_Succe
 func (suite *AICoreServiceTestSuite) TestGetDeployments_NoCredentials_Error() {
 	// Setup
 	email := "team.member@example.com"
-	orgID := uuid.New()
 	teamID := uuid.New()
 
-	member := &models.Member{
-		OrganizationID: orgID,
-		TeamID:         &teamID,
-		Role:           models.MemberRoleDeveloper,
+	member := &models.User{
+		TeamID:   &teamID,
+		TeamRole: models.TeamRoleMember,
 	}
 
 	team := &models.Team{
-		BaseModel: models.BaseModel{ID: teamID},
-		Name:      "team-alpha",
+		BaseModel: models.BaseModel{ID: teamID, Name: "team-alpha"},
+		Owner:     "team-alpha",
 	}
 
 	// Don't setup any credentials
 	os.Unsetenv("AI_CORE_CREDENTIALS")
 
 	// Setup mocks
-	suite.memberRepo.On("GetByEmail", email).Return(member, nil)
+	suite.userRepo.On("GetByEmail", email).Return(member, nil)
 	suite.teamRepo.On("GetByID", teamID).Return(team, nil)
 
 	// Execute
@@ -616,7 +656,7 @@ func (suite *AICoreServiceTestSuite) TestGetDeployments_UserNotFound_Error() {
 	email := "nonexistent@example.com"
 
 	// Setup mocks
-	suite.memberRepo.On("GetByEmail", email).Return((*models.Member)(nil), errors.ErrMemberNotFound)
+	suite.userRepo.On("GetByEmail", email).Return((*models.User)(nil), errors.ErrUserNotFound)
 
 	// Execute
 	c := suite.createGinContext(email)
@@ -631,17 +671,14 @@ func (suite *AICoreServiceTestSuite) TestGetDeployments_UserNotFound_Error() {
 func (suite *AICoreServiceTestSuite) TestGetDeployments_UserNotAssignedToTeam_Error() {
 	// Setup
 	email := "unassigned@example.com"
-	orgID := uuid.New()
 
-	member := &models.Member{
-		OrganizationID: orgID,
-		TeamID:         nil,
-		GroupID:        nil,
-		Role:           models.MemberRoleDeveloper, // Not a manager
+	member := &models.User{
+		TeamID:   nil,
+		TeamRole: models.TeamRoleMember, // Not a manager
 	}
 
 	// Setup mocks
-	suite.memberRepo.On("GetByEmail", email).Return(member, nil)
+	suite.userRepo.On("GetByEmail", email).Return(member, nil)
 
 	// Execute
 	c := suite.createGinContext(email)
@@ -656,21 +693,24 @@ func (suite *AICoreServiceTestSuite) TestGetDeployments_UserNotAssignedToTeam_Er
 func (suite *AICoreServiceTestSuite) TestGetDeployments_APIError_SkipsTeam() {
 	// Setup
 	email := "group.manager@example.com"
-	orgID := uuid.New()
 	groupID := uuid.New()
 	team1ID := uuid.New()
 	team2ID := uuid.New()
 
-	member := &models.Member{
-		OrganizationID: orgID,
-		GroupID:        &groupID,
-		TeamID:         nil,
-		Role:           models.MemberRoleManager,
+	metadata := map[string]interface{}{
+		"ai_core_member_of": []string{"team-alpha", "team-beta"},
+	}
+	metadataJSON, _ := json.Marshal(metadata)
+
+	member := &models.User{
+		TeamID:   nil,
+		TeamRole: models.TeamRoleManager,
+		Metadata: metadataJSON,
 	}
 
 	teams := []models.Team{
-		{BaseModel: models.BaseModel{ID: team1ID}, Name: "team-alpha"},
-		{BaseModel: models.BaseModel{ID: team2ID}, Name: "team-beta"},
+		{BaseModel: models.BaseModel{ID: team1ID, Name: "team-alpha"}, Owner: "team-alpha"},
+		{BaseModel: models.BaseModel{ID: team2ID, Name: "team-beta"}, Owner: "team-beta"},
 	}
 
 	// Setup mock server responses - team-alpha returns error, team-beta succeeds
@@ -679,7 +719,7 @@ func (suite *AICoreServiceTestSuite) TestGetDeployments_APIError_SkipsTeam() {
 		if r.URL.Path == "/oauth/token" {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(200)
-			w.Write([]byte(`{"access_token": "test-token", "token_type": "Bearer", "expires_in": 3600}`))
+			_, _ = w.Write([]byte(`{"access_token": "test-token", "token_type": "Bearer", "expires_in": 3600}`))
 			return
 		}
 
@@ -688,12 +728,12 @@ func (suite *AICoreServiceTestSuite) TestGetDeployments_APIError_SkipsTeam() {
 			if callCount == 1 {
 				// First call (team-alpha) returns error
 				w.WriteHeader(500)
-				w.Write([]byte(`{"error": "Internal server error"}`))
+				_, _ = w.Write([]byte(`{"error": "Internal server error"}`))
 			} else {
 				// Second call (team-beta) succeeds
 				w.Header().Set("Content-Type", "application/json")
 				w.WriteHeader(200)
-				w.Write([]byte(`{
+				_, _ = w.Write([]byte(`{
 					"count": 1,
 					"resources": [
 						{
@@ -714,7 +754,7 @@ func (suite *AICoreServiceTestSuite) TestGetDeployments_APIError_SkipsTeam() {
 	suite.setupCredentials([]string{"team-alpha", "team-beta"})
 
 	// Setup mocks
-	suite.memberRepo.On("GetByEmail", email).Return(member, nil)
+	suite.userRepo.On("GetByEmail", email).Return(member, nil)
 	suite.teamRepo.On("GetByGroupID", groupID, 1000, 0).Return(teams, int64(2), nil)
 
 	// Execute
@@ -732,18 +772,16 @@ func (suite *AICoreServiceTestSuite) TestGetDeployments_APIError_SkipsTeam() {
 func (suite *AICoreServiceTestSuite) TestGetDeployments_EmptyResponse_Success() {
 	// Setup
 	email := "team.member@example.com"
-	orgID := uuid.New()
 	teamID := uuid.New()
 
-	member := &models.Member{
-		OrganizationID: orgID,
-		TeamID:         &teamID,
-		Role:           models.MemberRoleDeveloper,
+	member := &models.User{
+		TeamID:   &teamID,
+		TeamRole: models.TeamRoleMember,
 	}
 
 	team := &models.Team{
-		BaseModel: models.BaseModel{ID: teamID},
-		Name:      "team-alpha",
+		BaseModel: models.BaseModel{ID: teamID, Name: "team-alpha"},
+		Owner:     "team-alpha",
 	}
 
 	// Setup mock server responses
@@ -764,7 +802,7 @@ func (suite *AICoreServiceTestSuite) TestGetDeployments_EmptyResponse_Success() 
 	suite.setupCredentials([]string{"team-alpha"})
 
 	// Setup mocks
-	suite.memberRepo.On("GetByEmail", email).Return(member, nil)
+	suite.userRepo.On("GetByEmail", email).Return(member, nil)
 	suite.teamRepo.On("GetByID", teamID).Return(team, nil)
 
 	// Execute
@@ -779,10 +817,9 @@ func (suite *AICoreServiceTestSuite) TestGetDeployments_EmptyResponse_Success() 
 	suite.Equal("team-alpha", result.Deployments[0].Team)
 	suite.Len(result.Deployments[0].Deployments, 0)
 }
-
 func (suite *AICoreServiceTestSuite) TestLoadCredentials_InvalidJSON_Error() {
 	// Setup invalid JSON
-	os.Setenv("AI_CORE_CREDENTIALS", `{"invalid": json}`)
+	_ = os.Setenv("AI_CORE_CREDENTIALS", `{"invalid": json}`)
 
 	// Execute
 	err := suite.service.loadCredentials()
@@ -794,7 +831,7 @@ func (suite *AICoreServiceTestSuite) TestLoadCredentials_InvalidJSON_Error() {
 
 func (suite *AICoreServiceTestSuite) TestLoadCredentials_MissingEnvVar_Error() {
 	// Setup
-	os.Unsetenv("AI_CORE_CREDENTIALS")
+	_ = os.Unsetenv("AI_CORE_CREDENTIALS")
 
 	// Execute
 	err := suite.service.loadCredentials()
@@ -824,7 +861,7 @@ func (suite *AICoreServiceTestSuite) TestTokenCaching() {
 			tokenCallCount++
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(200)
-			w.Write([]byte(`{"access_token": "test-token", "token_type": "Bearer", "expires_in": 3600}`))
+			_, _ = w.Write([]byte(`{"access_token": "test-token", "token_type": "Bearer", "expires_in": 3600}`))
 		}
 	}))
 
@@ -855,7 +892,6 @@ func (suite *AICoreServiceTestSuite) TestTokenCaching() {
 func (suite *AICoreServiceTestSuite) TestGetDeployments_MetadataTeams_Success() {
 	// Setup - User with team assignment AND metadata teams
 	email := "user.with.metadata@example.com"
-	orgID := uuid.New()
 	teamID := uuid.New()
 
 	// Create metadata with ai_core_member_of field
@@ -864,16 +900,15 @@ func (suite *AICoreServiceTestSuite) TestGetDeployments_MetadataTeams_Success() 
 	}
 	metadataJSON, _ := json.Marshal(metadata)
 
-	member := &models.Member{
-		OrganizationID: orgID,
-		TeamID:         &teamID,
-		Role:           models.MemberRoleDeveloper,
-		Metadata:       metadataJSON,
+	member := &models.User{
+		TeamID:   &teamID,
+		TeamRole: models.TeamRoleMember,
+		Metadata: metadataJSON,
 	}
 
 	team := &models.Team{
-		BaseModel: models.BaseModel{ID: teamID},
-		Name:      "team-alpha", // User's assigned team
+		BaseModel: models.BaseModel{ID: teamID, Name: "team-alpha"},
+		Owner:     "team-alpha", // User's assigned team
 	}
 
 	// Setup mock server responses
@@ -905,7 +940,7 @@ func (suite *AICoreServiceTestSuite) TestGetDeployments_MetadataTeams_Success() 
 	suite.setupCredentials([]string{"team-alpha", "team-gamma", "team-delta"})
 
 	// Setup mocks
-	suite.memberRepo.On("GetByEmail", email).Return(member, nil)
+	suite.userRepo.On("GetByEmail", email).Return(member, nil)
 	suite.teamRepo.On("GetByID", teamID).Return(team, nil)
 
 	// Execute
@@ -930,7 +965,6 @@ func (suite *AICoreServiceTestSuite) TestGetDeployments_MetadataTeams_Success() 
 func (suite *AICoreServiceTestSuite) TestGetDeployments_MetadataOnly_Success() {
 	// Setup - User with NO team assignment but WITH metadata teams
 	email := "metadata.only@example.com"
-	orgID := uuid.New()
 
 	// Create metadata with ai_core_member_of field
 	metadata := map[string]interface{}{
@@ -938,12 +972,10 @@ func (suite *AICoreServiceTestSuite) TestGetDeployments_MetadataOnly_Success() {
 	}
 	metadataJSON, _ := json.Marshal(metadata)
 
-	member := &models.Member{
-		OrganizationID: orgID,
-		TeamID:         nil, // No team assignment
-		GroupID:        nil,
-		Role:           models.MemberRoleDeveloper,
-		Metadata:       metadataJSON,
+	member := &models.User{
+		TeamID:   nil, // No team assignment
+		TeamRole: models.TeamRoleMember,
+		Metadata: metadataJSON,
 	}
 
 	// Setup mock server responses
@@ -974,7 +1006,7 @@ func (suite *AICoreServiceTestSuite) TestGetDeployments_MetadataOnly_Success() {
 	suite.setupCredentials([]string{"team-gamma", "team-delta"})
 
 	// Setup mocks
-	suite.memberRepo.On("GetByEmail", email).Return(member, nil)
+	suite.userRepo.On("GetByEmail", email).Return(member, nil)
 
 	// Execute
 	c := suite.createGinContext(email)
@@ -992,6 +1024,245 @@ func (suite *AICoreServiceTestSuite) TestGetDeployments_MetadataOnly_Success() {
 	}
 	suite.Contains(teamNames, "team-gamma")
 	suite.Contains(teamNames, "team-delta")
+}
+
+func (suite *AICoreServiceTestSuite) TestCreateDeployment_WithConfigurationID_Success() {
+	// Setup
+	email := "team.member@example.com"
+	teamID := uuid.New()
+
+	member := &models.User{
+		TeamID:   &teamID,
+		TeamRole: models.TeamRoleMember,
+	}
+
+	team := &models.Team{
+		BaseModel: models.BaseModel{ID: teamID, Name: "team-alpha"},
+		Owner:     "team-alpha",
+	}
+
+	configID := "config-123"
+	deploymentRequest := &AICoreDeploymentRequest{
+		ConfigurationID: &configID,
+		TTL:             "1h",
+	}
+
+	// Setup mock server responses
+	responses := map[string]mockResponse{
+		"POST:/oauth/token": {
+			StatusCode: 200,
+			Body:       `{"access_token": "test-token", "token_type": "Bearer", "expires_in": 3600}`,
+		},
+		"POST:/v2/lm/deployments": {
+			StatusCode: 202,
+			Body: `{
+				"id": "deployment-123",
+				"message": "Deployment created successfully",
+				"deploymentUrl": "https://api.example.com/v1/deployments/deployment-123",
+				"status": "PENDING",
+				"ttl": "1h"
+			}`,
+		},
+	}
+	suite.setupMockServer(responses)
+	suite.setupCredentials([]string{"team-alpha"})
+
+	// Setup mocks
+	suite.userRepo.On("GetByEmail", email).Return(member, nil)
+	suite.teamRepo.On("GetByID", teamID).Return(team, nil)
+
+	// Execute
+	c := suite.createGinContext(email)
+	result, err := suite.service.CreateDeployment(c, deploymentRequest)
+
+	// Assert
+	suite.NoError(err)
+	suite.NotNil(result)
+	suite.Equal("deployment-123", result.ID)
+	suite.Equal("Deployment created successfully", result.Message)
+	suite.Equal("PENDING", result.Status)
+}
+
+func (suite *AICoreServiceTestSuite) TestCreateDeployment_WithConfigurationRequest_Success() {
+	// Setup
+	email := "team.member@example.com"
+	teamID := uuid.New()
+
+	member := &models.User{
+		TeamID:   &teamID,
+		TeamRole: models.TeamRoleMember,
+	}
+
+	team := &models.Team{
+		BaseModel: models.BaseModel{ID: teamID, Name: "team-alpha"},
+		Owner:     "team-alpha",
+	}
+
+	deploymentRequest := &AICoreDeploymentRequest{
+		ConfigurationRequest: &AICoreConfigurationRequest{
+			Name:         "my-llm-config",
+			ExecutableID: "aicore-llm",
+			ScenarioID:   "foundation-models",
+			ParameterBindings: []map[string]string{
+				{"key": "modelName", "value": "gpt-4"},
+				{"key": "modelVersion", "value": "latest"},
+			},
+		},
+		TTL: "2h",
+	}
+
+	// Setup mock server - first create config, then create deployment
+	responses := map[string]mockResponse{
+		"POST:/oauth/token": {
+			StatusCode: 200,
+			Body:       `{"access_token": "test-token", "token_type": "Bearer", "expires_in": 3600}`,
+		},
+		"POST:/v2/lm/configurations": {
+			StatusCode: 201,
+			Body: `{
+				"id": "config-456",
+				"message": "Configuration created successfully"
+			}`,
+		},
+		"POST:/v2/lm/deployments": {
+			StatusCode: 202,
+			Body: `{
+				"id": "deployment-456",
+				"message": "Deployment created successfully",
+				"deploymentUrl": "https://api.example.com/v1/deployments/deployment-456",
+				"status": "PENDING",
+				"ttl": "2h"
+			}`,
+		},
+	}
+	suite.setupMockServer(responses)
+	suite.setupCredentials([]string{"team-alpha"})
+
+	// Setup mocks
+	suite.userRepo.On("GetByEmail", email).Return(member, nil)
+	suite.teamRepo.On("GetByID", teamID).Return(team, nil)
+
+	// Execute
+	c := suite.createGinContext(email)
+	result, err := suite.service.CreateDeployment(c, deploymentRequest)
+
+	// Assert
+	suite.NoError(err)
+	suite.NotNil(result)
+	suite.Equal("deployment-456", result.ID)
+	suite.Equal("Deployment created successfully", result.Message)
+	suite.Equal("PENDING", result.Status)
+}
+
+func (suite *AICoreServiceTestSuite) TestCreateDeployment_BothFieldsProvided_Error() {
+	// Setup
+	email := "team.member@example.com"
+
+	member := &models.User{
+		TeamID:   nil, // not needed for validation test
+		TeamRole: models.TeamRoleMember,
+	}
+
+	configID := "config-123"
+	deploymentRequest := &AICoreDeploymentRequest{
+		ConfigurationID: &configID,
+		ConfigurationRequest: &AICoreConfigurationRequest{
+			Name:         "my-llm-config",
+			ExecutableID: "aicore-llm",
+			ScenarioID:   "foundation-models",
+		},
+		TTL: "1h",
+	}
+
+	// Setup mocks
+	suite.userRepo.On("GetByEmail", email).Return(member, nil)
+
+	// Execute
+	c := suite.createGinContext(email)
+	result, err := suite.service.CreateDeployment(c, deploymentRequest)
+
+	// Assert
+	suite.Error(err)
+	suite.Nil(result)
+	suite.Contains(err.Error(), "configurationId and configurationRequest cannot both be provided")
+}
+
+func (suite *AICoreServiceTestSuite) TestCreateDeployment_NeitherFieldProvided_Error() {
+	// Setup
+	email := "team.member@example.com"
+
+	member := &models.User{
+		TeamID:   nil, // not needed for validation test
+		TeamRole: models.TeamRoleMember,
+	}
+
+	deploymentRequest := &AICoreDeploymentRequest{
+		TTL: "1h",
+	}
+
+	// Setup mocks
+	suite.userRepo.On("GetByEmail", email).Return(member, nil)
+
+	// Execute
+	c := suite.createGinContext(email)
+	result, err := suite.service.CreateDeployment(c, deploymentRequest)
+
+	// Assert
+	suite.Error(err)
+	suite.Nil(result)
+	suite.Contains(err.Error(), "either configurationId or configurationRequest must be provided")
+}
+
+func (suite *AICoreServiceTestSuite) TestCreateDeployment_ConfigurationCreationFails_Error() {
+	// Setup
+	email := "team.member@example.com"
+	teamID := uuid.New()
+
+	member := &models.User{
+		TeamID:   &teamID,
+		TeamRole: models.TeamRoleMember,
+	}
+
+	team := &models.Team{
+		BaseModel: models.BaseModel{ID: teamID, Name: "team-alpha"},
+		Owner:     "team-alpha",
+	}
+
+	deploymentRequest := &AICoreDeploymentRequest{
+		ConfigurationRequest: &AICoreConfigurationRequest{
+			Name:         "my-llm-config",
+			ExecutableID: "aicore-llm",
+			ScenarioID:   "foundation-models",
+		},
+		TTL: "1h",
+	}
+
+	// Setup mock server responses - configuration creation fails
+	responses := map[string]mockResponse{
+		"POST:/oauth/token": {
+			StatusCode: 200,
+			Body:       `{"access_token": "test-token", "token_type": "Bearer", "expires_in": 3600}`,
+		},
+		"POST:/v2/lm/configurations": {
+			StatusCode: 400,
+			Body:       `{"error": "Invalid configuration request"}`,
+		},
+	}
+	suite.setupMockServer(responses)
+	suite.setupCredentials([]string{"team-alpha"})
+
+	// Setup mocks
+	suite.userRepo.On("GetByEmail", email).Return(member, nil)
+	suite.teamRepo.On("GetByID", teamID).Return(team, nil)
+
+	// Execute
+	c := suite.createGinContext(email)
+	result, err := suite.service.CreateDeployment(c, deploymentRequest)
+
+	// Assert
+	suite.Error(err)
+	suite.Nil(result)
+	suite.Contains(err.Error(), "failed to create configuration")
 }
 
 func TestAICoreServiceTestSuite(t *testing.T) {
