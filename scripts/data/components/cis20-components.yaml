@@ -81,8 +81,8 @@
     technology: java
 - name: active-monitoring-service
   title: Active Monitoring Service
-  description: active-monitoring-service managed by TeamEyal
-  owner: team-eyal
+  description: active-monitoring-service managed by TeamCoe
+  owner: team-coe
   project: cis20
   metadata:
     github:

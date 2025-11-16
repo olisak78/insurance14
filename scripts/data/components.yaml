@@ -249,8 +249,8 @@ components:
       technology: java
   - name: active-monitoring-service
     title: Active Monitoring Service
-    description: active-monitoring-service managed by team-eyal
-    owner: team-eyal
+    description: active-monitoring-service managed by team-coe
+    owner: team-coe
     project: cis20
     metadata:
       central-service: true

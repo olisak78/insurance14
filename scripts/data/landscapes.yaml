@@ -63,13 +63,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/265104419/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://cockpit.btp.cloud.sap
       jumpbox: 10.190.192.77
       jumpbox2: 10.190.193.227
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-ae01-landscape
       region: ap-ae-1
       slack-channel: ls-ccee-cf-ae01
       type: ccee
+      oc-prefix: operator.operationsconsole
   - name: cf-ap01
     title: Australia (Sydney) 01
     description: Australia (Sydney) SAP Cloud Infrastructure
@@ -82,13 +83,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/263619334/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://cockpit.btp.cloud.sap
       jumpbox: 10.190.8.68
       jumpbox2: 10.188.234.144
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-ap01-landscape
       region: ap-au-1
       slack-channel: ls-ccee-cf-ap01
       type: ccee
+      oc-prefix: operator.operationsconsole
   - name: cf-ap10
     title: Australia (Sydney) 10
     description: Australia (Sydney) AWS
@@ -101,13 +103,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/133571/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://emea.cockpit.btp.cloud.sap
       jumpbox: 13.55.57.30
       jumpbox2: 54.66.178.146
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-ap10-landscape
       region: ap-southeast-2
       slack-channel: ls-aws-cf-ap10
       type: aws
+      oc-prefix: operations-console.operationsconsole
   - name: cf-ap11
     title: Singapore 11
     description: Singapore AWS
@@ -120,13 +123,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/219903/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://emea.cockpit.btp.cloud.sap
       jumpbox: 13.251.74.52
       jumpbox2: 18.139.126.87
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-ap11-landscape
       region: ap-southeast-1
       slack-channel: ls-aws-cf-ap11
       type: aws
+      oc-prefix: operations-console.operationsconsole
   - name: cf-ap12
     title: South Korea (Seoul)
     description: South Korea (Seoul) AWS
@@ -139,13 +143,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/24508853/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://emea.cockpit.btp.cloud.sap
       jumpbox: 3.35.124.34
       jumpbox2: 3.35.83.132
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-ap12-landscape
       region: ap-northeast-2
       slack-channel: ls-aws-cf-ap12
       type: aws
+      oc-prefix: operator.operationsconsole
   - name: cf-ap20
     title: Australia (Sydney) 20
     description: Australia (Sydney) Azure
@@ -158,13 +163,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/34295415/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://emea.cockpit.btp.cloud.sap
       jumpbox: 40.82.214.190
       jumpbox2: 40.82.205.186
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-ap20-landscape
       region: australiaeast
       slack-channel: ls-azure-cf-ap20
       type: azure
+      oc-prefix: operator.operationsconsole
   - name: cf-ap21
     title: Singapore 21
     description: Singapore Azure
@@ -177,13 +183,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/1193426/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://emea.cockpit.btp.cloud.sap
       jumpbox: 52.237.97.99
       jumpbox2: 52.230.105.46
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-ap21-landscape
       region: southeastasia
       slack-channel: ls-azure-cf-ap21
       type: azure
+      oc-prefix: operations-console.operationsconsole
   - name: cf-ap30
     title: Australia (Sydney) 30
     description: Australia (Sydney) GCP
@@ -196,13 +203,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/199416592/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://cockpit.btp.cloud.sap
       jumpbox: 35.244.70.104
       jumpbox2: 35.201.5.22
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-ap30-landscape
       region: australia-southeast1
       slack-channel: ls-gcp-cf-ap30
       type: gcp
+      oc-prefix: operator.operationsconsole
   - name: cf-ap31
     title: Singapore 31
     description: Singapore GCP
@@ -215,13 +223,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/248620832/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://cockpit.btp.cloud.sap
       jumpbox: 34.124.176.25
       jumpbox2: 35.240.192.126
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-ap31-landscape
       region: asia-southeast1
       slack-channel: ls-gcp-cf-ap31
       type: gcp
+      oc-prefix: operator.operationsconsole
   - name: cf-br10
     title: Brazil (São Paulo) 10
     description: Brazil (São Paulo) AWS
@@ -234,13 +243,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/74565/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://emea.cockpit.btp.cloud.sap
       jumpbox: 18.231.67.130
       jumpbox2: 18.228.123.191
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-br10-landscape
       region: sa-east-1
       slack-channel: ls-aws-cf-br10
       type: aws
+      oc-prefix: operations-console.operationsconsole
   - name: cf-br20
     title: Brazil (São Paulo) 20
     description: Brazil (São Paulo) Azure
@@ -253,13 +263,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/199416390/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://cockpit.btp.cloud.sap
       jumpbox: 20.206.250.129
       jumpbox2: 4.228.56.61
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-br20-landscape
       region: brazilsouth
       slack-channel: ls-azure-cf-br20
       type: azure
+      oc-prefix: operator.operationsconsole
   - name: cf-br30
     title: Brazil (São Paulo) 30
     description: Brazil (São Paulo) GCP
@@ -272,13 +283,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/199416485/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://cockpit.btp.cloud.sap
       jumpbox: 34.95.237.85
       jumpbox2: 34.95.169.213
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-br30-landscape
       region: southamerica-east1
       slack-channel: ls-gcp-cf-br30
       type: gcp
+      oc-prefix: operator.operationsconsole
   - name: cf-ca10
     title: Canada (Montreal)
     description: Canada (Montreal) AWS
@@ -291,13 +303,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/335671/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://emea.cockpit.btp.cloud.sap
       jumpbox: 35.183.216.196
       jumpbox2: 52.60.247.245
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-ca10-landscape
       region: ca-central-1
       slack-channel: ls-aws-cf-ca10
       type: aws
+      oc-prefix: operations-console.operationsconsole
   - name: cf-ca20
     title: Canada Central (Toronto)
     description: Canada Central (Toronto) AZURE
@@ -310,13 +323,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/236982197/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://cockpit.btp.cloud.sap
       jumpbox: 20.220.17.254
       jumpbox2: 20.220.175.166
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-ca20-landscape
       region: canadacentral
       slack-channel: ls-azure-cf-ca20
       type: azure
+      oc-prefix: operator.operationsconsole
   - name: cf-ch20
     title: Switzerland (Zurich) EU Access
     description: Switzerland (Zurich) Azure EU Access
@@ -329,13 +343,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/84991699/LAST_HOUR
       cam-profile-devod: https://cam.int.sap/cam/ui/admin?item=request&profile_uuid=00163E23DBB31ED78C99F9C0AE8F5569
       ccf-universe: live
-      cockpit: https://eu-access.cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://eu-access.cockpit.btp.cloud.sap
       jumpbox: 51.107.2.18
       jumpbox2: 51.103.216.109
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-ch20-landscape
       region: switzerlandnorth
       slack-channel: ls-azure-cf-ch20
       type: azure
+      oc-prefix: operator.operationsconsole
   - name: cf-cn20
     title: China (North 3) 20
     description: China (North 3) Azure
@@ -355,6 +370,7 @@ landscapes:
       region: ChinaNorth3
       slack-channel: ls-azure-cf-cn20
       type: azure
+      oc-prefix: operator.operationsconsole
   - name: cf-cn20-canary
     title: China (North 3) Canary
     description: China (North 3) Azure Canary
@@ -374,6 +390,7 @@ landscapes:
       region: ChinaNorth3
       slack-channel: ls-azure-cf-cn20-canary
       type: azure
+      oc-prefix: operator.operationsconsole
   - name: cf-cn20-staging
     title: China (North 3) Staging
     description: China (North 3) Azure Staging
@@ -393,6 +410,7 @@ landscapes:
       region: ChinaNorth3
       slack-channel: ls-az-cf-cn20-staging
       type: azure
+      oc-prefix: operator.operationsconsole
   - name: cf-cn40-canary
     title: China (Shanghai) Canary
     description: China (Shanghai) AliCloud Canary
@@ -412,6 +430,7 @@ landscapes:
       region: Shanghai
       slack-channel: ls-ac-cf-cn40-canary
       type: ali
+      oc-prefix: operator.operationsconsole
   - name: cf-cn40-hotfix
     title: China (Shanghai) Hotfix
     description: China (Shanghai) AliCloud Hotfix
@@ -431,6 +450,7 @@ landscapes:
       region: Shanghai
       slack-channel: ls-ac-cf-cn40-hotfix
       type: ali
+      oc-prefix: operator.operationsconsole
   - name: cf-eu01
     title: Europe (Frankfurt) EUA only
     description: Europe (Frankfurt) SAP Live, EU access only
@@ -443,13 +463,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/255365931/LAST_HOUR
       cam-profile-devod: https://cam.int.sap/cam/ui/admin?item=request&profile_uuid=00163E23DBB31ED78C99F9C0AE8F5569
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://cockpit.btp.cloud.sap
       jumpbox: 10.190.136.166
       jumpbox2: 10.190.134.87
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-eu01-landscape
       region: eu-de-2
       slack-channel: ls-ccee-cf-eu01
       type: ccee
+      oc-prefix: operator.operationsconsole
   - name: cf-eu01-canary
     title: Europe (Frankfurt) Canary EU01
     description: Europe (Frankfurt) SAP Canary
@@ -462,13 +483,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/223308399/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Canary%29
       ccf-universe: canary
-      cockpit: https://canary.cockpit.btp.int.sap/cockpit/
+      cockpit: https://canary.cockpit.btp.int.sap
       jumpbox: 10.190.136.26
       jumpbox2: 10.190.134.16
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-eu01-canary-landscape
       region: eu-de-2
       slack-channel: ls-ccee-cf-eu01-canary
       type: ccee
+      oc-prefix: operator.operationsconsole
   - name: cf-eu01-hotfix
     title: Europe (Frankfurt) Hotfix
     description: Europe (Frankfurt) SAP Hotfix
@@ -481,13 +503,14 @@ landscapes:
       avs-aggregated-monitor: ""
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
       ccf-universe: ""
-      cockpit: http://cockpit.hotfixaws.hanavlab.ondemand.com/cockpit/
+      cockpit: http://cockpit.hotfixaws.hanavlab.ondemand.com
       jumpbox: ""
       jumpbox2: ""
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-eu01-hotfix-landscape
       region: ""
       slack-channel: ls-ccee-cf-eu01-hotfix
       type: ccee
+      oc-prefix: operator.operationsconsole
   - name: cf-eu01-integrate
     title: Europe (Frankfurt) - Integrate
     description: Europe (Frankfurt) SAP Integrate
@@ -500,13 +523,14 @@ landscapes:
       avs-aggregated-monitor: ""
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
       ccf-universe: integrate
-      cockpit: https://cockpit.us10-integrate.hanavlab.ondemand.com/cockpit/
+      cockpit: https://cockpit.us10-integrate.hanavlab.ondemand.com
       jumpbox: 10.190.136.186
       jumpbox2: 10.190.134.185
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-eu01-integrate-landscape
       region: eu-de-2
       slack-channel: ls-ccee-cf-eu01-integrate
       type: ccee
+      oc-prefix: operator.operationsconsole
   - name: cf-eu01-staging
     title: Europe (Frankfurt) CCEE staging
     description: Europe (Frankfurt) CCEE staging
@@ -519,13 +543,14 @@ landscapes:
       avs-aggregated-monitor: ""
       cam-profile-devod: ""
       ccf-universe: staging
-      cockpit: https://staging.cockpit.btp.int.sap/cockpit/
+      cockpit: https://staging.cockpit.btp.int.sap
       jumpbox: 10.190.134.39
       jumpbox2: 10.190.136.39
       landscape-repository: https://github.tools.sap/cloudfoundry/cf-eu01-staging-landscape
       region: ""
       slack-channel: ls-ccee-cf-eu01-staging
       type: ccee
+      oc-prefix: operator.operationsconsole
   - name: cf-eu02
     title: Europe (Rot)
     description: Europe (Rot) SAP EU Access
@@ -538,13 +563,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/270612031/LAST_HOUR
       cam-profile-devod: https://cam.int.sap/cam/ui/admin?item=request&profile_uuid=00163E23DBB31ED78C99F9C0AE8F5569
       ccf-universe: live
-      cockpit: https://eu-access.cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://eu-access.cockpit.btp.cloud.sap
       jumpbox: 10.190.183.47
       jumpbox2: 10.47.196.166
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-eu02-landscape
       region: eu-de-1
       slack-channel: ls-ccee-cf-eu02
       type: ccee
+      oc-prefix: operator.operationsconsole
   - name: cf-eu10
     title: Europe (Frankfurt)
     description: Europe (Frankfurt) AWS
@@ -558,13 +584,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/65153/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://emea.cockpit.btp.cloud.sap
       jumpbox: 18.195.99.177
       jumpbox2: 3.123.160.80
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-eu10-landscape
       region: eu-central-1
       slack-channel: ls-aws-cf-eu10
       type: aws
+      oc-prefix: operations-console.operationsconsole
   - name: cf-eu10-002
     title: Europe (Frankfurt) 002
     description: Europe (Frankfurt) AWS 002
@@ -584,6 +611,7 @@ landscapes:
       region: eu-central-1
       slack-channel: ls-aws-cf-eu10-002
       type: aws
+      extension: true
   - name: cf-eu10-003
     title: Europe (Frankfurt) 003
     description: Europe (Frankfurt) AWS 003
@@ -603,6 +631,7 @@ landscapes:
       region: eu-central-1
       slack-channel: ls-aws-cf-eu10-003
       type: aws
+      extension: true
   - name: cf-eu10-004
     title: Europe (Frankfurt) 004
     description: Europe (Frankfurt) AWS 004
@@ -622,6 +651,7 @@ landscapes:
       region: eu-central-1
       slack-channel: ls-aws-cf-eu10-004
       type: aws
+      extension: true
   - name: cf-eu10-005
     title: Europe (Frankfurt) 005
     description: Europe (Frankfurt) AWS 005
@@ -641,6 +671,7 @@ landscapes:
       region: eu-central-1
       slack-channel: ls-aws-cf-eu10-005
       type: aws
+      extension: true
   - name: cf-eu10-canary
     title: Europe (Frankfurt) Canary
     description: Europe (Frankfurt) AWS Canary
@@ -654,13 +685,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/65154/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Canary%29
       ccf-universe: canary
-      cockpit: https://canary.cockpit.btp.int.sap/cockpit/
+      cockpit: https://canary.cockpit.btp.int.sap
       jumpbox: 35.158.149.138
       jumpbox2: 3.120.22.190
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-eu10-canary-landscape
       region: eu-central-1
       slack-channel: ls-aws-cf-eu10-canary
       type: aws
+      oc-prefix: operations-console.operationsconsole
   - name: cf-eu11
     title: Europe (Frankfurt) EU access
     description: Europe (Frankfurt) AWS EU access
@@ -673,13 +705,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/4925251/LAST_HOUR
       cam-profile-devod: https://cam.int.sap/cam/ui/admin?item=request&profile_uuid=00163E23DBB31ED78C99F9C0AE8F5569
       ccf-universe: live
-      cockpit: https://eu-access.cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://eu-access.cockpit.btp.cloud.sap
       jumpbox: 18.156.125.28
       jumpbox2: 3.125.223.244
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-eu11-landscape
       region: eu-central-1
       slack-channel: ls-aws-cf-eu11
       type: aws
+      oc-prefix: operator.operationsconsole
   - name: cf-eu12
     title: Europe (Frankfurt) 2
     description: Europe (Frankfurt) AWS 2 Canary
@@ -692,13 +725,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/9598906/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Canary%29
       ccf-universe: canary
-      cockpit: https://canary.cockpit.btp.int.sap/cockpit/
+      cockpit: https://canary.cockpit.btp.int.sap
       jumpbox: 18.158.48.230
       jumpbox2: 18.158.64.207
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-eu12-landscape
       region: eu-central-1
       slack-channel: ls-aws-cf-eu12
       type: aws
+      oc-prefix: operator.operationsconsole
   - name: cf-eu12-001
     title: Europe (Frankfurt) 2 001
     description: Europe (Frankfurt) AWS 2 Canary 001
@@ -718,6 +752,7 @@ landscapes:
       region: eu-central-1
       slack-channel: ls-aws-cf-eu12-001
       type: aws
+      extension: true
   - name: cf-eu12-002
     title: Europe (Frankfurt) Canary 002
     description: Europe (Frankfurt) AWS 2 canary 002
@@ -737,6 +772,7 @@ landscapes:
       region: eu-central-1
       slack-channel: ls-aws-cf-eu12-002
       type: aws
+      extension: true
   - name: cf-eu13
     title: Europe (Milan)
     description: Europe (Milan) AWS
@@ -749,13 +785,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/265104421/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://cockpit.btp.cloud.sap
       jumpbox: 15.160.13.219
       jumpbox2: 18.102.117.80
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-eu13-landscape
       region: eu-south-1
       slack-channel: ls-aws-cf-eu13
       type: aws
+      oc-prefix: operator.operationsconsole
   - name: cf-eu20
     title: Europe (Netherlands) 20
     description: Europe (Netherlands) Azure
@@ -768,13 +805,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/65156/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://emea.cockpit.btp.cloud.sap
       jumpbox: 40.113.162.247
       jumpbox2: 51.136.113.190
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-eu20-landscape
       region: westeurope
       slack-channel: ls-azure-cf-eu20
       type: azure
+      oc-prefix: operations-console.operationsconsole
   - name: cf-eu20-001
     title: Europe (Netherlands) 20 001
     description: Europe (Netherlands) Azure 001
@@ -794,6 +832,7 @@ landscapes:
       region: westeurope
       slack-channel: ls-azure-cf-eu20-001
       type: azure
+      extension: true
   - name: cf-eu20-002
     title: Europe (Netherlands) 20 002
     description: Europe (Netherlands) Azure 002
@@ -813,6 +852,7 @@ landscapes:
       region: westeurope
       slack-channel: ls-azure-cf-eu20-002
       type: azure
+      extension: true
   - name: cf-eu20-integrate
     title: "Europe West - Integrate"
     description: "Europe West - Integrate"
@@ -825,13 +865,14 @@ landscapes:
       avs-aggregated-monitor: ""
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
       ccf-universe: integrate
-      cockpit: https://cockpit.us10-integrate.hanavlab.ondemand.com/cockpit/
+      cockpit: https://cockpit.us10-integrate.hanavlab.ondemand.com
       jumpbox: 20.82.121.67
       jumpbox2: 20.86.83.236
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-eu20-integrate-landscape
       region: westeurope
       slack-channel: ls-azure-cf-eu20-integrate
       type: azure
+      oc-prefix: operator.operationsconsole
   - name: cf-eu20-staging
     title: "Europe West - Staging"
     description: "Europe West - Staging"
@@ -844,13 +885,14 @@ landscapes:
       avs-aggregated-monitor: ""
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
       ccf-universe: staging
-      cockpit: https://staging.cockpit.btp.int.sap/cockpit/
+      cockpit: https://staging.cockpit.btp.int.sap
       jumpbox: 40.113.161.80
       jumpbox2: 51.124.97.253
       landscape-repository: https://github.tools.sap/cloudfoundry/landscape-azure-staging
       region: westeurope
       slack-channel: ""
       type: azure
+      oc-prefix: operation-console.operationsconsole
   - name: cf-eu21
     title: Europe (Netherlands) 21
     description: Europe (Netherlands) Azure Canary
@@ -863,13 +905,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/75025130/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Canary%29
       ccf-universe: canary
-      cockpit: https://canary.cockpit.btp.int.sap/cockpit/
+      cockpit: https://canary.cockpit.btp.int.sap
       jumpbox: 20.56.76.101
       jumpbox2: 20.67.36.59
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-eu21-landscape
       region: westeurope
       slack-channel: ls-azure-cf-eu21
       type: azure
+      oc-prefix: operator.operationsconsole
   - name: cf-eu22
     title: Europe (Frankfurt) EU22
     description: Europe (Frankfurt) Azure
@@ -882,13 +925,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/278675871/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://cockpit.btp.cloud.sap
       jumpbox: 20.170.114.210
       jumpbox2: 20.79.169.144
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-eu22-landscape
       region: germanywestcentral
       slack-channel: ls-azure-cf-eu22
       type: azure
+      oc-prefix: operator.operationsconsole
   - name: cf-eu23-canary
     title: Europe (Frankfurt) Canary EU23
     description: Europe (Frankfurt) Azure Canary
@@ -908,6 +952,7 @@ landscapes:
       region: germanywestcentral
       slack-channel: ls-azure-cf-eu23-canary
       type: azure
+      oc-prefix: operator.operationsconsole
   - name: cf-eu30
     title: Europe (Frankfurt) 30
     description: Europe (Frankfurt) GCP
@@ -920,13 +965,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/60858117/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://emea.cockpit.btp.cloud.sap
       jumpbox: 35.246.186.129
       jumpbox2: 35.246.143.194
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-eu30-landscape
       region: europe-west3
       slack-channel: ls-gcp-cf-eu30
       type: gcp
+      oc-prefix: operator.operationsconsole
   - name: cf-eu31
     title: Europe (Netherlands) 31
     description: Europe (Netherlands) GCP
@@ -939,13 +985,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/248640661/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://cockpit.btp.cloud.sap
       jumpbox: 34.90.188.217
       jumpbox2: 34.141.229.20
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-eu31-landscape
       region: europe-west4
       slack-channel: ls-gcp-cf-eu31
       type: gcp
+      oc-prefix: operator.operationsconsole
   - name: cf-eu40-staging
     title: Europe (Frankfurt) AC
     description: Europe (Frankfurt) AliCloud Staging
@@ -965,6 +1012,7 @@ landscapes:
       region: eu-central-1
       slack-channel: ""
       type: ali
+      oc-prefix: operator.operationsconsole
   - name: cf-il30
     title: Israel (Tel Aviv)
     description: Israel (Tel Aviv) GCP
@@ -977,13 +1025,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/180128142/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/
+      cockpit: https://emea.cockpit.btp.cloud.sap
       jumpbox: 34.165.158.192
       jumpbox2: 34.165.41.133
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-il30-landscape
       region: me-west1
       slack-channel: ls-gcp-cf-il30
       type: gcp
+      oc-prefix: operator.operationsconsole
   - name: cf-in30
     title: India (Mumbai)
     description: India (Mumbai) GCP
@@ -996,13 +1045,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/65088064/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://emea.cockpit.btp.cloud.sap
       jumpbox: 35.244.26.62
       jumpbox2: 34.93.200.93
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-in30-landscape
       region: asia-south1
       slack-channel: ls-gcp-cf-in30
       type: gcp
+      oc-prefix: operator.operationsconsole
   - name: cf-jp01
     title: Japan (Tokyo) 01
     description: Japan (Tokyo) SAP Cloud Infrastructure
@@ -1015,13 +1065,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/271375753/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://cockpit.btp.cloud.sap
       jumpbox: 10.190.194.181
       jumpbox2: 10.190.181.185
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-jp01-landscape
       region: ap-jp-1
       slack-channel: ls-ccee-cf-jp01
       type: ccee
+      oc-prefix: operator.operationsconsole
   - name: cf-jp10
     title: Japan (Tokyo)
     description: Japan (Tokyo) AWS
@@ -1034,13 +1085,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/102342/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://emea.cockpit.btp.cloud.sap
       jumpbox: 54.95.90.37
       jumpbox2: 52.192.188.131
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-jp10-landscape
       region: ap-northeast-1
       slack-channel: ls-aws-cf-jp10
       type: aws
+      oc-prefix: operations-console.operationsconsole
   - name: cf-jp20
     title: Japan (Tokyo) 20
     description: Japan (Tokyo) Azure
@@ -1053,13 +1105,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/1006520/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://emea.cockpit.btp.cloud.sap
       jumpbox: 52.185.190.233
       jumpbox2: 40.81.201.252
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-jp20-landscape
       region: japaneast
       slack-channel: ls-azure-cf-jp20
       type: azure
+      oc-prefix: operations-console.operationsconsole
   - name: cf-jp30
     title: Japan (Osaka)
     description: Japan (Osaka) GCP
@@ -1072,13 +1125,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/170898888/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/
+      cockpit: https://emea.cockpit.btp.cloud.sap
       jumpbox: 34.97.223.173
       jumpbox2: 34.97.231.215
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-jp30-landscape
       region: asia-northeast2
       slack-channel: ls-gcp-cf-jp30
       type: gcp
+      oc-prefix: operator.operationsconsole
   - name: cf-jp31
     title: Japan (Tokyo) 31
     description: Japan (Tokyo) GCP
@@ -1091,13 +1145,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/236982591/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://cockpit.btp.cloud.sap
       jumpbox: 35.243.99.39
       jumpbox2: 34.85.82.140
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-jp31-landscape
       region: asia-northeast1
       slack-channel: ls-gcp-cf-jp31
       type: gcp
+      oc-prefix: operator.operationsconsole
   - name: cf-sa30
     title: KSA (Dammam)
     description: KSA (Dammam) GCP public sector
@@ -1110,13 +1165,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/175552764/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/
+      cockpit: https://emea.cockpit.btp.cloud.sap
       jumpbox: 34.166.63.254
       jumpbox2: 34.166.38.27
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-sa30-landscape
       region: me-central2
       slack-channel: ls-gcp-cf-sa30
       type: gcp
+      oc-prefix: operator.operationsconsole
   - name: cf-sa31
     title: KSA (Dammam) 31
     description: KSA (Dammam) GCP
@@ -1129,13 +1185,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/235097119/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://cockpit.btp.cloud.sap
       jumpbox: 34.166.109.22
       jumpbox2: 34.166.96.1
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-sa31-landscape
       region: me-central2
       slack-channel: ls-gcp-cf-sa31
       type: gcp
+      oc-prefix: operator.operationsconsole
   - name: cf-uk20
     title: UK South (London)
     description: UK South (London) Azure
@@ -1148,13 +1205,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/277148379/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://cockpit.btp.cloud.sap
       jumpbox: 20.90.167.136
       jumpbox2: 172.187.219.90
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-uk20-landscape
       region: uksouth
       slack-channel: ls-azure-cf-uk20
       type: azure
+      oc-prefix: operator.operationsconsole
   - name: cf-us01
     title: US (Sterling)
     description: US (Sterling) SAP Cloud Infrastructure
@@ -1167,13 +1225,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/276912430/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://cockpit.btp.cloud.sap
       jumpbox: 10.190.195.208
       jumpbox2: 10.190.199.17
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-us01-landscape
       region: na-us-1
       slack-channel: ls-ccee-cf-us01
       type: ccee
+      oc-prefix: operator.operationsconsole
   - name: cf-us02
     title: US West (Colorado)
     description: US West (Colorado) SAP Cloud Infrastructure
@@ -1186,13 +1245,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/265104426/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://cockpit.btp.cloud.sap
       jumpbox: 10.190.63.242
       jumpbox2: 10.190.180.218
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-us02-landscape
       region: na-us-2
       slack-channel: ls-ccee-cf-us02
       type: ccee
+      oc-prefix: operator.operationsconsole
   - name: cf-us10
     title: US East (VA)
     description: US East (VA) AWS
@@ -1205,13 +1265,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/65157/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://emea.cockpit.btp.cloud.sap
       jumpbox: 34.227.144.30
       jumpbox2: 3.227.198.231
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-us10-landscape
       region: us-east-1
       slack-channel: ls-aws-cf-us10
       type: aws
+      oc-prefix: operations-console.operationsconsole
   - name: cf-us10-001
     title: US East (VA) 001
     description: US East (VA) AWS 001
@@ -1231,6 +1292,7 @@ landscapes:
       region: us-east-1
       slack-channel: ls-aws-cf-us10-001
       type: aws
+      extension: true
   - name: cf-us10-001-integrate
     title: "US East (VA) - Integrate 001"
     description: "US East (VA) - Integrate 001"
@@ -1250,6 +1312,7 @@ landscapes:
       region: us-east-1
       slack-channel: ls-aws-cf-us10-001-integrate
       type: aws
+      extension: true
   - name: cf-us10-002
     title: US East (VA) 002
     description: US East (VA) AWS 002
@@ -1269,6 +1332,7 @@ landscapes:
       region: us-east-1
       slack-channel: ls-aws-cf-us10-002
       type: aws
+      extension: true
   - name: cf-us10-002-hotfix
     title: "US East (VA) - Hotfix 002"
     description: "US East (VA) - Hotfix 002"
@@ -1288,6 +1352,7 @@ landscapes:
       region: us-east-1
       slack-channel: ls-aws-cf-us10-002-hotfix
       type: aws
+      extension: true
   - name: cf-us10-002-integrate
     title: US East (VA) 002 Integrate
     description: US East (VA) AWS 002 Integrate
@@ -1307,6 +1372,7 @@ landscapes:
       region: us-east-1
       slack-channel: ls-aws-cf-us10-002-integrate
       type: aws
+      extension: true
   - name: cf-us10-002-staging
     title: "US East (VA) - Extended Scale-Out landscape"
     description: "US East (VA) - Extended Scale-Out landscape"
@@ -1326,6 +1392,7 @@ landscapes:
       region: ""
       slack-channel: ""
       type: aws
+      extension: true
   - name: cf-us10-hotfix
     title: "US East (VA) - Hotfix"
     description: "US East (VA) - Hotfix"
@@ -1346,6 +1413,7 @@ landscapes:
       region: us-east-1
       slack-channel: ls-aws-cf-us10-hotfix
       type: aws
+      oc-prefix: operations-console.operationsconsole
   - name: cf-us10-integrate
     title: "US East (VA) - Integrate"
     description: "US East (VA) - Integrate"
@@ -1359,13 +1427,14 @@ landscapes:
       avs-aggregated-monitor: ""
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
       ccf-universe: integrate
-      cockpit: https://cockpit.us10-integrate.hanavlab.ondemand.com/cockpit/
+      cockpit: https://cockpit.us10-integrate.hanavlab.ondemand.com
       jumpbox: 18.213.79.1
       jumpbox2: 52.54.4.91
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-us10-integrate-landscape
       region: us-east-1
       slack-channel: ls-aws-cf-us10-integrate
       type: aws
+      oc-prefix: operator.operationsconsole
   - name: cf-us10-staging
     title: "US East (VA) - Staging"
     description: "US East (VA) - Staging"
@@ -1379,13 +1448,14 @@ landscapes:
       avs-aggregated-monitor: ""
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
       ccf-universe: staging
-      cockpit: https://staging.cockpit.btp.int.sap/cockpit/
+      cockpit: https://staging.cockpit.btp.int.sap
       jumpbox: 34.224.110.77
       jumpbox2: 34.234.145.99
       landscape-repository: https://github.tools.sap/cloudfoundry/landscape-aws-staging
       region: ""
       slack-channel: ""
       type: aws
+      oc-prefix: operation-console.operationsconsole
   - name: cf-us11
     title: US West (Oregon)
     description: US West (Oregon) AWS
@@ -1398,13 +1468,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/218163279/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://cockpit.btp.cloud.sap
       jumpbox: 44.226.201.60
       jumpbox2: 44.224.47.189
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-us11-landscape
       region: us-west-2
       slack-channel: ls-aws-cf-us11
       type: aws
+      oc-prefix: operator.operationsconsole
   - name: cf-us20
     title: US West (WA)
     description: US West (WA) Azure
@@ -1417,13 +1488,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/902943/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://emea.cockpit.btp.cloud.sap
       jumpbox: 52.233.88.238
       jumpbox2: 52.156.152.109
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-us20-landscape
       region: westus2
       slack-channel: ls-azure-cf-us20
       type: azure
+      oc-prefix: operations-console.operationsconsole
   - name: cf-us21
     title: US East (VA) Azure
     description: US East (VA) Azure
@@ -1436,13 +1508,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/1193428/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://emea.cockpit.btp.cloud.sap
       jumpbox: 20.42.107.136
       jumpbox2: 20.42.81.45
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-us21-landscape
       region: eastus
       slack-channel: ls-azure-cf-us21
       type: azure
+      oc-prefix: operations-console.operationsconsole
   - name: cf-us22
     title: US East (Virginia) 22
     description: US East (Virginia) Azure
@@ -1455,13 +1528,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/265104428/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://cockpit.btp.cloud.sap
       jumpbox: 74.249.3.154
       jumpbox2: 135.237.186.136
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-us22-landscape
       region: eastus2
       slack-channel: ls-azure-cf-us22
       type: azure
+      oc-prefix: operator.operationsconsole
   - name: cf-us30
     title: US Central (IA)
     description: US Central (IA) GCP
@@ -1474,13 +1548,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/65159/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://emea.cockpit.btp.cloud.sap
       jumpbox: 104.198.163.205
       jumpbox2: 34.132.88.249
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-us30-landscape
       region: us-central1
       slack-channel: ls-gcp-cf-us30
       type: gcp
+      oc-prefix: operations-console.operationsconsole
   - name: cf-us30-integrate
     title: "Iowa - Integrate"
     description: "Iowa - Integrate"
@@ -1493,13 +1568,14 @@ landscapes:
       avs-aggregated-monitor: ""
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Hotfix%29
       ccf-universe: integrate
-      cockpit: https://cockpit.us10-integrate.hanavlab.ondemand.com/cockpit/
+      cockpit: https://cockpit.us10-integrate.hanavlab.ondemand.com
       jumpbox: 35.238.55.98
       jumpbox2: 34.67.221.153
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-us30-integrate-landscape
       region: us-central1
       slack-channel: ls-gcp-cf-us30-integrate
       type: gcp
+      oc-prefix: operator.operationsconsole
   - name: cf-us30-staging
     title: "gcp staging"
     description: "gcp staging"
@@ -1512,13 +1588,14 @@ landscapes:
       avs-aggregated-monitor: ""
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Staging%29
       ccf-universe: staging
-      cockpit: https://staging.cockpit.btp.int.sap/cockpit/
+      cockpit: https://staging.cockpit.btp.int.sap
       jumpbox: 35.195.62.131
       jumpbox2: 146.148.12.167
       landscape-repository: https://github.tools.sap/cloudfoundry/landscape-gcp-staging
       region: europe-west1
       slack-channel: ""
       type: gcp
+      oc-prefix: operation-console.operationsconsole
   - name: cf-us31
     title: US Central (IA) 31
     description: US Central (IA) GCP Canary
@@ -1531,13 +1608,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/75024444/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Canary%29
       ccf-universe: canary
-      cockpit: https://canary.cockpit.btp.int.sap/cockpit/
+      cockpit: https://canary.cockpit.btp.int.sap
       jumpbox: 35.184.65.222
       jumpbox2: 35.202.144.173
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-us31-landscape
       region: us-central1
       slack-channel: ls-gcp-cf-us31
       type: gcp
+      oc-prefix: operator.operationsconsole
   - name: cf-us32
     title: US East (Virginia)
     description: US East (Virginia) GCP
@@ -1550,13 +1628,14 @@ landscapes:
       avs-aggregated-monitor: https://availability.cfapps.us10.hana.ondemand.com/index.html#/evaluation/267394733/LAST_HOUR
       cam-profile-devod: https://spc.ondemand.com/sap/bc/webdynpro/a1sspc/cam_wd_central?item=request&profile=CP%20CF%20Core%20Developer%20on%20Duty%20Global%20%28Live%29
       ccf-universe: live
-      cockpit: https://cockpit.btp.cloud.sap/cockpit/
+      cockpit: https://cockpit.btp.cloud.sap
       jumpbox: 35.245.222.78
       jumpbox2: 34.48.17.43
       landscape-repository: https://github.tools.sap/cf-live-realm/cf-us32-landscape
       region: us-east4
       slack-channel: ls-gcp-cf-us32
       type: gcp
+      oc-prefix: operator.operationsconsole
   - name: cf-us50-canary
     title: "US Gov West - Canary"
     description: "US Gov West - Canary"
@@ -1576,6 +1655,7 @@ landscapes:
       region: us-gov-west-1
       slack-channel: ls-awsgc-cf-us50-canary
       type: aws
+      oc-prefix: operator.operationsconsole
   - name: cf-us50-integrate
     title: "US Gov West Integrate"
     description: "US Gov West Integrate"
@@ -1595,6 +1675,7 @@ landscapes:
       region: us-gov-west-1
       slack-channel: ls-aws-cf-us50-integrate
       type: aws
+      oc-prefix: operator.operationsconsole
   - name: cf-us50-staging
     title: "US Gov West - Staging"
     description: "US Gov West - Staging"
@@ -1614,6 +1695,7 @@ landscapes:
       region: us-gov-west-1
       slack-channel: ""
       type: aws
+      oc-prefix: operator.operationsconsole
   - name: cf-us60-staging
     title: "GDCH staging Landscape"
     description: "GDCH staging Landscape"
@@ -1665,7 +1747,7 @@ landscapes:
       prometheus: https://p-urm-eu10c--canary.ingress.eu5.aws.seed.live.k8s.ondemand.com/
       IaaS-console: https://opscurity-dev.accounts.ondemand.com/saml2/idp/sso?sp=sap-aws-atom-cfs-canary
       gardener: https://dashboard.garden.live.k8s.ondemand.com/namespace/garden-urm-eu10c/shoots/canary/
-      grafana: https://graf.ingress.canary.urm-eu10c.shoot.live.k8s-hana.ondemand.com
+      grafana: https://graf.ingress.canary.urm-eu10c.shoot.live.k8s-hana.ondemand.com/
       kibana: https://kibana-sf-da016a0c-111f-4230-9b5f-e0e3a00e085d.cls-02.cloud.logs.services.eu10.hana.ondemand.com/app/dashboards#/view/maintained-by-perfx_k8s-content-package_K8s-Overview
   - name: dev
     title: Dev Cluster
@@ -1689,7 +1771,7 @@ landscapes:
       prometheus: https://p-urm-eu10p--hotfix.ingress.eu4.aws.seed.live.k8s.ondemand.com/
       IaaS-console: https://opscurity-dev.accounts.ondemand.com/saml2/idp/sso?sp=cis-dev-aws
       gardener: https://dashboard.garden.live.k8s.ondemand.com/namespace/garden-urm-eu10p/shoots/
-      grafana: https://gu-urm-eu10p--hotfix.ingress.eu4.aws.seed.live.k8s.ondemand.com/
+      grafana: https://graf.ingress.hotfix.urm-eu10p.shoot.live.k8s-hana.ondemand.com/
       kibana: https://kibana-sf-38a0332d-350e-44d1-931f-2bdf2d77c7a5.cls-01.cloud.logs.services.eu10.hana.ondemand.com/app/dashboards#/view/maintained-by-perfx_k8s-content-package_K8s-Overview
   - name: int
     title: Integrate
@@ -1704,7 +1786,7 @@ landscapes:
       prometheus: https://p-btp--int.ingress.eu3.aws.seed.canary.k8s.ondemand.com/
       IaaS-console: https://opscurity-dev.accounts.ondemand.com/saml2/idp/sso?sp=cis-dev-aws
       gardener: https://dashboard.garden.canary.k8s.ondemand.com/namespace/garden-btp/shoots/int/
-      grafana: https://gu-btp--int.ingress.eu3.aws.seed.canary.k8s.ondemand.com
+      grafana:  https://graf.ingress.int.btp.shoot.canary.k8s-hana.ondemand.com/
       kibana: https://kibana-sf-8a453bf5-66d7-4682-91b9-64efd27d19dd.cls-01.cloud.logs.services.eu10.hana.ondemand.com/app/dashboards#/view/maintained-by-perfx_k8s-content-package_K8s-Overview
   - name: live
     title: Live
@@ -1719,7 +1801,7 @@ landscapes:
       prometheus: https://p-urm-eu10l--live.ingress.eu2.aws.seed.live.k8s.ondemand.com/
       IaaS-console: https://opscurity-dev.accounts.ondemand.com/saml2/idp/sso?sp=sap-aws-atom-cfs-live
       gardener: https://dashboard.garden.live.k8s.ondemand.com/namespace/garden-urm-eu10l/shoots/live/
-      grafana: https://gu-urm-eu10l--live.ingress.eu2.aws.seed.live.k8s.ondemand.com
+      grafana: https://graf.ingress.live.urm-eu10l.shoot.live.k8s-hana.ondemand.com/
       kibana: https://kibana-sf-c8717cfb-4d3a-4587-b16b-ff73482d5362.cls-03.cloud.logs.services.eu10.hana.ondemand.com/app/dashboards#/view/maintained-by-perfx_k8s-content-package_K8s-Overview
   - name: perf
     title: Performance
@@ -1734,7 +1816,7 @@ landscapes:
       prometheus: https://p-perf--perf.ingress.eu5.aws.seed.canary.k8s.ondemand.com
       IaaS-console: https://opscurity-dev.accounts.ondemand.com/saml2/idp/sso?sp=sap-aws-atom-cfs-perf
       gardener: https://dashboard.garden.canary.k8s.ondemand.com/namespace/garden-perf/shoots/perf/
-      grafana: https://gu-perf--perf.ingress.eu5.aws.seed.canary.k8s.ondemand.com
+      grafana: https://graf.ingress.perf.perf.shoot.canary.k8s-hana.ondemand.com/
       kibana: https://kibana-sf-03a0777d-4f4d-4dec-8d8f-42b1d6513ef1.cls-02.cloud.logs.services.eu10.hana.ondemand.com/app/dashboards#/view/maintained-by-perfx_k8s-content-package_K8s-Overview
   - name: staging
     title: Staging
@@ -1749,7 +1831,7 @@ landscapes:
       prometheus: https://p-staging--staging.ingress.eu5.aws.seed.live.k8s.ondemand.com
       IaaS-console: https://opscurity-dev.accounts.ondemand.com/saml2/idp/sso?sp=sap-aws-atom-cfs-staging
       gardener: https://dashboard.garden.live.k8s.ondemand.com/namespace/garden-staging/shoots/staging/
-      grafana: https://graf.ingress.staging.staging.shoot.live.k8s-hana.ondemand.com
+      grafana: https://graf.ingress.staging.staging.shoot.live.k8s-hana.ondemand.com/
       kibana: https://kibana-sf-b7e064ae-87ca-4234-80ab-f5837692f28d.cls-01.cloud.logs.services.eu10.hana.ondemand.com/app/dashboards#/view/maintained-by-perfx_k8s-content-package_K8s-Overview
   - name: neo-gold
     title: Gold

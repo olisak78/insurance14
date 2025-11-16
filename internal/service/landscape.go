@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"strings"
 
 	"developer-portal-backend/internal/database/models"
 	apperrors "developer-portal-backend/internal/errors"
@@ -63,19 +64,39 @@ type LandscapeResponse struct {
 	Domain      string          `json:"domain"`
 	Environment string          `json:"environment"`
 	Metadata    json.RawMessage `json:"metadata,omitempty" swaggertype:"object"`
-	CreatedAt   string          `jsoncreated_at"`
+	CreatedAt   string          `json:"created_at"`
 	UpdatedAt   string          `json:"updated_at"`
 }
 
 // LandscapeMinimalResponse represents a trimmed landscape projection for list endpoints
 type LandscapeMinimalResponse struct {
-	ID          uuid.UUID       `json:"id"`
-	Name        string          `json:"name"`
-	Title       string          `json:"title"`
-	Description string          `json:"description"`
-	Domain      string          `json:"domain"`
-	Environment string          `json:"environment"`
-	Metadata    json.RawMessage `json:"metadata,omitempty" swaggertype:"object"`
+	ID          uuid.UUID `json:"id"`
+	Name        string    `json:"name"`
+	Title       string    `json:"title"`
+	Description string    `json:"description"`
+	Domain      string    `json:"domain"`
+	Environment string    `json:"environment"`
+	// Enriched top-level fields (replaces exposing raw metadata in this endpoint)
+	Git              string `json:"git,omitempty"`
+	Concourse        string `json:"concourse,omitempty"`
+	Kibana           string `json:"kibana,omitempty"`
+	Dynatrace        string `json:"dynatrace,omitempty"`
+	Cockpit          string `json:"cockpit,omitempty"`
+	Grafana          string `json:"grafana,omitempty"`
+	ControlCenter    string `json:"control-center,omitempty"`
+	CentralRegion    bool   `json:"central-region,omitempty"`
+	Extension        bool   `json:"extension,omitempty"`
+	OperationConsole string `json:"operation-console,omitempty"`
+	Type             string `json:"type,omitempty"`
+	Prometheus       string `json:"prometheus,omitempty"`
+	Gardener         string `json:"gardener,omitempty"`
+	Plutono          string `json:"plutono,omitempty"`
+	Overview         string `json:"overview,omitempty"`
+	Logs             string `json:"logs,omitempty"`
+	Roles            string `json:"roles,omitempty"`
+	Destinations     string `json:"destinations,omitempty"`
+	Debug            string `json:"debug,omitempty"`
+	Health           string `json:"health,omitempty"`
 }
 
 // LandscapeListResponse represents a paginated list of landscapes
@@ -349,17 +370,129 @@ func (s *LandscapeService) GetByProjectNameAll(projectName string) ([]LandscapeM
 	}
 	responses := make([]LandscapeMinimalResponse, len(landscapes))
 	for i, l := range landscapes {
+		enr := enrichLandscapeMetadata(projectName, l.Domain, l.Metadata)
 		responses[i] = LandscapeMinimalResponse{
+			// common
 			ID:          l.ID,
 			Name:        l.Name,
 			Title:       l.Title,
 			Description: l.Description,
 			Domain:      l.Domain,
 			Environment: l.Environment,
-			Metadata:    l.Metadata,
+			Git:         enr.Git,
+			Cockpit:     enr.Cockpit,
+			// cis20
+			Concourse:        enr.Concourse,
+			Kibana:           enr.Kibana,
+			Dynatrace:        enr.Dynatrace,
+			Grafana:          enr.Grafana,
+			ControlCenter:    enr.ControlCenter,
+			CentralRegion:    enr.CentralRegion,
+			Extension:        enr.Extension,
+			OperationConsole: enr.OperationConsole,
+			Type:             enr.Type,
+			// usrv
+			Prometheus: enr.Prometheus,
+			Gardener:   enr.Gardener,
+			Plutono:    enr.Plutono,
+			//neo
+			Overview:     enr.Overview,
+			Logs:         enr.Logs,
+			Roles:        enr.Roles,
+			Destinations: enr.Destinations,
+			Debug:        enr.Debug,
+			// cloud automation
+			Health: enr.Health,
 		}
 	}
 	return responses, nil
+}
+
+type LandscapeEnrichment struct {
+	Git              string
+	Concourse        string
+	Kibana           string
+	Dynatrace        string
+	Cockpit          string
+	Grafana          string
+	ControlCenter    string
+	CentralRegion    bool
+	Extension        bool
+	OperationConsole string
+	Type             string
+	Prometheus       string
+	Gardener         string
+	Plutono          string
+	Overview         string
+	Logs             string
+	Roles            string
+	Destinations     string
+	Debug            string
+	Health           string
+}
+
+func enrichLandscapeMetadata(projectName string, domain string, raw json.RawMessage) LandscapeEnrichment {
+	m := map[string]interface{}{}
+	if len(raw) > 0 {
+		_ = json.Unmarshal(raw, &m)
+	}
+	enr := LandscapeEnrichment{}
+	switch strings.ToLower(projectName) {
+	case "cis20":
+		if repo, ok := m["landscape-repository"].(string); ok && repo != "" {
+			enr.Git = repo
+		}
+		if cockpit, ok := m["cockpit"].(string); ok && cockpit != "" {
+			enr.Cockpit = cockpit
+		}
+		enr.Concourse = fmt.Sprintf("https://concourse.cf.%s/teams/product-cf/pipelines/landscape-update-pipeline", domain)
+		enr.Kibana = fmt.Sprintf("https://logs.cf.%s/app/dashboards#/view/Requests-and-Logs", domain)
+		if apm, ok := m["apm-infra-environment"].(string); ok && apm != "" {
+			enr.Dynatrace = apm
+		}
+		if provider, ok := m["type"].(string); ok && provider != "" {
+			enr.Type = provider
+		}
+		if true == m["central-region"] {
+			enr.ControlCenter = fmt.Sprintf("https://cp-control-client.cfapps.%s", domain)
+			enr.CentralRegion = true
+		}
+		if true == m["extension"] {
+			enr.Extension = true
+		}
+		if ocPrefix, ok := m["oc-prefix"].(string); ok && ocPrefix != "" {
+			enr.OperationConsole = fmt.Sprintf("https://%s.cfapps.%s", ocPrefix, domain)
+		}
+	case "neo":
+		enr.Cockpit = fmt.Sprintf("https://account.%s", domain)
+		enr.Overview = fmt.Sprintf("https://account.%s/cockpit#/acc/services/app/account", domain)
+		enr.Logs = fmt.Sprintf("https://account.%s/cockpit#/acc/services/app/account/logging", domain)
+		enr.Roles = fmt.Sprintf("https://account.%s/cockpit#/acc/services/app/account/authorizationRolesForApplication", domain)
+		enr.Destinations = fmt.Sprintf("https://account.%s/cockpit#/acc/services/app/account/destinations", domain)
+		enr.Debug = fmt.Sprintf("https://monitoring.%s/monitoring/debug/enable/services/account/account", domain)
+	case "usrv":
+		if repo, ok := m["landscape-repository"].(string); ok && repo != "" {
+			enr.Git = repo
+		}
+		if kibana, ok := m["kibana"].(string); ok && kibana != "" {
+			enr.Kibana = kibana
+		}
+		if grafana, ok := m["grafana"].(string); ok && grafana != "" {
+			enr.Grafana = grafana
+		}
+		if prometheus, ok := m["prometheus"].(string); ok && prometheus != "" {
+			enr.Prometheus = prometheus
+		}
+		if gardener, ok := m["gardener"].(string); ok && gardener != "" {
+			enr.Gardener = gardener
+		}
+		enr.Plutono = fmt.Sprintf("https://graf.ingress.%s", domain)
+	case "ca":
+		enr.Health = fmt.Sprintf("https://cloud-automation-service.cfapps.%s/health", domain)
+	default:
+		// no enrichment for other projects
+	}
+	return enr
 }
 
 // ListByQuery searches landscapes with filters

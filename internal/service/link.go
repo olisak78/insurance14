@@ -52,7 +52,7 @@ type CreateLinkRequest struct {
 	Name        string `json:"name" validate:"required,min=1,max=40"`
 	Description string `json:"description" validate:"max=200"`
 	Owner       string `json:"owner" validate:"required,uuid4"`
-	URL         string `json:"url" validate:"required,url,max=1000"`
+	URL         string `json:"url" validate:"required,url,max=2000"`
 	CategoryID  string `json:"category_id" validate:"required,uuid4"`
 	Tags        string `json:"tags" validate:"max=200"` // optional CSV string
 	CreatedBy   string `json:"-"`                       // derived from bearer token 'username'

@@ -94,17 +94,17 @@ links:
     category: ci-cd
     tags: cis, jenkins, jaas, automation, cf
 
-  - title: CIS 2.0 QBS 1
+  - title: "CIS 2.0 QBS #1"
     url: https://gkecfscis2ci.jaas-gcp.cloud.sap.corp/
     category: ci-cd
     tags: cis, jenkins, jaas, qbs
 
-  - title: CIS 2.0 QBS 2
+  - title: "CIS 2.0 QBS #2"
     url: https://cis2ciqbs.jaas-gcp.cloud.sap.corp/
     category: ci-cd
     tags: cis, jenkins, jaas, qbs
 
-  - title: CIS 2.0 QBS
+  - title: "CIS 2.0 QBS #3"
     url: https://gkecfscis3ci.jaas-gcp.cloud.sap.corp/
     category: ci-cd
     tags: cis, jenkins, jaas, qbs

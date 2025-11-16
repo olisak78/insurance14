@@ -4441,7 +4441,7 @@
                 },
                 "url": {
                     "type": "string",
-                    "maxLength": 1000
+                    "maxLength": 2000
                 }
             }
         },

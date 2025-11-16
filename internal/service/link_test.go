@@ -136,6 +136,75 @@ func (suite *LinkServiceTestSuite) TestCreateLink_ValidationError() {
 	assert.Contains(suite.T(), err.Error(), "validation failed")
 }
 
+func (suite *LinkServiceTestSuite) TestCreateLink_URLMaxLength() {
+	// Create a URL with exactly 2000 characters (should be accepted)
+	baseURL := "https://example.com/path?"
+	padding := ""
+	for i := 0; i < 2000-len(baseURL); i++ {
+		padding += "a"
+	}
+	maxLengthURL := baseURL + padding
+	
+	ownerID := uuid.New()
+	categoryID := uuid.New()
+	createdBy := "test.user"
+	
+	req := &service.CreateLinkRequest{
+		Name:        "test-link",
+		Description: "test description",
+		Owner:       ownerID.String(),
+		URL:         maxLengthURL, // URL with exactly 2000 characters
+		CategoryID:  categoryID.String(),
+		CreatedBy:   createdBy,
+	}
+	
+	// Verify URL is exactly 2000 characters
+	assert.Equal(suite.T(), 2000, len(req.URL))
+	
+	// Setup mocks for successful creation
+	suite.mockUserRepo.EXPECT().GetByUserID(createdBy).Return(&models.User{UserID: createdBy}, nil)
+	suite.mockUserRepo.EXPECT().GetByID(ownerID).Return(&models.User{BaseModel: models.BaseModel{ID: ownerID}}, nil)
+	suite.mockCategoryRepo.EXPECT().GetByID(categoryID).Return(&models.Category{BaseModel: models.BaseModel{ID: categoryID}}, nil)
+	suite.mockLinkRepo.EXPECT().Create(gomock.Any()).DoAndReturn(func(l *models.Link) error {
+		l.ID = uuid.New()
+		return nil
+	})
+	
+	resp, err := suite.linkService.CreateLink(req)
+	
+	assert.NoError(suite.T(), err)
+	assert.NotNil(suite.T(), resp)
+}
+
+func (suite *LinkServiceTestSuite) TestCreateLink_URLTooLong() {
+	// Create a URL that exceeds 2000 characters
+	baseURL := "https://example.com/path?"
+	// Add query parameters to make the URL exceed 2000 characters
+	padding := ""
+	for i := 0; i < 2001-len(baseURL); i++ {
+		padding += "a"
+	}
+	longURL := baseURL + padding
+	
+	req := &service.CreateLinkRequest{
+		Name:        "test-link",
+		Description: "test description",
+		Owner:       uuid.New().String(),
+		URL:         longURL, // URL longer than 2000 characters
+		CategoryID:  uuid.New().String(),
+		CreatedBy:   "someone",
+	}
+	
+	// Verify URL is indeed longer than 2000 characters
+	assert.Greater(suite.T(), len(req.URL), 2000)
+	
+	resp, err := suite.linkService.CreateLink(req)
+	
+	assert.Error(suite.T(), err)
+	assert.Nil(suite.T(), resp)
+	assert.Contains(suite.T(), err.Error(), "validation failed")
+}
+
 func (suite *LinkServiceTestSuite) TestCreateLink_CreatedByMissing() {
 	req := &service.CreateLinkRequest{
 		Name:       "ok",
